@@ -1,0 +1,1916 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B1B3F">
+<title>لقاء الذكاء الاصطناعي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --navy:#0B1B3F; --indigo:#1E2A78; --violet:#7C5CF0; --sky:#4CC3FF; --gold:#FFD166;
+  --ink:#12213F; --muted:#5A6A86; --line:#D6DEF0; --soft:#F3F6FD;
+  --ok:#1FA971; --err:#D93A3A;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{min-height:100%; scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+  margin:0; min-height:100vh; color:#fff;
+  font-family:"Tajawal","Segoe UI",Tahoma,Arial,sans-serif; font-size:18px; line-height:1.7;
+  background:
+    radial-gradient(520px 380px at 85% -5%, rgba(76,195,255,.35), transparent 70%),
+    radial-gradient(480px 420px at 5% 105%, rgba(124,92,240,.45), transparent 70%),
+    linear-gradient(165deg,#0B1B3F 0%,#1E2A78 58%,#3B2A8F 100%);
+  background-attachment:fixed;
+  -webkit-tap-highlight-color:transparent; overflow-x:hidden;
+}
+#bg{position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none}
+#confetti{position:fixed; inset:0; width:100%; height:100%; z-index:40; pointer-events:none}
+.wrap{position:relative; z-index:1; max-width:560px; margin:0 auto; padding:18px 16px 44px}
+
+.screen{display:none}
+.screen.on{display:block}
+#s-q{padding-bottom:130px}
+h1{font-size:31px; line-height:1.4; margin:6px 0 10px; font-weight:800}
+h2{font-size:23px; line-height:1.55; margin:0 0 6px; font-weight:800; color:var(--ink)}
+.lead{color:#D5E3FF; margin:0 0 20px}
+.center{text-align:center}
+
+/* الروبوت */
+.robot{width:150px; height:auto; display:block; margin:6px auto 4px; overflow:visible}
+.robot .bob{animation:bob 3.2s ease-in-out infinite}
+.robot .eye{transform-box:fill-box; transform-origin:center; animation:blink 4.6s infinite}
+.robot .ant{animation:glow 1.8s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes glow{0%,100%{opacity:1}50%{opacity:.35}}
+
+/* البطاقات والخيارات */
+.card{background:#fff; color:var(--ink); border-radius:22px; padding:20px 16px 18px; box-shadow:0 16px 44px rgba(4,8,36,.4)}
+.card.in-next{animation:inNext .38s cubic-bezier(.2,.8,.25,1) both}
+.card.in-back{animation:inBack .38s cubic-bezier(.2,.8,.25,1) both}
+@keyframes inNext{from{opacity:0; transform:translateX(-34px)}to{opacity:1; transform:none}}
+@keyframes inBack{from{opacity:0; transform:translateX(34px)}to{opacity:1; transform:none}}
+.hint{color:var(--muted); font-size:15px; margin:0 0 14px}
+.opts{display:grid; gap:10px}
+.opt{
+  display:flex; align-items:center; gap:12px; width:100%; text-align:right;
+  font:inherit; font-weight:500; color:var(--ink); background:var(--soft);
+  border:2px solid var(--line); border-radius:16px; padding:10px 12px; min-height:60px; cursor:pointer;
+  transition:transform .12s ease, background .18s, border-color .18s, box-shadow .18s;
+  animation:rise .4s both; animation-delay:calc(var(--n) * 45ms);
+}
+@keyframes rise{from{opacity:0; transform:translateY(10px)}to{opacity:1; transform:none}}
+.opt:active{transform:scale(.975)}
+.opt .ico{
+  flex:none; width:42px; height:42px; border-radius:12px; display:grid; place-items:center; font-size:22px;
+  background:linear-gradient(135deg,#E3F5FF,#EDE7FF);
+}
+.opt .lbl{flex:1; min-width:0}
+.opt .main{display:block; font-weight:700}
+.opt .sub{display:block; font-size:14px; font-weight:400; color:var(--muted); line-height:1.55; margin-top:2px}
+.opt .tick{
+  flex:none; width:28px; height:28px; border-radius:50%; border:2px solid var(--line); background:#fff;
+  display:grid; place-items:center; color:transparent; font-weight:800; font-size:15px;
+}
+.opt.multi .tick{border-radius:9px}
+.opt[aria-pressed="true"]{
+  background:linear-gradient(135deg,#EAF7FF,#F0EAFF); border-color:var(--violet);
+  box-shadow:0 6px 18px rgba(124,92,240,.22);
+}
+.opt[aria-pressed="true"] .tick{background:linear-gradient(135deg,var(--sky),var(--violet)); border-color:transparent; color:#fff; animation:tickpop .32s cubic-bezier(.2,1.6,.4,1)}
+.opt[aria-pressed="true"] .ico{background:linear-gradient(135deg,var(--sky),var(--violet))}
+@keyframes tickpop{from{transform:scale(.3)}to{transform:scale(1)}}
+
+.opt:focus-visible,.btn:focus-visible,textarea:focus-visible,input:focus-visible,.switch:focus-visible,.adminlink:focus-visible{outline:3px solid var(--sky); outline-offset:2px}
+
+textarea,input[type=password],input[type=text]{
+  width:100%; font:inherit; color:var(--ink); background:var(--soft); border:2px solid var(--line);
+  border-radius:16px; padding:12px 14px; margin-top:10px; transition:border-color .2s, box-shadow .2s;
+}
+textarea{min-height:96px; resize:vertical}
+textarea:focus,input:focus{border-color:var(--violet); box-shadow:0 0 0 4px rgba(124,92,240,.18); outline:none}
+.counter{font-size:13px; color:var(--muted); text-align:left; margin-top:2px}
+.note{font-size:14px; color:var(--muted); margin:6px 0 0}
+.otherbox{margin-top:14px; animation:rise .3s both}
+.otherbox label{font-weight:700; font-size:16px}
+
+/* خانة الكتابة البارزة */
+.writebox{background:#F6F3FF; border:2px dashed var(--violet); border-radius:18px; padding:14px 14px 10px; margin:0 0 16px}
+.writebox .wl{display:flex; align-items:center; gap:8px; font-weight:800; font-size:18px; color:var(--ink)}
+.writebox textarea{background:#fff; min-height:120px; margin-top:8px}
+.sep{color:var(--muted); font-size:15px; font-weight:700; margin:2px 0 10px}
+
+/* التقدم والتشجيع */
+.top{display:flex; align-items:center; justify-content:space-between; gap:10px; margin:2px 0 10px}
+.count{font-size:15px; color:#D5E3FF; margin:0}
+.cheer{display:inline-block; background:rgba(255,255,255,.14); color:#fff; padding:3px 14px; border-radius:99px; font-weight:700; font-size:15px; animation:pop .45s cubic-bezier(.2,1.5,.4,1) both}
+@keyframes pop{from{transform:scale(.6); opacity:0}to{transform:scale(1); opacity:1}}
+.bar{height:12px; background:rgba(255,255,255,.18); border-radius:99px; overflow:hidden; margin:0 0 16px}
+.bar i{display:block; height:100%; width:0; border-radius:99px; background:linear-gradient(90deg,var(--sky),var(--violet)); transition:width .6s cubic-bezier(.3,.9,.3,1)}
+
+/* شريط الأزرار الثابت */
+.dock{position:fixed; left:0; right:0; bottom:0; z-index:30; padding:26px 16px calc(12px + env(safe-area-inset-bottom,0px)); background:linear-gradient(to top, rgba(11,27,63,.97) 58%, rgba(11,27,63,0))}
+.dock-in{max-width:560px; margin:0 auto}
+.dock .err{margin:0 0 6px; min-height:0}
+
+.row{display:flex; gap:10px; margin-top:18px}
+.dock .row{margin-top:0}
+.btn{
+  flex:1; font:inherit; font-weight:800; font-size:19px; border:0; border-radius:16px; min-height:56px; padding:12px 16px; cursor:pointer;
+  color:#fff; background:linear-gradient(135deg,var(--sky),var(--violet)); box-shadow:0 8px 22px rgba(76,195,255,.3);
+  transition:transform .12s ease, opacity .2s;
+}
+.btn:active{transform:scale(.97)}
+.btn.ghost{flex:0 0 auto; background:rgba(255,255,255,.16); box-shadow:none; color:#fff}
+.btn.light{background:var(--soft); color:var(--ink); box-shadow:none; border:2px solid var(--line)}
+.btn.danger{background:var(--err); box-shadow:none}
+.btn[disabled]{opacity:.45; cursor:not-allowed}
+.err{color:#FFB4B4; font-weight:700; min-height:1.5em; margin:10px 0 0}
+.card .err{color:var(--err)}
+.closed{background:rgba(255,209,102,.16); color:#FFE9B0; border-radius:14px; padding:10px 14px; text-align:center; margin:0 0 14px; font-weight:700}
+.adminlink{display:block; margin:26px auto 0; background:none; border:0; font:inherit; font-size:13px; color:rgba(255,255,255,.28); cursor:pointer; padding:8px 14px}
+
+/* الشكر */
+.done-mark{
+  width:92px; height:92px; border-radius:50%; margin:6px auto 14px; display:grid; place-items:center;
+  background:linear-gradient(135deg,#34D399,#1FA971); font-size:52px; font-weight:800; color:#fff;
+  animation:pop .6s cubic-bezier(.2,1.6,.4,1) both;
+}
+
+/* النتائج والتقرير */
+.res{margin:0 0 14px}
+.res h3{font-size:18px; margin:0 0 8px; font-weight:800; color:var(--ink)}
+.rb{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:3px 10px; align-items:center; margin:8px 0}
+.rb span{font-size:16px}
+.rb b{font-size:15px; font-weight:800; color:var(--muted)}
+.rb .track{grid-column:1 / -1; height:13px; background:#E6ECF8; border-radius:99px; overflow:hidden}
+.rb .track i{display:block; height:100%; width:0; background:linear-gradient(90deg,var(--sky),var(--violet)); border-radius:99px; transition:width .8s cubic-bezier(.3,.9,.3,1)}
+.rb.top b{color:#B7791F}
+.rb.top .track i{background:linear-gradient(90deg,#FFB703,#FFD166)}
+.rb.top span{font-weight:800}
+.quote{background:var(--soft); border-right:5px solid var(--violet); border-radius:10px; padding:8px 12px; margin:8px 0; font-size:16px; color:var(--ink)}
+.stat{font-size:15px; color:#D5E3FF; margin:0 0 14px}
+.kpis{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:0 0 14px}
+.kpi{background:#fff; color:var(--ink); border-radius:18px; padding:14px 10px; text-align:center}
+.kpi b{display:block; font-size:36px; line-height:1.25; font-weight:800; background:linear-gradient(135deg,#1AA7E8,var(--violet)); -webkit-background-clip:text; background-clip:text; color:transparent}
+.kpi span{font-size:15px; color:var(--muted); line-height:1.4; display:block}
+
+/* لوحة المسؤول */
+.switchrow{display:flex; align-items:center; justify-content:space-between; gap:12px; background:#fff; border-radius:16px; padding:12px 14px; color:var(--ink); font-weight:700; margin-bottom:10px}
+.switchrow small{display:block; font-weight:400; color:var(--muted); font-size:13px}
+.switch{position:relative; flex:none; width:58px; height:32px; border-radius:99px; border:0; background:#B9C4DA; cursor:pointer; transition:background .2s}
+.switch::after{content:""; position:absolute; top:3px; right:3px; width:26px; height:26px; border-radius:50%; background:#fff; transition:transform .2s}
+.switch[aria-checked="true"]{background:var(--ok)}
+.switch[aria-checked="true"]::after{transform:translateX(-26px)}
+.adminbar{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+.adminbar .btn{flex:1 1 130px; min-height:48px; font-size:16px}
+#a-exit{display:none; position:fixed; top:calc(10px + env(safe-area-inset-top,0px)); left:12px; z-index:50; flex:none; min-height:40px; font-size:14px; padding:6px 14px}
+#s-admin.present .controls,#s-admin.present .private{display:none}
+#s-admin.present #a-exit{display:block}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important}
+}
+
+/* ===================== المنصة: الإضافات ===================== */
+.wrap.wide{max-width:980px}
+body.presenting{overflow:hidden}
+.btn.small{flex:0 0 auto; min-height:42px; font-size:15px; padding:8px 16px; margin-top:12px}
+.dim{color:#B9CCF2; text-align:center; padding:10px}
+.card .dim{color:var(--muted)}
+.intro{color:#D5E3FF; font-size:1.05em; margin:0 0 .9em}
+
+.livecard{display:flex; align-items:center; justify-content:space-between; gap:12px; margin:0 0 14px; padding:12px 14px; border-radius:16px; background:linear-gradient(135deg,rgba(52,211,153,.22),rgba(76,195,255,.22)); border:1px solid rgba(255,255,255,.3)}
+.livecard[hidden]{display:none}
+.livecard .btn{flex:0 0 auto; min-height:46px; font-size:17px}
+
+/* ---------- الشرائح ---------- */
+.slide{color:#fff; animation:rise .45s both}
+.noanim .slide{animation:none}
+.st{font-size:1.65em; font-weight:800; line-height:1.4; margin:0 0 .55em}
+.k-cover,.k-big,.k-wait{text-align:center}
+.rb-slot .robot{width:9em; max-width:60vw}
+.cover-t{font-size:2.3em; line-height:1.35; margin:.2em 0 .15em; font-weight:800}
+.cover-s{font-size:1.2em; color:#CFE0FF; margin:0}
+.big-k{color:#FFD166; font-weight:800; font-size:1.1em; margin-bottom:.3em}
+.big-t{font-size:2.2em; font-weight:800; line-height:1.45; margin:.2em 0 .4em; background:linear-gradient(135deg,#8BDCFF,#C2B2FF); -webkit-background-clip:text; background-clip:text; color:transparent}
+.big-s{font-size:1.15em; color:#D5E3FF; max-width:30em; margin:0 auto}
+.items{list-style:none; padding:0; margin:0; display:grid; gap:.6em}
+.items li{background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); border-radius:.8em; padding:.65em .95em; font-size:1.15em}
+.rv{animation:pop .4s both}
+.rv.hid{display:none}
+.foot{margin:1em 0 0; font-size:1.2em; font-weight:700; color:#FFD166; text-align:center}
+
+.flipgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(14em,1fr)); gap:.8em}
+.flipc{font:inherit; color:#fff; text-align:right; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.22); border-radius:1em; padding:1em; min-height:7.5em; cursor:pointer; transition:background .2s, transform .12s}
+.flipc:active{transform:scale(.98)}
+.flipc .ff{display:block}
+.flipc .fq{display:block; font-size:1.15em; font-weight:800; margin-bottom:.4em}
+.flipc small{color:#B9CCF2}
+.flipc .fb{display:none; font-size:1.05em; line-height:1.8}
+.flipc.on{background:linear-gradient(135deg,rgba(76,195,255,.28),rgba(124,92,240,.4))}
+.flipc.on .ff{display:none}
+.flipc.on .fb{display:block; animation:pop .35s both}
+
+.cgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(13em,1fr)); gap:.8em}
+.ccard{background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); border-radius:1em; padding:1em}
+.ccard .ci{font-size:2em; line-height:1.2}
+.ccard .ct{font-size:1.2em; font-weight:800; margin:.15em 0}
+.ccard .cx{font-size:1em; color:#E3ECFF; line-height:1.75}
+
+.paper{background:#FFFDF7; color:#1B2430; border-radius:1em; padding:1em 1.1em; font-family:"Amiri","Tajawal",serif; font-size:1.2em; line-height:2.2}
+.paper .hp{margin:0 0 .7em}
+.paper .hp:last-child{margin:0}
+.gl{background:linear-gradient(transparent 58%,#FFE08A 58%); border-bottom:2px dotted #B7791F; cursor:pointer; border-radius:2px}
+.gl:focus-visible{outline:3px solid var(--sky)}
+.src{color:#B9CCF2; font-size:.9em; margin:.6em 0 0}
+
+.qlist{margin:0; padding:0 1.3em 0 0; font-size:1.2em; line-height:2}
+.tplbox{white-space:pre-wrap; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.22); border-radius:1em; padding:.9em 1em; font-size:1.1em; line-height:1.9}
+.blank{background:#FFD166; color:#12213F; border-radius:.4em; padding:.05em .4em; font-weight:800}
+.pcount{display:inline-block; margin-top:1em; background:rgba(255,255,255,.14); border-radius:99px; padding:.25em 1em; font-weight:700; color:#FFD166}
+
+.weak,.strongwrap{background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); border-radius:1em; padding:.8em 1em; margin-bottom:.8em}
+.wl{display:block; font-weight:800; color:#FFD166; margin-bottom:.3em}
+.wt{font-size:1.5em; font-weight:700}
+.strong{font-size:1.18em; line-height:2.1}
+.part{padding:.1em .4em; border-radius:.4em; transition:opacity .25s, box-shadow .25s}
+.p0{background:rgba(76,195,255,.35)} .p1{background:rgba(124,92,240,.45)} .p2{background:rgba(255,209,102,.4)} .p3{background:rgba(52,211,153,.4)}
+.part.dim{opacity:.25} .part.lit{box-shadow:0 0 0 3px #fff}
+.plabels{display:flex; flex-wrap:wrap; gap:.5em}
+.plab{font:inherit; color:#fff; font-weight:800; border:2px solid transparent; border-radius:99px; padding:.3em 1.1em; cursor:pointer}
+.plab.on{border-color:#fff}
+
+.spotlist{display:grid; gap:.55em}
+.spotl{display:flex; gap:.7em; align-items:center; text-align:right; font:inherit; color:#fff; background:rgba(255,255,255,.1); border:2px solid rgba(255,255,255,.2); border-radius:.9em; padding:.6em .9em; font-size:1.08em; cursor:pointer; line-height:1.7}
+.spotl .sn{flex:none; width:1.8em; height:1.8em; border-radius:50%; background:rgba(255,255,255,.2); display:grid; place-items:center; font-weight:800}
+.spotl.bad{border-color:#FF8A8A; background:rgba(229,72,77,.25); animation:shake .35s}
+.spotl.good{border-color:#34D399; background:rgba(52,211,153,.28)}
+@keyframes shake{25%{transform:translateX(6px)}50%{transform:translateX(-6px)}75%{transform:translateX(4px)}}
+.spotmsg{min-height:1.6em; margin:.8em 0 0; font-weight:700}
+.spotmsg.good{color:#7CF0BF} .spotmsg.bad{color:#FFB4B4}
+
+.crit .dim{padding:1.2em}
+.checks{display:flex; flex-wrap:wrap; gap:.6em; margin-top:.9em}
+.chk{display:flex; gap:.5em; align-items:center; font:inherit; font-weight:800; color:#fff; background:rgba(255,255,255,.12); border:2px solid rgba(255,255,255,.3); border-radius:99px; padding:.4em 1.1em; cursor:pointer; font-size:1.05em}
+.chk .ck{opacity:0; transition:opacity .15s}
+.chk.on{background:rgba(52,211,153,.35); border-color:#34D399}
+.chk.on .ck{opacity:1}
+
+.kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(9em,1fr)); gap:10px; margin:0 0 14px}
+.kpi{background:#fff; color:var(--ink); border-radius:18px; padding:14px 10px; text-align:center}
+.kpi b{display:block; font-size:2.1em; line-height:1.25; font-weight:800; background:linear-gradient(135deg,#1AA7E8,var(--violet)); -webkit-background-clip:text; background-clip:text; color:transparent}
+.kpi span{font-size:.9em; color:var(--muted); line-height:1.4; display:block}
+.rgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(18em,1fr)); gap:12px}
+.rgrid .res{margin:0}
+
+/* المشاركات */
+.wall{display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(16em,1fr))}
+.stagecard{background:#fff; color:var(--ink); border-radius:16px; padding:12px 14px; border-right:6px solid var(--violet); text-align:right}
+.who{font-weight:800; color:var(--violet); margin-bottom:4px}
+.pq{font-size:.8em; color:var(--muted)}
+.pa{margin-bottom:.5em; font-size:1.05em; line-height:1.7}
+.wall-t{margin:1.2em 0 .5em; color:#fff; font-size:1.1em}
+.stage-ov{margin-top:1.2em; max-width:46em}
+.stage-ov .stagecard{font-size:1.15em}
+
+/* ---------- واجهة الطالب ---------- */
+#s-live .slide{font-size:17px}
+.lv-bar{display:flex; align-items:center; gap:8px; margin:2px 0 12px; color:#D5E3FF}
+.lv-n{margin-right:auto; font-size:14px}
+.dot{width:10px; height:10px; border-radius:50%; background:#E5484D}
+.dot.ok{background:#34D399}
+.lv-nav{display:flex; gap:8px; margin-top:14px}
+.lv-nav .btn{font-size:15px; min-height:46px; padding:8px}
+.lv-nav .btn.on{background:rgba(52,211,153,.3)}
+.card.act{margin-top:16px}
+.act-t{font-weight:800; font-size:1.15em; margin-bottom:6px}
+.form label{display:block; font-weight:700; margin:12px 0 4px}
+.form textarea,.form input[type=text]{margin-top:4px}
+.qblk{margin-bottom:6px}
+.chips{display:flex; flex-wrap:wrap; gap:6px; margin:4px 0}
+.chip{font:inherit; font-size:14px; background:var(--soft); border:2px solid var(--line); border-radius:99px; padding:4px 12px; cursor:pointer; color:var(--ink); text-align:right}
+.chip:active{background:#EAF7FF}
+.grp-t{font-weight:700; margin-bottom:6px}
+.grp-row{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:6px}
+.gbtn{width:46px; height:46px; border-radius:12px; border:2px solid var(--line); background:#fff; font:inherit; font-weight:800; cursor:pointer; color:var(--ink)}
+.gbtn.on{background:linear-gradient(135deg,var(--sky),var(--violet)); color:#fff; border-color:transparent}
+.prompt-prev{white-space:pre-wrap; background:var(--soft); border-radius:12px; padding:10px; font:inherit; font-size:14px; max-height:240px; overflow:auto; margin:8px 0 0; line-height:1.8}
+.pv-d summary{cursor:pointer; color:var(--violet); font-weight:700; margin-top:10px}
+.two{display:flex; gap:8px; margin-top:12px}
+.two .btn{font-size:16px; padding:10px}
+.sendmsg{min-height:1.5em; margin-top:8px; font-weight:700}
+.sendmsg.sent{color:var(--ok)} .sendmsg.bad{color:var(--err)}
+.warn{background:#FFF4D6; color:#7A5200; border-radius:10px; padding:8px 10px; font-weight:700; margin:0 0 4px}
+.warn[hidden]{display:none}
+
+/* ---------- وضع المقدّم ---------- */
+#s-present{position:fixed; inset:0; z-index:60; overflow:auto; display:none; background:linear-gradient(165deg,#0B1B3F 0%,#1E2A78 58%,#3B2A8F 100%)}
+#s-present.on{display:block}
+.pbar{position:sticky; top:0; z-index:5; display:flex; flex-wrap:wrap; gap:8px; align-items:center; padding:10px 14px; background:rgba(8,16,48,.88); backdrop-filter:blur(8px)}
+.pb{font:inherit; font-size:14px; color:#fff; background:rgba(255,255,255,.14); border:0; border-radius:10px; padding:7px 12px; cursor:pointer; white-space:nowrap}
+.pb.on{background:#1FA971}
+.pb.timer.on{background:var(--violet)}
+.pb.timer.alarm{background:#E5484D; animation:glow 1s infinite}
+.pcounter{font-weight:800; color:#FFD166; min-width:4.5em; text-align:center}
+.badge{display:inline-block; background:#FFD166; color:#12213F; border-radius:99px; padding:0 8px; font-weight:800; margin-right:4px}
+.badge[hidden]{display:none}
+.syncdot{width:12px; height:12px; border-radius:50%; background:#E5484D; margin-right:auto}
+.syncdot.ok{background:#34D399}
+.pbar .seg{background:rgba(255,255,255,.14)}
+.pbar .sg{color:#fff; padding:5px 10px}
+.pstage{max-width:1100px; margin:0 auto; padding:26px 22px 140px; font-size:clamp(17px,1.9vw,30px)}
+.pnav{position:fixed; left:0; right:0; bottom:0; z-index:6; display:flex; align-items:center; gap:12px; padding:14px 16px calc(14px + env(safe-area-inset-bottom,0px)); background:linear-gradient(to top,rgba(8,16,48,.96) 62%,rgba(8,16,48,0))}
+.pbtn{font:inherit; font-weight:800; font-size:18px; color:#fff; background:rgba(255,255,255,.16); border:0; border-radius:14px; padding:12px 26px; cursor:pointer}
+.pbtn.primary{background:linear-gradient(135deg,var(--sky),var(--violet))}
+.pbtn[disabled]{opacity:.35; cursor:not-allowed}
+.dots{flex:1; display:flex; gap:7px; justify-content:center; flex-wrap:wrap}
+.dotp{width:12px; height:12px; border-radius:50%; border:0; background:rgba(255,255,255,.3); cursor:pointer; padding:0; transition:transform .15s}
+.dotp.on{background:#FFD166; transform:scale(1.45)}
+.dotp.done{background:rgba(76,195,255,.75)}
+.drawer{position:fixed; top:0; bottom:0; left:0; width:min(440px,100%); z-index:75; background:#fff; color:var(--ink); padding:16px; overflow:auto; transform:translateX(-106%); transition:transform .25s; box-shadow:0 0 40px rgba(0,0,0,.45); font-size:16px; line-height:1.7}
+.drawer.on{transform:none}
+.drawer h3{margin:6px 0 10px}
+.dclose{float:left; font:inherit; border:0; background:var(--soft); border-radius:50%; width:36px; height:36px; cursor:pointer}
+.dmeta{color:var(--muted); font-size:14px; margin:4px 0}
+.dnotes{white-space:pre-wrap; background:var(--soft); border-radius:12px; padding:12px; line-height:1.9}
+.dlab{font-weight:700; margin:12px 0 6px; font-size:15px}
+.dlab.dk{color:var(--ink)}
+.drawer .dim{color:var(--muted)}
+.subrow{border:2px solid var(--line); border-radius:14px; padding:8px; margin:8px 0}
+.subrow.on{border-color:var(--ok)}
+.subrow .stagecard{border:0; padding:6px 8px}
+.subbtns{display:flex; gap:6px; margin-top:4px}
+.pb2{font:inherit; font-size:14px; border:0; border-radius:9px; padding:6px 12px; cursor:pointer; background:var(--soft); color:var(--ink)}
+.pb2.del{background:#FDE7E7; color:var(--err)}
+.seg{display:inline-flex; flex-wrap:wrap; gap:4px; background:rgba(18,33,63,.08); padding:4px; border-radius:12px}
+.sg{font:inherit; font-size:14px; border:0; background:transparent; border-radius:9px; padding:6px 12px; cursor:pointer; color:inherit}
+.sg.on{background:linear-gradient(135deg,var(--sky),var(--violet)); color:#fff; font-weight:700}
+
+/* المحرر */
+.editor label{display:block; font-weight:700; margin:12px 0 4px; font-size:15px}
+.editor input,.editor textarea,.editor select{width:100%; font:inherit; font-size:15px; color:var(--ink); background:var(--soft); border:2px solid var(--line); border-radius:12px; padding:8px 10px; margin:0}
+.editor textarea{min-height:70px}
+
+/* ---------- لوحة الإدارة ---------- */
+.adm-head{display:flex; align-items:center; justify-content:space-between; gap:10px}
+.adm-head h1{margin:0}
+.adm-head .btn{flex:0 0 auto; min-height:44px; font-size:16px}
+.tabs{display:flex; gap:8px; margin:12px 0}
+.tabbtn{flex:1; font:inherit; font-weight:800; font-size:16px; color:#fff; background:rgba(255,255,255,.12); border:0; border-radius:14px; padding:10px; cursor:pointer}
+.tabbtn.on{background:linear-gradient(135deg,var(--sky),var(--violet))}
+.setcard{margin:0 0 10px}
+.note.dk{color:#D5E3FF}
+.slist{display:grid; gap:8px}
+.srow{display:flex; align-items:center; gap:10px; background:#fff; color:var(--ink); border-radius:14px; padding:8px 10px}
+.srow.on{outline:3px solid var(--violet)}
+.sn2{flex:none; width:2em; height:2em; border-radius:50%; background:var(--soft); display:grid; place-items:center; font-weight:800}
+.sinfo{flex:1; min-width:0}
+.sinfo b{display:block; font-size:15px; line-height:1.4}
+.sinfo small{color:var(--muted)}
+.sbt{display:flex; gap:4px; flex-wrap:wrap}
+.edwrap{background:#fff; color:var(--ink); border-radius:14px; padding:6px 14px 14px}
+#newkind{flex:1 1 140px; font:inherit; font-size:16px; border-radius:14px; border:2px solid var(--line); padding:0 10px; min-height:48px; background:#fff; color:var(--ink)}
+
+/* ---------- الطباعة ---------- */
+.prbar{display:flex; gap:10px; margin-bottom:14px}
+.sheet{background:#fff; color:#111; border-radius:12px; padding:22px 26px; margin:0 0 16px; font-size:16px; line-height:1.8}
+.sheet h2{margin:0 0 6px; font-size:1.5em; color:#111}
+.sheet h3{margin:14px 0 6px}
+.sheet .sub{color:#444; margin:4px 0}
+.ptext{font-family:"Amiri","Tajawal",serif; font-size:1.2em; line-height:2.1}
+.ptext .hp{margin:0 0 .6em}
+.pg{color:#777; font-size:.58em; font-family:"Tajawal",sans-serif; margin:0 .15em}
+.psrc{color:#444; font-size:.9em}
+.pqb{margin-top:12px}
+.popt{margin:2px 18px}
+.wline{border-bottom:1px solid #888; height:2.1em}
+.ptpl{white-space:pre-wrap; border:1px dashed #888; border-radius:10px; padding:10px; line-height:1.9}
+.ptpl .blank{background:#eee; border:1px solid #999}
+.four{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+.fcell{border:2px solid #222; border-radius:14px; padding:14px; min-height:130px}
+.fcell b{display:block; font-size:1.7em; margin-bottom:4px}
+.big4{text-align:center; font-size:1.9em; font-weight:800; margin:22px 0 8px}
+.guide table{width:100%; border-collapse:collapse; font-size:.85em}
+.guide th,.guide td{border:1px solid #999; padding:6px 8px; vertical-align:top; text-align:right}
+.guide th{background:#eee}
+.guide td:last-child{width:55%}
+
+@media print{
+  :root{padding:0}
+  body{background:#fff !important; color:#000}
+  #bg,#confetti,.noprint,.dock,#toast,#gloss{display:none !important}
+  .wrap{max-width:none; padding:0}
+  .sheet{border-radius:0; padding:0; margin:0; page-break-after:always; break-after:page; font-size:14px}
+  .sheet:last-child{page-break-after:auto; break-after:auto}
+  .guide tr{page-break-inside:avoid}
+}
+@media (max-width:560px){
+  .pbar{gap:6px; padding:8px 10px}
+  .pb{font-size:13px; padding:6px 9px}
+  .pbtn{padding:10px 16px; font-size:16px}
+}
+
+</style>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<main class="wrap">
+
+<!-- البداية -->
+<section class="screen on" id="s-intro">
+  <div class="robot-slot"></div>
+  <h1 class="center">لقاء الذكاء الاصطناعي يبدأ منك</h1>
+  <p class="lead center">ست أسئلة سريعة تساعدنا نجهّز لقاءً يناسبكم. لا اسم، ولا إجابة صحيحة وأخرى خاطئة. الجواب الصادق هو ما يهم.</p>
+  <div class="livecard" id="live-note" hidden>
+    <b>اللقاء مفتوح الآن</b>
+    <button class="btn" id="enter-live" type="button">ادخل اللقاء</button>
+  </div>
+  <p class="closed" id="closed-note" hidden>الاستبانة مغلقة الآن.</p>
+  <div class="row"><button class="btn" id="start">ابدأ الاستبانة</button></div>
+  <p class="note center" style="color:#B9CCF2">تستغرق دقيقتين تقريبًا</p>
+  <button class="adminlink" id="open-admin" type="button">دخول الإدارة</button>
+</section>
+
+<!-- الأسئلة -->
+<section class="screen" id="s-q">
+  <div class="top"><p class="count" id="count"></p><span class="cheer" id="cheer"></span></div>
+  <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="barwrap"><i id="prog"></i></div>
+  <div class="card" id="qcard">
+    <h2 id="qtext"></h2>
+    <p class="hint" id="qhint"></p>
+    <div id="extraTop"></div>
+    <div class="opts" id="opts" role="group" aria-labelledby="qtext"></div>
+    <div id="extra"></div>
+  </div>
+  <div class="dock"><div class="dock-in">
+    <p class="err" id="err" role="alert"></p>
+    <div class="row">
+      <button class="btn ghost" id="back">رجوع</button>
+      <button class="btn" id="next">التالي</button>
+    </div>
+  </div></div>
+</section>
+
+<!-- الشكر -->
+<section class="screen" id="s-done">
+  <div class="done-mark" aria-hidden="true">✓</div>
+  <h1 class="center">أحسنت! أكملت الاستبانة</h1>
+  <p class="lead center" id="done-msg">وصلت إجابتك، وسنبني اللقاء على ما كتبتم. نراكم قريبًا.</p>
+  <div id="done-res"></div>
+</section>
+
+<!-- نتائج الطلاب -->
+<section class="screen" id="s-res">
+  <h1 class="center">نتائج الاستبانة</h1>
+  <p class="lead center" id="res-msg">جارٍ التحميل…</p>
+  <div id="res-body"></div>
+</section>
+
+<!-- دخول الإدارة -->
+<section class="screen" id="s-login">
+  <h1 class="center">دخول الإدارة</h1>
+  <div class="card">
+    <label for="pw" style="font-weight:700">كلمة المرور</label>
+    <input id="pw" type="password" autocomplete="off" inputmode="numeric">
+    <p class="err" id="login-err" role="alert"></p>
+    <div class="row"><button class="btn ghost" id="login-back" style="background:var(--soft); color:var(--ink)" type="button">رجوع</button><button class="btn" id="login" type="button">دخول</button></div>
+  </div>
+</section>
+
+<!-- لوحة الإدارة -->
+<section class="screen" id="s-admin">
+  <button class="btn ghost" id="a-exit" type="button">خروج من وضع العرض</button>
+  <div class="adm-head controls"><h1>لوحة الإدارة</h1><button class="btn ghost" id="a-home" type="button">خروج</button></div>
+  <div class="tabs controls" id="a-tabs">
+    <button class="tabbtn" data-tab="session" type="button">اللقاء</button>
+    <button class="tabbtn" data-tab="content" type="button">المحتوى</button>
+    <button class="tabbtn" data-tab="survey" type="button">الاستبانة</button>
+  </div>
+  <p class="err" id="a-err" role="alert"></p>
+  <div id="a-body"></div>
+</section>
+
+<!-- واجهة الطالب أثناء اللقاء -->
+<section class="screen" id="s-live">
+  <div id="lv-slide"></div>
+  <div id="lv-act"></div>
+  <div id="lv-extra"></div>
+  <button class="adminlink" id="lv-exit" type="button" style="color:rgba(255,255,255,.5)">الخروج من اللقاء</button>
+</section>
+
+<!-- الطباعة -->
+<section class="screen" id="s-print">
+  <div class="noprint prbar">
+    <button class="btn light" id="pr-back" type="button">رجوع</button>
+    <button class="btn" id="pr-go" type="button">🖨 اطبع / احفظ PDF</button>
+  </div>
+  <div id="print-body"></div>
+</section>
+
+</main>
+
+<!-- وضع المقدّم -->
+<div class="screen pres" id="s-present">
+  <div class="pbar">
+    <button class="pb" id="p-exit" type="button">✕ خروج</button>
+    <span class="pcounter" id="p-count"></span>
+    <button class="pb timer" id="p-timer" type="button">⏱ 00:00</button>
+    <button class="pb" id="p-live" type="button">○ اللقاء مغلق</button>
+    <div id="p-subs"></div>
+    <button class="pb" id="p-notes" type="button">📝 ملاحظاتي</button>
+    <button class="pb" id="p-list" type="button">📋 المشاركات <span class="badge" id="p-badge" hidden>0</span></button>
+    <button class="pb" id="p-edit" type="button">✎ تعديل</button>
+    <span class="syncdot ok" id="p-sync" title="متصل"></span>
+  </div>
+  <div class="pstage" id="pstage"></div>
+  <div class="pnav">
+    <button class="pbtn" id="p-prev" type="button">السابق</button>
+    <div class="dots" id="p-dots"></div>
+    <button class="pbtn primary" id="p-next" type="button">التالي</button>
+  </div>
+  <aside class="drawer" id="drawer"></aside>
+</div>
+
+<div id="gloss" role="status"></div>
+<div id="toast" role="status"></div>
+
+<script>
+
+/* ######## survey.js ######## */
+
+/* ===== إعداد واحد: رابط تطبيق الويب من Apps Script (ينتهي بـ /exec) =====
+   بدونه تعمل الصفحة في وضع تجريبي: كل شيء يظهر لكن لا يُرسَل شيء. */
+const ENDPOINT = "https://script.google.com/macros/s/AKfycbzbfU6UGNPzL21wTEy0fQwvoi4Ow3EJjYuXhxoEsm8R-44nflSgr0Qt3PeQp_SEwjf3/exec";
+/* ================================================================== */
+
+const DEMO = ENDPOINT.indexOf("PUT_YOUR") === 0;
+const RM = !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
+const $ = id => document.getElementById(id);
+
+/* ---------- الأسئلة: كل خيار [أيقونة، نص، شرح اختياري] ---------- */
+const Q = [
+  { key:"tool", type:"single", short:"الأداة", text:"أي أداة تستخدمها غالبًا؟", hint:"اختر واحدة.",
+    opts:[["💬","ChatGPT"],["✨","Gemini"],["🧠","Claude"],["🔎","أداة أخرى"],["🚫","لا أستخدم الذكاء الاصطناعي"]],
+    other:{ when:"أداة أخرى", key:"tool_other", label:"ما اسم الأداة؟ (اختياري)", placeholder:"مثال: Copilot أو DeepSeek" } },
+  { key:"uses", type:"multi", short:"الاستخدامات", text:"في أي شيء تستخدمه؟", hint:"يمكنك اختيار أكثر من إجابة.",
+    opts:[["💡","أسئلة عامة"],["🎨","صور"],["📝","واجبات"],["📚","تلخيص"],["💻","برمجة"],["🧩","غير ذلك"]],
+    other:{ when:"غير ذلك", key:"uses_other", label:"ما هو؟ (اختياري)", placeholder:"اكتب استخدامك باختصار" } },
+  { key:"asis", type:"single", short:"ماذا يفعلون بالجواب", text:"حين تطلب منه تلخيصًا أو حل واجب، ماذا تفعل بالجواب غالبًا؟", hint:"لا أحد يعرف اسمك، فأجب بصراحة.",
+    opts:[["🙅","لا أستخدمه لذلك"],
+          ["📋","آخذه كما هو","أنسخه وأسلّمه مباشرة"],
+          ["👀","أقرؤه ثم آخذه","أقرؤه ثم أستخدمه دون تغيير"],
+          ["✏️","أقرؤه وأراجعه وأعدّله","أغيّر فيه وأتأكد منه"]] },
+  { key:"style", type:"single", short:"كيف يكتبون الطلب", text:"كيف تكتب طلبك غالبًا؟", hint:"اختر الأقرب لما تفعله فعلًا. الأمثلة للتوضيح فقط.",
+    opts:[["⚡","جملة قصيرة","مثال: «لخص لي هذا الدرس»"],
+          ["🧾","جملة مع تفاصيل","مثال: «لخص لي هذا الدرس في 5 نقاط بلغة سهلة»"],
+          ["🎯","أحدد له دورًا وشكل الجواب","مثال: «أنت معلم لطالب في المتوسطة. لخص الدرس في جدول، وأضف مثالًا»"]] },
+  { key:"verify", type:"single", short:"هل يتحققون", text:"إذا أعطاك معلومة، ماذا تفعل؟", hint:"اختر واحدة.",
+    opts:[["🚀","آخذها مباشرة"],["🤔","أراجعها أحيانًا"],["🔍","أتحقق منها غالبًا"]] },
+  { key:"wish", type:"multi", optional:true, commentFirst:true, short:"ما يريدون تعلمه",
+    text:"ماذا تود أن تتعلمه أو تعرفه عن الذكاء الاصطناعي؟",
+    hint:"اختياري. اكتب بحرية، أو اختر من المقترحات، أو الاثنين معًا.",
+    opts:[["✍️","كتابة طلب أفضل"],["📖","تلخيص يفيدني فعلًا"],["🎓","المذاكرة"],["🛠️","البرمجة والتقنية"],["🔒","الأمان والخصوصية"]],
+    comment:{ label:"اكتب هنا ما تريده من اللقاء، أو أي سؤال عندك", placeholder:"مثال: كيف أستفيد منه في المذاكرة؟ أو: هل يمكن الوثوق بإجاباته؟" } }
+];
+const CHEERS = ["بداية رائعة","أنت تتقدم","نصف الطريق!","اقتربنا","بقي القليل!","آخر سؤال، شكرًا لصبرك"];
+
+const answers = {};
+const state = { comment:"", other:{ tool_other:"", uses_other:"" } };
+let i = 0;
+
+/* ---------- الروبوت ---------- */
+const ROBOT = `<svg viewBox="0 0 160 170" class="robot" aria-hidden="true"><g class="bob">
+<line x1="80" y1="16" x2="80" y2="36" stroke="#CFE9FF" stroke-width="4" stroke-linecap="round"/>
+<circle class="ant" cx="80" cy="13" r="7" fill="#FFD166"/>
+<rect x="16" y="66" width="12" height="28" rx="6" fill="#7C5CF0"/><rect x="132" y="66" width="12" height="28" rx="6" fill="#7C5CF0"/>
+<rect x="30" y="36" width="100" height="78" rx="26" fill="#4CC3FF"/>
+<rect x="40" y="48" width="80" height="54" rx="18" fill="#0B1B3F"/>
+<ellipse class="eye" cx="62" cy="70" rx="8" ry="10" fill="#fff"/><ellipse class="eye" cx="98" cy="70" rx="8" ry="10" fill="#fff"/>
+<path d="M66 90 Q80 100 94 90" stroke="#4CC3FF" stroke-width="4" fill="none" stroke-linecap="round"/>
+<rect x="48" y="120" width="64" height="36" rx="14" fill="#7C5CF0"/><circle cx="80" cy="138" r="6" fill="#fff" opacity=".85"/>
+</g></svg>`;
+document.querySelectorAll(".robot-slot").forEach(el => { el.innerHTML = ROBOT; });
+
+/* ---------- خلفية النقاط المتصلة ---------- */
+(function(){
+  const c = $("bg"), ctx = c.getContext("2d"); if(!ctx) return; let W, H, nodes = [], raf = 0;
+  function size(){
+    const d = Math.min(window.devicePixelRatio || 1, 2);
+    W = innerWidth; H = innerHeight; c.width = W*d; c.height = H*d; ctx.setTransform(d,0,0,d,0,0);
+    const n = Math.max(18, Math.min(46, Math.floor(W*H/20000)));
+    nodes = Array.from({length:n}, () => ({x:Math.random()*W, y:Math.random()*H, vx:(Math.random()-.5)*.22, vy:(Math.random()-.5)*.22, r:1.2+Math.random()*1.8}));
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H); const L = 125;
+    for(let a=0; a<nodes.length; a++){
+      for(let b=a+1; b<nodes.length; b++){
+        const dx = nodes[a].x-nodes[b].x, dy = nodes[a].y-nodes[b].y, dist = Math.hypot(dx,dy);
+        if(dist < L){ ctx.strokeStyle = "rgba(120,200,255,"+(0.22*(1-dist/L))+")"; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(nodes[a].x,nodes[a].y); ctx.lineTo(nodes[b].x,nodes[b].y); ctx.stroke(); }
+      }
+    }
+    ctx.fillStyle = "rgba(190,225,255,.7)";
+    nodes.forEach(n => { ctx.beginPath(); ctx.arc(n.x,n.y,n.r,0,6.283); ctx.fill(); });
+  }
+  function step(){
+    nodes.forEach(n => { n.x += n.vx; n.y += n.vy; if(n.x<0||n.x>W) n.vx*=-1; if(n.y<0||n.y>H) n.vy*=-1; });
+    draw(); raf = requestAnimationFrame(step);
+  }
+  function run(){ cancelAnimationFrame(raf); if(RM){ draw(); } else { raf = requestAnimationFrame(step); } }
+  size(); run();
+  let t; addEventListener("resize", () => { clearTimeout(t); t = setTimeout(() => { size(); run(); }, 150); });
+  document.addEventListener("visibilitychange", () => { if(document.hidden) cancelAnimationFrame(raf); else run(); });
+})();
+
+/* ---------- احتفال ---------- */
+function confetti(){
+  if(RM) return;
+  const c = $("confetti"), ctx = c.getContext("2d"); if(!ctx) return; c.width = innerWidth; c.height = innerHeight;
+  const cols = ["#4CC3FF","#7C5CF0","#FFD166","#FFFFFF","#34D399"];
+  const ps = Array.from({length:90}, () => ({x:innerWidth/2+(Math.random()-.5)*90, y:innerHeight*.32, vx:(Math.random()-.5)*11, vy:-Math.random()*11-4,
+    s:5+Math.random()*6, r:Math.random()*6, vr:(Math.random()-.5)*.3, c:cols[Math.floor(Math.random()*cols.length)]}));
+  let t = 0;
+  (function f(){
+    ctx.clearRect(0,0,c.width,c.height);
+    ps.forEach(p => { p.vy += .28; p.x += p.vx; p.y += p.vy; p.vx *= .99; p.r += p.vr;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r); ctx.fillStyle = p.c; ctx.fillRect(-p.s/2,-p.s/3,p.s,p.s*.6); ctx.restore(); });
+    if(++t < 140) requestAnimationFrame(f); else ctx.clearRect(0,0,c.width,c.height);
+  })();
+}
+
+/* ---------- التنقل بين الشاشات ---------- */
+function show(id){
+  document.querySelectorAll(".screen").forEach(s => s.classList.toggle("on", s.id === id));
+  const w = document.querySelector(".wrap"); if(w) w.classList.toggle("wide", id === "s-admin" || id === "s-print");
+  document.body.classList.toggle("presenting", id === "s-present");
+  if(id !== "s-live" && typeof stopLivePoll === "function") stopLivePoll();
+  window.scrollTo(0,0);
+}
+
+/* ---------- عرض السؤال ---------- */
+function isSelected(q, label){ return q.type === "multi" ? (answers[q.key]||[]).includes(label) : answers[q.key] === label; }
+
+function textField(id, label, placeholder, valueKey, big){
+  const wrap = document.createElement("div");
+  const lab = document.createElement("label"); lab.htmlFor = id; lab.textContent = label;
+  const f = big ? document.createElement("textarea") : document.createElement("input");
+  if(!big) f.type = "text";
+  f.id = id; f.maxLength = 200; f.placeholder = placeholder;
+  if(big) f.rows = 4;
+  const cnt = document.createElement("div"); cnt.className = "counter";
+  const get = () => valueKey === "comment" ? state.comment : state.other[valueKey];
+  const set = v => { if(valueKey === "comment") state.comment = v; else state.other[valueKey] = v; };
+  f.value = get() || ""; cnt.textContent = f.value.length + "/200";
+  f.addEventListener("input", () => { set(f.value); cnt.textContent = f.value.length + "/200"; });
+  wrap.append(lab, f, cnt);
+  return wrap;
+}
+
+function renderExtras(q){
+  const ex = $("extra"); ex.innerHTML = "";
+  if(q.other && isSelected(q, q.other.when)){
+    const box = document.createElement("div"); box.className = "otherbox"; box.dataset.other = "1";
+    box.appendChild(textField("other-field", q.other.label, q.other.placeholder, q.other.key, false));
+    ex.appendChild(box);
+  }
+}
+
+function renderQ(dir){
+  const q = Q[i];
+  $("count").textContent = "السؤال " + (i+1) + " من " + Q.length;
+  $("prog").style.width = (i / Q.length * 100) + "%";
+  $("barwrap").setAttribute("aria-valuenow", Math.round(i / Q.length * 100));
+  const ch = $("cheer"); ch.textContent = CHEERS[i]; ch.style.animation = "none"; void ch.offsetWidth; ch.style.animation = "";
+  $("qtext").textContent = q.text; $("qhint").textContent = q.hint || ""; $("err").textContent = "";
+  const card = $("qcard"); card.classList.remove("in-next","in-back"); void card.offsetWidth;
+  card.classList.add(dir === "back" ? "in-back" : "in-next");
+
+  const top = $("extraTop"); top.innerHTML = "";
+  if(q.commentFirst && q.comment){
+    const wb = document.createElement("div"); wb.className = "writebox";
+    const wl = document.createElement("div"); wl.className = "wl"; wl.textContent = "✍️ " + q.comment.label;
+    const ta = document.createElement("textarea"); ta.maxLength = 200; ta.rows = 4; ta.placeholder = q.comment.placeholder;
+    ta.setAttribute("aria-label", q.comment.label); ta.value = state.comment;
+    const cnt = document.createElement("div"); cnt.className = "counter"; cnt.textContent = ta.value.length + "/200";
+    ta.addEventListener("input", () => { state.comment = ta.value; cnt.textContent = ta.value.length + "/200"; });
+    const nt = document.createElement("p"); nt.className = "note"; nt.textContent = "لا تكتب اسمك ولا أي معلومة تدل عليك.";
+    wb.append(wl, ta, cnt, nt);
+    const sep = document.createElement("p"); sep.className = "sep"; sep.textContent = "أو اختر من المقترحات:";
+    top.append(wb, sep);
+  }
+
+  const box = $("opts"); box.innerHTML = "";
+  q.opts.forEach(([icon,label,sub], n) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "opt" + (q.type === "multi" ? " multi" : ""); b.style.setProperty("--n", n); b.dataset.label = label;
+    b.setAttribute("aria-pressed", isSelected(q, label) ? "true" : "false");
+    b.innerHTML = '<span class="ico"></span><span class="lbl"><span class="main"></span></span><span class="tick">✓</span>';
+    b.children[0].textContent = icon; b.querySelector(".main").textContent = label;
+    if(sub){ const s = document.createElement("span"); s.className = "sub"; s.textContent = sub; b.querySelector(".lbl").appendChild(s); }
+    b.addEventListener("click", () => pick(q, label));
+    box.appendChild(b);
+  });
+  renderExtras(q);
+  $("back").style.visibility = i === 0 ? "hidden" : "visible";
+  $("next").textContent = i === Q.length - 1 ? "أرسل" : "التالي";
+  $("next").disabled = false;
+}
+
+function pick(q, label){
+  if(q.type === "multi"){
+    const cur = answers[q.key] || [];
+    answers[q.key] = cur.includes(label) ? cur.filter(x => x !== label) : cur.concat(label);
+  } else { answers[q.key] = label; }
+  $("err").textContent = "";
+  document.querySelectorAll("#opts .opt").forEach(b => b.setAttribute("aria-pressed", isSelected(q, b.dataset.label) ? "true" : "false"));
+  if(q.other){
+    const needs = isSelected(q, q.other.when), has = !!$("extra").querySelector("[data-other]");
+    if(needs !== has) renderExtras(q);
+  }
+}
+
+function valid(){ const q = Q[i], a = answers[q.key]; if(q.optional) return true; return q.type === "multi" ? !!(a && a.length) : !!a; }
+
+$("start").addEventListener("click", () => {
+  if(sentBefore()){ show("s-done"); $("done-msg").textContent = "وصلتنا إجابة من هذا الجهاز من قبل. شكرًا لك!"; loadPublic("done-res"); return; }
+  i = 0; show("s-q"); renderQ("next");
+});
+$("back").addEventListener("click", () => { if(i > 0){ i--; renderQ("back"); window.scrollTo(0,0); } });
+$("next").addEventListener("click", async () => {
+  if(!valid()){ $("err").textContent = "اختر إجابة أولًا."; return; }
+  if(i < Q.length - 1){ i++; renderQ("next"); window.scrollTo(0,0); return; }
+  await submit();
+});
+
+/* ---------- الإرسال ---------- */
+const TEST = () => location.hash === "#test";
+function sentBefore(){ if(TEST()) return false; try{ return localStorage.getItem("ai_survey_done") === "1"; }catch(e){ return false; } }
+function markSent(){ if(TEST()) return; try{ localStorage.setItem("ai_survey_done","1"); }catch(e){} }
+
+async function submit(){
+  const btn = $("next"); btn.disabled = true; $("err").textContent = "";
+  const toolQ = Q[0], usesQ = Q[1];
+  const payload = {
+    tool:answers.tool||"", uses:answers.uses||[], asis:answers.asis||"", style:answers.style||"",
+    verify:answers.verify||"", wish:answers.wish||[], comment:(state.comment||"").slice(0,200),
+    tool_other: isSelected(toolQ, toolQ.other.when) ? state.other.tool_other.slice(0,200) : "",
+    uses_other: isSelected(usesQ, usesQ.other.when) ? state.other.uses_other.slice(0,200) : ""
+  };
+  try{
+    if(!DEMO){
+      await fetch(ENDPOINT, { method:"POST", mode:"no-cors", headers:{ "Content-Type":"text/plain;charset=utf-8" }, body:JSON.stringify(payload) });
+      markSent();
+    }
+    $("prog").style.width = "100%";
+    show("s-done");
+    $("done-msg").textContent = DEMO ? "وضع تجريبي: لم يُرسل شيء لأن رابط السكربت لم يُضَف بعد." : "وصلت إجابتك، وسنبني اللقاء على ما كتبتم. نراكم قريبًا.";
+    setTimeout(confetti, 250);
+    if(!DEMO) setTimeout(() => loadPublic("done-res"), 1200);
+  }catch(e){
+    $("err").textContent = "تعذّر الإرسال. تأكد من الإنترنت ثم اضغط “أرسل” مرة أخرى.";
+    btn.disabled = false;
+  }
+}
+
+/* ---------- رسم النتائج ---------- */
+function renderResults(host, counts, total, only){
+  Q.filter(q => !only || only.includes(q.key)).forEach(q => {
+    const data = counts[q.key] || {};
+    const max = Math.max(0, ...q.opts.map(o => data[o[1]] || 0));
+    const card = document.createElement("div"); card.className = "card res";
+    const h = document.createElement("h3"); h.textContent = q.short; card.appendChild(h);
+    q.opts.forEach(([icon,label]) => {
+      const n = data[label] || 0, p = total ? Math.round(n/total*100) : 0;
+      const row = document.createElement("div"); row.className = "rb" + (n > 0 && n === max ? " top" : "");
+      const s = document.createElement("span"); s.textContent = icon + " " + label;
+      const b = document.createElement("b"); b.textContent = p + "% (" + n + ")";
+      const tr = document.createElement("div"); tr.className = "track"; const f = document.createElement("i"); tr.appendChild(f);
+      row.append(s, b, tr); card.appendChild(row);
+      requestAnimationFrame(() => requestAnimationFrame(() => { f.style.width = p + "%"; }));
+    });
+    host.appendChild(card);
+  });
+}
+
+async function fetchPublic(){ const r = await fetch(ENDPOINT + "?action=public"); return await r.json(); }
+
+async function loadPublic(hostId){
+  if(DEMO) return;
+  try{
+    const d = await fetchPublic(); const host = $(hostId); host.innerHTML = "";
+    if(d.visible){
+      const t = document.createElement("p"); t.className = "stat center"; t.textContent = "عدد المشاركين: " + d.total;
+      host.appendChild(t); renderResults(host, d.counts, d.total);
+    }
+  }catch(e){ /* لا يؤثر على الطالب */ }
+}
+async function showPublic(){
+  show("s-res");
+  if(DEMO){ $("res-msg").textContent = "وضع تجريبي: أضف رابط السكربت لتظهر النتائج."; return; }
+  try{
+    const d = await fetchPublic(); $("res-body").innerHTML = "";
+    if(!d.visible){ $("res-msg").textContent = "لم تُعرض النتائج بعد. ستُعرض في اللقاء."; return; }
+    $("res-msg").textContent = "عدد المشاركين: " + d.total; renderResults($("res-body"), d.counts, d.total);
+  }catch(e){ $("res-msg").textContent = "تعذّر تحميل النتائج."; }
+}
+
+
+
+/* ######## deck.js ######## */
+/* ================= محتوى اللقاء الافتراضي (قابل للتعديل من داخل المنصة) ================= */
+const HADITH_TEXT = `إنَّ ثَلاثةً في بَني إسرائيلَ: {{أبرَصَ|مصاب ببقع بيضاء في جلده}}، و{{أقرَعَ|لا شعر في رأسه}}، وأعمى، بَدا للهِ عَزَّ وجَلَّ أن {{يَبتَليَهم|يختبرهم}}، فبَعَثَ إلَيهم مَلَكًا، فأتى الأبرَصَ، فقال: أيُّ شَيءٍ أحَبُّ إلَيكَ؟ قال: لَونٌ حَسَنٌ، وجِلدٌ حَسَنٌ؛ قد {{قَذِرَني النَّاسُ|ابتعدوا عني واشمأزوا مني}}، قال: {{فمَسَحَه|مسح الملك عليه بيده}} فذَهَبَ عنه، فأُعطيَ لَونًا حَسَنًا، وجِلدًا حَسَنًا، فقال: أيُّ المالِ أحَبُّ إلَيكَ؟ قال: الإبِلُ -أو قال: البَقَرُ، {{هو شَكَّ في ذلك|هذه جملة من الراوي: لم يتأكد أيهما طلب الإبل وأيهما طلب البقر}}: إنَّ الأبرَصَ والأقرَعَ قال أحَدُهما: الإبِلُ، وقال الآخَرُ: البَقَرُ-، فأُعطيَ ناقةً {{عُشَراءَ|ناقة حامل قرب ولادتها}}، فقال: {{يُبارَكُ لكَ فيها|يجعل الله فيها خيرًا وزيادة}}.
+
+وأتى الأقرَعَ فقال: أيُّ شَيءٍ أحَبُّ إلَيكَ؟ قال: شَعَرٌ حَسَنٌ، ويَذهَبُ عَنِّي هذا؛ قد قَذِرَني النَّاسُ، قال: فمَسَحَه فذَهَبَ، وأُعطيَ شَعَرًا حَسَنًا، قال: فأيُّ المالِ أحَبُّ إلَيكَ؟ قال: البَقَرُ، قال: فأعطاه بَقَرةً حامِلًا، وقال: يُبارَكُ لكَ فيها.
+
+وأتى الأعمى فقال: أيُّ شَيءٍ أحَبُّ إلَيكَ؟ قال: يَرُدُّ اللهُ إلَيَّ بَصَري، فأُبصِرُ به النَّاسَ، قال: فمَسَحَه فرَدَّ اللهُ إلَيه بَصَرَه، قال: فأيُّ المالِ أحَبُّ إلَيكَ؟ قال: الغَنَمُ، فأعطاه شاةً {{والِدًا|تلد كثيرًا}}، فأُنتِجَ هذانِ وولَّدَ هذا، فكان لهذا وادٍ مِن إبِلٍ، ولهذا وادٍ مِن بَقَرٍ، ولهذا وادٍ مِن غَنَمٍ،
+
+ثُمَّ إنَّه أتى الأبرَصَ {{في صورَتِه وهَيئَتِه|جاءه الملك بشكل الأبرص الفقير الذي كان عليه}}، فقال: رَجُلٌ {{مِسكينٌ|فقير محتاج}}، {{تَقَطَّعَت بيَ الحِبالُ في سَفَري|انقطعت بي الأسباب ولم أجد ما يوصلني}}، فلا بَلاغَ اليومَ إلَّا باللهِ ثُمَّ بكَ، أسألُكَ بالذي أعطاكَ اللونَ الحَسَنَ والجِلدَ الحَسَنَ والمالَ، بَعيرًا {{أتَبَلَّغُ عليه|أصل به إلى مقصدي}} في سَفَري، فقال له: إنَّ الحُقوقَ كَثيرةٌ، فقال له: كَأنِّي أعرِفُكَ، ألَم تَكُنْ أبرَصَ يَقذَرُكَ النَّاسُ، فقيرًا فأعطاكَ اللهُ؟ فقال: لقد ورِثتُ {{لكابِرٍ عن كابِرٍ|ورثت المال عن آبائي وأجدادي، وأنكر فضل الله عليه}}، فقال: إن كُنتَ كاذِبًا فصَيَّرَكَ اللهُ إلى ما كُنتَ.
+
+وأتى الأقرَعَ في صورَتِه وهَيئَتِه، فقال له مِثلَ ما قال لهذا، فرَدَّ عليه مِثلَ ما رَدَّ عليه هذا، فقال: إن كُنتَ كاذِبًا فصَيَّرَكَ اللهُ إلى ما كُنتَ،
+
+وأتى الأعمى في صورَتِه، فقال: رَجُلٌ مِسكينٌ و{{ابنُ سَبيلٍ|مسافر انقطع به الطريق}}، وتَقَطَّعَت بيَ الحِبالُ في سَفَري، فلا بَلاغَ اليومَ إلَّا باللهِ ثُمَّ بكَ، أسألُكَ بالذي رَدَّ عليك بَصَرَكَ شاةً أتَبَلَّغُ بها في سَفَري، فقال: قد كُنتُ أعمى فرَدَّ اللهُ بَصَري، وفقيرًا فقد أغناني، فخُذْ ما شِئتَ، فواللهِ {{لا أجهَدُكَ اليومَ بشَيءٍ أخَذتَه للَّهِ|لن أشق عليك ولن أمنعك شيئًا تأخذه}}، فقال: أمسِكْ مالَكَ؛ فإنَّما {{ابتُليتُم|اختُبرتم}}، فقد رَضيَ اللهُ عنكَ، و{{سَخِطَ|غضب}} على صاحِبَيكَ.`;
+
+const DEFAULT_DECK = [
+  { id:"s-cover", kind:"cover", min:1,
+    title:"ذكاؤك أولًا… ثم الذكاء الاصطناعي", sub:"لقاء قصير، ومهارة واحدة تخرج بها",
+    notes:"أرحّب بهم وأقول إن اللقاء تفاعلي: سنقرأ ونجيب ونجرّب. الجوال أداة اليوم، لكن لا نفتحه حتى أقول." },
+
+  { id:"s-results", kind:"results", min:2,
+    title:"ماذا قلتم أنتم؟", sub:"نتائج الاستبانة المجهولة",
+    notes:"أذكر رقمًا واحدًا بلا حرج، مثل: «قرابة نصفكم يأخذ الجواب كما هو، وهذا واقع طبيعي ولن أمنعكم». أشكر صدقهم. لا أذكر أي نص كتبه أحدهم." },
+
+  { id:"s-hook", kind:"big", min:2,
+    title:"سؤال", text:"ماذا بقي في رأسك من آخر ملخص أخذته من الذكاء الاصطناعي؟",
+    sub:"الملخص الجاهز يعطيك 5% من الفائدة. والجهد الذي تبذله أنت يعطيك الباقي.",
+    notes:"أسأل واحدًا أو اثنين. غالبًا سيقولون «لا شيء». أقول: هذا هو الإشكال، واليوم نتعلم كيف نستفيد حتى مع الذكاء الاصطناعي." },
+
+  { id:"s-flip", kind:"flip", min:8,
+    title:"أسئلة تفتح الذهن",
+    cards:[
+      { q:"ما الذي نسميه ذكاءً اصطناعيًّا؟", a:"برنامج تعلّم من كمٍّ هائل من النصوص والصور، فصار يتوقع الجواب الأنسب. وليس عقلًا يفهم كالإنسان." },
+      { q:"ChatGPT وGemini وClaude: هل هي شيء واحد؟", a:"لا. هي تطبيقات مختلفة، وكل واحد منها مبني على نموذج ذكاء اصطناعي. كاختلاف السيارات، وكلها سيارات." },
+      { q:"هل يخطئ؟", a:"نعم، وبثقة تامة. ويميل إلى موافقتك، ولا يعرف ما لم يتعلمه." },
+      { q:"هل سيأخذ الوظائف؟", a:"بعضها سيتغير، ومن يحسن استخدامه سيتقدم. ولهذا نتعلم اليوم." }
+    ],
+    notes:"لا أحاضر. أترك كل بطاقة مغلقة، وأسأل الطلاب عن جوابهم أولًا، ثم أقلبها. إن ضاق الوقت أكتفي بأول بطاقتين وبطاقة «هل يخطئ؟»." },
+
+  { id:"s-roles", kind:"cards", min:4,
+    title:"أربعة أدوار تعينك وأنت تعمل",
+    items:[
+      { icon:"🧑‍🏫", title:"معلّم", text:"«اشرح لي هذا الدرس كأني في أولى متوسط، وأعطني مثالًا»" },
+      { icon:"📝", title:"ممتحِن", text:"«اسألني خمسة أسئلة على الدرس ولا تعطني الجواب»" },
+      { icon:"✍️", title:"مصحِّح", text:"يراجع إملاءك ومقالك ويدلّك على الخطأ، ويصحّح محادثتك بالإنجليزية" },
+      { icon:"🗓️", title:"مخطِّط", text:"جدول مذاكرة، وأفكار لخدمة والدتك هذا الأسبوع، وكيف تعلّم جدّك الواتساب" }
+    ],
+    foot:"هو يقترح، وأنت تنفّذ.",
+    notes:"أضغط على البطاقات واحدة واحدة. في «مخطِّط» أذكر برّ الوالدين بجملة واحدة، ثم أؤكد: الذكاء الاصطناعي يقترح والتنفيذ علينا." },
+
+  { id:"s-nlm", kind:"bullets", min:1,
+    title:"عرض سريع: NotebookLM (إن توفرت شاشة)",
+    items:["ترفع نصًّا أو درسًا","فيعطيك ملخصًا وأسئلة وبطاقات مراجعة","نشاهده فقط الآن، ولا نجرّبه في اللقاء"],
+    notes:"أعرضه ولا أطلب منهم تجربته. قبل اللقاء أتأكد أنه يعمل مجانًا وكيف تبدو واجهته، وأي شروط للعمر أو الحساب. إن لم تتوفر شاشة أو ضاق الوقت أحذف هذه الشريحة." },
+
+  { id:"s-rule", kind:"big", min:1,
+    title:"مهارة اليوم", text:"أجب أولًا، ثم اسأل",
+    sub:"اجعل الذكاء الاصطناعي يصحّح لك، لا يجيب عنك.",
+    notes:"أكرر الجملة معهم. أقول: الآن نطبّقها على قصة، خطوة بخطوة. أقسمهم مجموعات من 2-3، لكل مجموعة ورقة وجوال واحد. وأقول: لا تفتحوا الجوال الآن." },
+
+  { id:"s-read", kind:"reading", min:4,
+    title:"قصة للقراءة: الأبرص والأقرع والأعمى",
+    instruction:"اقرأ بصمت. اضغط على الكلمة الملوّنة لتعرف معناها.",
+    source:"متفق عليه، من حديث أبي هريرة رضي الله عنه",
+    text:HADITH_TEXT,
+    notes:"أقرأ القصة بصوت مرتفع وهم يتابعون. قبل ذلك أطابق النص بمصدر موثوق (مثل الدرر السنية) وأراجع التخريج. لا يكتبون شيئًا أثناء القراءة." },
+
+  { id:"s-ans", kind:"activity", akind:"answers", min:6,
+    title:"أجب بنفسك أولًا",
+    instruction:"ثلاثة أسئلة، وأريد إجاباتكم أنتم لا إجابة الذكاء الاصطناعي. تناقشوا شفهيًّا ثم اكتبوا سطرًا واحدًا لكل سؤال. ومن تعسّر عليه الكتابة فليضغط على أحد الاقتراحات.",
+    questions:[
+      { q:"ما الفكرة الرئيسة في القصة؟", opts:["الغنى دليل دائم على رضا الله","النعمة اختبار، ومن جحدها زالت عنه","لا نساعد من يسألنا"] },
+      { q:"ما الموقف أو العبارة التي أعجبتك؟ ولماذا؟", opts:[] },
+      { q:"ماذا ستطبّق من القصة هذا الأسبوع؟", opts:["أشكر الله على نعمة عندي وأذكرها بلساني","أساعد محتاجًا بما أستطيع","أشكر والديّ على ما يقدمانه لي"] }
+    ],
+    notes:"أضع مؤقتًا. أمرّ على المجموعات. من يتعثر في الكتابة: زر الميكروفون في لوحة المفاتيح، أو الاقتراحات. إذا انتهى الوقت يرسلون ما كتبوه ولو ناقصًا." },
+
+  { id:"s-anat", kind:"anatomy", min:3,
+    title:"تشريح الطلب الجيد",
+    weak:"لخّص لي الدرس",
+    parts:[
+      { label:"دور", text:"أنت معلم علوم يشرح لطالب في أولى متوسط." },
+      { label:"مادة", text:"هذا درس الخلية: […]" },
+      { label:"مطلوب", text:"لخّصه ثم اسألني سؤالين لأختبر فهمي." },
+      { label:"شكل", text:"في 5 نقاط قصيرة." }
+    ],
+    notes:"أكتب «لخص لي» وأسألهم: ماذا سيعطينا؟ ثم أضغط على الأجزاء الأربعة واحدًا واحدًا. المثال عن موضوع آخر حتى لا يعطيهم جواب التمرين التالي." },
+
+  { id:"s-tpl", kind:"activity", akind:"template", min:6,
+    title:"الآن نطلب منه أن يصحّح لنا",
+    instruction:"املأ الفراغين: الدور والمطلوب. ثم انسخ الطلب والصقه في الأداة التي تستخدمها (ChatGPT أو Gemini أو Claude)، واقرأ ردّها.",
+    tpl:"أنت {{role}} يشرح لطالب في المتوسطة.\nهذا نص القصة:\n{{text}}\n\nوهذه إجاباتي عن ثلاثة أسئلة:\n{{answers}}\n\n{{task}}\nأجب في 4 نقاط قصيرة.",
+    roleLabel:"من تريده أن يكون؟ (الدور)", taskLabel:"ماذا تريد منه بالضبط؟ (المطلوب)",
+    textFrom:"s-read", answersFrom:"s-ans",
+    notes:"الجواب النموذجي (لي أنا): الدور = معلم. المطلوب = قارن إجاباتي بالنص: ما الصحيح؟ وما الذي فاتني؟ وهل قلت شيئًا غير موجود في النص؟ أقول: نطلب منه أن يصحّح لنا لا أن يجيب عنا. أمرّ عليهم وأسأل: ماذا فاتكم؟ إن رأيت خطأ في رده أوقف الجميع: انظروا، حتى هو يخطئ." },
+
+  { id:"s-spot", kind:"spot", min:3,
+    title:"اكتشف الخطأ",
+    intro:"هذا ملخص كتبه ذكاء اصطناعي لقصتنا، وفيه خطأ واحد. اضغط على الجملة التي تظنها خطأ.",
+    items:[
+      { text:"ابتلى الله ثلاثة رجال من بني إسرائيل: أبرص وأقرع وأعمى.", wrong:false, why:"" },
+      { text:"أعطاهم الملَك ما تمنَّوه: جلدًا حسنًا وشعرًا حسنًا وبصرًا.", wrong:false, why:"" },
+      { text:"الأبرص والأقرع نسبا المال إلى آبائهما، وأنكرا فضل الله.", wrong:false, why:"" },
+      { text:"رفض الأعمى أن يعطي الملَك شيئًا لأنه يحتاج ماله.", wrong:true, why:"الأعمى قال للملَك: خذ ما شئت. الذي منع هما الأبرص والأقرع." },
+      { text:"رضي الله عن الأعمى وغضب على صاحبيه.", wrong:false, why:"" }
+    ],
+    notes:"التحقق علينا. إن أردت أبدّل هذا الملخص بما كتبه الذكاء الاصطناعي فعلًا أثناء التجربة (من تعديل الشريحة)." },
+
+  { id:"s-crit", kind:"critique", min:4,
+    title:"نقد الطلبات", source:"s-tpl",
+    checks:["دور","مادة","مطلوب واضح","شكل وطول"],
+    notes:"أختار مشاركة من لوحة المشاركات وأعرضها. أسأل: هل فيه دور؟ مادة؟ مطلوب واضح؟ شكل وطول؟ وأضغط الأجزاء الموجودة. ومن ينقص طلبه جزء يكمله زميله." },
+
+  { id:"s-rules", kind:"cards", min:5,
+    title:"ثلاث قواعد تحفظك",
+    items:[
+      { icon:"🔒", title:"لا أسلّمه أسراري", text:"بياناتي وبيانات أهلي وكلمات السر. أي خدمة مجانية: افترض أن ما تكتبه ليس سرًّا." },
+      { icon:"🕌", title:"لا أسأله في الحلال والحرام والدواء", text:"يجاريك ويجيب بمعلومات عامة، وهذه لها أهلها: العلماء والأطباء." },
+      { icon:"🔍", title:"أتحقق قبل أن أصدّق", text:"قد يخطئ بثقة. أرجع إلى الأصل: الكتاب، والمعلم، والمصدر الموثوق." }
+    ],
+    foot:"",
+    notes:"أذكر سبب كل قاعدة بجملة. لا أبالغ في التخويف: أقول إنها قواعد سلامة كحزام الأمان." },
+
+  { id:"s-free", kind:"activity", akind:"free", min:2,
+    title:"التزامي هذا الأسبوع",
+    instruction:"في أي تكليف ستجيب بنفسك أولًا ثم تستعين بالذكاء الاصطناعي ليصحّح لك؟ (اختياري)",
+    ph:"مثال: في واجب الإنشاء",
+    notes:"أقول: تحدي الأسبوع. ومن شاء كتب التزامه." },
+
+  { id:"s-end", kind:"big", min:1,
+    title:"تحدي الأسبوع", text:"أجب أولًا، ثم اسأل",
+    sub:"شكرًا لكم. وما استفدتموه اليوم يبقى معكم أكثر من أي ملخص جاهز.",
+    notes:"أكرر الجملة معهم وأختم بالدعاء." }
+];
+
+const NEW_SLIDE = {
+  bullets:()=>({ id:"s-"+Date.now(), kind:"bullets", min:2, title:"عنوان جديد", items:["نقطة أولى","نقطة ثانية"], notes:"" }),
+  big:()=>({ id:"s-"+Date.now(), kind:"big", min:1, title:"عنوان صغير", text:"الجملة الكبيرة", sub:"", notes:"" }),
+  flip:()=>({ id:"s-"+Date.now(), kind:"flip", min:3, title:"أسئلة", cards:[{q:"سؤال؟",a:"جواب"}], notes:"" }),
+  cards:()=>({ id:"s-"+Date.now(), kind:"cards", min:3, title:"بطاقات", items:[{icon:"⭐",title:"عنوان",text:"نص"}], foot:"", notes:"" }),
+  reading:()=>({ id:"s-"+Date.now(), kind:"reading", min:4, title:"نص للقراءة", instruction:"", text:"النص هنا. ويمكن شرح لفظ هكذا: {{لفظ|معناه}}", source:"", notes:"" }),
+  activity:()=>({ id:"s-"+Date.now(), kind:"activity", akind:"free", min:3, title:"نشاط", instruction:"اكتب...", ph:"", questions:[], notes:"" }),
+  spot:()=>({ id:"s-"+Date.now(), kind:"spot", min:3, title:"اكتشف الخطأ", intro:"", items:[{text:"جملة صحيحة",wrong:false,why:""},{text:"جملة خاطئة",wrong:true,why:"لماذا؟"}], notes:"" }),
+  results:()=>({ id:"s-"+Date.now(), kind:"results", min:2, title:"نتائج الاستبانة", sub:"", notes:"" })
+};
+
+const KIND_NAMES = { cover:"غلاف", results:"نتائج الاستبانة", big:"جملة كبيرة", flip:"بطاقات سؤال وجواب", cards:"بطاقات", bullets:"نقاط", reading:"نص للقراءة", activity:"نشاط بمشاركة", anatomy:"تشريح الطلب", spot:"اكتشف الخطأ", critique:"نقد المشاركات" };
+
+/* ######## ui.js ######## */
+/* ================= أدوات مشتركة ================= */
+function h(tag, attrs, ...kids){
+  const e = document.createElement(tag);
+  if(attrs) for(const k in attrs){
+    const v = attrs[k];
+    if(v == null || v === false) continue;
+    if(k === "class") e.className = v;
+    else if(k === "text") e.textContent = v;
+    else if(k === "style") e.style.cssText = v;
+    else if(k.slice(0,2) === "on") e.addEventListener(k.slice(2), v);
+    else e.setAttribute(k, v === true ? "" : v);
+  }
+  kids.flat(Infinity).forEach(c => { if(c == null || c === false) return; e.append(c.nodeType ? c : document.createTextNode(String(c))); });
+  return e;
+}
+const LS = {
+  get(k, d){ try{ const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+};
+const clone = o => JSON.parse(JSON.stringify(o));
+
+function fallbackCopy(t){
+  try{ const ta = h("textarea", { style:"position:fixed;opacity:0" }); ta.value = t; document.body.append(ta); ta.select(); const ok = document.execCommand("copy"); ta.remove(); return ok; }
+  catch(e){ return false; }
+}
+function copyText(t){
+  if(navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(t).then(() => true).catch(() => fallbackCopy(t));
+  return Promise.resolve(fallbackCopy(t));
+}
+function toast(msg){
+  const t = $("toast"); t.textContent = msg; t.classList.add("on");
+  clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("on"), 2400);
+}
+function showGloss(w, m){
+  const g = $("gloss"); g.innerHTML = ""; g.append(h("b", {}, w + ": "), m); g.classList.add("on");
+  clearTimeout(showGloss._t); showGloss._t = setTimeout(() => g.classList.remove("on"), 7000);
+}
+$("gloss").addEventListener("click", () => $("gloss").classList.remove("on"));
+function beep(){
+  try{
+    const ac = new (window.AudioContext || window.webkitAudioContext)(), o = ac.createOscillator(), g = ac.createGain();
+    o.connect(g); g.connect(ac.destination); o.frequency.value = 880; g.gain.value = .15; o.start();
+    setTimeout(() => { o.stop(); ac.close(); }, 380);
+  }catch(e){}
+}
+
+/* ================= الحالة والبيانات ================= */
+let S = { open:true, visible:false, live:DEMO, slide:0, step:0, mode:"individual", groups:6, subs:"hidden", stage:"", stageData:null, free:false, dv:0 };
+let DECK = clone(DEFAULT_DECK);
+let deckV = -1, adminPass = "";
+const demoSubs = [];
+const slideById = id => DECK.find(s => s.id === id);
+const clampIdx = n => Math.max(0, Math.min(DECK.length - 1, Number(n) || 0));
+const pctOf = (counts, key, label, total) => total ? Math.round((((counts[key] || {})[label]) || 0) / total * 100) : 0;
+
+const API = {
+  async state(){
+    if(DEMO){ const o = clone(S); if(o.subs === "hidden"){ delete o.stage; delete o.stageData; } return o; }
+    const r = await fetch(ENDPOINT + "?action=state"); return r.json();
+  },
+  async deck(){
+    if(DEMO) return { dv:0, deck:null };
+    const r = await fetch(ENDPOINT + "?action=deck"); return r.json();
+  },
+  async subs(slide){
+    if(DEMO) return { subs: S.subs === "all" ? demoSubs.filter(x => x.slide === slide) : [] };
+    const r = await fetch(ENDPOINT + "?action=subs&slide=" + encodeURIComponent(slide)); return r.json();
+  },
+  async sub(obj){
+    if(DEMO){
+      const n = demoSubs.filter(x => x.slide === obj.slide).length + 1;
+      demoSubs.push({ id:"d" + Date.now() + n, slide:obj.slide, group:obj.group || "", kind:obj.kind, payload:obj.payload, n:n, label: obj.group ? "المجموعة " + obj.group : "مشاركة " + n });
+      return { ok:true };
+    }
+    const r = await fetch(ENDPOINT, { method:"POST", body:JSON.stringify(Object.assign({ action:"sub" }, obj)) });
+    return r.json();
+  }
+};
+
+function demoAdmin(op, x){
+  x = x || {};
+  if(op === "setState"){
+    const p = x.patch || {};
+    ["live","open","visible","free"].forEach(k => { if(k in p) S[k] = !!p[k]; });
+    ["slide","step","groups"].forEach(k => { if(k in p) S[k] = Number(p[k]) || 0; });
+    if(p.mode === "individual" || p.mode === "group") S.mode = p.mode;
+    if(["hidden","stage","all"].includes(p.subs)) S.subs = p.subs;
+    return { ok:true, state:S };
+  }
+  if(op === "setDeck") return { ok:true, state:S };
+  if(op === "subs") return { ok:true, subs: demoSubs.filter(s => s.slide === x.slide), state:S };
+  if(op === "stage"){
+    const s = demoSubs.find(z => z.id === x.id);
+    S.stage = s ? s.id : ""; S.stageData = s ? clone(s) : null; return { ok:true, state:S };
+  }
+  if(op === "delSub"){
+    const i = demoSubs.findIndex(z => z.id === x.id); if(i >= 0) demoSubs.splice(i, 1);
+    if(S.stage === x.id){ S.stage = ""; S.stageData = null; } return { ok:true, state:S };
+  }
+  if(op === "clearSubs"){
+    for(let i = demoSubs.length - 1; i >= 0; i--) if(!x.slide || demoSubs[i].slide === x.slide) demoSubs.splice(i, 1);
+    S.stage = ""; S.stageData = null; return { ok:true, state:S };
+  }
+  return { ok:true, total:0, counts:{ tool:{}, uses:{}, asis:{}, style:{}, verify:{}, wish:{} }, comments:[], toolOther:[], usesOther:[], state:S };
+}
+async function adminOp(op, extra){
+  extra = extra || {};
+  const d = DEMO ? demoAdmin(op, extra) : await (await fetch(ENDPOINT, { method:"POST", body:JSON.stringify(Object.assign({ action:"admin", password:adminPass, op:op }, extra)) })).json();
+  if(d && d.state) S = Object.assign(S, d.state);
+  return d;
+}
+async function loadDeck(){
+  try{
+    let d;
+    if(adminPass && !DEMO){ d = await adminOp("getDeck"); if(d && d.ok === false) d = await API.deck(); }
+    else d = await API.deck();
+    if(d && Array.isArray(d.deck) && d.deck.length) DECK = d.deck;
+    deckV = (d && d.state) ? d.state.dv : (d && d.dv != null ? d.dv : deckV);
+    if(DEMO) deckV = S.dv;
+  }catch(e){}
+}
+
+/* ================= الشروح داخل النص ================= */
+function plainText(t){ return String(t || "").replace(/\{\{([^|}]+)\|[^}]+\}\}/g, "$1").replace(/\n{3,}/g, "\n\n").trim(); }
+function parseGloss(text, mode){
+  const frag = document.createDocumentFragment();
+  String(text || "").split(/\n{2,}/).forEach(p => {
+    const para = h("p", { class:"hp" }); let last = 0, m; const re = /\{\{([^|}]+)\|([^}]+)\}\}/g;
+    while((m = re.exec(p))){
+      if(m.index > last) para.append(p.slice(last, m.index));
+      const w = m[1], g = m[2];
+      if(mode === "print") para.append(w, h("small", { class:"pg" }, "[" + g + "]"));
+      else if(mode === "plain") para.append(w);
+      else para.append(h("span", { class:"gl", tabindex:"0", role:"button", onclick:() => showGloss(w, g) }, w));
+      last = re.lastIndex;
+    }
+    if(last < p.length) para.append(p.slice(last));
+    frag.append(para);
+  });
+  return frag;
+}
+function tplSkeleton(tpl){
+  const f = document.createDocumentFragment();
+  const names = { role:"[ الدور ]", task:"[ المطلوب ]", text:"[ نص القصة ]", answers:"[ إجاباتك ]" };
+  String(tpl || "").split(/(\{\{\w+\}\})/).forEach(part => {
+    const m = part.match(/^\{\{(\w+)\}\}$/);
+    if(m) f.append(h("mark", { class:"blank b-" + m[1] }, names[m[1]] || part)); else f.append(part);
+  });
+  return f;
+}
+
+/* ================= المشاركات: عرض ================= */
+function payloadView(p, sl){
+  const d = h("div", { class:"pv" });
+  if(Array.isArray(p)){
+    const qs = (sl && sl.questions) || [];
+    p.forEach((a, i) => { if(a) d.append(h("div", { class:"pq" }, qs[i] ? qs[i].q : "السؤال " + (i + 1)), h("div", { class:"pa" }, a)); });
+  } else if(p && typeof p === "object"){
+    if("role" in p || "task" in p){
+      d.append(h("div", { class:"pq" }, "الدور"), h("div", { class:"pa" }, p.role || "—"), h("div", { class:"pq" }, "المطلوب"), h("div", { class:"pa" }, p.task || "—"));
+    } else Object.keys(p).forEach(k => d.append(h("div", { class:"pa" }, p[k])));
+  } else d.append(h("div", { class:"pa" }, String(p || "")));
+  return d;
+}
+function stageCard(sd){
+  const sl = slideById(sd.slide);
+  return h("div", { class:"stagecard" }, h("div", { class:"who" }, sd.label || "مشاركة"), payloadView(sd.payload, sl));
+}
+function wallEl(list){ return h("div", { class:"wall" }, list.map(stageCard)); }
+
+/* ================= نتائج الاستبانة داخل الشرائح ================= */
+function kpiRow(counts, total){
+  const kp = h("div", { class:"kpis" });
+  [[String(total), "مشارك"],
+   [pctOf(counts, "asis", "آخذه كما هو", total) + "%", "يأخذون الجواب كما هو"],
+   [pctOf(counts, "style", "جملة قصيرة", total) + "%", "يكتبون طلبًا قصيرًا"],
+   [pctOf(counts, "verify", "أتحقق منها غالبًا", total) + "%", "يتحققون من المعلومة غالبًا"]
+  ].forEach(([n, l]) => kp.append(h("div", { class:"kpi" }, h("b", {}, n), h("span", {}, l))));
+  return kp;
+}
+async function loadResultsInto(host){
+  try{
+    let counts, total;
+    if(adminPass){ const d = await adminOp("results"); counts = d.counts; total = d.total; }
+    else { const d = await fetchPublic(); if(!d.visible){ host.innerHTML = ""; host.append(h("p", { class:"dim" }, "تُعرض النتائج على الشاشة.")); return; } counts = d.counts; total = d.total; }
+    host.innerHTML = "";
+    if(!total){ host.append(h("p", { class:"dim" }, "لا توجد إجابات بعد.")); return; }
+    host.append(kpiRow(counts, total));
+    const grid = h("div", { class:"rgrid" }); host.append(grid);
+    renderResults(grid, counts, total, ["asis", "style", "verify"]);
+  }catch(e){ host.innerHTML = ""; host.append(h("p", { class:"dim" }, "تعذّر تحميل النتائج.")); }
+}
+
+/* ================= رسم الشرائح ================= */
+function stepsOf(s){ return (s.kind === "bullets" || s.kind === "cards") ? (s.items || []).length : 0; }
+
+function critiqueInner(s){
+  const wrap = h("div", { class:"crit" });
+  const sd = S.subs !== "hidden" ? S.stageData : null;
+  if(!sd){ wrap.append(h("p", { class:"dim" }, "لم تُعرض مشاركة بعد. ستظهر هنا مشاركة مجموعة لنناقشها.")); return wrap; }
+  wrap.append(stageCard(sd));
+  const checks = h("div", { class:"checks" });
+  (s.checks || []).forEach(c => { const b = h("button", { type:"button", class:"chk", onclick:() => b.classList.toggle("on") }, h("span", { class:"ck" }, "✓"), c); checks.append(b); });
+  wrap.append(checks);
+  return wrap;
+}
+
+function renderSlide(s, o){
+  o = o || {};
+  const step = o.step == null ? 99 : o.step;
+  const box = h("div", { class:"slide k-" + s.kind });
+  const T = t => t ? h("h2", { class:"st" }, t) : null;
+  switch(s.kind){
+    case "cover": {
+      const rb = h("div", { class:"rb-slot" }); rb.innerHTML = ROBOT;
+      box.append(rb, h("h1", { class:"cover-t" }, s.title), h("p", { class:"cover-s" }, s.sub));
+      break;
+    }
+    case "bullets": {
+      box.append(T(s.title));
+      const ul = h("ul", { class:"items" });
+      (s.items || []).forEach((t, i) => ul.append(h("li", { class:"rv" + (i >= step ? " hid" : "") }, t)));
+      box.append(ul); break;
+    }
+    case "big":
+      box.append(h("div", { class:"big-k" }, s.title), h("div", { class:"big-t" }, s.text), s.sub ? h("p", { class:"big-s" }, s.sub) : null);
+      break;
+    case "flip": {
+      box.append(T(s.title));
+      const grid = h("div", { class:"flipgrid" });
+      (s.cards || []).forEach(c => {
+        const card = h("button", { type:"button", class:"flipc", onclick:() => card.classList.toggle("on") },
+          h("span", { class:"ff" }, h("span", { class:"fq" }, c.q), h("small", {}, "اضغط لتعرف")),
+          h("span", { class:"fb" }, c.a));
+        grid.append(card);
+      });
+      box.append(grid); break;
+    }
+    case "cards": {
+      box.append(T(s.title));
+      const grid = h("div", { class:"cgrid" });
+      (s.items || []).forEach((c, i) => grid.append(h("div", { class:"ccard rv" + (i >= step ? " hid" : "") }, h("div", { class:"ci" }, c.icon), h("div", { class:"ct" }, c.title), h("div", { class:"cx" }, c.text))));
+      box.append(grid);
+      if(s.foot) box.append(h("p", { class:"foot" }, s.foot));
+      break;
+    }
+    case "reading": {
+      box.append(T(s.title));
+      if(s.instruction) box.append(h("p", { class:"intro" }, s.instruction));
+      box.append(h("div", { class:"paper" }, parseGloss(s.text, "tap")));
+      if(s.source) box.append(h("div", { class:"src" }, s.source));
+      if(o.student) box.append(h("button", { type:"button", class:"btn light small", onclick:async () => { toast((await copyText(plainText(s.text))) ? "نُسخ النص بلا شروح" : "تعذّر النسخ"); } }, "📋 انسخ النص بلا شروح"));
+      break;
+    }
+    case "activity": {
+      box.append(T(s.title));
+      if(s.instruction) box.append(h("p", { class:"intro" }, s.instruction));
+      if(s.akind === "answers"){
+        const ol = h("ol", { class:"qlist" }); (s.questions || []).forEach(q => ol.append(h("li", {}, q.q))); box.append(ol);
+      } else if(s.akind === "template"){
+        box.append(h("div", { class:"tplbox" }, tplSkeleton(s.tpl)));
+      }
+      if(o.present) box.append(h("div", { class:"pcount", id:"pcount" }));
+      break;
+    }
+    case "anatomy": {
+      box.append(T(s.title));
+      box.append(h("div", { class:"weak" }, h("span", { class:"wl" }, "😕 طلب ضعيف"), h("div", { class:"wt" }, s.weak)));
+      const strong = h("div", { class:"strong" }), labels = h("div", { class:"plabels" });
+      let focus = -1;
+      const apply = () => {
+        strong.querySelectorAll(".part").forEach((x, j) => { x.classList.toggle("lit", focus === j); x.classList.toggle("dim", focus >= 0 && focus !== j); });
+        labels.querySelectorAll(".plab").forEach((l, j) => l.classList.toggle("on", focus === j));
+      };
+      (s.parts || []).forEach((p, i) => {
+        strong.append(h("span", { class:"part p" + (i % 4) }, p.text), " ");
+        labels.append(h("button", { type:"button", class:"plab p" + (i % 4), onclick:() => { focus = focus === i ? -1 : i; apply(); } }, p.label));
+      });
+      box.append(h("div", { class:"strongwrap" }, h("span", { class:"wl" }, "🙂 طلب جيد: اضغط على كل جزء"), strong), labels);
+      break;
+    }
+    case "spot": {
+      box.append(T(s.title));
+      if(s.intro) box.append(h("p", { class:"intro" }, s.intro));
+      const msg = h("div", { class:"spotmsg" }), list = h("div", { class:"spotlist" });
+      let solved = false;
+      (s.items || []).forEach((it, i) => {
+        const b = h("button", { type:"button", class:"spotl", onclick:() => {
+          if(solved) return;
+          if(it.wrong){ solved = true; b.classList.add("good"); msg.className = "spotmsg good"; msg.textContent = "أحسنت! هذا هو الخطأ. " + (it.why || ""); confetti(); }
+          else { b.classList.remove("bad"); void b.offsetWidth; b.classList.add("bad"); msg.className = "spotmsg bad"; msg.textContent = "ليست هذه. حاول مرة أخرى."; }
+        } }, h("span", { class:"sn" }, String(i + 1)), it.text);
+        list.append(b);
+      });
+      const reveal = h("button", { type:"button", class:"btn light small", onclick:() => {
+        solved = true;
+        list.querySelectorAll(".spotl").forEach((b, i) => { if((s.items[i] || {}).wrong) b.classList.add("good"); });
+        const w = (s.items || []).find(x => x.wrong); msg.className = "spotmsg good"; msg.textContent = w ? "الخطأ: " + (w.why || "") : "";
+      } }, "اكشف الجواب");
+      box.append(list, msg, reveal);
+      break;
+    }
+    case "critique":
+      box.append(T(s.title), critiqueInner(s));
+      break;
+    case "results": {
+      box.append(T(s.title));
+      if(s.sub) box.append(h("p", { class:"intro" }, s.sub));
+      const host = h("div", { class:"res-host" }, h("p", { class:"dim" }, "جارٍ التحميل…"));
+      box.append(host); loadResultsInto(host);
+      break;
+    }
+    default:
+      box.append(T(s.title || "شريحة"));
+  }
+  return box;
+}
+
+/* ######## live.js ######## */
+/* ================= واجهة الطالب أثناء اللقاء ================= */
+const L = { idx:0, step:0, follow:true, timer:null, conn:true, wall:[] };
+
+function setConn(ok){ L.conn = ok; const d = $("lv-dot"); if(d){ d.classList.toggle("ok", ok); d.title = ok ? "متصل" : "انقطع الاتصال"; } }
+
+async function enterLive(){
+  show("s-live");
+  $("lv-slide").innerHTML = ""; $("lv-act").innerHTML = ""; $("lv-extra").innerHTML = "";
+  try{ Object.assign(S, await API.state()); if(!("stage" in S)) S.stage = ""; }catch(e){ L.conn = false; }
+  await loadDeck();
+  L.follow = true; L.idx = clampIdx(S.slide); L.step = S.step || 0;
+  renderLiveAll(); startLivePoll();
+}
+function startLivePoll(){ stopLivePoll(); L.timer = setInterval(livePoll, 5000); }
+function stopLivePoll(){ if(L.timer){ clearInterval(L.timer); L.timer = null; } }
+
+async function livePoll(){
+  if(document.hidden || !$("s-live").classList.contains("on")) return;
+  try{
+    const d = await API.state(); const p = Object.assign({}, S);
+    Object.assign(S, d); if(!("stage" in d)){ S.stage = ""; S.stageData = null; }
+    setConn(true);
+    if(S.dv !== deckV){ await loadDeck(); renderLiveAll(); return; }
+    if(S.live !== p.live){ renderLiveAll(); return; }
+    if(L.follow && (S.slide !== p.slide || S.step !== p.step)){ L.idx = clampIdx(S.slide); L.step = S.step; renderLiveAll(); return; }
+    if(S.free !== p.free) renderLiveSlide();
+    if(S.mode !== p.mode || S.groups !== p.groups) renderLiveAct();
+    const cur = DECK[L.idx];
+    if((S.stage !== p.stage || S.subs !== p.subs) && cur && cur.kind === "critique") renderLiveSlide();
+    if(S.subs === "all") await pollWall(); else if(S.stage !== p.stage || S.subs !== p.subs) renderLiveExtra();
+  }catch(e){ setConn(false); }
+}
+
+function renderLiveAll(){ renderLiveSlide(); renderLiveAct(); renderLiveExtra(); }
+
+function waitCard(){
+  const rb = h("div", { class:"rb-slot" }); rb.innerHTML = ROBOT;
+  return h("div", { class:"slide k-wait" }, rb, h("h2", { class:"st center" }, "اللقاء لم يبدأ بعد"), h("p", { class:"intro center" }, "ستظهر الشرائح هنا فور أن يفتح المقدّم اللقاء."));
+}
+
+function renderLiveSlide(){
+  const host = $("lv-slide"); host.innerHTML = "";
+  host.append(h("div", { class:"lv-bar" }, h("span", { id:"lv-dot", class:"dot" + (L.conn ? " ok" : "") }), h("b", {}, "اللقاء"), h("span", { class:"lv-n" }, S.live ? (L.idx + 1) + " / " + DECK.length : "")));
+  if(!S.live){ host.append(waitCard()); return; }
+  const s = DECK[L.idx]; if(!s) return;
+  const step = (S.free && !L.follow) ? 99 : L.step;
+  host.append(renderSlide(s, { step:step, student:true }));
+  if(S.free){
+    host.append(h("div", { class:"lv-nav" },
+      h("button", { type:"button", class:"btn ghost", onclick:() => liveMove(-1) }, "السابق"),
+      h("button", { type:"button", class:"btn ghost" + (L.follow ? " on" : ""), onclick:liveSync }, L.follow ? "تتابع الشاشة ✓" : "متابعة الشاشة"),
+      h("button", { type:"button", class:"btn ghost", onclick:() => liveMove(1) }, "التالي")));
+  }
+}
+function liveMove(d){ L.follow = false; L.idx = clampIdx(L.idx + d); L.step = 99; renderLiveAll(); window.scrollTo(0, 0); }
+function liveSync(){ L.follow = true; L.idx = clampIdx(S.slide); L.step = S.step; renderLiveAll(); }
+
+/* ---------- المشاركة ---------- */
+function groupPicker(){
+  const cur = LS.get("grp", 0);
+  const wrap = h("div", { class:"grp" }, h("div", { class:"grp-t" }, "اختر رقم مجموعتك"));
+  const row = h("div", { class:"grp-row" });
+  for(let i = 1; i <= (S.groups || 6); i++){
+    const b = h("button", { type:"button", class:"gbtn" + (cur === i ? " on" : ""), onclick:() => { LS.set("grp", i); row.querySelectorAll(".gbtn").forEach((x, j) => x.classList.toggle("on", j + 1 === i)); } }, String(i));
+    row.append(b);
+  }
+  wrap.append(row); return wrap;
+}
+async function sendSub(s, kind, payload, ui){
+  ui.btn.disabled = true; ui.msg.className = "sendmsg"; ui.msg.textContent = "";
+  const g = S.mode === "group" ? LS.get("grp", 0) : 0;
+  if(S.mode === "group" && !g){ ui.msg.className = "sendmsg bad"; ui.msg.textContent = "اختر رقم مجموعتك أولًا."; ui.btn.disabled = false; return; }
+  try{
+    const d = await API.sub({ slide:s.id, group:g ? String(g) : "", kind:kind, payload:payload });
+    if(d && d.ok){ ui.msg.className = "sendmsg sent"; ui.msg.textContent = "✓ وصلت مشاركتك. يمكنك إرسال مشاركة أخرى."; toast("وصلت مشاركتك ✓"); }
+    else { ui.msg.className = "sendmsg bad"; ui.msg.textContent = (d && d.error === "notlive") ? "اللقاء غير مفتوح الآن." : "لم تصل المشاركة. حاول مرة أخرى."; }
+  }catch(e){ ui.msg.className = "sendmsg bad"; ui.msg.textContent = "تعذّر الإرسال. تأكد من الإنترنت."; }
+  ui.btn.disabled = false;
+}
+
+function buildPrompt(s){
+  const rd = slideById(s.textFrom), ans = LS.get("ans_" + s.answersFrom, []);
+  const dr = LS.get("dr_" + s.id, { role:"", task:"" });
+  const answers = (ans || []).map((a, i) => a ? (i + 1) + ") " + a : "").filter(Boolean).join("\n") || "(لم أكتب إجابات بعد)";
+  return String(s.tpl || "")
+    .replace(/\{\{role\}\}/g, dr.role || "…………")
+    .replace(/\{\{task\}\}/g, dr.task || "…………")
+    .replace(/\{\{text\}\}/g, rd ? plainText(rd.text) : "(النص)")
+    .replace(/\{\{answers\}\}/g, answers);
+}
+
+function answersForm(s){
+  const wrap = h("div", { class:"form" });
+  const saved = LS.get("ans_" + s.id, []);
+  const fields = [];
+  (s.questions || []).forEach((q, i) => {
+    const ta = h("textarea", { rows:"2", maxlength:"300", placeholder:"اكتب جوابك…", "aria-label":q.q }); ta.value = saved[i] || "";
+    ta.addEventListener("input", () => LS.set("ans_" + s.id, fields.map(f => f.value)));
+    fields.push(ta);
+    const blk = h("div", { class:"qblk" }, h("label", {}, (i + 1) + ". " + q.q));
+    if(q.opts && q.opts.length){
+      const chips = h("div", { class:"chips" });
+      q.opts.forEach(o => chips.append(h("button", { type:"button", class:"chip", onclick:() => { ta.value = o; LS.set("ans_" + s.id, fields.map(f => f.value)); } }, o)));
+      blk.append(chips);
+    }
+    blk.append(ta); wrap.append(blk);
+  });
+  const msg = h("div", { class:"sendmsg" });
+  const btn = h("button", { type:"button", class:"btn", onclick:() => {
+    const vals = fields.map(f => f.value.trim());
+    if(!vals.some(Boolean)){ msg.className = "sendmsg bad"; msg.textContent = "اكتب جوابًا واحدًا على الأقل."; return; }
+    sendSub(s, "answers", vals, { btn, msg });
+  } }, "أرسل مشاركتي");
+  wrap.append(btn, msg); return wrap;
+}
+
+function templateForm(s){
+  const wrap = h("div", { class:"form" });
+  const dr = LS.get("dr_" + s.id, { role:"", task:"" });
+  const ans = LS.get("ans_" + s.answersFrom, []);
+  const warn = h("p", { class:"warn" }, "⚠️ لم تكتب إجاباتك بعد. أجب أولًا، ثم اسأل!");
+  warn.hidden = (ans || []).some(Boolean);
+  const role = h("input", { type:"text", maxlength:"80", placeholder:"اكتب الدور", "aria-label":s.roleLabel }); role.value = dr.role || "";
+  const task = h("textarea", { rows:"3", maxlength:"300", placeholder:"اكتب ما تريده منه", "aria-label":s.taskLabel }); task.value = dr.task || "";
+  const preview = h("pre", { class:"prompt-prev" });
+  const draw = () => { preview.textContent = buildPrompt(s); };
+  const save = () => { LS.set("dr_" + s.id, { role:role.value.trim(), task:task.value.trim() }); draw(); };
+  role.addEventListener("input", save); task.addEventListener("input", save);
+  draw();
+  const msg = h("div", { class:"sendmsg" });
+  const copyBtn = h("button", { type:"button", class:"btn", onclick:async () => { save(); const ok = await copyText(buildPrompt(s)); toast(ok ? "نُسخ الطلب. الصقه في الأداة" : "تعذّر النسخ، حدّد النص وانسخه"); } }, "📋 انسخ الطلب");
+  const sendBtn = h("button", { type:"button", class:"btn light", onclick:() => {
+    save(); const d = LS.get("dr_" + s.id, { role:"", task:"" });
+    if(!d.role && !d.task){ msg.className = "sendmsg bad"; msg.textContent = "املأ الدور أو المطلوب أولًا."; return; }
+    sendSub(s, "template", d, { btn:sendBtn, msg });
+  } }, "أرسل طلبي للنقاش");
+  wrap.append(warn, h("label", {}, s.roleLabel), role, h("label", {}, s.taskLabel), task, h("details", { class:"pv-d" }, h("summary", {}, "شاهد الطلب كاملًا"), preview), h("div", { class:"two" }, copyBtn, sendBtn), msg);
+  return wrap;
+}
+
+function freeForm(s){
+  const wrap = h("div", { class:"form" });
+  const ta = h("textarea", { rows:"3", maxlength:"300", placeholder:s.ph || "اكتب هنا…", "aria-label":s.title });
+  const msg = h("div", { class:"sendmsg" });
+  const btn = h("button", { type:"button", class:"btn", onclick:() => {
+    if(!ta.value.trim()){ msg.className = "sendmsg bad"; msg.textContent = "اكتب شيئًا أولًا."; return; }
+    sendSub(s, "free", ta.value.trim(), { btn, msg }); ta.value = "";
+  } }, "أرسل مشاركتي");
+  wrap.append(ta, btn, msg); return wrap;
+}
+
+function renderLiveAct(){
+  const host = $("lv-act"); host.innerHTML = "";
+  if(!S.live) return;
+  const s = DECK[L.idx]; if(!s || s.kind !== "activity") return;
+  const card = h("div", { class:"card act" });
+  card.append(h("div", { class:"act-t" }, "مشاركتك"));
+  card.append(S.mode === "group" ? groupPicker() : h("p", { class:"note" }, "مشاركتك مجهولة الاسم."));
+  card.append(s.akind === "answers" ? answersForm(s) : s.akind === "template" ? templateForm(s) : freeForm(s));
+  host.append(card);
+}
+
+function renderLiveExtra(){
+  const host = $("lv-extra"); host.innerHTML = "";
+  if(!S.live || S.subs === "hidden") return;
+  const s = DECK[L.idx]; if(!s) return;
+  if(S.subs === "all" && s.kind === "activity"){
+    if(L.wall.length){ host.append(h("h3", { class:"wall-t" }, "مشاركات الجميع"), wallEl(L.wall)); }
+  } else if(S.subs === "stage" && S.stageData && s.kind !== "critique"){
+    host.append(h("h3", { class:"wall-t" }, "على الشاشة الآن"), stageCard(S.stageData));
+  }
+}
+async function pollWall(){
+  const s = DECK[L.idx]; if(!s || s.kind !== "activity") return;
+  const d = await API.subs(s.id); L.wall = d.subs || []; renderLiveExtra();
+}
+$("lv-exit").addEventListener("click", () => { stopLivePoll(); show("s-intro"); });
+
+/* ######## present.js ######## */
+/* ================= وضع المقدّم ================= */
+const P = { idx:0, step:0, last:-1, drawer:"", subs:[], pushT:null, poll:null, tm:{ total:0, left:0, run:false, t:null } };
+
+const subKey = s => !s ? "" : s.kind === "activity" ? s.id : s.kind === "critique" ? (s.source || "") : "";
+
+function seg(options, current, onPick){
+  const d = h("div", { class:"seg" });
+  options.forEach(([val, label]) => d.append(h("button", { type:"button", class:"sg" + (val === current ? " on" : ""), onclick:() => onPick(val) }, label)));
+  return d;
+}
+async function setSt(patch){
+  const d = await adminOp("setState", { patch:patch });
+  setSync(!!(d && d.ok));
+  return d;
+}
+function setSync(ok){ const s = $("p-sync"); s.classList.toggle("ok", ok); s.title = ok ? "الطلاب متصلون بالمنصة" : "تعذّر الاتصال: الطلاب لا يرون التغييرات"; }
+
+async function openPresenter(){
+  show("s-present");
+  P.idx = 0; P.step = 0; P.last = -1;
+  renderP();
+  document.addEventListener("keydown", pKeys);
+  clearInterval(P.poll); P.poll = setInterval(pPoll, 5000); pPoll();
+  const d = await setSt({ slide:0, step:0 }).catch(() => null); if(!d) setSync(false);
+}
+function closePresenter(){
+  document.removeEventListener("keydown", pKeys); clearInterval(P.poll); clearInterval(P.tm.t); P.drawer = ""; $("drawer").classList.remove("on");
+  openAdmin();
+}
+
+function pKeys(e){
+  if(!$("s-present").classList.contains("on")) return;
+  if(/^(INPUT|TEXTAREA|SELECT)$/.test((e.target || {}).tagName)) return;
+  if(e.key === "ArrowLeft" || e.key === "PageDown" || e.key === " "){ e.preventDefault(); pNext(); }
+  else if(e.key === "ArrowRight" || e.key === "PageUp"){ e.preventDefault(); pPrev(); }
+  else if(e.key === "n" || e.key === "N" || e.key === "ن"){ toggleDrawer("notes"); }
+  else if(e.key === "Escape"){ toggleDrawer(""); }
+}
+function pGo(i, step){ P.idx = Math.max(0, Math.min(DECK.length - 1, i)); P.step = step || 0; renderP(); pushNav(); }
+function pNext(){
+  const s = DECK[P.idx], n = stepsOf(s);
+  if(P.step < n){ P.step++; renderP(true); pushNav(); }
+  else if(P.idx < DECK.length - 1) pGo(P.idx + 1, 0);
+}
+function pPrev(){
+  if(P.step > 0){ P.step--; renderP(true); pushNav(); }
+  else if(P.idx > 0) pGo(P.idx - 1, stepsOf(DECK[P.idx - 1]));
+}
+function pushNav(){
+  clearTimeout(P.pushT);
+  P.pushT = setTimeout(async () => { try{ await setSt({ slide:P.idx, step:P.step }); }catch(e){ setSync(false); } }, 250);
+}
+
+function renderP(noanim){
+  const s = DECK[P.idx]; if(!s) return;
+  const stage = $("pstage"); stage.className = "pstage" + (noanim ? " noanim" : ""); stage.innerHTML = "";
+  stage.append(renderSlide(s, { step:P.step, present:true }));
+  if(S.subs === "all" && s.kind === "activity"){ stage.append(h("h3", { class:"wall-t" }, "مشاركات الجميع"), h("div", { id:"pwall" }, wallEl(P.subs))); }
+  else if(S.subs === "stage" && S.stageData && s.kind !== "critique"){
+    stage.append(h("div", { class:"stage-ov" }, h("div", { class:"wall-t" }, "على الشاشة الآن"), stageCard(S.stageData),
+      h("button", { type:"button", class:"btn light small", onclick:() => stageSub("") }, "إخفاء")));
+  }
+  $("p-count").textContent = (P.idx + 1) + " / " + DECK.length;
+  $("p-prev").disabled = P.idx === 0 && P.step === 0;
+  $("p-next").disabled = P.idx === DECK.length - 1 && P.step >= stepsOf(s);
+  const dots = $("p-dots"); dots.innerHTML = "";
+  DECK.forEach((x, i) => dots.append(h("button", { type:"button", class:"dotp" + (i === P.idx ? " on" : "") + (i < P.idx ? " done" : ""), title:x.title || "", onclick:() => pGo(i, 0) })));
+  drawBar();
+  if(P.last !== P.idx){ P.last = P.idx; tmSet(); P.subs = []; updateCount(); pPoll(); }
+  if(P.drawer) renderDrawer();
+}
+function drawBar(){
+  $("p-live").textContent = S.live ? "● اللقاء مفتوح" : "○ اللقاء مغلق";
+  $("p-live").classList.toggle("on", !!S.live);
+  const box = $("p-subs"); box.innerHTML = "";
+  box.append(seg([["hidden", "المشاركات مخفية"], ["stage", "واحدة"], ["all", "الكل"]], S.subs, v => { setSt({ subs:v }).then(() => { renderP(true); if(v === "all") pPoll(); }); }));
+}
+function updateCount(){
+  const el = $("pcount"), n = P.subs.length;
+  if(el) el.textContent = n ? "وصلت " + n + " مشاركة" : "لم تصل مشاركات بعد";
+  $("p-badge").textContent = String(n); $("p-badge").hidden = !n;
+}
+async function pPoll(){
+  if(!$("s-present").classList.contains("on") || document.hidden) return;
+  const s = DECK[P.idx], key = subKey(s); if(!key) return;
+  try{
+    const d = await adminOp("subs", { slide:key });
+    if(d && d.ok){
+      const changed = JSON.stringify((d.subs || []).map(x => x.id)) !== JSON.stringify(P.subs.map(x => x.id));
+      P.subs = d.subs || []; updateCount(); setSync(true);
+      if(changed){
+        if(S.subs === "all" && s.kind === "activity"){ const w = $("pwall"); if(w){ w.innerHTML = ""; w.append(wallEl(P.subs)); } }
+        if(P.drawer === "subs") renderDrawer();
+      }
+    }
+  }catch(e){ setSync(false); }
+}
+async function stageSub(id){
+  if(id && S.subs === "hidden") await setSt({ subs:"stage" });
+  const d = await adminOp("stage", { id:id });
+  setSync(!!(d && d.ok)); renderP(true);
+}
+
+/* ---------- المؤقت ---------- */
+function tmSet(){
+  const s = DECK[P.idx]; clearInterval(P.tm.t); const sec = (s.min || 0) * 60;
+  P.tm = { total:sec, left:sec, run:false, t:null }; tmDraw();
+}
+function tmToggle(){
+  const t = P.tm; if(!t.total) return;
+  if(t.run){ clearInterval(t.t); t.run = false; }
+  else {
+    if(t.left <= 0) t.left = t.total; t.run = true;
+    t.t = setInterval(() => { t.left--; tmDraw(); if(t.left <= 0){ clearInterval(t.t); t.run = false; tmDraw(); beep(); } }, 1000);
+  }
+  tmDraw();
+}
+function tmDraw(){
+  const b = $("p-timer"), t = P.tm, l = Math.max(0, t.left);
+  b.textContent = "⏱ " + String(Math.floor(l / 60)).padStart(2, "0") + ":" + String(l % 60).padStart(2, "0");
+  b.classList.toggle("on", t.run); b.classList.toggle("alarm", t.total > 0 && t.left <= 0); b.style.display = t.total ? "" : "none";
+}
+
+/* ---------- الأدراج الجانبية ---------- */
+function toggleDrawer(name){ P.drawer = (P.drawer === name || !name) ? "" : name; $("drawer").classList.toggle("on", !!P.drawer); if(P.drawer) renderDrawer(); }
+function renderDrawer(){
+  const box = $("drawer"); box.innerHTML = "";
+  const s = DECK[P.idx];
+  box.append(h("button", { type:"button", class:"dclose", onclick:() => toggleDrawer("") }, "✕"));
+  if(P.drawer === "notes"){
+    box.append(h("h3", {}, "ملاحظاتي"), h("p", { class:"dmeta" }, "الوقت المقترح: " + (s.min || 0) + " د"), h("div", { class:"dnotes" }, s.notes || "لا ملاحظات لهذه الشريحة."));
+    const nx = DECK[P.idx + 1]; if(nx) box.append(h("p", { class:"dmeta" }, "التالي: " + (nx.title || KIND_NAMES[nx.kind])));
+  } else if(P.drawer === "subs"){
+    box.append(h("h3", {}, "المشاركات"));
+    box.append(h("div", { class:"dlab" }, "نمط المشاركة"));
+    box.append(seg([["individual", "فردي"], ["group", "مجموعات"]], S.mode, v => setSt({ mode:v }).then(renderDrawer)));
+    if(S.mode === "group"){ box.append(h("div", { class:"dlab" }, "عدد المجموعات: " + S.groups), seg([[4, "4"], [6, "6"], [8, "8"], [10, "10"]], S.groups, v => setSt({ groups:v }).then(renderDrawer))); }
+    const key = subKey(s);
+    if(!key){ box.append(h("p", { class:"dim" }, "هذه الشريحة بلا مشاركات.")); }
+    else {
+      box.append(h("div", { class:"dlab" }, "مشاركات هذه الشريحة (" + P.subs.length + ")"));
+      if(!P.subs.length) box.append(h("p", { class:"dim" }, "لم تصل مشاركات بعد."));
+      P.subs.forEach(sb => {
+        const on = S.stage === sb.id;
+        box.append(h("div", { class:"subrow" + (on ? " on" : "") }, stageCard(Object.assign({ slide:key }, sb)),
+          h("div", { class:"subbtns" },
+            h("button", { type:"button", class:"pb2", onclick:() => stageSub(on ? "" : sb.id).then(renderDrawer) }, on ? "إخفاء" : "عرض على الشاشة"),
+            h("button", { type:"button", class:"pb2 del", onclick:async () => { await adminOp("delSub", { id:sb.id }); P.subs = P.subs.filter(x => x.id !== sb.id); updateCount(); renderP(true); } }, "حذف"))));
+      });
+    }
+  } else if(P.drawer === "edit"){
+    box.append(h("h3", {}, "تعديل: " + (KIND_NAMES[s.kind] || s.kind)));
+    box.append(buildEditor(s, () => { renderP(); saveDeck(); }));
+  }
+}
+
+/* ---------- المحرر ---------- */
+const COMMON = [["min", "الدقائق المقترحة", "number"], ["notes", "ملاحظاتي (لا تظهر للطلاب في الشاشة)", "area"]];
+const SPEC = {
+  cover:[["title", "العنوان", "text"], ["sub", "العنوان الفرعي", "text"]],
+  results:[["title", "العنوان", "text"], ["sub", "تعليق", "text"]],
+  bullets:[["title", "العنوان", "text"], ["items", "النقاط (سطر لكل نقطة)", "lines:str"]],
+  big:[["title", "العنوان الصغير", "text"], ["text", "الجملة الكبيرة", "text"], ["sub", "سطر توضيحي", "area"]],
+  flip:[["title", "العنوان", "text"], ["cards", "سؤال | جواب (سطر لكل بطاقة)", "lines:qa"]],
+  cards:[["title", "العنوان", "text"], ["items", "أيقونة | عنوان | نص (سطر لكل بطاقة)", "lines:ict"], ["foot", "سطر ختامي", "text"]],
+  reading:[["title", "العنوان", "text"], ["instruction", "التعليمات", "text"], ["text", "النص (لشرح لفظ اكتب {{اللفظ|معناه}})", "area:big"], ["source", "المصدر", "text"]],
+  activity:[["title", "العنوان", "text"], ["instruction", "التعليمات", "area"], ["akind", "نوع النشاط", "select:answers=أسئلة بإجابات,template=بناء طلب,free=كتابة حرة"],
+            ["questions", "للنوع «أسئلة»: سؤال | اقتراح1 ; اقتراح2", "lines:qo"], ["tpl", "للنوع «بناء طلب»: قالب الطلب", "area"],
+            ["roleLabel", "عنوان حقل الدور", "text"], ["taskLabel", "عنوان حقل المطلوب", "text"], ["textFrom", "معرّف شريحة النص", "text"], ["answersFrom", "معرّف شريحة الإجابات", "text"], ["ph", "تلميح الكتابة الحرة", "text"]],
+  anatomy:[["title", "العنوان", "text"], ["weak", "الطلب الضعيف", "text"], ["parts", "اسم الجزء | نصه (سطر لكل جزء)", "lines:lt"]],
+  spot:[["title", "العنوان", "text"], ["intro", "تمهيد", "text"], ["items", "نص | خطأ أو صح | شرح الخطأ", "lines:spot"]],
+  critique:[["title", "العنوان", "text"], ["source", "معرّف شريحة المشاركات", "text"], ["checks", "معايير النقد (سطر لكل معيار)", "lines:str"]]
+};
+const sp = l => l.split("|").map(x => x.trim());
+function toForm(v, type){
+  v = v == null ? "" : v;
+  switch(type){
+    case "lines:str": return (v || []).join("\n");
+    case "lines:qa": return (v || []).map(c => c.q + " | " + c.a).join("\n");
+    case "lines:ict": return (v || []).map(c => [c.icon, c.title, c.text].join(" | ")).join("\n");
+    case "lines:qo": return (v || []).map(c => c.q + (c.opts && c.opts.length ? " | " + c.opts.join(" ; ") : "")).join("\n");
+    case "lines:lt": return (v || []).map(c => c.label + " | " + c.text).join("\n");
+    case "lines:spot": return (v || []).map(c => c.text + " | " + (c.wrong ? "خطأ" : "صح") + " | " + (c.why || "")).join("\n");
+    default: return String(v);
+  }
+}
+function fromForm(raw, type){
+  const lines = () => String(raw).split("\n").map(x => x.trim()).filter(Boolean);
+  switch(type){
+    case "lines:str": return lines();
+    case "lines:qa": return lines().map(l => { const p = sp(l); return { q:p[0] || "", a:p.slice(1).join(" | ") }; });
+    case "lines:ict": return lines().map(l => { const p = sp(l); return { icon:p[0] || "", title:p[1] || "", text:p.slice(2).join(" | ") }; });
+    case "lines:qo": return lines().map(l => { const p = sp(l); return { q:p[0] || "", opts:(p[1] || "").split(";").map(x => x.trim()).filter(Boolean) }; });
+    case "lines:lt": return lines().map(l => { const p = sp(l); return { label:p[0] || "", text:p.slice(1).join(" | ") }; });
+    case "lines:spot": return lines().map(l => { const p = sp(l); return { text:p[0] || "", wrong:(p[1] || "") === "خطأ", why:p.slice(2).join(" | ") }; });
+    case "number": return Number(raw) || 0;
+    default: return raw;
+  }
+}
+function buildEditor(s, onDone){
+  const form = h("div", { class:"editor" });
+  const inputs = [];
+  (SPEC[s.kind] || []).concat(COMMON).forEach(([key, label, type]) => {
+    let el;
+    if(type.indexOf("select:") === 0){
+      el = h("select", {}); type.slice(7).split(",").forEach(o => { const [v, t] = o.split("="); const op = h("option", { value:v }, t); if(s[key] === v) op.selected = true; el.append(op); });
+    } else if(type === "text" || type === "number"){
+      el = h("input", { type:type === "number" ? "number" : "text" }); el.value = toForm(s[key], type);
+    } else {
+      el = h("textarea", { rows: type === "area:big" ? "12" : type.indexOf("lines") === 0 ? "6" : "3" }); el.value = toForm(s[key], type);
+    }
+    inputs.push([key, type, el]);
+    form.append(h("label", {}, label), el);
+  });
+  form.append(h("div", { class:"two" },
+    h("button", { type:"button", class:"btn", onclick:() => { inputs.forEach(([k, t, el]) => { s[k] = fromForm(el.value, t.indexOf("select:") === 0 ? "select" : t); }); onDone(); toast("تم الحفظ"); } }, "حفظ ونشر"),
+    h("button", { type:"button", class:"btn light", onclick:() => onDone("cancel") }, "إغلاق")));
+  return form;
+}
+async function saveDeck(){
+  try{ const d = await adminOp("setDeck", { deck:DECK }); if(d && d.ok){ deckV = S.dv; setSync(true); } else toast("تعذّر النشر"); }
+  catch(e){ toast("تعذّر النشر. تحقق من الاتصال"); setSync(false); }
+}
+
+/* ---------- ربط أزرار الشريط ---------- */
+$("p-exit").addEventListener("click", closePresenter);
+$("p-prev").addEventListener("click", pPrev);
+$("p-next").addEventListener("click", pNext);
+$("p-timer").addEventListener("click", tmToggle);
+$("p-notes").addEventListener("click", () => toggleDrawer("notes"));
+$("p-list").addEventListener("click", () => { toggleDrawer("subs"); pPoll(); });
+$("p-edit").addEventListener("click", () => toggleDrawer("edit"));
+$("p-live").addEventListener("click", async () => { await setSt({ live:!S.live }); drawBar(); });
+
+/* ######## admin.js ######## */
+/* ================= لوحة الإدارة ================= */
+const A = { tab:"session", data:null, sel:-1 };
+let afterLogin = null;
+
+function goLogin(after){
+  afterLogin = after;
+  if(adminPass) proceedLogin(); else show("s-login");
+}
+async function proceedLogin(){
+  const a = afterLogin; afterLogin = null;
+  if(a === "present"){ await loadDeck(); openPresenter(); }
+  else if(a === "print"){ await loadDeck(); openPrint(); }
+  else openAdmin();
+}
+async function openAdmin(){
+  show("s-admin"); $("a-err").textContent = "";
+  await loadDeck(); await refreshAdmin();
+}
+async function refreshAdmin(){
+  try{ A.data = await adminOp("results"); renderAdminTab(); }
+  catch(e){ $("a-err").textContent = "تعذّر الاتصال بالسكربت."; }
+}
+async function adminSet(patch){
+  try{ const d = await adminOp("setState", { patch:patch }); if(d && d.ok){ $("a-err").textContent = ""; renderAdminTab(); } else $("a-err").textContent = "رُفض الطلب."; }
+  catch(e){ $("a-err").textContent = "تعذّر الاتصال بالسكربت."; }
+}
+
+function switchRow(label, small, on, onToggle){
+  const sw = h("button", { type:"button", class:"switch", role:"switch", "aria-checked":on ? "true" : "false", "aria-label":label, onclick:() => onToggle(!on) });
+  return h("div", { class:"switchrow" }, h("span", {}, label, small ? h("small", {}, small) : null), sw);
+}
+function listCard(title, arr){
+  const c = h("div", { class:"card res private" }, h("h3", {}, title));
+  arr.forEach(t => c.append(h("div", { class:"quote" }, t)));
+  return c;
+}
+
+function renderAdminTab(){
+  document.querySelectorAll("#a-tabs .tabbtn").forEach(b => b.classList.toggle("on", b.dataset.tab === A.tab));
+  const host = $("a-body"); host.innerHTML = "";
+  if(A.tab === "survey") tabSurvey(host);
+  else if(A.tab === "session") tabSession(host);
+  else tabContent(host);
+}
+
+/* ---------- تبويب الاستبانة ---------- */
+function tabSurvey(host){
+  const d = A.data || { total:0, counts:{}, comments:[], toolOther:[], usesOther:[] };
+  host.append(h("p", { class:"stat" }, "عدد المشاركين: " + d.total));
+  const ctl = h("div", { class:"controls" },
+    switchRow("إظهار النتائج للطلاب", "تظهر لهم الأرقام فقط، دون نصوصهم", !!S.visible, v => adminSet({ visible:v })),
+    switchRow("استقبال الإجابات", "أغلقه فتتوقف الاستبانة عن القبول", S.open !== false, v => adminSet({ open:v })),
+    h("div", { class:"adminbar" },
+      h("button", { type:"button", class:"btn", onclick:async () => { await refreshAdmin(); $("s-admin").classList.add("present"); window.scrollTo(0, 0); } }, "وضع العرض"),
+      h("button", { type:"button", class:"btn light", onclick:refreshAdmin }, "تحديث"),
+      h("button", { type:"button", class:"btn danger", onclick:async () => { if(confirm("حذف كل إجابات الاستبانة نهائيًّا؟")){ await adminOp("clear"); refreshAdmin(); } } }, "حذف الإجابات")));
+  host.append(ctl, h("div", { style:"margin-top:14px" }));
+  host.append(kpiRow(d.counts, d.total));
+  renderResults(host, d.counts, d.total);
+  if(d.toolOther && d.toolOther.length) host.append(listCard("أدوات أخرى ذكروها", d.toolOther));
+  if(d.usesOther && d.usesOther.length) host.append(listCard("استخدامات أخرى ذكروها", d.usesOther));
+  if(d.comments && d.comments.length) host.append(listCard("ما أرادوا معرفته وأسئلتهم", d.comments));
+}
+
+/* ---------- تبويب اللقاء ---------- */
+function tabSession(host){
+  const box = h("div", { class:"controls" });
+  box.append(h("div", { class:"adminbar" },
+    h("button", { type:"button", class:"btn", onclick:() => { afterLogin = null; openPresenter(); } }, "▶ بدء العرض"),
+    h("button", { type:"button", class:"btn light", onclick:openPrint }, "🖨 طباعة الأوراق")));
+  box.append(h("div", { style:"height:12px" }));
+  box.append(switchRow("فتح اللقاء للطلاب", "تظهر لهم الشرائح على جوالاتهم ويستطيعون المشاركة", !!S.live, v => adminSet({ live:v })));
+  box.append(switchRow("السماح للطلاب بالتنقل بأنفسهم", "مفيد إن تعطلت الشاشة: يفتحون الشرائح على جوالاتهم", !!S.free, v => adminSet({ free:v })));
+  box.append(h("div", { class:"card setcard" },
+    h("div", { class:"dlab dk" }, "نمط المشاركة"),
+    seg([["individual", "فردي (مجهول)"], ["group", "مجموعات"]], S.mode, v => adminSet({ mode:v })),
+    S.mode === "group" ? h("div", {}, h("div", { class:"dlab dk" }, "عدد المجموعات"), seg([[4, "4"], [6, "6"], [8, "8"], [10, "10"], [12, "12"]], S.groups, v => adminSet({ groups:v }))) : null,
+    h("div", { class:"dlab dk" }, "عرض المشاركات للطلاب"),
+    seg([["hidden", "مخفية"], ["stage", "واحدة على الشاشة"], ["all", "الكل"]], S.subs, v => adminSet({ subs:v }))));
+  box.append(h("div", { class:"adminbar" },
+    h("button", { type:"button", class:"btn danger", onclick:async () => { if(confirm("حذف كل مشاركات اللقاء نهائيًّا؟")){ await adminOp("clearSubs"); toast("تم الحذف"); renderAdminTab(); } } }, "حذف كل المشاركات")));
+  box.append(h("p", { class:"note dk" }, "رابط الطلاب هو رابط الصفحة نفسه، وفيه زر «ادخل اللقاء» حين تفتح اللقاء. ويمكنك إضافة #live مباشرة في آخر الرابط."));
+  host.append(box);
+}
+
+/* ---------- تبويب المحتوى ---------- */
+function tabContent(host){
+  const box = h("div", { class:"controls" });
+  box.append(h("p", { class:"note dk" }, "عدّل أي شريحة أو رتّبها، ثم اضغط «نشر التعديلات» ليراها الطلاب. ويمكنك التعديل أيضًا أثناء العرض من زر ✎."));
+  const list = h("div", { class:"slist" });
+  DECK.forEach((s, i) => {
+    const row = h("div", { class:"srow" + (A.sel === i ? " on" : "") },
+      h("span", { class:"sn2" }, String(i + 1)),
+      h("div", { class:"sinfo" }, h("b", {}, s.title || KIND_NAMES[s.kind] || s.kind), h("small", {}, (KIND_NAMES[s.kind] || s.kind) + " · " + (s.min || 0) + " د")),
+      h("div", { class:"sbt" },
+        h("button", { type:"button", class:"pb2", title:"أعلى", onclick:() => moveSlide(i, -1) }, "↑"),
+        h("button", { type:"button", class:"pb2", title:"أسفل", onclick:() => moveSlide(i, 1) }, "↓"),
+        h("button", { type:"button", class:"pb2", onclick:() => { A.sel = A.sel === i ? -1 : i; renderAdminTab(); } }, "تعديل"),
+        h("button", { type:"button", class:"pb2 del", onclick:() => { if(confirm("حذف هذه الشريحة؟")){ DECK.splice(i, 1); A.sel = -1; renderAdminTab(); } } }, "حذف")));
+    list.append(row);
+    if(A.sel === i) list.append(h("div", { class:"edwrap" }, buildEditor(s, c => { if(c === "cancel") A.sel = -1; renderAdminTab(); if(c !== "cancel") saveDeck(); })));
+  });
+  box.append(list);
+  const sel = h("select", { id:"newkind" }); Object.keys(NEW_SLIDE).forEach(k => sel.append(h("option", { value:k }, KIND_NAMES[k] || k)));
+  box.append(h("div", { class:"adminbar" }, sel,
+    h("button", { type:"button", class:"btn light", onclick:() => { DECK.push(NEW_SLIDE[$("newkind").value]()); A.sel = DECK.length - 1; renderAdminTab(); } }, "+ إضافة شريحة")));
+  box.append(h("div", { class:"adminbar" },
+    h("button", { type:"button", class:"btn", onclick:async () => { await saveDeck(); toast("نُشرت التعديلات"); } }, "نشر التعديلات"),
+    h("button", { type:"button", class:"btn danger", onclick:async () => { if(confirm("إرجاع المحتوى الأصلي وفقدان تعديلاتك؟")){ DECK = clone(DEFAULT_DECK); A.sel = -1; await saveDeck(); renderAdminTab(); } } }, "إرجاع الأصل")));
+  host.append(box);
+}
+function moveSlide(i, d){
+  const j = i + d; if(j < 0 || j >= DECK.length) return;
+  const t = DECK[i]; DECK[i] = DECK[j]; DECK[j] = t; A.sel = -1; renderAdminTab();
+}
+
+/* ---------- الدخول ---------- */
+$("open-admin").addEventListener("click", () => goLogin(null));
+$("login-back").addEventListener("click", () => { $("pw").value = ""; $("login-err").textContent = ""; show("s-intro"); });
+$("a-home").addEventListener("click", () => { adminPass = ""; show("s-intro"); });
+$("a-exit").addEventListener("click", () => { $("s-admin").classList.remove("present"); window.scrollTo(0, 0); });
+document.querySelectorAll("#a-tabs .tabbtn").forEach(b => b.addEventListener("click", () => { A.tab = b.dataset.tab; A.sel = -1; renderAdminTab(); }));
+$("login").addEventListener("click", async () => {
+  const err = $("login-err"); err.textContent = "";
+  if(DEMO){
+    if($("pw").value !== "123321"){ err.textContent = "في الوضع التجريبي كلمة المرور 123321."; return; }
+    adminPass = "demo"; $("pw").value = ""; proceedLogin(); return;
+  }
+  adminPass = $("pw").value;
+  try{
+    const d = await adminOp("results");
+    if(d.ok){ $("pw").value = ""; A.data = d; proceedLogin(); }
+    else if(d.error === "locked"){ err.textContent = "محاولات كثيرة. انتظر عشر دقائق."; adminPass = ""; }
+    else { err.textContent = "كلمة المرور غير صحيحة. المحاولات المتبقية: " + (d.left == null ? "؟" : d.left); adminPass = ""; }
+  }catch(e){ err.textContent = "تعذّر الاتصال بالسكربت."; adminPass = ""; }
+});
+$("pw").addEventListener("keydown", e => { if(e.key === "Enter") $("login").click(); });
+
+/* ================= الطباعة ================= */
+function openPrint(){
+  const body = $("print-body"); body.innerHTML = "";
+  const rd = DECK.find(s => s.kind === "reading"), an = DECK.find(s => s.kind === "activity" && s.akind === "answers");
+  const tp = DECK.find(s => s.kind === "activity" && s.akind === "template"), at = DECK.find(s => s.kind === "anatomy");
+  const lines = n => Array.from({ length:n }, () => h("div", { class:"wline" }));
+
+  // 1) ورقة المجموعة
+  const p1 = h("section", { class:"sheet" }, h("h2", {}, "ورقة المجموعة"), h("p", { class:"sub" }, "المجموعة: ........   الأسماء: ................................................"));
+  if(rd){ p1.append(h("h3", {}, rd.title), h("div", { class:"ptext" }, parseGloss(rd.text, "print")), rd.source ? h("p", { class:"psrc" }, rd.source) : null); }
+  body.append(p1);
+
+  const p2 = h("section", { class:"sheet" }, h("h2", {}, "أجب بنفسك أولًا"));
+  if(an){
+    (an.questions || []).forEach((q, i) => {
+      p2.append(h("div", { class:"pqb" }, h("b", {}, (i + 1) + ". " + q.q)));
+      (q.opts || []).forEach(o => p2.append(h("div", { class:"popt" }, "☐ " + o)));
+      p2.append(...lines(2));
+    });
+  }
+  if(tp){
+    p2.append(h("h3", {}, "طلبي للذكاء الاصطناعي"));
+    p2.append(h("div", { class:"ptpl" }, tplSkeleton(tp.tpl)));
+    p2.append(h("p", { class:"sub" }, tp.roleLabel + ": ........................................"), h("p", { class:"sub" }, tp.taskLabel + ": ........................................................................"), ...lines(1));
+  }
+  body.append(p2);
+
+  // 2) بطاقة الأربع كلمات
+  const p3 = h("section", { class:"sheet card4" }, h("h2", {}, "بطاقة الطلب الجيد"));
+  const four = h("div", { class:"four" });
+  (at ? at.parts : []).forEach((p, i) => four.append(h("div", { class:"fcell p" + (i % 4) }, h("b", {}, p.label), h("span", {}, p.text))));
+  p3.append(four, h("p", { class:"big4" }, "أجب أولًا، ثم اسأل."));
+  if(at) p3.append(h("p", { class:"sub" }, "الطلب الضعيف: «" + at.weak + "»"));
+  body.append(p3);
+
+  // 3) دليل المقدم
+  const p4 = h("section", { class:"sheet guide" }, h("h2", {}, "دليل المقدّم"));
+  const tbl = h("table", {}, h("tr", {}, h("th", {}, "#"), h("th", {}, "الشريحة"), h("th", {}, "د"), h("th", {}, "ما أقوله وأفعله")));
+  let total = 0;
+  DECK.forEach((s, i) => { total += Number(s.min) || 0; tbl.append(h("tr", {}, h("td", {}, String(i + 1)), h("td", {}, (s.title || KIND_NAMES[s.kind])), h("td", {}, String(s.min || 0)), h("td", {}, s.notes || ""))); });
+  p4.append(tbl, h("p", { class:"sub" }, "المجموع المقترح: " + total + " دقيقة"));
+  body.append(p4);
+  show("s-print");
+}
+$("pr-back").addEventListener("click", () => { openAdmin(); });
+$("pr-go").addEventListener("click", () => window.print());
+
+/* ================= الروابط ================= */
+(async function checkLive(){
+  if(DEMO){ $("live-note").hidden = false; return; }
+  try{
+    const d = await API.state(); Object.assign(S, d);
+    $("live-note").hidden = !d.live;
+    if(d.open === false){ $("closed-note").hidden = false; $("start").disabled = true; }
+  }catch(e){}
+})();
+$("enter-live").addEventListener("click", enterLive);
+
+function route(){
+  const hs = location.hash;
+  if(hs === "#admin") goLogin(null);
+  else if(hs === "#present") goLogin("present");
+  else if(hs === "#print") goLogin("print");
+  else if(hs === "#live") enterLive();
+  else if(hs === "#results") showPublic();
+}
+addEventListener("hashchange", route); route();
+
+</script>
+</body>
+</html>
