@@ -505,6 +505,19 @@ body[data-screen="s-admin"] .card,body[data-screen="s-admin"] .switchrow,body[da
 .wrap > .screen:not(#s-q){zoom:var(--scale)}
 .lv-back{font:inherit; font-size:14px; color:var(--fg); background:var(--glass2); border:0; border-radius:10px; padding:4px 12px; cursor:pointer}
 
+/* أرقام الشرائح للقفز السريع + الفهرس */
+.dotp{width:27px; height:27px; font:inherit; font-size:12px; font-weight:800; color:var(--fg2); display:grid; place-items:center}
+.dotp.on{background:var(--gold); color:#12213F; transform:scale(1.18)}
+.dotp.done{background:rgba(76,195,255,.55); color:#fff}
+.pbtn.icon{padding:10px 16px}
+.idxrow{display:flex; gap:10px; align-items:center; width:100%; text-align:right; font:inherit; background:#fff; border:2px solid var(--line); border-radius:12px; padding:8px 10px; margin:6px 0; cursor:pointer; color:var(--ink)}
+.idxrow:hover{border-color:var(--violet)}
+.idxrow.on{border-color:var(--violet); background:#F1ECFF}
+.idxrow .n{flex:none; width:2em; height:2em; border-radius:50%; background:var(--soft); display:grid; place-items:center; font-weight:800}
+.idxrow .t{flex:1; min-width:0}
+.idxrow b{display:block; font-size:15px; line-height:1.4}
+.idxrow small{color:var(--muted)}
+
 </style>
 </head>
 <body>
@@ -616,6 +629,7 @@ body[data-screen="s-admin"] .card,body[data-screen="s-admin"] .switchrow,body[da
     <button class="pb timer" id="p-timer" type="button">⏱ 00:00</button>
     <button class="pb" id="p-live" type="button">○ اللقاء مغلق</button>
     <div id="p-subs"></div>
+    <button class="pb" id="p-index" type="button">☰ الفهرس</button>
     <button class="pb" id="p-notes" type="button">📝 ملاحظاتي</button>
     <button class="pb" id="p-list" type="button">📋 المشاركات <span class="badge" id="p-badge" hidden>0</span></button>
     <button class="pb" id="p-edit" type="button">✎ تعديل</button>
@@ -627,6 +641,7 @@ body[data-screen="s-admin"] .card,body[data-screen="s-admin"] .switchrow,body[da
     <aside class="drawer" id="drawer"></aside>
   </div>
   <div class="pnav">
+    <button class="pbtn icon" id="p-first" type="button" title="الشريحة الأولى">⏮</button>
     <button class="pbtn" id="p-prev" type="button">السابق</button>
     <div class="dots" id="p-dots"></div>
     <button class="pbtn primary" id="p-next" type="button">التالي</button>
@@ -1533,6 +1548,11 @@ function goHome(){
 /* ######## live.js ######## */
 /* ================= واجهة الطالب أثناء اللقاء ================= */
 const L = { idx:0, step:0, follow:true, timer:null, conn:true, wall:[] };
+/* المقدّم «نشط» إن كانت آخر نبضة منه حديثة. وإلا فالشريحة المخزنة قديمة ولا نقفز إليها */
+const presenterActive = () => S.age == null || S.age < 75;
+const startIdx = () => presenterActive() ? clampIdx(S.slide) : 0;
+const startStep = () => presenterActive() ? (S.step || 0) : 0;
+const canNav = () => !!(S.free || PREVIEW);
 
 function setConn(ok){ L.conn = ok; const d = $("lv-dot"); if(d){ d.classList.toggle("ok", ok); d.title = ok ? "متصل" : "انقطع الاتصال"; } }
 
@@ -1541,7 +1561,7 @@ async function enterLive(){
   $("lv-slide").innerHTML = ""; $("lv-act").innerHTML = ""; $("lv-extra").innerHTML = "";
   try{ Object.assign(S, await API.state()); if(!("stage" in S)) S.stage = ""; }catch(e){ L.conn = false; }
   if(!PREVIEW || deckV < 0) await loadDeck();
-  L.follow = true; L.idx = clampIdx(S.slide); L.step = S.step || 0;
+  L.follow = true; L.idx = startIdx(); L.step = startStep();
   renderLiveAll(); startLivePoll();
 }
 function startLivePoll(){ stopLivePoll(); L.timer = setInterval(livePoll, 5000); }
@@ -1550,13 +1570,13 @@ function stopLivePoll(){ if(L.timer){ clearInterval(L.timer); L.timer = null; } 
 async function livePoll(){
   if(document.hidden || !$("s-live").classList.contains("on")) return;
   try{
-    const d = await API.state(); const p = Object.assign({}, S);
+    const d = await API.state(); const p = Object.assign({}, S); const wasActive = presenterActive();
     Object.assign(S, d); if(!("stage" in d)){ S.stage = ""; S.stageData = null; }
     setConn(true);
     if(S.dv !== deckV){ await loadDeck(); renderLiveAll(); return; }
     if(S.live !== p.live){ renderLiveAll(); return; }
-    if(L.follow && (S.slide !== p.slide || S.step !== p.step)){ L.idx = clampIdx(S.slide); L.step = S.step; renderLiveAll(); return; }
-    if(S.free !== p.free) renderLiveSlide();
+    if(L.follow && presenterActive() && (!wasActive || S.slide !== p.slide || S.step !== p.step)){ L.idx = clampIdx(S.slide); L.step = S.step || 0; renderLiveAll(); return; }
+    if(S.free !== p.free || presenterActive() !== wasActive) renderLiveSlide();
     if(S.mode !== p.mode || S.groups !== p.groups) renderLiveAct();
     const cur = DECK[L.idx];
     if((S.stage !== p.stage || S.subs !== p.subs) && cur && cur.kind === "critique") renderLiveSlide();
@@ -1577,9 +1597,10 @@ function renderLiveSlide(){
   if(!S.live){ setPal("a"); host.append(waitCard()); return; }
   const s = DECK[L.idx]; if(!s) return;
   setPal(PAL_BY_KIND[s.kind] || "a");
-  const step = (S.free && !L.follow) ? 99 : L.step;
+  const step = (canNav() && !L.follow) ? 99 : L.step;
+  if(!presenterActive() && S.live) host.append(h("p", { class:"note onbg" }, PREVIEW ? "المقدّم غير نشط الآن، فتبدأ من أول شريحة وتتنقل بنفسك." : "لم يبدأ المقدّم العرض بعد."));
   host.append(renderSlide(s, { step:step, student:true }));
-  if(S.free){
+  if(canNav()){
     host.append(h("div", { class:"lv-nav" },
       h("button", { type:"button", class:"btn ghost", onclick:() => liveMove(-1) }, "السابق"),
       h("button", { type:"button", class:"btn ghost" + (L.follow ? " on" : ""), onclick:liveSync }, L.follow ? "تتابع الشاشة ✓" : "متابعة الشاشة"),
@@ -1587,7 +1608,7 @@ function renderLiveSlide(){
   }
 }
 function liveMove(d){ L.follow = false; L.idx = clampIdx(L.idx + d); L.step = 99; renderLiveAll(); window.scrollTo(0, 0); }
-function liveSync(){ L.follow = true; L.idx = clampIdx(S.slide); L.step = S.step; renderLiveAll(); }
+function liveSync(){ L.follow = true; L.idx = startIdx(); L.step = startStep(); renderLiveAll(); }
 
 /* ---------- المشاركة ---------- */
 function groupPicker(){
@@ -1712,7 +1733,7 @@ $("lv-exit").addEventListener("click", goHome);
 
 /* ######## present.js ######## */
 /* ================= وضع المقدّم ================= */
-const P = { idx:0, step:0, last:-1, drawer:"", all:[], seen:-1, subSlide:"", pushT:null, poll:null, tm:{ total:0, left:0, run:false, t:null } };
+const P = { idx:0, step:0, last:-1, drawer:"", all:[], seen:-1, subSlide:"", pushT:null, poll:null, hb:null, tm:{ total:0, left:0, run:false, t:null } };
 
 const subKey = s => !s ? "" : s.kind === "activity" ? s.id : s.kind === "critique" ? (s.source || "") : "";
 const subsOf = id => P.all.filter(x => x.slide === id);
@@ -1737,19 +1758,21 @@ async function setSt(patch){
 }
 function setSync(ok){ const s = $("p-sync"); s.classList.toggle("ok", ok); s.title = ok ? "الطلاب متصلون بالمنصة" : "تعذّر الاتصال: الطلاب لا يرون التغييرات"; }
 
-async function openPresenter(){
+async function openPresenter(resume){
   show("s-present");
-  P.idx = 0; P.step = 0; P.last = -1; P.seen = -1; P.all = [];
+  if(!resume){ P.idx = 0; P.step = 0; }
+  P.idx = Math.min(P.idx, DECK.length - 1); P.last = -1; P.seen = -1; P.all = [];
   fillToolbar($("p-tools"), true);
   renderP();
   document.addEventListener("keydown", pKeys);
   window.addEventListener("resize", autoFit);
   clearInterval(P.poll); P.poll = setInterval(pPoll, 5000); pPoll();
-  const d = await setSt({ slide:0, step:0 }).catch(() => null); if(!d) setSync(false);
+  clearInterval(P.hb); P.hb = setInterval(() => { setSt({ ping:1 }).catch(() => setSync(false)); }, 20000);
+  const d = await setSt({ slide:P.idx, step:P.step }).catch(() => null); if(!d) setSync(false);
 }
 function closePresenter(){
   document.removeEventListener("keydown", pKeys); window.removeEventListener("resize", autoFit);
-  clearInterval(P.poll); clearInterval(P.tm.t); P.drawer = ""; $("drawer").classList.remove("on");
+  clearInterval(P.poll); clearInterval(P.hb); clearInterval(P.tm.t); P.drawer = ""; $("drawer").classList.remove("on");
   if(document.fullscreenElement && document.exitFullscreen) document.exitFullscreen();
   openAdmin();
 }
@@ -1761,6 +1784,9 @@ function pKeys(e){
   else if(e.key === "ArrowRight" || e.key === "PageUp"){ e.preventDefault(); pPrev(); }
   else if(e.key === "n" || e.key === "N" || e.key === "ن"){ toggleDrawer("notes"); }
   else if(e.key === "f" || e.key === "F" || e.key === "ب"){ toggleFS(); }
+  else if(e.key === "Home"){ e.preventDefault(); pGo(0, 0); }
+  else if(e.key === "End"){ e.preventDefault(); pGo(DECK.length - 1, 0); }
+  else if(e.key === "g" || e.key === "G" || e.key === "ع"){ toggleDrawer("index"); }
   else if(e.key === "Escape"){ if(P.drawer) toggleDrawer(""); }
 }
 function pGo(i, step){ P.idx = Math.max(0, Math.min(DECK.length - 1, i)); P.step = step || 0; renderP(); pushNav(); }
@@ -1810,11 +1836,12 @@ function renderP(noanim){
   if(S.subs === "all" && s.kind === "activity") wrap.append(h("h3", { class:"wall-t" }, "مشاركات الجميع"), h("div", { id:"pwall" }, wallEl(subsOf(s.id))));
   else if(S.subs === "stage" && S.stageData && s.kind !== "critique") wrap.append(stageOverlay());
   stage.append(wrap);
-  $("p-count").textContent = (P.idx + 1) + " / " + DECK.length;
+  $("p-count").textContent = (P.idx + 1) + " / " + DECK.length; $("p-count").title = s.title || "";
+  $("p-first").disabled = P.idx === 0 && P.step === 0;
   $("p-prev").disabled = P.idx === 0 && P.step === 0;
   $("p-next").disabled = P.idx === DECK.length - 1 && P.step >= stepsOf(s);
   const dots = $("p-dots"); dots.innerHTML = "";
-  DECK.forEach((x, i) => dots.append(h("button", { type:"button", class:"dotp" + (i === P.idx ? " on" : "") + (i < P.idx ? " done" : ""), title:x.title || "", onclick:() => pGo(i, 0) })));
+  DECK.forEach((x, i) => dots.append(h("button", { type:"button", class:"dotp" + (i === P.idx ? " on" : "") + (i < P.idx ? " done" : ""), title:(i + 1) + ". " + (x.title || KIND_NAMES[x.kind] || ""), onclick:() => pGo(i, 0) }, String(i + 1))));
   drawBar(); updateCount();
   if(P.last !== P.idx){ P.last = P.idx; tmSet(); }
   if(P.drawer) renderDrawer();
@@ -1888,11 +1915,23 @@ function renderDrawer(){
   inner.append(h("button", { type:"button", class:"dclose", onclick:() => toggleDrawer("") }, "✕"));
   if(P.drawer === "notes") drawerNotes(inner, s);
   else if(P.drawer === "subs") drawerSubs(inner);
+  else if(P.drawer === "index") drawerIndex(inner);
   else if(P.drawer === "edit"){
     inner.append(h("h3", {}, "تعديل: " + (KIND_NAMES[s.kind] || s.kind)));
     inner.append(buildEditor(s, c => { if(c === "cancel"){ toggleDrawer(""); return; } renderP(); saveDeck(); }));
   }
   box.append(inner);
+}
+function drawerIndex(inner){
+  inner.append(h("h3", {}, "فهرس الشرائح"), h("p", { class:"dmeta" }, "اضغط على أي شريحة للذهاب إليها. (مفاتيح: Home للأولى، End للأخيرة)"));
+  let total = 0;
+  DECK.forEach((x, i) => {
+    total += Number(x.min) || 0;
+    inner.append(h("button", { type:"button", class:"idxrow" + (i === P.idx ? " on" : ""), onclick:() => { pGo(i, 0); } },
+      h("span", { class:"n" }, String(i + 1)),
+      h("span", { class:"t" }, h("b", {}, x.title || KIND_NAMES[x.kind] || "شريحة"), h("small", {}, (KIND_NAMES[x.kind] || x.kind) + " · " + (x.min || 0) + " د"))));
+  });
+  inner.append(h("p", { class:"dmeta" }, "المجموع المقترح: " + total + " دقيقة"));
 }
 function drawerNotes(inner, s){
   inner.append(h("h3", {}, "ملاحظاتي"), h("p", { class:"dmeta" }, "الوقت المقترح: " + (s.min || 0) + " د"), h("div", { class:"dnotes" }, s.notes || "لا ملاحظات لهذه الشريحة."));
@@ -1995,6 +2034,8 @@ async function saveDeck(){
 /* ---------- ربط أزرار الشريط ---------- */
 $("p-exit").addEventListener("click", closePresenter);
 $("p-prev").addEventListener("click", pPrev);
+$("p-first").addEventListener("click", () => pGo(0, 0));
+$("p-index").addEventListener("click", () => toggleDrawer("index"));
 $("p-next").addEventListener("click", pNext);
 $("p-timer").addEventListener("click", tmToggle);
 $("p-notes").addEventListener("click", () => toggleDrawer("notes"));
@@ -2071,7 +2112,8 @@ function tabSurvey(host){
 function tabSession(host){
   const left = h("div", { class:"controls" }), right = h("div", { class:"controls" });
   left.append(h("div", { class:"adminbar" },
-    h("button", { type:"button", class:"btn", onclick:() => { afterLogin = null; openPresenter(); } }, "▶ بدء العرض"),
+    h("button", { type:"button", class:"btn", onclick:() => { afterLogin = null; openPresenter(); } }, "▶ بدء العرض من البداية"),
+    P.idx > 0 ? h("button", { type:"button", class:"btn light", onclick:() => { afterLogin = null; openPresenter(true); } }, "↩ متابعة من الشريحة " + (P.idx + 1)) : null,
     h("button", { type:"button", class:"btn light", onclick:openPrint }, "🖨 طباعة الأوراق")));
   left.append(h("div", { style:"height:12px" }));
   left.append(h("div", { class:"adminbar" }, h("button", { type:"button", class:"btn light", onclick:() => adminSet({ slide:0, step:0 }) }, "↺ إعادة العرض إلى الشريحة الأولى")));
