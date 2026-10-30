@@ -11,6 +11,32 @@
 <style>
 
 :root{
+  --pa:#0B1B3F; --pb:#1E2A78; --pc:#3B2A8F; --g1:rgba(76,195,255,.35); --g2:rgba(124,92,240,.45);
+  --fg:#FFFFFF; --fg2:#D5E3FF; --fg3:#B9CCF2; --glass:rgba(255,255,255,.10); --glass-b:rgba(255,255,255,.20); --glass2:rgba(255,255,255,.14);
+  --gold:#FFD166; --bar-track:rgba(255,255,255,.18); --dock-bg:rgba(11,27,63,.97); --pbar-bg:rgba(8,16,48,.88);
+  --err-t:#FFB4B4; --good-t:#7CF0BF; --closed-bg:rgba(255,209,102,.16); --closed-t:#FFE9B0; --grad-a:#8BDCFF; --grad-b:#C2B2FF; --scale:1;
+}
+html[data-theme="light"]{
+  --pa:#EEF4FB; --pb:#DCE8F7; --pc:#E6DEFA; --g1:rgba(76,195,255,.25); --g2:rgba(124,92,240,.16);
+  --fg:#12213F; --fg2:#2E4468; --fg3:#4A5E7E; --glass:rgba(255,255,255,.78); --glass-b:rgba(18,33,63,.16); --glass2:rgba(18,33,63,.09);
+  --gold:#8A5200; --bar-track:rgba(18,33,63,.15); --dock-bg:rgba(238,244,251,.97); --pbar-bg:rgba(238,244,251,.93);
+  --err-t:#B3261E; --good-t:#0E7A4F; --closed-bg:rgba(255,209,102,.38); --closed-t:#6B4300; --grad-a:#0A7CB5; --grad-b:#5B3FD1;
+}
+/* لوحات ألوان تتغير بحسب الشاشة ونوع الشريحة */
+body[data-pal="teal"]{--pa:#06222B; --pb:#0B4A5A; --pc:#146B6F}
+body[data-pal="plum"]{--pa:#1E0F3A; --pb:#4A1D7A; --pc:#7A2E8E}
+body[data-pal="ink"]{--pa:#14161F; --pb:#232A3A; --pc:#3A3148}
+body[data-pal="ocean"]{--pa:#07203F; --pb:#0C4A7A; --pc:#1B6AA8}
+body[data-pal="ember"]{--pa:#2B1230; --pb:#6B2A4A; --pc:#B5503C}
+body[data-pal="slate"]{--pa:#0E1B2A; --pb:#14293D; --pc:#1B3A52}
+html[data-theme="light"] body[data-pal="teal"]{--pa:#E9F7F5; --pb:#D4EEF0; --pc:#E4F3E9}
+html[data-theme="light"] body[data-pal="plum"]{--pa:#F4ECFB; --pb:#EADCF8; --pc:#F9E6F3}
+html[data-theme="light"] body[data-pal="ink"]{--pa:#F7F3EA; --pb:#EDE6D6; --pc:#F1EAE0}
+html[data-theme="light"] body[data-pal="ocean"]{--pa:#EAF3FC; --pb:#D6E8F8; --pc:#E1EEFB}
+html[data-theme="light"] body[data-pal="ember"]{--pa:#FFF1EA; --pb:#FBDDD0; --pc:#F6E3F0}
+html[data-theme="light"] body[data-pal="slate"]{--pa:#EEF2F6; --pb:#E2E9F0; --pc:#E8EEF4}
+
+:root{
   --navy:#0B1B3F; --indigo:#1E2A78; --violet:#7C5CF0; --sky:#4CC3FF; --gold:#FFD166;
   --ink:#12213F; --muted:#5A6A86; --line:#D6DEF0; --soft:#F3F6FD;
   --ok:#1FA971; --err:#D93A3A;
@@ -20,12 +46,12 @@
 *,*::before,*::after{box-sizing:inherit}
 html{min-height:100%; scroll-padding-top:env(safe-area-inset-top,0px)}
 body{
-  margin:0; min-height:100vh; color:#fff;
+  margin:0; min-height:100vh; color:var(--fg);
   font-family:"Tajawal","Segoe UI",Tahoma,Arial,sans-serif; font-size:18px; line-height:1.7;
   background:
-    radial-gradient(520px 380px at 85% -5%, rgba(76,195,255,.35), transparent 70%),
-    radial-gradient(480px 420px at 5% 105%, rgba(124,92,240,.45), transparent 70%),
-    linear-gradient(165deg,#0B1B3F 0%,#1E2A78 58%,#3B2A8F 100%);
+    radial-gradient(520px 380px at 85% -5%, var(--g1), transparent 70%),
+    radial-gradient(480px 420px at 5% 105%, var(--g2), transparent 70%),
+    linear-gradient(165deg,var(--pa) 0%,var(--pb) 58%,var(--pc) 100%);
   background-attachment:fixed;
   -webkit-tap-highlight-color:transparent; overflow-x:hidden;
 }
@@ -38,7 +64,7 @@ body{
 #s-q{padding-bottom:130px}
 h1{font-size:31px; line-height:1.4; margin:6px 0 10px; font-weight:800}
 h2{font-size:23px; line-height:1.55; margin:0 0 6px; font-weight:800; color:var(--ink)}
-.lead{color:#D5E3FF; margin:0 0 20px}
+.lead{color:var(--fg2); margin:0 0 20px}
 .center{text-align:center}
 
 /* الروبوت */
@@ -108,14 +134,14 @@ textarea:focus,input:focus{border-color:var(--violet); box-shadow:0 0 0 4px rgba
 
 /* التقدم والتشجيع */
 .top{display:flex; align-items:center; justify-content:space-between; gap:10px; margin:2px 0 10px}
-.count{font-size:15px; color:#D5E3FF; margin:0}
-.cheer{display:inline-block; background:rgba(255,255,255,.14); color:#fff; padding:3px 14px; border-radius:99px; font-weight:700; font-size:15px; animation:pop .45s cubic-bezier(.2,1.5,.4,1) both}
+.count{font-size:15px; color:var(--fg2); margin:0}
+.cheer{display:inline-block; background:var(--glass2); color:var(--fg); padding:3px 14px; border-radius:99px; font-weight:700; font-size:15px; animation:pop .45s cubic-bezier(.2,1.5,.4,1) both}
 @keyframes pop{from{transform:scale(.6); opacity:0}to{transform:scale(1); opacity:1}}
-.bar{height:12px; background:rgba(255,255,255,.18); border-radius:99px; overflow:hidden; margin:0 0 16px}
+.bar{height:12px; background:var(--bar-track); border-radius:99px; overflow:hidden; margin:0 0 16px}
 .bar i{display:block; height:100%; width:0; border-radius:99px; background:linear-gradient(90deg,var(--sky),var(--violet)); transition:width .6s cubic-bezier(.3,.9,.3,1)}
 
 /* شريط الأزرار الثابت */
-.dock{position:fixed; left:0; right:0; bottom:0; z-index:30; padding:26px 16px calc(12px + env(safe-area-inset-bottom,0px)); background:linear-gradient(to top, rgba(11,27,63,.97) 58%, rgba(11,27,63,0))}
+.dock{position:fixed; left:0; right:0; bottom:0; z-index:30; padding:26px 16px calc(12px + env(safe-area-inset-bottom,0px)); background:linear-gradient(to top, var(--dock-bg) 58%, transparent)}
 .dock-in{max-width:560px; margin:0 auto}
 .dock .err{margin:0 0 6px; min-height:0}
 
@@ -127,14 +153,14 @@ textarea:focus,input:focus{border-color:var(--violet); box-shadow:0 0 0 4px rgba
   transition:transform .12s ease, opacity .2s;
 }
 .btn:active{transform:scale(.97)}
-.btn.ghost{flex:0 0 auto; background:rgba(255,255,255,.16); box-shadow:none; color:#fff}
+.btn.ghost{flex:0 0 auto; background:var(--glass2); box-shadow:none; color:var(--fg)}
 .btn.light{background:var(--soft); color:var(--ink); box-shadow:none; border:2px solid var(--line)}
 .btn.danger{background:var(--err); box-shadow:none}
 .btn[disabled]{opacity:.45; cursor:not-allowed}
-.err{color:#FFB4B4; font-weight:700; min-height:1.5em; margin:10px 0 0}
+.err{color:var(--err-t); font-weight:700; min-height:1.5em; margin:10px 0 0}
 .card .err{color:var(--err)}
-.closed{background:rgba(255,209,102,.16); color:#FFE9B0; border-radius:14px; padding:10px 14px; text-align:center; margin:0 0 14px; font-weight:700}
-.adminlink{display:block; margin:26px auto 0; background:none; border:0; font:inherit; font-size:13px; color:rgba(255,255,255,.28); cursor:pointer; padding:8px 14px}
+.closed{background:var(--closed-bg); color:var(--closed-t); border-radius:14px; padding:10px 14px; text-align:center; margin:0 0 14px; font-weight:700}
+.adminlink{display:block; margin:26px auto 0; background:none; border:0; font:inherit; font-size:13px; color:var(--fg3); opacity:.55; cursor:pointer; padding:8px 14px}
 
 /* الشكر */
 .done-mark{
@@ -155,7 +181,7 @@ textarea:focus,input:focus{border-color:var(--violet); box-shadow:0 0 0 4px rgba
 .rb.top .track i{background:linear-gradient(90deg,#FFB703,#FFD166)}
 .rb.top span{font-weight:800}
 .quote{background:var(--soft); border-right:5px solid var(--violet); border-radius:10px; padding:8px 12px; margin:8px 0; font-size:16px; color:var(--ink)}
-.stat{font-size:15px; color:#D5E3FF; margin:0 0 14px}
+.stat{font-size:15px; color:var(--fg2); margin:0 0 14px}
 .kpis{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:0 0 14px}
 .kpi{background:#fff; color:var(--ink); border-radius:18px; padding:14px 10px; text-align:center}
 .kpi b{display:block; font-size:36px; line-height:1.25; font-weight:800; background:linear-gradient(135deg,#1AA7E8,var(--violet)); -webkit-background-clip:text; background-clip:text; color:transparent}
@@ -178,87 +204,91 @@ textarea:focus,input:focus{border-color:var(--violet); box-shadow:0 0 0 4px rgba
   *,*::before,*::after{animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important}
 }
 
+.note.onbg{color:var(--fg3)}
+html[data-theme="light"] .card{box-shadow:0 12px 30px rgba(18,33,63,.12); border:1px solid rgba(18,33,63,.08)}
+html[data-theme="light"] .btn:not(.ghost):not(.light):not(.danger){box-shadow:0 8px 20px rgba(60,100,200,.25)}
+
 /* ===================== المنصة: الإضافات ===================== */
 .wrap.wide{max-width:980px}
 body.presenting{overflow:hidden}
 .btn.small{flex:0 0 auto; min-height:42px; font-size:15px; padding:8px 16px; margin-top:12px}
-.dim{color:#B9CCF2; text-align:center; padding:10px}
+.dim{color:var(--fg3); text-align:center; padding:10px}
 .card .dim{color:var(--muted)}
-.intro{color:#D5E3FF; font-size:1.05em; margin:0 0 .9em}
+.intro{color:var(--fg2); font-size:1.05em; margin:0 0 .9em}
 
-.livecard{display:flex; align-items:center; justify-content:space-between; gap:12px; margin:0 0 14px; padding:12px 14px; border-radius:16px; background:linear-gradient(135deg,rgba(52,211,153,.22),rgba(76,195,255,.22)); border:1px solid rgba(255,255,255,.3)}
+.livecard{display:flex; align-items:center; justify-content:space-between; gap:12px; margin:0 0 14px; padding:12px 14px; border-radius:16px; background:linear-gradient(135deg,rgba(52,211,153,.22),rgba(76,195,255,.22)); border:1px solid var(--glass-b)}
 .livecard[hidden]{display:none}
 .livecard .btn{flex:0 0 auto; min-height:46px; font-size:17px}
 
 /* ---------- الشرائح ---------- */
-.slide{color:#fff; animation:rise .45s both}
+.slide{color:var(--fg); animation:rise .45s both}
 .noanim .slide{animation:none}
 .st{font-size:1.65em; font-weight:800; line-height:1.4; margin:0 0 .55em}
 .k-cover,.k-big,.k-wait{text-align:center}
 .rb-slot .robot{width:9em; max-width:60vw}
 .cover-t{font-size:2.3em; line-height:1.35; margin:.2em 0 .15em; font-weight:800}
-.cover-s{font-size:1.2em; color:#CFE0FF; margin:0}
-.big-k{color:#FFD166; font-weight:800; font-size:1.1em; margin-bottom:.3em}
-.big-t{font-size:2.2em; font-weight:800; line-height:1.45; margin:.2em 0 .4em; background:linear-gradient(135deg,#8BDCFF,#C2B2FF); -webkit-background-clip:text; background-clip:text; color:transparent}
-.big-s{font-size:1.15em; color:#D5E3FF; max-width:30em; margin:0 auto}
+.cover-s{font-size:1.2em; color:var(--fg2); margin:0}
+.big-k{color:var(--gold); font-weight:800; font-size:1.1em; margin-bottom:.3em}
+.big-t{font-size:2.2em; font-weight:800; line-height:1.45; margin:.2em 0 .4em; background:linear-gradient(135deg,var(--grad-a),var(--grad-b)); -webkit-background-clip:text; background-clip:text; color:transparent}
+.big-s{font-size:1.15em; color:var(--fg2); max-width:30em; margin:0 auto}
 .items{list-style:none; padding:0; margin:0; display:grid; gap:.6em}
-.items li{background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); border-radius:.8em; padding:.65em .95em; font-size:1.15em}
+.items li{background:var(--glass); border:1px solid var(--glass-b); border-radius:.8em; padding:.65em .95em; font-size:1.15em}
 .rv{animation:pop .4s both}
 .rv.hid{display:none}
-.foot{margin:1em 0 0; font-size:1.2em; font-weight:700; color:#FFD166; text-align:center}
+.foot{margin:1em 0 0; font-size:1.2em; font-weight:700; color:var(--gold); text-align:center}
 
 .flipgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(14em,1fr)); gap:.8em}
-.flipc{font:inherit; color:#fff; text-align:right; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.22); border-radius:1em; padding:1em; min-height:7.5em; cursor:pointer; transition:background .2s, transform .12s}
+.flipc{font:inherit; color:var(--fg); text-align:right; background:var(--glass); border:1px solid var(--glass-b); border-radius:1em; padding:1em; min-height:7.5em; cursor:pointer; transition:background .2s, transform .12s}
 .flipc:active{transform:scale(.98)}
 .flipc .ff{display:block}
 .flipc .fq{display:block; font-size:1.15em; font-weight:800; margin-bottom:.4em}
-.flipc small{color:#B9CCF2}
+.flipc small{color:var(--fg3)}
 .flipc .fb{display:none; font-size:1.05em; line-height:1.8}
 .flipc.on{background:linear-gradient(135deg,rgba(76,195,255,.28),rgba(124,92,240,.4))}
 .flipc.on .ff{display:none}
 .flipc.on .fb{display:block; animation:pop .35s both}
 
 .cgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(13em,1fr)); gap:.8em}
-.ccard{background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); border-radius:1em; padding:1em}
+.ccard{background:var(--glass); border:1px solid var(--glass-b); border-radius:1em; padding:1em}
 .ccard .ci{font-size:2em; line-height:1.2}
 .ccard .ct{font-size:1.2em; font-weight:800; margin:.15em 0}
-.ccard .cx{font-size:1em; color:#E3ECFF; line-height:1.75}
+.ccard .cx{font-size:1em; color:var(--fg2); line-height:1.75}
 
 .paper{background:#FFFDF7; color:#1B2430; border-radius:1em; padding:1em 1.1em; font-family:"Amiri","Tajawal",serif; font-size:1.2em; line-height:2.2}
 .paper .hp{margin:0 0 .7em}
 .paper .hp:last-child{margin:0}
 .gl{background:linear-gradient(transparent 58%,#FFE08A 58%); border-bottom:2px dotted #B7791F; cursor:pointer; border-radius:2px}
 .gl:focus-visible{outline:3px solid var(--sky)}
-.src{color:#B9CCF2; font-size:.9em; margin:.6em 0 0}
+.src{color:var(--fg3); font-size:.9em; margin:.6em 0 0}
 
 .qlist{margin:0; padding:0 1.3em 0 0; font-size:1.2em; line-height:2}
-.tplbox{white-space:pre-wrap; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.22); border-radius:1em; padding:.9em 1em; font-size:1.1em; line-height:1.9}
+.tplbox{white-space:pre-wrap; background:var(--glass); border:1px solid var(--glass-b); border-radius:1em; padding:.9em 1em; font-size:1.1em; line-height:1.9}
 .blank{background:#FFD166; color:#12213F; border-radius:.4em; padding:.05em .4em; font-weight:800}
-.pcount{display:inline-block; margin-top:1em; background:rgba(255,255,255,.14); border-radius:99px; padding:.25em 1em; font-weight:700; color:#FFD166}
+.pcount{display:inline-block; margin-top:1em; background:var(--glass2); border-radius:99px; padding:.25em 1em; font-weight:700; color:var(--gold)}
 
-.weak,.strongwrap{background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); border-radius:1em; padding:.8em 1em; margin-bottom:.8em}
-.wl{display:block; font-weight:800; color:#FFD166; margin-bottom:.3em}
+.weak,.strongwrap{background:var(--glass); border:1px solid var(--glass-b); border-radius:1em; padding:.8em 1em; margin-bottom:.8em}
+.wl{display:block; font-weight:800; color:var(--gold); margin-bottom:.3em}
 .wt{font-size:1.5em; font-weight:700}
 .strong{font-size:1.18em; line-height:2.1}
 .part{padding:.1em .4em; border-radius:.4em; transition:opacity .25s, box-shadow .25s}
 .p0{background:rgba(76,195,255,.35)} .p1{background:rgba(124,92,240,.45)} .p2{background:rgba(255,209,102,.4)} .p3{background:rgba(52,211,153,.4)}
 .part.dim{opacity:.25} .part.lit{box-shadow:0 0 0 3px #fff}
 .plabels{display:flex; flex-wrap:wrap; gap:.5em}
-.plab{font:inherit; color:#fff; font-weight:800; border:2px solid transparent; border-radius:99px; padding:.3em 1.1em; cursor:pointer}
-.plab.on{border-color:#fff}
+.plab{font:inherit; color:var(--fg); font-weight:800; border:2px solid transparent; border-radius:99px; padding:.3em 1.1em; cursor:pointer}
+.plab.on{border-color:var(--fg)}
 
 .spotlist{display:grid; gap:.55em}
-.spotl{display:flex; gap:.7em; align-items:center; text-align:right; font:inherit; color:#fff; background:rgba(255,255,255,.1); border:2px solid rgba(255,255,255,.2); border-radius:.9em; padding:.6em .9em; font-size:1.08em; cursor:pointer; line-height:1.7}
-.spotl .sn{flex:none; width:1.8em; height:1.8em; border-radius:50%; background:rgba(255,255,255,.2); display:grid; place-items:center; font-weight:800}
+.spotl{display:flex; gap:.7em; align-items:center; text-align:right; font:inherit; color:var(--fg); background:var(--glass); border:2px solid var(--glass-b); border-radius:.9em; padding:.6em .9em; font-size:1.08em; cursor:pointer; line-height:1.7}
+.spotl .sn{flex:none; width:1.8em; height:1.8em; border-radius:50%; background:var(--glass-b); display:grid; place-items:center; font-weight:800}
 .spotl.bad{border-color:#FF8A8A; background:rgba(229,72,77,.25); animation:shake .35s}
 .spotl.good{border-color:#34D399; background:rgba(52,211,153,.28)}
 @keyframes shake{25%{transform:translateX(6px)}50%{transform:translateX(-6px)}75%{transform:translateX(4px)}}
 .spotmsg{min-height:1.6em; margin:.8em 0 0; font-weight:700}
-.spotmsg.good{color:#7CF0BF} .spotmsg.bad{color:#FFB4B4}
+.spotmsg.good{color:var(--good-t)} .spotmsg.bad{color:var(--err-t)}
 
 .crit .dim{padding:1.2em}
 .checks{display:flex; flex-wrap:wrap; gap:.6em; margin-top:.9em}
-.chk{display:flex; gap:.5em; align-items:center; font:inherit; font-weight:800; color:#fff; background:rgba(255,255,255,.12); border:2px solid rgba(255,255,255,.3); border-radius:99px; padding:.4em 1.1em; cursor:pointer; font-size:1.05em}
+.chk{display:flex; gap:.5em; align-items:center; font:inherit; font-weight:800; color:var(--fg); background:var(--glass2); border:2px solid var(--glass-b); border-radius:99px; padding:.4em 1.1em; cursor:pointer; font-size:1.05em}
 .chk .ck{opacity:0; transition:opacity .15s}
 .chk.on{background:rgba(52,211,153,.35); border-color:#34D399}
 .chk.on .ck{opacity:1}
@@ -276,13 +306,13 @@ body.presenting{overflow:hidden}
 .who{font-weight:800; color:var(--violet); margin-bottom:4px}
 .pq{font-size:.8em; color:var(--muted)}
 .pa{margin-bottom:.5em; font-size:1.05em; line-height:1.7}
-.wall-t{margin:1.2em 0 .5em; color:#fff; font-size:1.1em}
+.wall-t{margin:1.2em 0 .5em; color:var(--fg); font-size:1.1em}
 .stage-ov{margin-top:1.2em; max-width:46em}
 .stage-ov .stagecard{font-size:1.15em}
 
 /* ---------- واجهة الطالب ---------- */
 #s-live .slide{font-size:17px}
-.lv-bar{display:flex; align-items:center; gap:8px; margin:2px 0 12px; color:#D5E3FF}
+.lv-bar{display:flex; align-items:center; gap:8px; margin:2px 0 12px; color:var(--fg2)}
 .lv-n{margin-right:auto; font-size:14px}
 .dot{width:10px; height:10px; border-radius:50%; background:#E5484D}
 .dot.ok{background:#34D399}
@@ -310,48 +340,68 @@ body.presenting{overflow:hidden}
 .warn{background:#FFF4D6; color:#7A5200; border-radius:10px; padding:8px 10px; font-weight:700; margin:0 0 4px}
 .warn[hidden]{display:none}
 
-/* ---------- وضع المقدّم ---------- */
-#s-present{position:fixed; inset:0; z-index:60; overflow:auto; display:none; background:linear-gradient(165deg,#0B1B3F 0%,#1E2A78 58%,#3B2A8F 100%)}
-#s-present.on{display:block}
-.pbar{position:sticky; top:0; z-index:5; display:flex; flex-wrap:wrap; gap:8px; align-items:center; padding:10px 14px; background:rgba(8,16,48,.88); backdrop-filter:blur(8px)}
-.pb{font:inherit; font-size:14px; color:#fff; background:rgba(255,255,255,.14); border:0; border-radius:10px; padding:7px 12px; cursor:pointer; white-space:nowrap}
-.pb.on{background:#1FA971}
-.pb.timer.on{background:var(--violet)}
-.pb.timer.alarm{background:#E5484D; animation:glow 1s infinite}
-.pcounter{font-weight:800; color:#FFD166; min-width:4.5em; text-align:center}
+/* ---------- وضع المقدّم: مقسّم بين شريط علوي ومنطقة الشريحة وشريط تنقل ---------- */
+#s-present{position:fixed; inset:0; z-index:60; display:none; flex-direction:column; background:transparent}
+#s-present.on{display:flex}
+.pbar{flex:none; display:flex; flex-wrap:wrap; gap:8px; align-items:center; padding:8px 12px; background:var(--pbar-bg); backdrop-filter:blur(8px); transition:opacity .35s}
+.pb{font:inherit; font-size:14px; color:var(--fg); background:var(--glass2); border:0; border-radius:10px; padding:6px 12px; cursor:pointer; white-space:nowrap}
+.pb.on{background:#1FA971; color:#fff}
+.pb.timer.on{background:var(--violet); color:#fff}
+.pb.timer.alarm{background:#E5484D; color:#fff; animation:glow 1s infinite}
+.pcounter{font-weight:800; color:var(--gold); min-width:4.5em; text-align:center}
+.ptools{display:inline-flex; gap:4px; flex-wrap:wrap}
 .badge{display:inline-block; background:#FFD166; color:#12213F; border-radius:99px; padding:0 8px; font-weight:800; margin-right:4px}
 .badge[hidden]{display:none}
 .syncdot{width:12px; height:12px; border-radius:50%; background:#E5484D; margin-right:auto}
 .syncdot.ok{background:#34D399}
-.pbar .seg{background:rgba(255,255,255,.14)}
-.pbar .sg{color:#fff; padding:5px 10px}
-.pstage{max-width:1100px; margin:0 auto; padding:26px 22px 140px; font-size:clamp(17px,1.9vw,30px)}
-.pnav{position:fixed; left:0; right:0; bottom:0; z-index:6; display:flex; align-items:center; gap:12px; padding:14px 16px calc(14px + env(safe-area-inset-bottom,0px)); background:linear-gradient(to top,rgba(8,16,48,.96) 62%,rgba(8,16,48,0))}
-.pbtn{font:inherit; font-weight:800; font-size:18px; color:#fff; background:rgba(255,255,255,.16); border:0; border-radius:14px; padding:12px 26px; cursor:pointer}
-.pbtn.primary{background:linear-gradient(135deg,var(--sky),var(--violet))}
+.pbar .seg{background:var(--glass2)}
+.pbar .sg{color:var(--fg); padding:5px 10px}
+.pbar .sg.on{color:#fff}
+.pmain{flex:1; min-height:0; display:flex}
+.pstage{flex:1; min-width:0; overflow:auto; display:flex; padding:2vh 3vw; font-size:clamp(15px, min(1.6vw, 2.7vh), 30px)}
+.pwrap{margin:auto; width:100%; max-width:1400px}
+.pstage .paper{column-count:1}
+@media (min-width:1000px){ .pstage .paper{column-count:2; column-gap:2.2em} }
+.pnav{flex:none; display:flex; align-items:center; gap:12px; padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px)); background:var(--pbar-bg); backdrop-filter:blur(8px); transition:opacity .35s}
+body.fs.idle .pbar, body.fs.idle .pnav{opacity:0; pointer-events:none}
+.pbtn{font:inherit; font-weight:800; font-size:18px; color:var(--fg); background:var(--glass2); border:0; border-radius:14px; padding:10px 26px; cursor:pointer}
+.pbtn.primary{background:linear-gradient(135deg,var(--sky),var(--violet)); color:#fff}
 .pbtn[disabled]{opacity:.35; cursor:not-allowed}
 .dots{flex:1; display:flex; gap:7px; justify-content:center; flex-wrap:wrap}
-.dotp{width:12px; height:12px; border-radius:50%; border:0; background:rgba(255,255,255,.3); cursor:pointer; padding:0; transition:transform .15s}
-.dotp.on{background:#FFD166; transform:scale(1.45)}
+.dotp{width:12px; height:12px; border-radius:50%; border:0; background:var(--glass-b); cursor:pointer; padding:0; transition:transform .15s}
+.dotp.on{background:var(--gold); transform:scale(1.45)}
 .dotp.done{background:rgba(76,195,255,.75)}
-.drawer{position:fixed; top:0; bottom:0; left:0; width:min(440px,100%); z-index:75; background:#fff; color:var(--ink); padding:16px; overflow:auto; transform:translateX(-106%); transition:transform .25s; box-shadow:0 0 40px rgba(0,0,0,.45); font-size:16px; line-height:1.7}
-.drawer.on{transform:none}
+/* الدرج: عمود مثبّت بجانب الشريحة، فلا يغطي أزرار التنقل ولا يمنع الانتقال */
+.drawer{flex:none; width:0; overflow:hidden; background:#fff; color:var(--ink); transition:width .25s; font-size:16px; line-height:1.7; box-shadow:-6px 0 24px rgba(0,0,0,.25)}
+.drawer.on{width:min(430px,44vw); overflow:auto}
+.dinner{width:min(430px,44vw); padding:14px 16px 24px}
+@media (max-width:800px){
+  .pmain{position:relative}
+  .drawer{position:absolute; top:0; bottom:0; left:0; z-index:8}
+  .drawer.on{width:min(92vw,430px)}
+  .dinner{width:min(92vw,430px)}
+}
 .drawer h3{margin:6px 0 10px}
-.dclose{float:left; font:inherit; border:0; background:var(--soft); border-radius:50%; width:36px; height:36px; cursor:pointer}
+.dclose{float:left; font:inherit; border:0; background:var(--soft); border-radius:50%; width:36px; height:36px; cursor:pointer; color:var(--ink)}
 .dmeta{color:var(--muted); font-size:14px; margin:4px 0}
 .dnotes{white-space:pre-wrap; background:var(--soft); border-radius:12px; padding:12px; line-height:1.9}
-.dlab{font-weight:700; margin:12px 0 6px; font-size:15px}
-.dlab.dk{color:var(--ink)}
+.dlab{font-weight:700; margin:12px 0 6px; font-size:15px; color:var(--ink)}
+.dlab.dk{color:var(--fg)}
 .drawer .dim{color:var(--muted)}
+.stabs{display:flex; flex-wrap:wrap; gap:6px}
+.stab{font:inherit; font-size:13px; border:2px solid var(--line); background:#fff; color:var(--ink); border-radius:99px; padding:3px 12px; cursor:pointer}
+.stab.on{background:linear-gradient(135deg,var(--sky),var(--violet)); color:#fff; border-color:transparent}
 .subrow{border:2px solid var(--line); border-radius:14px; padding:8px; margin:8px 0}
 .subrow.on{border-color:var(--ok)}
 .subrow .stagecard{border:0; padding:6px 8px}
-.subbtns{display:flex; gap:6px; margin-top:4px}
+.subbtns{display:flex; flex-wrap:wrap; gap:6px; margin-top:4px}
 .pb2{font:inherit; font-size:14px; border:0; border-radius:9px; padding:6px 12px; cursor:pointer; background:var(--soft); color:var(--ink)}
 .pb2.del{background:#FDE7E7; color:var(--err)}
 .seg{display:inline-flex; flex-wrap:wrap; gap:4px; background:rgba(18,33,63,.08); padding:4px; border-radius:12px}
 .sg{font:inherit; font-size:14px; border:0; background:transparent; border-radius:9px; padding:6px 12px; cursor:pointer; color:inherit}
 .sg.on{background:linear-gradient(135deg,var(--sky),var(--violet)); color:#fff; font-weight:700}
+.num{display:inline-flex; align-items:center; gap:6px}
+.num input{width:78px; text-align:center; font:inherit; font-size:16px; border:2px solid var(--line); border-radius:10px; padding:5px; background:#fff; color:var(--ink)}
 
 /* المحرر */
 .editor label{display:block; font-weight:700; margin:12px 0 4px; font-size:15px}
@@ -363,10 +413,10 @@ body.presenting{overflow:hidden}
 .adm-head h1{margin:0}
 .adm-head .btn{flex:0 0 auto; min-height:44px; font-size:16px}
 .tabs{display:flex; gap:8px; margin:12px 0}
-.tabbtn{flex:1; font:inherit; font-weight:800; font-size:16px; color:#fff; background:rgba(255,255,255,.12); border:0; border-radius:14px; padding:10px; cursor:pointer}
+.tabbtn{flex:1; font:inherit; font-weight:800; font-size:16px; color:var(--fg); background:var(--glass2); border:0; border-radius:14px; padding:10px; cursor:pointer}
 .tabbtn.on{background:linear-gradient(135deg,var(--sky),var(--violet))}
 .setcard{margin:0 0 10px}
-.note.dk{color:#D5E3FF}
+.note.dk{color:var(--fg2)}
 .slist{display:grid; gap:8px}
 .srow{display:flex; align-items:center; gap:10px; background:#fff; color:var(--ink); border-radius:14px; padding:8px 10px}
 .srow.on{outline:3px solid var(--violet)}
@@ -417,6 +467,40 @@ body.presenting{overflow:hidden}
   .pbtn{padding:10px 16px; font-size:16px}
 }
 
+/* ---------- الشرح عند اللفظ مباشرة ---------- */
+#gloss{position:fixed; z-index:95; background:#fff; color:#12213F; border-radius:14px; padding:10px 14px; font-size:16px; line-height:1.7; box-shadow:0 12px 36px rgba(0,0,0,.45); border-right:5px solid #E0A91F; opacity:0; pointer-events:none; transform:scale(.96); transition:opacity .15s, transform .15s; top:0; left:0}
+#gloss.on{opacity:1; pointer-events:auto; transform:none}
+#toast{position:fixed; top:calc(12px + env(safe-area-inset-top,0px)); left:50%; transform:translateX(-50%) translateY(-220%); z-index:96; background:#12213F; color:#fff; padding:10px 18px; border-radius:99px; transition:transform .3s; max-width:90%; text-align:center}
+#toast.on{transform:translateX(-50%)}
+.kchip{display:inline-block; background:var(--glass2); color:var(--fg2); border-radius:99px; padding:.05em .85em; font-size:.78em; font-weight:700; margin-bottom:.35em}
+.st{color:var(--fg)}
+.k-wait .st{color:var(--fg)}
+.wall-t{color:var(--fg)}
+
+/* ---------- أدوات عائمة ومعاينة الطالب ---------- */
+#tools{position:fixed; left:6px; top:42%; z-index:90; display:flex; flex-direction:column; align-items:center; gap:6px}
+body.presenting #tools, body.preview #tools, body.fs #tools{display:none}
+#tools .fab{width:34px; height:34px; border-radius:50%; border:0; background:var(--glass2); color:var(--fg); cursor:pointer; font-size:16px; backdrop-filter:blur(6px)}
+#tools .stack{display:none; flex-direction:column; gap:6px; background:var(--pbar-bg); padding:6px; border-radius:16px; backdrop-filter:blur(8px)}
+#tools.open .stack{display:flex}
+.tbtn{min-width:34px; height:34px; border-radius:10px; border:0; background:var(--glass2); color:var(--fg); font:inherit; font-size:14px; font-weight:800; cursor:pointer; padding:0 6px}
+#pvbanner{position:fixed; top:4px; left:50%; transform:translateX(-50%); z-index:97; background:#FFD166; color:#12213F; font-size:12px; font-weight:800; padding:2px 14px; border-radius:99px}
+#pvbanner[hidden]{display:none}
+body.preview .adminlink{display:none}
+#phone{position:fixed; left:12px; bottom:12px; width:min(372px,94vw); height:min(760px,88vh); z-index:98; background:#0b1220; border-radius:26px; padding:8px; box-shadow:0 20px 60px rgba(0,0,0,.55); display:flex; flex-direction:column}
+.ph-bar{display:flex; gap:6px; align-items:center; color:#fff; font-size:13px; padding:2px 8px 6px}
+.ph-bar button{border:0; background:rgba(255,255,255,.16); color:#fff; border-radius:8px; padding:2px 9px; cursor:pointer; font:inherit}
+.ph-sp{flex:1}
+#phone iframe{flex:1; border:0; border-radius:18px; background:#fff; width:100%}
+.ph-note{color:#B9CCF2; font-size:11px; margin:4px 8px 0; text-align:center}
+
+/* ---------- لوحة الإدارة على الشاشات الكبيرة ---------- */
+.grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); gap:14px; align-items:start}
+.grid2 > div{min-width:0}
+.rgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(18em,1fr)); gap:12px}
+body[data-screen="s-admin"] .card,body[data-screen="s-admin"] .switchrow,body[data-screen="s-admin"] .srow{border-radius:14px}
+.btn.small[hidden]{display:none}
+
 </style>
 </head>
 <body>
@@ -436,7 +520,7 @@ body.presenting{overflow:hidden}
   </div>
   <p class="closed" id="closed-note" hidden>الاستبانة مغلقة الآن.</p>
   <div class="row"><button class="btn" id="start">ابدأ الاستبانة</button></div>
-  <p class="note center" style="color:#B9CCF2">تستغرق دقيقتين تقريبًا</p>
+  <p class="note center onbg">تستغرق دقيقتين تقريبًا</p>
   <button class="adminlink" id="open-admin" type="button">دخول الإدارة</button>
 </section>
 
@@ -489,7 +573,7 @@ body.presenting{overflow:hidden}
 <!-- لوحة الإدارة -->
 <section class="screen" id="s-admin">
   <button class="btn ghost" id="a-exit" type="button">خروج من وضع العرض</button>
-  <div class="adm-head controls"><h1>لوحة الإدارة</h1><button class="btn ghost" id="a-home" type="button">خروج</button></div>
+  <div class="adm-head controls"><h1>لوحة الإدارة</h1><span class="ph-sp"></span><button class="btn ghost" id="a-prev" type="button">👁 معاينة كطالب</button><button class="btn ghost" id="a-home" type="button">خروج</button></div>
   <div class="tabs controls" id="a-tabs">
     <button class="tabbtn" data-tab="session" type="button">اللقاء</button>
     <button class="tabbtn" data-tab="content" type="button">المحتوى</button>
@@ -504,7 +588,7 @@ body.presenting{overflow:hidden}
   <div id="lv-slide"></div>
   <div id="lv-act"></div>
   <div id="lv-extra"></div>
-  <button class="adminlink" id="lv-exit" type="button" style="color:rgba(255,255,255,.5)">الخروج من اللقاء</button>
+  <button class="adminlink" id="lv-exit" type="button">الخروج من اللقاء</button>
 </section>
 
 <!-- الطباعة -->
@@ -529,21 +613,105 @@ body.presenting{overflow:hidden}
     <button class="pb" id="p-notes" type="button">📝 ملاحظاتي</button>
     <button class="pb" id="p-list" type="button">📋 المشاركات <span class="badge" id="p-badge" hidden>0</span></button>
     <button class="pb" id="p-edit" type="button">✎ تعديل</button>
+    <span class="ptools" id="p-tools"></span>
     <span class="syncdot ok" id="p-sync" title="متصل"></span>
   </div>
-  <div class="pstage" id="pstage"></div>
+  <div class="pmain">
+    <div class="pstage" id="pstage"></div>
+    <aside class="drawer" id="drawer"></aside>
+  </div>
   <div class="pnav">
     <button class="pbtn" id="p-prev" type="button">السابق</button>
     <div class="dots" id="p-dots"></div>
     <button class="pbtn primary" id="p-next" type="button">التالي</button>
   </div>
-  <aside class="drawer" id="drawer"></aside>
 </div>
 
 <div id="gloss" role="status"></div>
 <div id="toast" role="status"></div>
+<div id="tools"></div>
+<div id="pvbanner" hidden>معاينة الطالب</div>
 
 <script>
+
+/* ######## fx.js ######## */
+/* ================= مؤثرات: الثيم، حجم الخط، الأصوات، ملء الشاشة ================= */
+(function(){
+  try{
+    document.documentElement.dataset.theme = localStorage.getItem("ui_theme") === "light" ? "light" : "dark";
+    const sc = parseFloat(localStorage.getItem("ui_scale"));
+    if(sc) document.documentElement.style.setProperty("--scale", String(sc));
+  }catch(e){ document.documentElement.dataset.theme = "dark"; }
+})();
+const FX = { mute: (function(){ try{ return localStorage.getItem("ui_mute") === "1"; }catch(e){ return false; } })(), ac:null };
+const PREVIEW = /[?&]preview=1/.test(location.search);
+
+function themeNow(){ return document.documentElement.dataset.theme; }
+function setTheme(t){
+  document.documentElement.dataset.theme = t;
+  try{ localStorage.setItem("ui_theme", t); }catch(e){}
+  const m = document.querySelector("meta[name=theme-color]"); if(m) m.setAttribute("content", t === "light" ? "#EEF4FB" : "#0B1B3F");
+}
+function toggleTheme(){ setTheme(themeNow() === "light" ? "dark" : "light"); sfx("tap"); }
+function getScale(){ return parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--scale")) || 1; }
+function setScale(v){
+  v = Math.max(0.7, Math.min(1.7, Math.round(v * 100) / 100));
+  document.documentElement.style.setProperty("--scale", String(v));
+  try{ localStorage.setItem("ui_scale", String(v)); }catch(e){}
+  if(typeof autoFit === "function") autoFit();
+  if(typeof toast === "function") toast("حجم الخط: " + Math.round(v * 100) + "%");
+}
+function toggleMute(){ FX.mute = !FX.mute; try{ localStorage.setItem("ui_mute", FX.mute ? "1" : "0"); }catch(e){} if(!FX.mute) sfx("ok"); }
+function toggleFS(){
+  const d = document;
+  if(!d.fullscreenElement && d.documentElement.requestFullscreen) d.documentElement.requestFullscreen().catch(() => {});
+  else if(d.exitFullscreen) d.exitFullscreen();
+}
+document.addEventListener("fullscreenchange", () => {
+  document.body.classList.toggle("fs", !!document.fullscreenElement);
+  if(typeof autoFit === "function") setTimeout(autoFit, 200);
+  wake();
+});
+let idleT;
+function wake(){
+  document.body.classList.remove("idle"); clearTimeout(idleT);
+  if(document.fullscreenElement) idleT = setTimeout(() => document.body.classList.add("idle"), 3000);
+}
+["mousemove", "touchstart", "keydown"].forEach(ev => document.addEventListener(ev, wake, { passive:true }));
+
+/* ---- الأصوات ---- */
+function audioCtx(){
+  if(FX.mute) return null;
+  try{
+    if(!FX.ac){ const C = window.AudioContext || window.webkitAudioContext; if(!C) return null; FX.ac = new C(); }
+    if(FX.ac.state === "suspended") FX.ac.resume();
+    return FX.ac;
+  }catch(e){ return null; }
+}
+function tone(f, dur, type, vol, delay){
+  const ac = audioCtx(); if(!ac) return;
+  const t = ac.currentTime + (delay || 0), o = ac.createOscillator(), g = ac.createGain();
+  o.type = type || "sine"; o.frequency.setValueAtTime(f, t);
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol || 0.12, t + 0.015); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  o.connect(g); g.connect(ac.destination); o.start(t); o.stop(t + dur + 0.02);
+}
+const SFX = {
+  tap:  () => tone(720, 0.05, "triangle", 0.07),
+  pop:  () => { tone(520, 0.07, "sine", 0.1); tone(780, 0.09, "sine", 0.09, 0.06); },
+  next: () => tone(600, 0.06, "triangle", 0.06),
+  ok:   () => [523, 659, 784].forEach((f, i) => tone(f, 0.18, "sine", 0.12, i * 0.09)),
+  bad:  () => { tone(190, 0.22, "sawtooth", 0.09); tone(140, 0.28, "sawtooth", 0.09, 0.12); },
+  send: () => { tone(660, 0.1, "sine", 0.12); tone(990, 0.16, "sine", 0.12, 0.09); },
+  done: () => [523, 659, 784, 1047].forEach((f, i) => tone(f, 0.22, "sine", 0.12, i * 0.1)),
+  ding: () => { tone(988, 0.18, "sine", 0.12); tone(1319, 0.3, "sine", 0.1, 0.1); },
+  alarm:() => [0, 0.3, 0.6].forEach(d => tone(880, 0.2, "square", 0.07, d))
+};
+function sfx(n){ try{ if(SFX[n]) SFX[n](); }catch(e){} }
+
+/* ---- ألوان الصفحة بحسب نوع الشريحة والشاشة ---- */
+const PAL_BY_KIND = { cover:"a", results:"teal", big:"ember", flip:"ocean", cards:"ocean", bullets:"a", reading:"ink", activity:"teal", anatomy:"ocean", spot:"plum", critique:"slate" };
+const PAL_BY_SCREEN = { "s-intro":"a", "s-q":"a", "s-done":"teal", "s-res":"teal", "s-login":"slate", "s-admin":"slate", "s-print":"slate", "s-live":"a", "s-present":"a" };
+function setPal(p){ document.body.dataset.pal = p || "a"; }
 
 /* ######## survey.js ######## */
 
@@ -611,13 +779,15 @@ document.querySelectorAll(".robot-slot").forEach(el => { el.innerHTML = ROBOT; }
   }
   function draw(){
     ctx.clearRect(0,0,W,H); const L = 125;
+    const light = document.documentElement.dataset.theme === "light";
+    const lc = light ? "50,80,160," : "120,200,255,", dc = light ? "40,70,150,.45" : "190,225,255,.7";
     for(let a=0; a<nodes.length; a++){
       for(let b=a+1; b<nodes.length; b++){
         const dx = nodes[a].x-nodes[b].x, dy = nodes[a].y-nodes[b].y, dist = Math.hypot(dx,dy);
-        if(dist < L){ ctx.strokeStyle = "rgba(120,200,255,"+(0.22*(1-dist/L))+")"; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(nodes[a].x,nodes[a].y); ctx.lineTo(nodes[b].x,nodes[b].y); ctx.stroke(); }
+        if(dist < L){ ctx.strokeStyle = "rgba("+lc+(0.22*(1-dist/L))+")"; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(nodes[a].x,nodes[a].y); ctx.lineTo(nodes[b].x,nodes[b].y); ctx.stroke(); }
       }
     }
-    ctx.fillStyle = "rgba(190,225,255,.7)";
+    ctx.fillStyle = "rgba("+dc+")";
     nodes.forEach(n => { ctx.beginPath(); ctx.arc(n.x,n.y,n.r,0,6.283); ctx.fill(); });
   }
   function step(){
@@ -651,6 +821,8 @@ function show(id){
   document.querySelectorAll(".screen").forEach(s => s.classList.toggle("on", s.id === id));
   const w = document.querySelector(".wrap"); if(w) w.classList.toggle("wide", id === "s-admin" || id === "s-print");
   document.body.classList.toggle("presenting", id === "s-present");
+  document.body.dataset.screen = id;
+  if(id !== "s-live" && id !== "s-present" && typeof setPal === "function") setPal(PAL_BY_SCREEN[id] || "a");
   if(id !== "s-live" && typeof stopLivePoll === "function") stopLivePoll();
   window.scrollTo(0,0);
 }
@@ -725,6 +897,7 @@ function renderQ(dir){
 }
 
 function pick(q, label){
+  sfx("tap");
   if(q.type === "multi"){
     const cur = answers[q.key] || [];
     answers[q.key] = cur.includes(label) ? cur.filter(x => x !== label) : cur.concat(label);
@@ -745,15 +918,15 @@ $("start").addEventListener("click", () => {
 });
 $("back").addEventListener("click", () => { if(i > 0){ i--; renderQ("back"); window.scrollTo(0,0); } });
 $("next").addEventListener("click", async () => {
-  if(!valid()){ $("err").textContent = "اختر إجابة أولًا."; return; }
-  if(i < Q.length - 1){ i++; renderQ("next"); window.scrollTo(0,0); return; }
+  if(!valid()){ $("err").textContent = "اختر إجابة أولًا."; sfx("bad"); return; }
+  if(i < Q.length - 1){ i++; sfx("next"); renderQ("next"); window.scrollTo(0,0); return; }
   await submit();
 });
 
 /* ---------- الإرسال ---------- */
 const TEST = () => location.hash === "#test";
-function sentBefore(){ if(TEST()) return false; try{ return localStorage.getItem("ai_survey_done") === "1"; }catch(e){ return false; } }
-function markSent(){ if(TEST()) return; try{ localStorage.setItem("ai_survey_done","1"); }catch(e){} }
+function sentBefore(){ if(TEST() || PREVIEW) return false; try{ return localStorage.getItem("ai_survey_done") === "1"; }catch(e){ return false; } }
+function markSent(){ if(TEST() || PREVIEW) return; try{ localStorage.setItem("ai_survey_done","1"); }catch(e){} }
 
 async function submit(){
   const btn = $("next"); btn.disabled = true; $("err").textContent = "";
@@ -765,15 +938,15 @@ async function submit(){
     uses_other: isSelected(usesQ, usesQ.other.when) ? state.other.uses_other.slice(0,200) : ""
   };
   try{
-    if(!DEMO){
+    if(!DEMO && !PREVIEW){
       await fetch(ENDPOINT, { method:"POST", mode:"no-cors", headers:{ "Content-Type":"text/plain;charset=utf-8" }, body:JSON.stringify(payload) });
       markSent();
     }
     $("prog").style.width = "100%";
-    show("s-done");
-    $("done-msg").textContent = DEMO ? "وضع تجريبي: لم يُرسل شيء لأن رابط السكربت لم يُضَف بعد." : "وصلت إجابتك، وسنبني اللقاء على ما كتبتم. نراكم قريبًا.";
+    show("s-done"); sfx("done");
+    $("done-msg").textContent = PREVIEW ? "معاينة: لم يُرسل شيء." : DEMO ? "وضع تجريبي: لم يُرسل شيء لأن رابط السكربت لم يُضَف بعد." : "وصلت إجابتك، وسنبني اللقاء على ما كتبتم. نراكم قريبًا.";
     setTimeout(confetti, 250);
-    if(!DEMO) setTimeout(() => loadPublic("done-res"), 1200);
+    if(!DEMO && !PREVIEW) setTimeout(() => loadPublic("done-res"), 1200);
   }catch(e){
     $("err").textContent = "تعذّر الإرسال. تأكد من الإنترنت ثم اضغط “أرسل” مرة أخرى.";
     btn.disabled = false;
@@ -863,15 +1036,16 @@ const DEFAULT_DECK = [
     notes:"لا أحاضر. أترك كل بطاقة مغلقة، وأسأل الطلاب عن جوابهم أولًا، ثم أقلبها. إن ضاق الوقت أكتفي بأول بطاقتين وبطاقة «هل يخطئ؟»." },
 
   { id:"s-roles", kind:"cards", min:4,
-    title:"أربعة أدوار تعينك وأنت تعمل",
+    title:"كيف تستفيد منه وأنت تتعلم؟",
+    intro:"الفكرة: تطلب منه أن يتقمّص دور شخص يعينك، فتأتيك مساعدة تناسبك. هذه أربعة أدوار، وتحت كل دور جملة تصلح أن تكتبها له.",
     items:[
-      { icon:"🧑‍🏫", title:"معلّم", text:"«اشرح لي هذا الدرس كأني في أولى متوسط، وأعطني مثالًا»" },
-      { icon:"📝", title:"ممتحِن", text:"«اسألني خمسة أسئلة على الدرس ولا تعطني الجواب»" },
-      { icon:"✍️", title:"مصحِّح", text:"يراجع إملاءك ومقالك ويدلّك على الخطأ، ويصحّح محادثتك بالإنجليزية" },
-      { icon:"🗓️", title:"مخطِّط", text:"جدول مذاكرة، وأفكار لخدمة والدتك هذا الأسبوع، وكيف تعلّم جدّك الواتساب" }
+      { icon:"🧑‍🏫", title:"اطلب منه: كن معلّمي", text:"اكتب له: «اشرح لي هذا الدرس كأني في أولى متوسط، وأعطني مثالًا»" },
+      { icon:"📝", title:"اطلب منه: اختبرني", text:"اكتب له: «اسألني خمسة أسئلة على الدرس، ولا تعطني الجواب»" },
+      { icon:"✍️", title:"اطلب منه: صحّح لي", text:"اكتب له: «راجع مقالي ودلّني على أخطائي دون أن تكتبه عني»" },
+      { icon:"🗓️", title:"اطلب منه: خطّط لي", text:"اكتب له: «ساعدني أضع جدول مذاكرة لأسبوع الاختبارات»، أو: «كيف أعلّم جدّي الواتساب بخطوات بسيطة؟»" }
     ],
-    foot:"هو يقترح، وأنت تنفّذ.",
-    notes:"أضغط على البطاقات واحدة واحدة. في «مخطِّط» أذكر برّ الوالدين بجملة واحدة، ثم أؤكد: الذكاء الاصطناعي يقترح والتنفيذ علينا." },
+    foot:"في كل دور: أنت الذي تعمل، وهو يعينك. لا تطلب منه أن يعمل عنك.",
+    notes:"أبدأ بسؤال: لو كان معك معلّم خاص في جيبك، ماذا تطلب منه؟ ثم أعرض البطاقات واحدة واحدة، وأقول: كل بطاقة هي دور تطلبه منه وجملة تكتبها له. في «خطّط لي» أذكر برّ الوالدين بجملة واحدة: هو يقترح، والتنفيذ علينا. ثم أؤكد الخلاصة في الشريط الأصفر." },
 
   { id:"s-nlm", kind:"bullets", min:1,
     title:"عرض سريع: NotebookLM (إن توفرت شاشة)",
@@ -1005,17 +1179,21 @@ function toast(msg){
   const t = $("toast"); t.textContent = msg; t.classList.add("on");
   clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("on"), 2400);
 }
-function showGloss(w, m){
+function hideGloss(){ $("gloss").classList.remove("on"); }
+function showGloss(w, m, el){
   const g = $("gloss"); g.innerHTML = ""; g.append(h("b", {}, w + ": "), m); g.classList.add("on");
-  clearTimeout(showGloss._t); showGloss._t = setTimeout(() => g.classList.remove("on"), 7000);
-}
-$("gloss").addEventListener("click", () => $("gloss").classList.remove("on"));
-function beep(){
-  try{
-    const ac = new (window.AudioContext || window.webkitAudioContext)(), o = ac.createOscillator(), g = ac.createGain();
-    o.connect(g); g.connect(ac.destination); o.frequency.value = 880; g.gain.value = .15; o.start();
-    setTimeout(() => { o.stop(); ac.close(); }, 380);
-  }catch(e){}
+  const vw = window.innerWidth || 360, vh = window.innerHeight || 640, gw = Math.min(300, vw - 16);
+  g.style.width = gw + "px";
+  const r = el && el.getBoundingClientRect ? el.getBoundingClientRect() : null;
+  let left = r ? r.left + r.width / 2 - gw / 2 : (vw - gw) / 2; left = Math.max(8, Math.min(vw - gw - 8, left));
+  const gh = g.offsetHeight || 64;
+  let top = r ? ((r.bottom + 10 + gh < vh) ? r.bottom + 10 : Math.max(8, r.top - gh - 10)) : vh / 2;
+  g.style.left = left + "px"; g.style.top = top + "px";
+  sfx("pop");
+  setTimeout(() => {
+    document.addEventListener("pointerdown", hideGloss, { once:true, capture:true });
+    window.addEventListener("scroll", hideGloss, { once:true, capture:true });
+  }, 0);
 }
 
 /* ================= الحالة والبيانات ================= */
@@ -1063,6 +1241,7 @@ function demoAdmin(op, x){
   }
   if(op === "setDeck") return { ok:true, state:S };
   if(op === "subs") return { ok:true, subs: demoSubs.filter(s => s.slide === x.slide), state:S };
+  if(op === "allSubs") return { ok:true, subs: clone(demoSubs), state:S };
   if(op === "stage"){
     const s = demoSubs.find(z => z.id === x.id);
     S.stage = s ? s.id : ""; S.stageData = s ? clone(s) : null; return { ok:true, state:S };
@@ -1105,7 +1284,7 @@ function parseGloss(text, mode){
       const w = m[1], g = m[2];
       if(mode === "print") para.append(w, h("small", { class:"pg" }, "[" + g + "]"));
       else if(mode === "plain") para.append(w);
-      else para.append(h("span", { class:"gl", tabindex:"0", role:"button", onclick:() => showGloss(w, g) }, w));
+      else para.append(h("span", { class:"gl", tabindex:"0", role:"button", onclick:ev => showGloss(w, g, ev.currentTarget) }, w));
       last = re.lastIndex;
     }
     if(last < p.length) para.append(p.slice(last));
@@ -1174,7 +1353,7 @@ function critiqueInner(s){
   if(!sd){ wrap.append(h("p", { class:"dim" }, "لم تُعرض مشاركة بعد. ستظهر هنا مشاركة مجموعة لنناقشها.")); return wrap; }
   wrap.append(stageCard(sd));
   const checks = h("div", { class:"checks" });
-  (s.checks || []).forEach(c => { const b = h("button", { type:"button", class:"chk", onclick:() => b.classList.toggle("on") }, h("span", { class:"ck" }, "✓"), c); checks.append(b); });
+  (s.checks || []).forEach(c => { const b = h("button", { type:"button", class:"chk", onclick:() => { b.classList.toggle("on"); sfx("tap"); } }, h("span", { class:"ck" }, "✓"), c); checks.append(b); });
   wrap.append(checks);
   return wrap;
 }
@@ -1183,63 +1362,66 @@ function renderSlide(s, o){
   o = o || {};
   const step = o.step == null ? 99 : o.step;
   const box = h("div", { class:"slide k-" + s.kind });
-  const T = t => t ? h("h2", { class:"st" }, t) : null;
+  const add = (...xs) => xs.flat(Infinity).forEach(x => { if(x != null && x !== false) box.append(x.nodeType ? x : document.createTextNode(String(x))); });
+  const KCHIP = { results:"📊 أرقامكم", flip:"💡 فكّر", cards:"🧩 تعرّف", bullets:"📌 تذكّر", reading:"📖 قراءة", activity:"✍️ نشاط", anatomy:"🔬 تشريح", spot:"🎮 تحدٍّ", critique:"🧐 نقاش" };
+  const T = t => t ? [KCHIP[s.kind] ? h("div", { class:"kchip" }, KCHIP[s.kind]) : null, h("h2", { class:"st" }, t)] : null;
   switch(s.kind){
     case "cover": {
       const rb = h("div", { class:"rb-slot" }); rb.innerHTML = ROBOT;
-      box.append(rb, h("h1", { class:"cover-t" }, s.title), h("p", { class:"cover-s" }, s.sub));
+      add(rb, h("h1", { class:"cover-t" }, s.title), h("p", { class:"cover-s" }, s.sub));
       break;
     }
     case "bullets": {
-      box.append(T(s.title));
+      add(T(s.title));
       const ul = h("ul", { class:"items" });
       (s.items || []).forEach((t, i) => ul.append(h("li", { class:"rv" + (i >= step ? " hid" : "") }, t)));
-      box.append(ul); break;
+      add(ul); break;
     }
     case "big":
-      box.append(h("div", { class:"big-k" }, s.title), h("div", { class:"big-t" }, s.text), s.sub ? h("p", { class:"big-s" }, s.sub) : null);
+      add(h("div", { class:"big-k" }, s.title), h("div", { class:"big-t" }, s.text), s.sub ? h("p", { class:"big-s" }, s.sub) : null);
       break;
     case "flip": {
-      box.append(T(s.title));
+      add(T(s.title));
       const grid = h("div", { class:"flipgrid" });
       (s.cards || []).forEach(c => {
-        const card = h("button", { type:"button", class:"flipc", onclick:() => card.classList.toggle("on") },
+        const card = h("button", { type:"button", class:"flipc", onclick:() => { card.classList.toggle("on"); sfx("pop"); } },
           h("span", { class:"ff" }, h("span", { class:"fq" }, c.q), h("small", {}, "اضغط لتعرف")),
           h("span", { class:"fb" }, c.a));
         grid.append(card);
       });
-      box.append(grid); break;
+      add(grid); break;
     }
     case "cards": {
-      box.append(T(s.title));
+      add(T(s.title));
       const grid = h("div", { class:"cgrid" });
+      if(s.intro) add(h("p", { class:"intro" }, s.intro));
       (s.items || []).forEach((c, i) => grid.append(h("div", { class:"ccard rv" + (i >= step ? " hid" : "") }, h("div", { class:"ci" }, c.icon), h("div", { class:"ct" }, c.title), h("div", { class:"cx" }, c.text))));
-      box.append(grid);
-      if(s.foot) box.append(h("p", { class:"foot" }, s.foot));
+      add(grid);
+      if(s.foot) add(h("p", { class:"foot" }, s.foot));
       break;
     }
     case "reading": {
-      box.append(T(s.title));
-      if(s.instruction) box.append(h("p", { class:"intro" }, s.instruction));
-      box.append(h("div", { class:"paper" }, parseGloss(s.text, "tap")));
-      if(s.source) box.append(h("div", { class:"src" }, s.source));
-      if(o.student) box.append(h("button", { type:"button", class:"btn light small", onclick:async () => { toast((await copyText(plainText(s.text))) ? "نُسخ النص بلا شروح" : "تعذّر النسخ"); } }, "📋 انسخ النص بلا شروح"));
+      add(T(s.title));
+      if(s.instruction) add(h("p", { class:"intro" }, s.instruction));
+      add(h("div", { class:"paper" }, parseGloss(s.text, "tap")));
+      if(s.source) add(h("div", { class:"src" }, s.source));
+      if(o.student) add(h("button", { type:"button", class:"btn light small", onclick:async () => { toast((await copyText(plainText(s.text))) ? "نُسخ النص بلا شروح" : "تعذّر النسخ"); } }, "📋 انسخ النص بلا شروح"));
       break;
     }
     case "activity": {
-      box.append(T(s.title));
-      if(s.instruction) box.append(h("p", { class:"intro" }, s.instruction));
+      add(T(s.title));
+      if(s.instruction) add(h("p", { class:"intro" }, s.instruction));
       if(s.akind === "answers"){
-        const ol = h("ol", { class:"qlist" }); (s.questions || []).forEach(q => ol.append(h("li", {}, q.q))); box.append(ol);
+        const ol = h("ol", { class:"qlist" }); (s.questions || []).forEach(q => ol.append(h("li", {}, q.q))); add(ol);
       } else if(s.akind === "template"){
-        box.append(h("div", { class:"tplbox" }, tplSkeleton(s.tpl)));
+        add(h("div", { class:"tplbox" }, tplSkeleton(s.tpl)));
       }
-      if(o.present) box.append(h("div", { class:"pcount", id:"pcount" }));
+      if(o.present) add(h("div", { class:"pcount", id:"pcount" }));
       break;
     }
     case "anatomy": {
-      box.append(T(s.title));
-      box.append(h("div", { class:"weak" }, h("span", { class:"wl" }, "😕 طلب ضعيف"), h("div", { class:"wt" }, s.weak)));
+      add(T(s.title));
+      add(h("div", { class:"weak" }, h("span", { class:"wl" }, "😕 طلب ضعيف"), h("div", { class:"wt" }, s.weak)));
       const strong = h("div", { class:"strong" }), labels = h("div", { class:"plabels" });
       let focus = -1;
       const apply = () => {
@@ -1248,47 +1430,90 @@ function renderSlide(s, o){
       };
       (s.parts || []).forEach((p, i) => {
         strong.append(h("span", { class:"part p" + (i % 4) }, p.text), " ");
-        labels.append(h("button", { type:"button", class:"plab p" + (i % 4), onclick:() => { focus = focus === i ? -1 : i; apply(); } }, p.label));
+        labels.append(h("button", { type:"button", class:"plab p" + (i % 4), onclick:() => { focus = focus === i ? -1 : i; apply(); sfx("tap"); } }, p.label));
       });
-      box.append(h("div", { class:"strongwrap" }, h("span", { class:"wl" }, "🙂 طلب جيد: اضغط على كل جزء"), strong), labels);
+      add(h("div", { class:"strongwrap" }, h("span", { class:"wl" }, "🙂 طلب جيد: اضغط على كل جزء"), strong), labels);
       break;
     }
     case "spot": {
-      box.append(T(s.title));
-      if(s.intro) box.append(h("p", { class:"intro" }, s.intro));
+      add(T(s.title));
+      if(s.intro) add(h("p", { class:"intro" }, s.intro));
       const msg = h("div", { class:"spotmsg" }), list = h("div", { class:"spotlist" });
       let solved = false;
       (s.items || []).forEach((it, i) => {
         const b = h("button", { type:"button", class:"spotl", onclick:() => {
           if(solved) return;
-          if(it.wrong){ solved = true; b.classList.add("good"); msg.className = "spotmsg good"; msg.textContent = "أحسنت! هذا هو الخطأ. " + (it.why || ""); confetti(); }
-          else { b.classList.remove("bad"); void b.offsetWidth; b.classList.add("bad"); msg.className = "spotmsg bad"; msg.textContent = "ليست هذه. حاول مرة أخرى."; }
+          if(it.wrong){ solved = true; b.classList.add("good"); msg.className = "spotmsg good"; msg.textContent = "أحسنت! هذا هو الخطأ. " + (it.why || ""); confetti(); sfx("ok"); }
+          else { b.classList.remove("bad"); void b.offsetWidth; b.classList.add("bad"); msg.className = "spotmsg bad"; msg.textContent = "ليست هذه. حاول مرة أخرى."; sfx("bad"); }
         } }, h("span", { class:"sn" }, String(i + 1)), it.text);
         list.append(b);
       });
       const reveal = h("button", { type:"button", class:"btn light small", onclick:() => {
-        solved = true;
+        solved = true; sfx("pop");
         list.querySelectorAll(".spotl").forEach((b, i) => { if((s.items[i] || {}).wrong) b.classList.add("good"); });
         const w = (s.items || []).find(x => x.wrong); msg.className = "spotmsg good"; msg.textContent = w ? "الخطأ: " + (w.why || "") : "";
       } }, "اكشف الجواب");
-      box.append(list, msg, reveal);
+      add(list, msg, reveal);
       break;
     }
     case "critique":
-      box.append(T(s.title), critiqueInner(s));
+      add(T(s.title), critiqueInner(s));
       break;
     case "results": {
-      box.append(T(s.title));
-      if(s.sub) box.append(h("p", { class:"intro" }, s.sub));
+      add(T(s.title));
+      if(s.sub) add(h("p", { class:"intro" }, s.sub));
       const host = h("div", { class:"res-host" }, h("p", { class:"dim" }, "جارٍ التحميل…"));
-      box.append(host); loadResultsInto(host);
+      add(host); loadResultsInto(host);
       break;
     }
     default:
-      box.append(T(s.title || "شريحة"));
+      add(T(s.title || "شريحة"));
   }
   return box;
 }
+
+/* ######## tools.js ######## */
+/* ================= الأدوات: ثيم، خط، ملء الشاشة، صوت، معاينة الطالب ================= */
+function toolButtons(){
+  const mk = (txt, title, fn) => h("button", { type:"button", class:"tbtn", title:title, "aria-label":title, onclick:fn }, txt);
+  const btns = [
+    mk("🌓", "ليلي / نهاري", toggleTheme),
+    mk("A−", "تصغير الخط", () => setScale(getScale() - 0.1)),
+    mk("A+", "تكبير الخط", () => setScale(getScale() + 0.1)),
+    mk("⛶", "ملء الشاشة", toggleFS)
+  ];
+  const sound = mk(FX.mute ? "🔇" : "🔊", "الصوت", () => { toggleMute(); sound.textContent = FX.mute ? "🔇" : "🔊"; });
+  btns.push(sound);
+  if(adminPass) btns.push(mk("👁", "معاينة الطالب", togglePhone));
+  return btns;
+}
+function fillToolbar(host, compact){
+  host.innerHTML = "";
+  toolButtons().forEach(b => host.append(b));
+}
+
+/* الزر العائم (يظهر في كل الشاشات عدا العرض والمعاينة) */
+function renderFloatingTools(){
+  const box = $("tools"); box.innerHTML = "";
+  const stack = h("div", { class:"stack" }); toolButtons().forEach(b => stack.append(b));
+  const fab = h("button", { type:"button", class:"fab", title:"أدوات العرض", "aria-label":"أدوات العرض", onclick:() => { box.classList.toggle("open"); if(box.classList.contains("open")){ renderFloatingTools(); box.classList.add("open"); } } }, "⚙");
+  box.append(stack, fab);
+}
+renderFloatingTools();
+
+/* معاينة الطالب: نافذة جوال تعرض الصفحة كما يراها الطالب تمامًا، دون الخروج من حساب الإدارة */
+function togglePhone(){
+  const old = $("phone"); if(old){ old.remove(); return; }
+  const src = location.href.split("#")[0].split("?")[0] + "?preview=1";
+  const p = h("div", { id:"phone" },
+    h("div", { class:"ph-bar" }, h("b", {}, "👁 معاينة الطالب"), h("span", { class:"ph-sp" }),
+      h("button", { type:"button", title:"تحديث", onclick:() => { const f = p.querySelector("iframe"); f.src = f.src; } }, "↻"),
+      h("button", { type:"button", title:"إغلاق", onclick:() => p.remove() }, "✕")),
+    h("iframe", { src:src, title:"معاينة الطالب" }),
+    DEMO ? h("p", { class:"ph-note" }, "قبل ربط السكربت لا تتزامن المعاينة مع العرض.") : h("p", { class:"ph-note" }, "مشاركاتك هنا حقيقية، احذفها بعد التجربة. أما الاستبانة فلا تُرسل في المعاينة."));
+  document.body.append(p);
+}
+if(PREVIEW){ document.body.classList.add("preview"); $("pvbanner").hidden = false; }
 
 /* ######## live.js ######## */
 /* ================= واجهة الطالب أثناء اللقاء ================= */
@@ -1300,7 +1525,7 @@ async function enterLive(){
   show("s-live");
   $("lv-slide").innerHTML = ""; $("lv-act").innerHTML = ""; $("lv-extra").innerHTML = "";
   try{ Object.assign(S, await API.state()); if(!("stage" in S)) S.stage = ""; }catch(e){ L.conn = false; }
-  await loadDeck();
+  if(!PREVIEW || deckV < 0) await loadDeck();
   L.follow = true; L.idx = clampIdx(S.slide); L.step = S.step || 0;
   renderLiveAll(); startLivePoll();
 }
@@ -1334,8 +1559,9 @@ function waitCard(){
 function renderLiveSlide(){
   const host = $("lv-slide"); host.innerHTML = "";
   host.append(h("div", { class:"lv-bar" }, h("span", { id:"lv-dot", class:"dot" + (L.conn ? " ok" : "") }), h("b", {}, "اللقاء"), h("span", { class:"lv-n" }, S.live ? (L.idx + 1) + " / " + DECK.length : "")));
-  if(!S.live){ host.append(waitCard()); return; }
+  if(!S.live){ setPal("a"); host.append(waitCard()); return; }
   const s = DECK[L.idx]; if(!s) return;
+  setPal(PAL_BY_KIND[s.kind] || "a");
   const step = (S.free && !L.follow) ? 99 : L.step;
   host.append(renderSlide(s, { step:step, student:true }));
   if(S.free){
@@ -1354,7 +1580,7 @@ function groupPicker(){
   const wrap = h("div", { class:"grp" }, h("div", { class:"grp-t" }, "اختر رقم مجموعتك"));
   const row = h("div", { class:"grp-row" });
   for(let i = 1; i <= (S.groups || 6); i++){
-    const b = h("button", { type:"button", class:"gbtn" + (cur === i ? " on" : ""), onclick:() => { LS.set("grp", i); row.querySelectorAll(".gbtn").forEach((x, j) => x.classList.toggle("on", j + 1 === i)); } }, String(i));
+    const b = h("button", { type:"button", class:"gbtn" + (cur === i ? " on" : ""), onclick:() => { LS.set("grp", i); sfx("tap"); row.querySelectorAll(".gbtn").forEach((x, j) => x.classList.toggle("on", j + 1 === i)); } }, String(i));
     row.append(b);
   }
   wrap.append(row); return wrap;
@@ -1365,8 +1591,8 @@ async function sendSub(s, kind, payload, ui){
   if(S.mode === "group" && !g){ ui.msg.className = "sendmsg bad"; ui.msg.textContent = "اختر رقم مجموعتك أولًا."; ui.btn.disabled = false; return; }
   try{
     const d = await API.sub({ slide:s.id, group:g ? String(g) : "", kind:kind, payload:payload });
-    if(d && d.ok){ ui.msg.className = "sendmsg sent"; ui.msg.textContent = "✓ وصلت مشاركتك. يمكنك إرسال مشاركة أخرى."; toast("وصلت مشاركتك ✓"); }
-    else { ui.msg.className = "sendmsg bad"; ui.msg.textContent = (d && d.error === "notlive") ? "اللقاء غير مفتوح الآن." : "لم تصل المشاركة. حاول مرة أخرى."; }
+    if(d && d.ok){ ui.msg.className = "sendmsg sent"; ui.msg.textContent = "✓ وصلت مشاركتك. يمكنك إرسال مشاركة أخرى."; toast("وصلت مشاركتك ✓"); sfx("send"); }
+    else { sfx("bad"); ui.msg.className = "sendmsg bad"; ui.msg.textContent = (d && d.error === "notlive") ? "اللقاء غير مفتوح الآن." : "لم تصل المشاركة. حاول مرة أخرى."; }
   }catch(e){ ui.msg.className = "sendmsg bad"; ui.msg.textContent = "تعذّر الإرسال. تأكد من الإنترنت."; }
   ui.btn.disabled = false;
 }
@@ -1393,7 +1619,7 @@ function answersForm(s){
     const blk = h("div", { class:"qblk" }, h("label", {}, (i + 1) + ". " + q.q));
     if(q.opts && q.opts.length){
       const chips = h("div", { class:"chips" });
-      q.opts.forEach(o => chips.append(h("button", { type:"button", class:"chip", onclick:() => { ta.value = o; LS.set("ans_" + s.id, fields.map(f => f.value)); } }, o)));
+      q.opts.forEach(o => chips.append(h("button", { type:"button", class:"chip", onclick:() => { ta.value = o; sfx("tap"); LS.set("ans_" + s.id, fields.map(f => f.value)); } }, o)));
       blk.append(chips);
     }
     blk.append(ta); wrap.append(blk);
@@ -1421,7 +1647,7 @@ function templateForm(s){
   role.addEventListener("input", save); task.addEventListener("input", save);
   draw();
   const msg = h("div", { class:"sendmsg" });
-  const copyBtn = h("button", { type:"button", class:"btn", onclick:async () => { save(); const ok = await copyText(buildPrompt(s)); toast(ok ? "نُسخ الطلب. الصقه في الأداة" : "تعذّر النسخ، حدّد النص وانسخه"); } }, "📋 انسخ الطلب");
+  const copyBtn = h("button", { type:"button", class:"btn", onclick:async () => { save(); const ok = await copyText(buildPrompt(s)); toast(ok ? "نُسخ الطلب. الصقه في الأداة" : "تعذّر النسخ، حدّد النص وانسخه"); sfx(ok ? "ok" : "bad"); } }, "📋 انسخ الطلب");
   const sendBtn = h("button", { type:"button", class:"btn light", onclick:() => {
     save(); const d = LS.get("dr_" + s.id, { role:"", task:"" });
     if(!d.role && !d.task){ msg.className = "sendmsg bad"; msg.textContent = "املأ الدور أو المطلوب أولًا."; return; }
@@ -1471,14 +1697,23 @@ $("lv-exit").addEventListener("click", () => { stopLivePoll(); show("s-intro"); 
 
 /* ######## present.js ######## */
 /* ================= وضع المقدّم ================= */
-const P = { idx:0, step:0, last:-1, drawer:"", subs:[], pushT:null, poll:null, tm:{ total:0, left:0, run:false, t:null } };
+const P = { idx:0, step:0, last:-1, drawer:"", all:[], seen:-1, subSlide:"", pushT:null, poll:null, tm:{ total:0, left:0, run:false, t:null } };
 
 const subKey = s => !s ? "" : s.kind === "activity" ? s.id : s.kind === "critique" ? (s.source || "") : "";
+const subsOf = id => P.all.filter(x => x.slide === id);
 
 function seg(options, current, onPick){
   const d = h("div", { class:"seg" });
-  options.forEach(([val, label]) => d.append(h("button", { type:"button", class:"sg" + (val === current ? " on" : ""), onclick:() => onPick(val) }, label)));
+  options.forEach(([val, label]) => d.append(h("button", { type:"button", class:"sg" + (val === current ? " on" : ""), onclick:() => { sfx("tap"); onPick(val); } }, label)));
   return d;
+}
+function numInput(val, min, max, onSet){
+  const inp = h("input", { type:"number", min:String(min), max:String(max), value:String(val) });
+  const set = v => { v = Math.max(min, Math.min(max, parseInt(v, 10) || min)); inp.value = String(v); onSet(v); };
+  inp.addEventListener("change", () => set(inp.value));
+  return h("div", { class:"num" },
+    h("button", { type:"button", class:"pb2", onclick:() => set((parseInt(inp.value, 10) || min) - 1) }, "−"), inp,
+    h("button", { type:"button", class:"pb2", onclick:() => set((parseInt(inp.value, 10) || min) + 1) }, "+"));
 }
 async function setSt(patch){
   const d = await adminOp("setState", { patch:patch });
@@ -1489,14 +1724,18 @@ function setSync(ok){ const s = $("p-sync"); s.classList.toggle("ok", ok); s.tit
 
 async function openPresenter(){
   show("s-present");
-  P.idx = 0; P.step = 0; P.last = -1;
+  P.idx = 0; P.step = 0; P.last = -1; P.seen = -1; P.all = [];
+  fillToolbar($("p-tools"), true);
   renderP();
   document.addEventListener("keydown", pKeys);
+  window.addEventListener("resize", autoFit);
   clearInterval(P.poll); P.poll = setInterval(pPoll, 5000); pPoll();
   const d = await setSt({ slide:0, step:0 }).catch(() => null); if(!d) setSync(false);
 }
 function closePresenter(){
-  document.removeEventListener("keydown", pKeys); clearInterval(P.poll); clearInterval(P.tm.t); P.drawer = ""; $("drawer").classList.remove("on");
+  document.removeEventListener("keydown", pKeys); window.removeEventListener("resize", autoFit);
+  clearInterval(P.poll); clearInterval(P.tm.t); P.drawer = ""; $("drawer").classList.remove("on");
+  if(document.fullscreenElement && document.exitFullscreen) document.exitFullscreen();
   openAdmin();
 }
 
@@ -1506,62 +1745,87 @@ function pKeys(e){
   if(e.key === "ArrowLeft" || e.key === "PageDown" || e.key === " "){ e.preventDefault(); pNext(); }
   else if(e.key === "ArrowRight" || e.key === "PageUp"){ e.preventDefault(); pPrev(); }
   else if(e.key === "n" || e.key === "N" || e.key === "ن"){ toggleDrawer("notes"); }
-  else if(e.key === "Escape"){ toggleDrawer(""); }
+  else if(e.key === "f" || e.key === "F" || e.key === "ب"){ toggleFS(); }
+  else if(e.key === "Escape"){ if(P.drawer) toggleDrawer(""); }
 }
 function pGo(i, step){ P.idx = Math.max(0, Math.min(DECK.length - 1, i)); P.step = step || 0; renderP(); pushNav(); }
 function pNext(){
   const s = DECK[P.idx], n = stepsOf(s);
-  if(P.step < n){ P.step++; renderP(true); pushNav(); }
-  else if(P.idx < DECK.length - 1) pGo(P.idx + 1, 0);
+  if(P.step < n){ P.step++; sfx("pop"); renderP(true); pushNav(); }
+  else if(P.idx < DECK.length - 1){ sfx("next"); pGo(P.idx + 1, 0); }
 }
 function pPrev(){
   if(P.step > 0){ P.step--; renderP(true); pushNav(); }
-  else if(P.idx > 0) pGo(P.idx - 1, stepsOf(DECK[P.idx - 1]));
+  else if(P.idx > 0){ sfx("next"); pGo(P.idx - 1, stepsOf(DECK[P.idx - 1])); }
 }
 function pushNav(){
   clearTimeout(P.pushT);
   P.pushT = setTimeout(async () => { try{ await setSt({ slide:P.idx, step:P.step }); }catch(e){ setSync(false); } }, 250);
 }
 
+/* يصغّر الخط تلقائيًا حتى تتسع الشريحة في الشاشة دون تمرير */
+function autoFit(){
+  const st = $("pstage"); if(!st || !$("s-present").classList.contains("on")) return;
+  st.style.fontSize = "";
+  let base = parseFloat(getComputedStyle(st).fontSize) || 20;
+  let sz = base * (typeof getScale === "function" ? getScale() : 1), n = 0;
+  st.style.fontSize = sz + "px";
+  while(st.scrollHeight > st.clientHeight + 2 && sz > 12 && n < 24){ sz *= 0.94; st.style.fontSize = sz + "px"; n++; }
+}
+
+function stageOverlay(){
+  const sd = S.stageData, sl = slideById(sd.slide);
+  const crit = DECK.findIndex(x => x.kind === "critique" && x.source === sd.slide);
+  return h("div", { class:"stage-ov" },
+    h("div", { class:"wall-t" }, "على الشاشة الآن" + (sl ? " — " + (sl.title || "") : "")), stageCard(sd),
+    h("div", { class:"two" },
+      crit >= 0 ? h("button", { type:"button", class:"btn light small", onclick:() => pGo(crit, 0) }, "اذهب إلى شريحة النقاش") : null,
+      h("button", { type:"button", class:"btn light small", onclick:() => stageSub("") }, "إخفاء")));
+}
+
 function renderP(noanim){
   const s = DECK[P.idx]; if(!s) return;
+  setPal(PAL_BY_KIND[s.kind] || "a");
+  if(subKey(s) && s.kind === "activity") P.subSlide = s.id;
   const stage = $("pstage"); stage.className = "pstage" + (noanim ? " noanim" : ""); stage.innerHTML = "";
-  stage.append(renderSlide(s, { step:P.step, present:true }));
-  if(S.subs === "all" && s.kind === "activity"){ stage.append(h("h3", { class:"wall-t" }, "مشاركات الجميع"), h("div", { id:"pwall" }, wallEl(P.subs))); }
-  else if(S.subs === "stage" && S.stageData && s.kind !== "critique"){
-    stage.append(h("div", { class:"stage-ov" }, h("div", { class:"wall-t" }, "على الشاشة الآن"), stageCard(S.stageData),
-      h("button", { type:"button", class:"btn light small", onclick:() => stageSub("") }, "إخفاء")));
-  }
+  const wrap = h("div", { class:"pwrap" });
+  wrap.append(renderSlide(s, { step:P.step, present:true }));
+  if(S.subs === "all" && s.kind === "activity") wrap.append(h("h3", { class:"wall-t" }, "مشاركات الجميع"), h("div", { id:"pwall" }, wallEl(subsOf(s.id))));
+  else if(S.subs === "stage" && S.stageData && s.kind !== "critique") wrap.append(stageOverlay());
+  stage.append(wrap);
   $("p-count").textContent = (P.idx + 1) + " / " + DECK.length;
   $("p-prev").disabled = P.idx === 0 && P.step === 0;
   $("p-next").disabled = P.idx === DECK.length - 1 && P.step >= stepsOf(s);
   const dots = $("p-dots"); dots.innerHTML = "";
   DECK.forEach((x, i) => dots.append(h("button", { type:"button", class:"dotp" + (i === P.idx ? " on" : "") + (i < P.idx ? " done" : ""), title:x.title || "", onclick:() => pGo(i, 0) })));
-  drawBar();
-  if(P.last !== P.idx){ P.last = P.idx; tmSet(); P.subs = []; updateCount(); pPoll(); }
+  drawBar(); updateCount();
+  if(P.last !== P.idx){ P.last = P.idx; tmSet(); }
   if(P.drawer) renderDrawer();
+  autoFit();
 }
 function drawBar(){
   $("p-live").textContent = S.live ? "● اللقاء مفتوح" : "○ اللقاء مغلق";
   $("p-live").classList.toggle("on", !!S.live);
   const box = $("p-subs"); box.innerHTML = "";
-  box.append(seg([["hidden", "المشاركات مخفية"], ["stage", "واحدة"], ["all", "الكل"]], S.subs, v => { setSt({ subs:v }).then(() => { renderP(true); if(v === "all") pPoll(); }); }));
+  box.append(seg([["hidden", "مشاركات: مخفية"], ["stage", "واحدة"], ["all", "الكل"]], S.subs, v => { setSt({ subs:v }).then(() => { renderP(true); }); }));
 }
 function updateCount(){
-  const el = $("pcount"), n = P.subs.length;
+  const s = DECK[P.idx], key = subKey(s), n = key ? subsOf(key).length : 0, el = $("pcount");
   if(el) el.textContent = n ? "وصلت " + n + " مشاركة" : "لم تصل مشاركات بعد";
-  $("p-badge").textContent = String(n); $("p-badge").hidden = !n;
+  $("p-badge").textContent = String(P.all.length); $("p-badge").hidden = !P.all.length;
 }
 async function pPoll(){
   if(!$("s-present").classList.contains("on") || document.hidden) return;
-  const s = DECK[P.idx], key = subKey(s); if(!key) return;
   try{
-    const d = await adminOp("subs", { slide:key });
+    const d = await adminOp("allSubs");
     if(d && d.ok){
-      const changed = JSON.stringify((d.subs || []).map(x => x.id)) !== JSON.stringify(P.subs.map(x => x.id));
-      P.subs = d.subs || []; updateCount(); setSync(true);
-      if(changed){
-        if(S.subs === "all" && s.kind === "activity"){ const w = $("pwall"); if(w){ w.innerHTML = ""; w.append(wallEl(P.subs)); } }
+      const prevIds = P.all.map(x => x.id).join(",");
+      P.all = d.subs || []; setSync(true);
+      if(P.seen >= 0 && P.all.length > P.seen) sfx("ding");
+      P.seen = P.all.length; updateCount();
+      if(prevIds !== P.all.map(x => x.id).join(",")){
+        const s = DECK[P.idx];
+        if(S.subs === "all" && s && s.kind === "activity"){ const w = $("pwall"); if(w){ w.innerHTML = ""; w.append(wallEl(subsOf(s.id))); } }
         if(P.drawer === "subs") renderDrawer();
       }
     }
@@ -1580,10 +1844,11 @@ function tmSet(){
 }
 function tmToggle(){
   const t = P.tm; if(!t.total) return;
+  sfx("tap");
   if(t.run){ clearInterval(t.t); t.run = false; }
   else {
     if(t.left <= 0) t.left = t.total; t.run = true;
-    t.t = setInterval(() => { t.left--; tmDraw(); if(t.left <= 0){ clearInterval(t.t); t.run = false; tmDraw(); beep(); } }, 1000);
+    t.t = setInterval(() => { t.left--; tmDraw(); if(t.left <= 0){ clearInterval(t.t); t.run = false; tmDraw(); sfx("alarm"); } }, 1000);
   }
   tmDraw();
 }
@@ -1593,37 +1858,53 @@ function tmDraw(){
   b.classList.toggle("on", t.run); b.classList.toggle("alarm", t.total > 0 && t.left <= 0); b.style.display = t.total ? "" : "none";
 }
 
-/* ---------- الأدراج الجانبية ---------- */
-function toggleDrawer(name){ P.drawer = (P.drawer === name || !name) ? "" : name; $("drawer").classList.toggle("on", !!P.drawer); if(P.drawer) renderDrawer(); }
+/* ---------- الدرج الجانبي (مثبّت بجانب الشريحة ولا يغطي أزرار التنقل) ---------- */
+function toggleDrawer(name){
+  P.drawer = (P.drawer === name || !name) ? "" : name;
+  $("drawer").classList.toggle("on", !!P.drawer);
+  if(P.drawer) renderDrawer(); else $("drawer").innerHTML = "";
+  setTimeout(autoFit, 300);
+}
 function renderDrawer(){
   const box = $("drawer"); box.innerHTML = "";
-  const s = DECK[P.idx];
-  box.append(h("button", { type:"button", class:"dclose", onclick:() => toggleDrawer("") }, "✕"));
-  if(P.drawer === "notes"){
-    box.append(h("h3", {}, "ملاحظاتي"), h("p", { class:"dmeta" }, "الوقت المقترح: " + (s.min || 0) + " د"), h("div", { class:"dnotes" }, s.notes || "لا ملاحظات لهذه الشريحة."));
-    const nx = DECK[P.idx + 1]; if(nx) box.append(h("p", { class:"dmeta" }, "التالي: " + (nx.title || KIND_NAMES[nx.kind])));
-  } else if(P.drawer === "subs"){
-    box.append(h("h3", {}, "المشاركات"));
-    box.append(h("div", { class:"dlab" }, "نمط المشاركة"));
-    box.append(seg([["individual", "فردي"], ["group", "مجموعات"]], S.mode, v => setSt({ mode:v }).then(renderDrawer)));
-    if(S.mode === "group"){ box.append(h("div", { class:"dlab" }, "عدد المجموعات: " + S.groups), seg([[4, "4"], [6, "6"], [8, "8"], [10, "10"]], S.groups, v => setSt({ groups:v }).then(renderDrawer))); }
-    const key = subKey(s);
-    if(!key){ box.append(h("p", { class:"dim" }, "هذه الشريحة بلا مشاركات.")); }
-    else {
-      box.append(h("div", { class:"dlab" }, "مشاركات هذه الشريحة (" + P.subs.length + ")"));
-      if(!P.subs.length) box.append(h("p", { class:"dim" }, "لم تصل مشاركات بعد."));
-      P.subs.forEach(sb => {
-        const on = S.stage === sb.id;
-        box.append(h("div", { class:"subrow" + (on ? " on" : "") }, stageCard(Object.assign({ slide:key }, sb)),
-          h("div", { class:"subbtns" },
-            h("button", { type:"button", class:"pb2", onclick:() => stageSub(on ? "" : sb.id).then(renderDrawer) }, on ? "إخفاء" : "عرض على الشاشة"),
-            h("button", { type:"button", class:"pb2 del", onclick:async () => { await adminOp("delSub", { id:sb.id }); P.subs = P.subs.filter(x => x.id !== sb.id); updateCount(); renderP(true); } }, "حذف"))));
-      });
-    }
-  } else if(P.drawer === "edit"){
-    box.append(h("h3", {}, "تعديل: " + (KIND_NAMES[s.kind] || s.kind)));
-    box.append(buildEditor(s, () => { renderP(); saveDeck(); }));
+  const s = DECK[P.idx], inner = h("div", { class:"dinner" });
+  inner.append(h("button", { type:"button", class:"dclose", onclick:() => toggleDrawer("") }, "✕"));
+  if(P.drawer === "notes") drawerNotes(inner, s);
+  else if(P.drawer === "subs") drawerSubs(inner);
+  else if(P.drawer === "edit"){
+    inner.append(h("h3", {}, "تعديل: " + (KIND_NAMES[s.kind] || s.kind)));
+    inner.append(buildEditor(s, c => { if(c === "cancel"){ toggleDrawer(""); return; } renderP(); saveDeck(); }));
   }
+  box.append(inner);
+}
+function drawerNotes(inner, s){
+  inner.append(h("h3", {}, "ملاحظاتي"), h("p", { class:"dmeta" }, "الوقت المقترح: " + (s.min || 0) + " د"), h("div", { class:"dnotes" }, s.notes || "لا ملاحظات لهذه الشريحة."));
+  const nx = DECK[P.idx + 1]; if(nx) inner.append(h("p", { class:"dmeta" }, "التالي: " + (nx.title || KIND_NAMES[nx.kind])));
+}
+function drawerSubs(inner){
+  inner.append(h("h3", {}, "المشاركات"));
+  inner.append(h("div", { class:"dlab" }, "نمط المشاركة"), seg([["individual", "فردي"], ["group", "مجموعات"]], S.mode, v => setSt({ mode:v }).then(renderDrawer)));
+  if(S.mode === "group") inner.append(h("div", { class:"dlab" }, "عدد المجموعات (اكتب الرقم)"), numInput(S.groups, 2, 30, v => setSt({ groups:v })));
+  inner.append(h("div", { class:"dlab" }, "عرضها للطلاب"), seg([["hidden", "مخفية"], ["stage", "واحدة"], ["all", "الكل"]], S.subs, v => setSt({ subs:v }).then(() => { renderDrawer(); renderP(true); })));
+
+  const acts = DECK.filter(x => x.kind === "activity");
+  if(!acts.find(a => a.id === P.subSlide)){ const f = acts.find(a => subsOf(a.id).length) || acts[0]; P.subSlide = f ? f.id : ""; }
+  const tabs = h("div", { class:"stabs" });
+  acts.forEach(a => tabs.append(h("button", { type:"button", class:"stab" + (a.id === P.subSlide ? " on" : ""), onclick:() => { P.subSlide = a.id; renderDrawer(); } }, (a.title || a.id) + " (" + subsOf(a.id).length + ")")));
+  inner.append(h("div", { class:"dlab" }, "مشاركات الأنشطة (من أي شريحة)"), tabs);
+
+  const list = subsOf(P.subSlide);
+  if(!list.length) inner.append(h("p", { class:"dim" }, "لم تصل مشاركات بعد."));
+  list.forEach(sb => {
+    const on = S.stage === sb.id;
+    const crit = DECK.findIndex(x => x.kind === "critique" && x.source === sb.slide);
+    inner.append(h("div", { class:"subrow" + (on ? " on" : "") }, stageCard(sb),
+      h("div", { class:"subbtns" },
+        h("button", { type:"button", class:"pb2", onclick:() => stageSub(on ? "" : sb.id).then(renderDrawer) }, on ? "إخفاء" : "عرض على الشاشة"),
+        crit >= 0 ? h("button", { type:"button", class:"pb2", onclick:async () => { await stageSub(sb.id); pGo(crit, 0); } }, "نقاش") : null,
+        h("button", { type:"button", class:"pb2 del", onclick:async () => { await adminOp("delSub", { id:sb.id }); P.all = P.all.filter(x => x.id !== sb.id); updateCount(); renderP(true); } }, "حذف"))));
+  });
+  if(list.length) inner.append(h("button", { type:"button", class:"pb2 del", style:"margin-top:8px", onclick:async () => { if(confirm("حذف مشاركات هذا النشاط؟")){ await adminOp("clearSubs", { slide:P.subSlide }); P.all = P.all.filter(x => x.slide !== P.subSlide); updateCount(); renderDrawer(); renderP(true); } } }, "حذف مشاركات هذا النشاط"));
 }
 
 /* ---------- المحرر ---------- */
@@ -1634,7 +1915,7 @@ const SPEC = {
   bullets:[["title", "العنوان", "text"], ["items", "النقاط (سطر لكل نقطة)", "lines:str"]],
   big:[["title", "العنوان الصغير", "text"], ["text", "الجملة الكبيرة", "text"], ["sub", "سطر توضيحي", "area"]],
   flip:[["title", "العنوان", "text"], ["cards", "سؤال | جواب (سطر لكل بطاقة)", "lines:qa"]],
-  cards:[["title", "العنوان", "text"], ["items", "أيقونة | عنوان | نص (سطر لكل بطاقة)", "lines:ict"], ["foot", "سطر ختامي", "text"]],
+  cards:[["title", "العنوان", "text"], ["intro", "جملة تمهيدية", "area"], ["items", "أيقونة | عنوان | نص (سطر لكل بطاقة)", "lines:ict"], ["foot", "سطر ختامي", "text"]],
   reading:[["title", "العنوان", "text"], ["instruction", "التعليمات", "text"], ["text", "النص (لشرح لفظ اكتب {{اللفظ|معناه}})", "area:big"], ["source", "المصدر", "text"]],
   activity:[["title", "العنوان", "text"], ["instruction", "التعليمات", "area"], ["akind", "نوع النشاط", "select:answers=أسئلة بإجابات,template=بناء طلب,free=كتابة حرة"],
             ["questions", "للنوع «أسئلة»: سؤال | اقتراح1 ; اقتراح2", "lines:qo"], ["tpl", "للنوع «بناء طلب»: قالب الطلب", "area"],
@@ -1685,7 +1966,7 @@ function buildEditor(s, onDone){
     form.append(h("label", {}, label), el);
   });
   form.append(h("div", { class:"two" },
-    h("button", { type:"button", class:"btn", onclick:() => { inputs.forEach(([k, t, el]) => { s[k] = fromForm(el.value, t.indexOf("select:") === 0 ? "select" : t); }); onDone(); toast("تم الحفظ"); } }, "حفظ ونشر"),
+    h("button", { type:"button", class:"btn", onclick:() => { inputs.forEach(([k, t, el]) => { s[k] = fromForm(el.value, t.indexOf("select:") === 0 ? "select" : t); }); sfx("send"); onDone(); toast("تم الحفظ"); } }, "حفظ ونشر"),
     h("button", { type:"button", class:"btn light", onclick:() => onDone("cancel") }, "إغلاق")));
   return form;
 }
@@ -1702,7 +1983,7 @@ $("p-timer").addEventListener("click", tmToggle);
 $("p-notes").addEventListener("click", () => toggleDrawer("notes"));
 $("p-list").addEventListener("click", () => { toggleDrawer("subs"); pPoll(); });
 $("p-edit").addEventListener("click", () => toggleDrawer("edit"));
-$("p-live").addEventListener("click", async () => { await setSt({ live:!S.live }); drawBar(); });
+$("p-live").addEventListener("click", async () => { sfx("tap"); await setSt({ live:!S.live }); drawBar(); });
 
 /* ######## admin.js ######## */
 /* ================= لوحة الإدارة ================= */
@@ -1714,7 +1995,7 @@ function goLogin(after){
   if(adminPass) proceedLogin(); else show("s-login");
 }
 async function proceedLogin(){
-  const a = afterLogin; afterLogin = null;
+  const a = afterLogin; afterLogin = null; renderFloatingTools();
   if(a === "present"){ await loadDeck(); openPresenter(); }
   else if(a === "print"){ await loadDeck(); openPrint(); }
   else openAdmin();
@@ -1763,7 +2044,7 @@ function tabSurvey(host){
       h("button", { type:"button", class:"btn danger", onclick:async () => { if(confirm("حذف كل إجابات الاستبانة نهائيًّا؟")){ await adminOp("clear"); refreshAdmin(); } } }, "حذف الإجابات")));
   host.append(ctl, h("div", { style:"margin-top:14px" }));
   host.append(kpiRow(d.counts, d.total));
-  renderResults(host, d.counts, d.total);
+  const grid = h("div", { class:"rgrid" }); renderResults(grid, d.counts, d.total); host.append(grid);
   if(d.toolOther && d.toolOther.length) host.append(listCard("أدوات أخرى ذكروها", d.toolOther));
   if(d.usesOther && d.usesOther.length) host.append(listCard("استخدامات أخرى ذكروها", d.usesOther));
   if(d.comments && d.comments.length) host.append(listCard("ما أرادوا معرفته وأسئلتهم", d.comments));
@@ -1771,24 +2052,25 @@ function tabSurvey(host){
 
 /* ---------- تبويب اللقاء ---------- */
 function tabSession(host){
-  const box = h("div", { class:"controls" });
-  box.append(h("div", { class:"adminbar" },
+  const left = h("div", { class:"controls" }), right = h("div", { class:"controls" });
+  left.append(h("div", { class:"adminbar" },
     h("button", { type:"button", class:"btn", onclick:() => { afterLogin = null; openPresenter(); } }, "▶ بدء العرض"),
     h("button", { type:"button", class:"btn light", onclick:openPrint }, "🖨 طباعة الأوراق")));
-  box.append(h("div", { style:"height:12px" }));
-  box.append(switchRow("فتح اللقاء للطلاب", "تظهر لهم الشرائح على جوالاتهم ويستطيعون المشاركة", !!S.live, v => adminSet({ live:v })));
-  box.append(switchRow("السماح للطلاب بالتنقل بأنفسهم", "مفيد إن تعطلت الشاشة: يفتحون الشرائح على جوالاتهم", !!S.free, v => adminSet({ free:v })));
-  box.append(h("div", { class:"card setcard" },
-    h("div", { class:"dlab dk" }, "نمط المشاركة"),
+  left.append(h("div", { style:"height:12px" }));
+  left.append(switchRow("فتح اللقاء للطلاب", "تظهر لهم الشرائح على جوالاتهم ويستطيعون المشاركة", !!S.live, v => adminSet({ live:v })));
+  left.append(switchRow("السماح للطلاب بالتنقل بأنفسهم", "مفيد إن تعطلت الشاشة: يفتحون الشرائح على جوالاتهم", !!S.free, v => adminSet({ free:v })));
+  left.append(h("p", { class:"note dk" }, "رابط الطلاب هو رابط الصفحة نفسه، وفيه زر «ادخل اللقاء» حين تفتح اللقاء. ويمكنك إضافة #live مباشرة في آخر الرابط. ولمعاينة ما يراه الطلاب اضغط «معاينة كطالب» في الأعلى."));
+  right.append(h("div", { class:"card setcard" },
+    h("div", { class:"dlab" }, "نمط المشاركة"),
     seg([["individual", "فردي (مجهول)"], ["group", "مجموعات"]], S.mode, v => adminSet({ mode:v })),
-    S.mode === "group" ? h("div", {}, h("div", { class:"dlab dk" }, "عدد المجموعات"), seg([[4, "4"], [6, "6"], [8, "8"], [10, "10"], [12, "12"]], S.groups, v => adminSet({ groups:v }))) : null,
-    h("div", { class:"dlab dk" }, "عرض المشاركات للطلاب"),
+    S.mode === "group" ? h("div", {}, h("div", { class:"dlab" }, "عدد المجموعات (اكتب الرقم)"), numInput(S.groups, 2, 30, v => setStQuiet({ groups:v }))) : null,
+    h("div", { class:"dlab" }, "عرض المشاركات للطلاب"),
     seg([["hidden", "مخفية"], ["stage", "واحدة على الشاشة"], ["all", "الكل"]], S.subs, v => adminSet({ subs:v }))));
-  box.append(h("div", { class:"adminbar" },
+  right.append(h("div", { class:"adminbar" },
     h("button", { type:"button", class:"btn danger", onclick:async () => { if(confirm("حذف كل مشاركات اللقاء نهائيًّا؟")){ await adminOp("clearSubs"); toast("تم الحذف"); renderAdminTab(); } } }, "حذف كل المشاركات")));
-  box.append(h("p", { class:"note dk" }, "رابط الطلاب هو رابط الصفحة نفسه، وفيه زر «ادخل اللقاء» حين تفتح اللقاء. ويمكنك إضافة #live مباشرة في آخر الرابط."));
-  host.append(box);
+  host.append(h("div", { class:"grid2" }, left, right));
 }
+async function setStQuiet(patch){ try{ await adminOp("setState", { patch:patch }); toast("تم الحفظ"); }catch(e){ $("a-err").textContent = "تعذّر الاتصال بالسكربت."; } }
 
 /* ---------- تبويب المحتوى ---------- */
 function tabContent(host){
@@ -1824,7 +2106,8 @@ function moveSlide(i, d){
 /* ---------- الدخول ---------- */
 $("open-admin").addEventListener("click", () => goLogin(null));
 $("login-back").addEventListener("click", () => { $("pw").value = ""; $("login-err").textContent = ""; show("s-intro"); });
-$("a-home").addEventListener("click", () => { adminPass = ""; show("s-intro"); });
+$("a-home").addEventListener("click", () => { adminPass = ""; renderFloatingTools(); const p = $("phone"); if(p) p.remove(); show("s-intro"); });
+$("a-prev").addEventListener("click", togglePhone);
 $("a-exit").addEventListener("click", () => { $("s-admin").classList.remove("present"); window.scrollTo(0, 0); });
 document.querySelectorAll("#a-tabs .tabbtn").forEach(b => b.addEventListener("click", () => { A.tab = b.dataset.tab; A.sel = -1; renderAdminTab(); }));
 $("login").addEventListener("click", async () => {
