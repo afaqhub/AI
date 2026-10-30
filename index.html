@@ -501,6 +501,10 @@ body.preview .adminlink{display:none}
 body[data-screen="s-admin"] .card,body[data-screen="s-admin"] .switchrow,body[data-screen="s-admin"] .srow{border-radius:14px}
 .btn.small[hidden]{display:none}
 
+/* حجم الخط: يطبَّق على الشاشات عدا الاستبانة (فيها شريط ثابت) والعرض (له ملاءمة تلقائية) */
+.wrap > .screen:not(#s-q){zoom:var(--scale)}
+.lv-back{font:inherit; font-size:14px; color:var(--fg); background:var(--glass2); border:0; border-radius:10px; padding:4px 12px; cursor:pointer}
+
 </style>
 </head>
 <body>
@@ -549,6 +553,7 @@ body[data-screen="s-admin"] .card,body[data-screen="s-admin"] .switchrow,body[da
   <div class="done-mark" aria-hidden="true">✓</div>
   <h1 class="center">أحسنت! أكملت الاستبانة</h1>
   <p class="lead center" id="done-msg">وصلت إجابتك، وسنبني اللقاء على ما كتبتم. نراكم قريبًا.</p>
+  <div class="row"><button class="btn light" id="done-home" type="button">الصفحة الرئيسية</button></div>
   <div id="done-res"></div>
 </section>
 
@@ -556,6 +561,7 @@ body[data-screen="s-admin"] .card,body[data-screen="s-admin"] .switchrow,body[da
 <section class="screen" id="s-res">
   <h1 class="center">نتائج الاستبانة</h1>
   <p class="lead center" id="res-msg">جارٍ التحميل…</p>
+  <div class="row"><button class="btn light" id="res-home" type="button">الصفحة الرئيسية</button></div>
   <div id="res-body"></div>
 </section>
 
@@ -891,7 +897,7 @@ function renderQ(dir){
     box.appendChild(b);
   });
   renderExtras(q);
-  $("back").style.visibility = i === 0 ? "hidden" : "visible";
+  $("back").style.visibility = "visible"; $("back").textContent = i === 0 ? "الرئيسية" : "رجوع";
   $("next").textContent = i === Q.length - 1 ? "أرسل" : "التالي";
   $("next").disabled = false;
 }
@@ -916,7 +922,7 @@ $("start").addEventListener("click", () => {
   if(sentBefore()){ show("s-done"); $("done-msg").textContent = "وصلتنا إجابة من هذا الجهاز من قبل. شكرًا لك!"; loadPublic("done-res"); return; }
   i = 0; show("s-q"); renderQ("next");
 });
-$("back").addEventListener("click", () => { if(i > 0){ i--; renderQ("back"); window.scrollTo(0,0); } });
+$("back").addEventListener("click", () => { if(i > 0){ i--; renderQ("back"); window.scrollTo(0,0); } else goHome(); });
 $("next").addEventListener("click", async () => {
   if(!valid()){ $("err").textContent = "اختر إجابة أولًا."; sfx("bad"); return; }
   if(i < Q.length - 1){ i++; sfx("next"); renderQ("next"); window.scrollTo(0,0); return; }
@@ -1233,6 +1239,7 @@ function demoAdmin(op, x){
   x = x || {};
   if(op === "setState"){
     const p = x.patch || {};
+    if("live" in p && p.live && !S.live && !("slide" in p)){ S.slide = 0; S.step = 0; }
     ["live","open","visible","free"].forEach(k => { if(k in p) S[k] = !!p[k]; });
     ["slide","step","groups"].forEach(k => { if(k in p) S[k] = Number(p[k]) || 0; });
     if(p.mode === "individual" || p.mode === "group") S.mode = p.mode;
@@ -1515,6 +1522,14 @@ function togglePhone(){
 }
 if(PREVIEW){ document.body.classList.add("preview"); $("pvbanner").hidden = false; }
 
+/* العودة إلى الصفحة الرئيسية من أي شاشة */
+function goHome(){
+  if(typeof stopLivePoll === "function") stopLivePoll();
+  try{ history.replaceState(null, "", location.pathname + location.search); }catch(e){}
+  show("s-intro");
+  if(typeof checkLive === "function") checkLive();
+}
+
 /* ######## live.js ######## */
 /* ================= واجهة الطالب أثناء اللقاء ================= */
 const L = { idx:0, step:0, follow:true, timer:null, conn:true, wall:[] };
@@ -1558,7 +1573,7 @@ function waitCard(){
 
 function renderLiveSlide(){
   const host = $("lv-slide"); host.innerHTML = "";
-  host.append(h("div", { class:"lv-bar" }, h("span", { id:"lv-dot", class:"dot" + (L.conn ? " ok" : "") }), h("b", {}, "اللقاء"), h("span", { class:"lv-n" }, S.live ? (L.idx + 1) + " / " + DECK.length : "")));
+  host.append(h("div", { class:"lv-bar" }, h("button", { type:"button", class:"lv-back", onclick:goHome }, "⌂ الرئيسية"), h("span", { id:"lv-dot", class:"dot" + (L.conn ? " ok" : "") }), h("b", {}, "اللقاء"), h("span", { class:"lv-n" }, S.live ? (L.idx + 1) + " / " + DECK.length : "")));
   if(!S.live){ setPal("a"); host.append(waitCard()); return; }
   const s = DECK[L.idx]; if(!s) return;
   setPal(PAL_BY_KIND[s.kind] || "a");
@@ -1693,7 +1708,7 @@ async function pollWall(){
   const s = DECK[L.idx]; if(!s || s.kind !== "activity") return;
   const d = await API.subs(s.id); L.wall = d.subs || []; renderLiveExtra();
 }
-$("lv-exit").addEventListener("click", () => { stopLivePoll(); show("s-intro"); });
+$("lv-exit").addEventListener("click", goHome);
 
 /* ######## present.js ######## */
 /* ================= وضع المقدّم ================= */
@@ -1767,10 +1782,12 @@ function pushNav(){
 function autoFit(){
   const st = $("pstage"); if(!st || !$("s-present").classList.contains("on")) return;
   st.style.fontSize = "";
-  let base = parseFloat(getComputedStyle(st).fontSize) || 20;
-  let sz = base * (typeof getScale === "function" ? getScale() : 1), n = 0;
+  const base = parseFloat(getComputedStyle(st).fontSize) || 20;
+  let sz = base, n = 0;
   st.style.fontSize = sz + "px";
   while(st.scrollHeight > st.clientHeight + 2 && sz > 12 && n < 24){ sz *= 0.94; st.style.fontSize = sz + "px"; n++; }
+  /* ثم يُضرب في اختيار المستخدم (A+ / A−) فيظهر أثره مهما كان حجم الملاءمة */
+  st.style.fontSize = (sz * (typeof getScale === "function" ? getScale() : 1)) + "px";
 }
 
 function stageOverlay(){
@@ -1983,7 +2000,7 @@ $("p-timer").addEventListener("click", tmToggle);
 $("p-notes").addEventListener("click", () => toggleDrawer("notes"));
 $("p-list").addEventListener("click", () => { toggleDrawer("subs"); pPoll(); });
 $("p-edit").addEventListener("click", () => toggleDrawer("edit"));
-$("p-live").addEventListener("click", async () => { sfx("tap"); await setSt({ live:!S.live }); drawBar(); });
+$("p-live").addEventListener("click", async () => { sfx("tap"); await setSt({ live:!S.live, slide:P.idx, step:P.step }); drawBar(); });
 
 /* ######## admin.js ######## */
 /* ================= لوحة الإدارة ================= */
@@ -2057,6 +2074,8 @@ function tabSession(host){
     h("button", { type:"button", class:"btn", onclick:() => { afterLogin = null; openPresenter(); } }, "▶ بدء العرض"),
     h("button", { type:"button", class:"btn light", onclick:openPrint }, "🖨 طباعة الأوراق")));
   left.append(h("div", { style:"height:12px" }));
+  left.append(h("div", { class:"adminbar" }, h("button", { type:"button", class:"btn light", onclick:() => adminSet({ slide:0, step:0 }) }, "↺ إعادة العرض إلى الشريحة الأولى")));
+  left.append(h("div", { style:"height:12px" }));
   left.append(switchRow("فتح اللقاء للطلاب", "تظهر لهم الشرائح على جوالاتهم ويستطيعون المشاركة", !!S.live, v => adminSet({ live:v })));
   left.append(switchRow("السماح للطلاب بالتنقل بأنفسهم", "مفيد إن تعطلت الشاشة: يفتحون الشرائح على جوالاتهم", !!S.free, v => adminSet({ free:v })));
   left.append(h("p", { class:"note dk" }, "رابط الطلاب هو رابط الصفحة نفسه، وفيه زر «ادخل اللقاء» حين تفتح اللقاء. ويمكنك إضافة #live مباشرة في آخر الرابط. ولمعاينة ما يراه الطلاب اضغط «معاينة كطالب» في الأعلى."));
@@ -2105,8 +2124,8 @@ function moveSlide(i, d){
 
 /* ---------- الدخول ---------- */
 $("open-admin").addEventListener("click", () => goLogin(null));
-$("login-back").addEventListener("click", () => { $("pw").value = ""; $("login-err").textContent = ""; show("s-intro"); });
-$("a-home").addEventListener("click", () => { adminPass = ""; renderFloatingTools(); const p = $("phone"); if(p) p.remove(); show("s-intro"); });
+$("login-back").addEventListener("click", () => { $("pw").value = ""; $("login-err").textContent = ""; goHome(); });
+$("a-home").addEventListener("click", () => { adminPass = ""; renderFloatingTools(); const p = $("phone"); if(p) p.remove(); goHome(); });
 $("a-prev").addEventListener("click", togglePhone);
 $("a-exit").addEventListener("click", () => { $("s-admin").classList.remove("present"); window.scrollTo(0, 0); });
 document.querySelectorAll("#a-tabs .tabbtn").forEach(b => b.addEventListener("click", () => { A.tab = b.dataset.tab; A.sel = -1; renderAdminTab(); }));
@@ -2174,14 +2193,17 @@ $("pr-back").addEventListener("click", () => { openAdmin(); });
 $("pr-go").addEventListener("click", () => window.print());
 
 /* ================= الروابط ================= */
-(async function checkLive(){
+async function checkLive(){
   if(DEMO){ $("live-note").hidden = false; return; }
   try{
     const d = await API.state(); Object.assign(S, d);
     $("live-note").hidden = !d.live;
-    if(d.open === false){ $("closed-note").hidden = false; $("start").disabled = true; }
+    $("closed-note").hidden = d.open !== false ? true : false; $("start").disabled = d.open === false;
   }catch(e){}
-})();
+}
+checkLive();
+$("done-home").addEventListener("click", goHome);
+$("res-home").addEventListener("click", goHome);
 $("enter-live").addEventListener("click", enterLive);
 
 function route(){
