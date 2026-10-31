@@ -478,7 +478,7 @@ body.fs.idle .pbar, body.fs.idle .pnav{opacity:0; pointer-events:none}
 .wall-t{color:var(--fg)}
 
 /* ---------- أدوات عائمة ومعاينة الطالب ---------- */
-#tools{position:fixed; left:6px; top:42%; z-index:90; display:flex; flex-direction:column; align-items:center; gap:6px}
+#tools{display:none; position:fixed; left:6px; top:42%; z-index:90; display:flex; flex-direction:column; align-items:center; gap:6px}
 body.presenting #tools, body.preview #tools, body.fs #tools{display:none}
 #tools .fab{width:34px; height:34px; border-radius:50%; border:0; background:var(--glass2); color:var(--fg); cursor:pointer; font-size:16px; backdrop-filter:blur(6px)}
 #tools .stack{display:none; flex-direction:column; gap:6px; background:var(--pbar-bg); padding:6px; border-radius:16px; backdrop-filter:blur(8px)}
@@ -555,9 +555,117 @@ body[data-screen="s-admin"] .card,body[data-screen="s-admin"] .switchrow,body[da
 .pb2.eye{flex:none}
 .drawer .packs .switchrow{background:var(--soft)}
 
+/* ---------- الشريط العلوي الموحّد ---------- */
+#appbar{position:fixed; top:0; left:0; right:0; z-index:55; display:flex; align-items:center; gap:8px; padding:calc(6px + env(safe-area-inset-top,0px)) 10px 6px; background:var(--pbar-bg); backdrop-filter:blur(10px); border-bottom:1px solid var(--glass-b)}
+#ab-title{font-weight:800; font-size:16px; color:var(--fg); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.abtn{font:inherit; font-size:14px; font-weight:700; color:var(--fg); background:var(--glass2); border:0; border-radius:10px; padding:5px 12px; cursor:pointer; white-space:nowrap}
+.abtn[hidden]{display:none}
+#ab-pop{position:absolute; top:100%; left:10px; margin-top:6px; display:flex; gap:6px; background:var(--pbar-bg); backdrop-filter:blur(10px); padding:6px; border-radius:14px; box-shadow:0 10px 30px rgba(0,0,0,.35)}
+#ab-pop[hidden]{display:none}
+body.presenting #appbar, body.fs #appbar, body.report #appbar{display:none}
+body.preview #ab-tools{display:none}
+.wrap{padding-top:calc(60px + env(safe-area-inset-top,0px))}
+body.presenting .wrap, body.report .wrap{padding-top:18px}
+
+/* ---------- لوحة الإدارة الجديدة ---------- */
+.statstrip{display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px}
+.schip{display:flex; align-items:center; gap:6px; background:var(--glass); border:1px solid var(--glass-b); border-radius:99px; padding:4px 14px; font-size:14px; color:var(--fg)}
+.dotl{width:9px; height:9px; border-radius:50%; background:#E5484D; display:inline-block}
+.dotl.on{background:#34D399}
+.hero{display:flex; align-items:center; gap:14px; width:100%; text-align:right; font:inherit; color:#fff; border:0; cursor:pointer; border-radius:22px; padding:18px 20px; background:linear-gradient(135deg,#1AA7E8,#7C5CF0); box-shadow:0 14px 34px rgba(76,195,255,.28); margin-bottom:10px}
+.hero:active{transform:scale(.99)}
+.hero .hi{width:54px; height:54px; border-radius:50%; background:rgba(255,255,255,.22); display:grid; place-items:center; font-size:24px; flex:none}
+.hero b{display:block; font-size:22px}
+.hero small{opacity:.92; font-size:14px; display:block; line-height:1.5}
+.hero2{display:block; width:100%; font:inherit; font-weight:800; color:var(--fg); background:var(--glass2); border:0; border-radius:16px; padding:12px; cursor:pointer; margin-bottom:10px}
+.tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-top:12px}
+.tile{font:inherit; text-align:right; background:#fff; color:var(--ink); border:0; border-radius:20px; padding:16px 14px; cursor:pointer; box-shadow:0 8px 22px rgba(4,8,36,.22); display:flex; flex-direction:column; gap:4px; min-height:120px; transition:transform .12s}
+.tile:active{transform:scale(.97)}
+.tile .ti{font-size:28px; line-height:1.2}
+.tile b{font-size:17px}
+.tile small{color:var(--muted); font-size:13px; line-height:1.55}
+.vhead{display:flex; align-items:center; justify-content:space-between; gap:10px; margin:0 0 6px; flex-wrap:wrap}
+.vdesc{margin:0; color:var(--fg2); flex:1 1 220px; font-size:15px}
+.pill{font-size:13px; font-weight:800; padding:3px 12px; border-radius:99px; background:var(--glass2); color:var(--fg2); white-space:nowrap}
+.pill.ok{background:rgba(52,211,153,.25); color:var(--good-t)}
+.pill.busy{background:rgba(255,209,102,.28); color:var(--gold)}
+.pill.bad{background:rgba(229,72,77,.25); color:var(--err-t)}
+.sect2{margin:22px 0 8px}
+.sect2 b{display:block; font-size:18px; color:var(--fg)}
+.sect2 small{color:var(--fg3); font-size:14px}
+.mergecard{background:linear-gradient(135deg,rgba(255,209,102,.3),rgba(124,92,240,.25)); border:1px solid var(--glass-b); border-radius:18px; padding:12px 14px; margin:10px 0}
+.mergecard p{margin:4px 0 10px; color:var(--fg2)}
+.mergecard .btn{min-height:46px; font-size:16px}
+.presetgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px}
+.pcard{font:inherit; text-align:right; background:#fff; color:var(--ink); border:3px solid transparent; border-radius:18px; padding:12px 14px; cursor:pointer; display:flex; flex-direction:column; gap:2px}
+.pcard.on{border-color:var(--violet); background:#F4F0FF}
+.pcard b{font-size:17px}
+.pcard small{color:var(--muted); line-height:1.5}
+.pcard .pm{font-weight:800; color:var(--violet); margin-top:2px}
+.scards{display:grid; gap:8px}
+.packcard{display:flex; align-items:center; gap:12px; background:#fff; color:var(--ink); border-radius:18px; padding:12px 14px}
+.packcard .pi{font-size:28px; flex:none}
+.packcard .pt{flex:1; min-width:0}
+.packcard .pt b{display:block}
+.packcard .pt small{display:block; color:var(--muted); line-height:1.5}
+.scard{display:flex; align-items:center; gap:12px; background:#fff; color:var(--ink); border-radius:16px; padding:10px 12px; cursor:pointer; border:2px solid transparent}
+.scard:hover{border-color:var(--violet)}
+.scard.hid{opacity:.62}
+.scard .st2{flex:1; min-width:0}
+.scard .st2 b{display:block; line-height:1.45; overflow-wrap:anywhere}
+.scard .st2 small{color:var(--muted)}
+.chips2{display:flex; gap:6px; margin:0 0 10px; flex-wrap:wrap}
+.chip2{font:inherit; font-size:14px; font-weight:700; border:0; background:var(--glass2); color:var(--fg); border-radius:99px; padding:5px 14px; cursor:pointer}
+.chip2.on{background:linear-gradient(135deg,var(--sky),var(--violet)); color:#fff}
+.addbar{display:flex; gap:8px; flex-wrap:wrap}
+.addbar select{flex:1 1 160px}
+.adv{margin-top:22px; color:var(--fg2)}
+.adv summary{cursor:pointer; padding:6px 0}
+.adv .btn.small{margin-top:6px}
+.setgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:10px; margin:12px 0}
+.setcard2{display:flex; align-items:center; gap:12px; background:#fff; color:var(--ink); border-radius:18px; padding:12px 14px}
+.setcard2 .stxt{flex:1; min-width:0}
+.setcard2 .stxt b{display:block; font-size:16px}
+.setcard2 .stxt small{display:block; color:var(--muted); line-height:1.55; margin-top:2px}
+.setcard2 .sctl{flex:none; max-width:55%}
+.dlab.dk2{color:var(--ink); margin:10px 0 4px}
+.switch.sm{width:48px; height:27px}
+.switch.sm::after{width:21px; height:21px}
+.switch.sm[aria-checked="true"]::after{transform:translateX(-21px)}
+#a-exit{display:none}
+#s-admin.present #a-exit{display:block}
+#s-admin.present .controls, #s-admin.present .private, #s-admin.present .adminbar, #s-admin.present .setgrid, #s-admin.present .statstrip{display:none}
+
+/* ---------- نافذة معاينة الشريحة ---------- */
+body.modal-open{overflow:hidden}
+#pvmodal{position:fixed; inset:0; z-index:70; display:flex; flex-direction:column; background:linear-gradient(165deg,var(--pa) 0%,var(--pb) 58%,var(--pc) 100%)}
+#pvmodal[hidden]{display:none}
+.pvtop{flex:none; display:flex; align-items:center; gap:8px; padding:calc(8px + env(safe-area-inset-top,0px)) 12px 8px; background:var(--pbar-bg); flex-wrap:wrap}
+.pvtop .ttl{flex:1 1 140px; min-width:0; font-weight:800; font-size:15px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:var(--fg)}
+.pvtop .seg{background:var(--glass2)}
+.pvtop .sg{color:var(--fg)}
+.pvtop .sg.on{color:#fff}
+.pvscroll{flex:1; min-height:0; overflow:auto; padding:16px 12px 24px}
+.pvframe{margin:0 auto; width:100%}
+.pvframe.phone{max-width:430px; font-size:17px}
+.pvframe.screen{max-width:1100px; font-size:clamp(16px,1.5vw,24px)}
+.pvbar{flex:none; display:flex; gap:6px; padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px)); background:var(--pbar-bg); justify-content:center; flex-wrap:wrap}
+.pvb{display:flex; flex-direction:column; align-items:center; gap:0; min-width:54px; font:inherit; color:var(--fg); background:var(--glass2); border:0; border-radius:12px; padding:5px 10px; cursor:pointer}
+.pvb span{font-size:18px; line-height:1.3}
+.pvb small{font-size:11px}
+.pvb.danger{color:var(--err-t)}
+
 </style>
 </head>
 <body>
+<header id="appbar">
+  <button class="abtn" id="ab-back" type="button" hidden>رجوع</button>
+  <span id="ab-title"></span>
+  <span class="ph-sp"></span>
+  <button class="abtn" id="ab-tools" type="button" title="أدوات العرض" aria-label="أدوات العرض">⚙</button>
+  <div id="ab-pop" hidden></div>
+</header>
+<div id="pvmodal" hidden></div>
 <canvas id="bg" aria-hidden="true"></canvas>
 <canvas id="confetti" aria-hidden="true"></canvas>
 
@@ -629,14 +737,8 @@ body[data-screen="s-admin"] .card,body[data-screen="s-admin"] .switchrow,body[da
 <!-- لوحة الإدارة -->
 <section class="screen" id="s-admin">
   <button class="btn ghost" id="a-exit" type="button">خروج من وضع العرض</button>
-  <div class="adm-head controls"><h1>لوحة الإدارة</h1><span class="ph-sp"></span><button class="btn ghost" id="a-prev" type="button">👁 معاينة كطالب</button><button class="btn ghost" id="a-home" type="button">خروج</button></div>
-  <div class="tabs controls" id="a-tabs">
-    <button class="tabbtn" data-tab="session" type="button">اللقاء</button>
-    <button class="tabbtn" data-tab="content" type="button">المحتوى</button>
-    <button class="tabbtn" data-tab="survey" type="button">الاستبانة</button>
-  </div>
   <p class="err" id="a-err" role="alert"></p>
-  <div id="a-body"></div>
+  <div id="a-view"></div>
 </section>
 
 <!-- واجهة الطالب أثناء اللقاء -->
@@ -687,7 +789,6 @@ body[data-screen="s-admin"] .card,body[data-screen="s-admin"] .switchrow,body[da
 
 <div id="gloss" role="status"></div>
 <div id="toast" role="status"></div>
-<div id="tools"></div>
 <div id="pvbanner" hidden>معاينة الطالب</div>
 
 <script>
@@ -880,6 +981,7 @@ function show(id){
   const w = document.querySelector(".wrap"); if(w) w.classList.toggle("wide", id === "s-admin" || id === "s-print");
   document.body.classList.toggle("presenting", id === "s-present");
   document.body.dataset.screen = id;
+  if(typeof barFor === "function") barFor(id);
   if(id !== "s-live" && id !== "s-present" && typeof setPal === "function") setPal(PAL_BY_SCREEN[id] || "a");
   if(id !== "s-live" && typeof stopLivePoll === "function") stopLivePoll();
   window.scrollTo(0,0);
@@ -1304,10 +1406,10 @@ const MODULES = {
   creative: { name:"الإبداع: وصف الصورة",   icon:"🎨", desc:"كيف تطلب صورة جيدة" }
 };
 const PRESETS = {
-  def:   { name:"الافتراضي", mods:{ story:true, study:false, english:false, verify:false, family:false, creative:false }, hide:[] },
-  nosum: { name:"بلا تلخيص", mods:{ story:false, study:true, english:false, verify:true, family:true, creative:false }, hide:["s-nlm"] },
-  short: { name:"مختصر", mods:{ story:true, study:false, english:false, verify:false, family:false, creative:false }, hide:["s-nlm", "s-free"] },
-  all:   { name:"كل شيء", mods:{ story:true, study:true, english:true, verify:true, family:true, creative:true }, hide:[] }
+  def:   { name:"الافتراضي", desc:"القصة والتلخيص مع المقدمة والقواعد", mods:{ story:true, study:false, english:false, verify:false, family:false, creative:false }, hide:[] },
+  nosum: { name:"بلا تلخيص", desc:"المذاكرة والتحقق والبرّ بدل التلخيص", mods:{ story:false, study:true, english:false, verify:true, family:true, creative:false }, hide:["s-nlm"] },
+  short: { name:"مختصر", desc:"القصة فقط، بلا عرض NotebookLM ولا التزام", mods:{ story:true, study:false, english:false, verify:false, family:false, creative:false }, hide:["s-nlm", "s-free"] },
+  all:   { name:"كل شيء", desc:"كل الحزم، لمكان يتسع وقته", mods:{ story:true, study:true, english:true, verify:true, family:true, creative:true }, hide:[] }
 };
 
 /* ######## ui.js ######## */
@@ -1523,10 +1625,10 @@ function nextVisible(i, d){ let j = i + d; while(j >= 0 && j < DECK.length && DE
 function firstVisible(){ const v = visibleIdx(); return v.length ? v[0] : 0; }
 function lastVisible(){ const v = visibleIdx(); return v.length ? v[v.length - 1] : DECK.length - 1; }
 function packStats(m){ const sl = DECK.filter(s => s.mod === m); return { n:sl.length, min:sl.reduce((a, s) => a + (Number(s.min) || 0), 0), on:sl.some(s => !s.hidden) }; }
-function applyPreset(k){
-  const pr = PRESETS[k]; if(!pr) return;
-  DECK.forEach(s => { if(!s.mod) s.hidden = false; else if(pr.mods[s.mod] != null) s.hidden = !pr.mods[s.mod]; });
-  DECK.forEach(s => { if(pr.hide.indexOf(s.id) >= 0) s.hidden = true; });
+function applyPreset(k, deck){
+  const pr = PRESETS[k]; if(!pr) return; deck = deck || DECK;
+  deck.forEach(s => { if(!s.mod) s.hidden = false; else if(pr.mods[s.mod] != null) s.hidden = !pr.mods[s.mod]; });
+  deck.forEach(s => { if(pr.hide.indexOf(s.id) >= 0) s.hidden = true; });
 }
 function needsMerge(){ return !DECK.some(s => s.mod); }
 /* يدمج الشرائح والحزم الجديدة في محتوى محفوظ سابقًا دون المساس بتعديلاتك */
@@ -1546,11 +1648,11 @@ function packsPanel(onChange){
   Object.keys(MODULES).forEach(m => {
     const st = packStats(m); if(!st.n) return;
     const sw = h("button", { type:"button", class:"switch", role:"switch", "aria-checked":st.on ? "true" : "false", "aria-label":MODULES[m].name,
-      onclick:() => { DECK.forEach(s => { if(s.mod === m) s.hidden = st.on; }); sfx("tap"); saveDeck(); onChange(); } });
+      onclick:() => { DECK.forEach(s => { if(s.mod === m) s.hidden = st.on; }); sfx("tap"); queueSave(); onChange(); } });
     box.append(h("div", { class:"switchrow" }, h("span", {}, MODULES[m].icon + " " + MODULES[m].name, h("small", {}, MODULES[m].desc + " · " + st.n + " شرائح · " + st.min + " د")), sw));
   });
   const row = h("div", { class:"presets" });
-  Object.keys(PRESETS).forEach(k => row.append(h("button", { type:"button", class:"pb2", onclick:() => { applyPreset(k); saveDeck(); onChange(); toast("طُبّق: " + PRESETS[k].name); } }, PRESETS[k].name)));
+  Object.keys(PRESETS).forEach(k => row.append(h("button", { type:"button", class:"pb2", onclick:() => { applyPreset(k); queueSave(); onChange(); toast("طُبّق: " + PRESETS[k].name); } }, PRESETS[k].name)));
   box.append(h("div", { class:"dlab" }, "إعدادات جاهزة"), row);
   return box;
 }
@@ -1727,14 +1829,29 @@ function fillToolbar(host, compact){
   toolButtons().forEach(b => host.append(b));
 }
 
-/* الزر العائم (يظهر في كل الشاشات عدا العرض والمعاينة) */
-function renderFloatingTools(){
-  const box = $("tools"); box.innerHTML = "";
-  const stack = h("div", { class:"stack" }); toolButtons().forEach(b => stack.append(b));
-  const fab = h("button", { type:"button", class:"fab", title:"أدوات العرض", "aria-label":"أدوات العرض", onclick:() => { box.classList.toggle("open"); if(box.classList.contains("open")){ renderFloatingTools(); box.classList.add("open"); } } }, "⚙");
-  box.append(stack, fab);
+/* ---------- الشريط العلوي الموحّد: عودة + عنوان + أدوات ---------- */
+function setBar(title, backFn, backLabel){
+  $("ab-title").textContent = title || "";
+  const b = $("ab-back");
+  if(backFn){ b.hidden = false; b.textContent = backLabel || "رجوع"; b.onclick = backFn; } else { b.hidden = true; b.onclick = null; }
 }
-renderFloatingTools();
+function barFor(id){
+  if(id === "s-admin") return;
+  const home = [goHome, "الرئيسية"];
+  const m = { "s-intro":["لقاء الذكاء الاصطناعي", null], "s-q":["الاستبانة"].concat(home), "s-done":["شكرًا لك"].concat(home), "s-res":["النتائج"].concat(home),
+              "s-login":["دخول الإدارة"].concat(home), "s-live":["اللقاء"].concat(home), "s-print":["الأوراق المطبوعة", () => { A.view = "home"; openAdmin(); }, "← اللوحة"] };
+  const v = m[id] || ["", null]; setBar(v[0], v[1], v[2]);
+  closeBarPop();
+}
+function closeBarPop(){ $("ab-pop").hidden = true; }
+function renderBarTools(){
+  const pop = $("ab-pop"); pop.innerHTML = "";
+  toolButtons().forEach(b => pop.append(b));
+}
+function renderFloatingTools(){ renderBarTools(); }
+$("ab-tools").addEventListener("click", () => { const pop = $("ab-pop"); if(pop.hidden){ renderBarTools(); pop.hidden = false; } else pop.hidden = true; });
+document.addEventListener("pointerdown", e => { const pop = $("ab-pop"); if(!pop.hidden && !e.target.closest("#ab-pop") && e.target.id !== "ab-tools") pop.hidden = true; }, true);
+renderBarTools();
 
 /* معاينة الطالب: نافذة جوال تعرض الصفحة كما يراها الطالب تمامًا، دون الخروج من حساب الإدارة */
 function togglePhone(){
@@ -1760,6 +1877,7 @@ function goHome(){
 
 /* ######## live.js ######## */
 /* ================= واجهة الطالب أثناء اللقاء ================= */
+let SUB_DRY = false;   // في المعاينة لا تُرسل المشاركات فعليًّا
 const L = { idx:0, step:0, follow:true, timer:null, conn:true, wall:[] };
 /* المقدّم «نشط» إن كانت آخر نبضة منه حديثة. وإلا فالشريحة المخزنة قديمة ولا نقفز إليها */
 const presenterActive = () => S.age == null || S.age < 75;
@@ -1835,6 +1953,7 @@ function groupPicker(){
   wrap.append(row); return wrap;
 }
 async function sendSub(s, kind, payload, ui){
+  if(SUB_DRY){ ui.msg.className = "sendmsg"; ui.msg.textContent = "معاينة: لم يُرسل شيء."; sfx("tap"); return; }
   ui.btn.disabled = true; ui.msg.className = "sendmsg"; ui.msg.textContent = "";
   const g = S.mode === "group" ? LS.get("grp", 0) : 0;
   if(S.mode === "group" && !g){ ui.msg.className = "sendmsg bad"; ui.msg.textContent = "اختر رقم مجموعتك أولًا."; ui.btn.disabled = false; return; }
@@ -1941,15 +2060,18 @@ function labForm(s){
   return wrap;
 }
 
-function renderLiveAct(){
-  const host = $("lv-act"); host.innerHTML = "";
-  if(!S.live) return;
-  const s = DECK[L.idx]; if(!s || s.kind !== "activity") return;
+function actCard(s){
+  if(!s || s.kind !== "activity") return null;
   const card = h("div", { class:"card act" });
   card.append(h("div", { class:"act-t" }, "مشاركتك"));
   card.append(S.mode === "group" ? groupPicker() : h("p", { class:"note" }, "مشاركتك مجهولة الاسم."));
   card.append(s.akind === "answers" ? answersForm(s) : s.akind === "template" ? templateForm(s) : s.akind === "lab" ? labForm(s) : freeForm(s));
-  host.append(card);
+  return card;
+}
+function renderLiveAct(){
+  const host = $("lv-act"); host.innerHTML = "";
+  if(!S.live) return;
+  const c = actCard(DECK[L.idx]); if(c) host.append(c);
 }
 
 function renderLiveExtra(){
@@ -2173,7 +2295,7 @@ function drawerIndex(inner){
       h("button", { type:"button", class:"idxrow" + (i === P.idx ? " on" : ""), onclick:() => { pGo(i, 0); } },
         h("span", { class:"n" }, String(i + 1)),
         h("span", { class:"t" }, h("b", {}, m + (x.title || KIND_NAMES[x.kind] || "شريحة")), h("small", {}, (KIND_NAMES[x.kind] || x.kind) + " · " + (x.min || 0) + " د" + (x.hidden ? " · مخفية" : "")))),
-      h("button", { type:"button", class:"pb2 eye", title:x.hidden ? "إظهار" : "إخفاء", onclick:() => { x.hidden = !x.hidden; sfx("tap"); saveDeck(); renderP(true); } }, x.hidden ? "🚫" : "👁")));
+      h("button", { type:"button", class:"pb2 eye", title:x.hidden ? "إظهار" : "إخفاء", onclick:() => { x.hidden = !x.hidden; sfx("tap"); queueSave(); renderP(true); } }, x.hidden ? "🚫" : "👁")));
   });
   inner.append(h("p", { class:"dmeta" }, "المجموع المقترح للشرائح الظاهرة: " + total + " دقيقة"));
 }
@@ -2277,8 +2399,8 @@ function buildEditor(s, onDone){
   return form;
 }
 async function saveDeck(){
-  try{ const d = await adminOp("setDeck", { deck:DECK }); if(d && d.ok){ deckV = S.dv; setSync(true); } else toast("تعذّر النشر"); }
-  catch(e){ toast("تعذّر النشر. تحقق من الاتصال"); setSync(false); }
+  try{ const d = await adminOp("setDeck", { deck:DECK }); if(d && d.ok){ deckV = S.dv; setSync(true); return true; } toast("تعذّر الحفظ"); return false; }
+  catch(e){ toast("تعذّر الحفظ. تحقق من الاتصال"); setSync(false); return false; }
 }
 
 /* ---------- ربط أزرار الشريط ---------- */
@@ -2295,7 +2417,8 @@ $("p-live").addEventListener("click", async () => { sfx("tap"); await setSt({ li
 
 /* ######## admin.js ######## */
 /* ================= لوحة الإدارة ================= */
-const A = { tab:"session", data:null, sel:-1 };
+/* ================= لوحة الإدارة (مبسّطة): لوحة رئيسية ثم أربع شاشات واضحة ================= */
+const A = { view:"home", data:null, filter:"all", saving:false, saveErr:false, everSaved:false };
 let afterLogin = null;
 
 function goLogin(after){
@@ -2303,132 +2426,235 @@ function goLogin(after){
   if(adminPass) proceedLogin(); else show("s-login");
 }
 async function proceedLogin(){
-  const a = afterLogin; afterLogin = null; renderFloatingTools();
+  const a = afterLogin; afterLogin = null; renderBarTools();
   if(a === "present"){ await loadDeck(); openPresenter(); }
   else if(a === "print"){ await loadDeck(); openPrint(); }
   else openAdmin();
 }
 async function openAdmin(){
-  show("s-admin"); $("a-err").textContent = "";
+  show("s-admin"); $("a-err").textContent = ""; renderAdmin();
   await loadDeck(); await refreshAdmin();
 }
 async function refreshAdmin(){
-  try{ A.data = await adminOp("results"); renderAdminTab(); }
+  try{ A.data = await adminOp("results"); $("a-err").textContent = ""; }
   catch(e){ $("a-err").textContent = "تعذّر الاتصال بالسكربت."; }
+  renderAdmin();
+}
+function adminGo(v){ A.view = v; renderAdmin(); window.scrollTo(0, 0); }
+function adminLogout(){
+  adminPass = ""; renderBarTools(); const p = $("phone"); if(p) p.remove(); closeSlidePreview(true); goHome();
 }
 async function adminSet(patch){
-  try{ const d = await adminOp("setState", { patch:patch }); if(d && d.ok){ $("a-err").textContent = ""; renderAdminTab(); } else $("a-err").textContent = "رُفض الطلب."; }
-  catch(e){ $("a-err").textContent = "تعذّر الاتصال بالسكربت."; }
+  try{
+    const d = await adminOp("setState", { patch:patch });
+    if(d && d.ok){ $("a-err").textContent = ""; renderAdmin(); } else $("a-err").textContent = "رُفض الطلب.";
+  }catch(e){ $("a-err").textContent = "تعذّر الاتصال بالسكربت."; }
+}
+async function setStQuiet(patch){ try{ await adminOp("setState", { patch:patch }); toast("تم الحفظ ✓"); }catch(e){ $("a-err").textContent = "تعذّر الاتصال بالسكربت."; } }
+
+/* ---------- حفظ تلقائي للمحتوى ---------- */
+let saveTimer = null;
+function queueSave(){
+  A.saving = true; A.saveErr = false; drawPill();
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(async () => { const ok = await saveDeck(); A.saving = false; A.saveErr = !ok; if(ok) A.everSaved = true; drawPill(); }, 700);
+}
+function drawPill(){
+  const p = $("savepill"); if(!p) return;
+  p.className = "pill " + (A.saveErr ? "bad" : A.saving ? "busy" : A.everSaved ? "ok" : "");
+  p.textContent = A.saveErr ? "تعذّر الحفظ" : A.saving ? "جارٍ الحفظ…" : A.everSaved ? "✓ محفوظ" : "التعديلات تُحفظ تلقائيًّا";
 }
 
-function switchRow(label, small, on, onToggle){
-  const sw = h("button", { type:"button", class:"switch", role:"switch", "aria-checked":on ? "true" : "false", "aria-label":label, onclick:() => onToggle(!on) });
-  return h("div", { class:"switchrow" }, h("span", {}, label, small ? h("small", {}, small) : null), sw);
+/* ---------- عناصر مشتركة ---------- */
+function sw(on, onToggle, label, small){
+  const b = h("button", { type:"button", class:"switch" + (small ? " sm" : ""), role:"switch", "aria-checked":on ? "true" : "false", "aria-label":label || "", onclick:ev => { ev.stopPropagation(); onToggle(!on); } });
+  return b;
 }
-function listCard(title, arr){
-  const c = h("div", { class:"card res private" }, h("h3", {}, title));
-  arr.forEach(t => c.append(h("div", { class:"quote" }, t)));
-  return c;
+function setting(title, desc, control){
+  return h("div", { class:"setcard2" }, h("div", { class:"stxt" }, h("b", {}, title), desc ? h("small", {}, desc) : null), h("div", { class:"sctl" }, control));
+}
+function sectionTitle(t, sub){ return h("div", { class:"sect2" }, h("b", {}, t), sub ? h("small", {}, sub) : null); }
+function copyStudentLink(){
+  const url = location.href.split("#")[0].split("?")[0];
+  copyText(url).then(ok => { toast(ok ? "نُسخ رابط الطلاب" : "تعذّر النسخ: " + url); sfx(ok ? "pop" : "bad"); });
+}
+function visibleMinutes(){ return DECK.filter(s => !s.hidden).reduce((a, s) => a + (Number(s.min) || 0), 0); }
+
+function renderAdmin(){
+  const host = $("a-view"); host.innerHTML = "";
+  const T = { home:"لوحة التحكم", content:"المحتوى والشرائح", survey:"نتائج الاستبانة", session:"إعدادات اللقاء" };
+  setBar(T[A.view] || "", A.view === "home" ? adminLogout : () => adminGo("home"), A.view === "home" ? "خروج" : "← اللوحة");
+  ({ home:viewHome, content:viewContent, survey:viewSurvey, session:viewSession }[A.view] || viewHome)(host);
+  drawPill();
 }
 
-function renderAdminTab(){
-  document.querySelectorAll("#a-tabs .tabbtn").forEach(b => b.classList.toggle("on", b.dataset.tab === A.tab));
-  const host = $("a-body"); host.innerHTML = "";
-  if(A.tab === "survey") tabSurvey(host);
-  else if(A.tab === "session") tabSession(host);
-  else tabContent(host);
+/* ================= الشاشة الرئيسية ================= */
+function viewHome(host){
+  const d = A.data || { total:0 }, vis = DECK.filter(s => !s.hidden);
+  host.append(h("div", { class:"statstrip" },
+    h("div", { class:"schip" }, h("span", { class:"dotl" + (S.live ? " on" : "") }), "اللقاء: ", h("b", {}, S.live ? "مفتوح" : "مغلق")),
+    h("div", { class:"schip" }, "📝 الاستبانة: ", h("b", {}, d.total + " إجابة")),
+    h("div", { class:"schip" }, "🎞️ الشرائح: ", h("b", {}, vis.length + " (نحو " + visibleMinutes() + " د)"))));
+  host.append(h("button", { type:"button", class:"hero", onclick:() => { afterLogin = null; openPresenter(); } },
+    h("span", { class:"hi" }, "▶"), h("span", {}, h("b", {}, "ابدأ العرض"), h("small", {}, "يفتح العرض التقديمي، وتتحكم من داخله بما يراه الطلاب"))));
+  if(P.idx > 0 && DECK[P.idx]) host.append(h("button", { type:"button", class:"hero2", onclick:() => { afterLogin = null; openPresenter(true); } }, "↩ متابعة من الشريحة " + (P.idx + 1)));
+  const tiles = h("div", { class:"tiles" });
+  const tile = (ic, t, s, fn) => tiles.append(h("button", { type:"button", class:"tile", onclick:fn }, h("span", { class:"ti" }, ic), h("b", {}, t), h("small", {}, s)));
+  tile("📚", "المحتوى", "اختر الحزم، وعاين كل شريحة وعدّلها", () => adminGo("content"));
+  tile("📊", "الاستبانة", "نتائج الطلاب وإظهارها لهم", () => adminGo("survey"));
+  tile("👥", "إعدادات اللقاء", "فتح اللقاء ونمط المشاركة", () => adminGo("session"));
+  tile("👁", "معاينة كطالب", "نافذة جوال تعرض ما يراه الطلاب", togglePhone);
+  tile("🖨", "الأوراق المطبوعة", "أوراق المجموعات ودليل المقدّم", openPrint);
+  tile("🔗", "رابط الطلاب", "اضغط لنسخه وإرساله", copyStudentLink);
+  host.append(tiles);
 }
 
-/* ---------- تبويب الاستبانة ---------- */
-function tabSurvey(host){
-  const d = A.data || { total:0, counts:{}, comments:[], toolOther:[], usesOther:[] };
-  host.append(h("p", { class:"stat" }, "عدد المشاركين: " + d.total));
-  const ctl = h("div", { class:"controls" },
-    switchRow("إظهار النتائج للطلاب", "تظهر لهم الأرقام فقط، دون نصوصهم", !!S.visible, v => adminSet({ visible:v })),
-    switchRow("استقبال الإجابات", "أغلقه فتتوقف الاستبانة عن القبول", S.open !== false, v => adminSet({ open:v })),
-    h("div", { class:"adminbar" },
-      h("button", { type:"button", class:"btn", onclick:async () => { await refreshAdmin(); $("s-admin").classList.add("present"); window.scrollTo(0, 0); } }, "وضع العرض"),
-      h("button", { type:"button", class:"btn light", onclick:refreshAdmin }, "تحديث"),
-      h("button", { type:"button", class:"btn danger", onclick:async () => { if(confirm("حذف كل إجابات الاستبانة نهائيًّا؟")){ await adminOp("clear"); refreshAdmin(); } } }, "حذف الإجابات")));
-  host.append(ctl, h("div", { style:"margin-top:14px" }));
-  host.append(kpiRow(d.counts, d.total));
-  const grid = h("div", { class:"rgrid" }); renderResults(grid, d.counts, d.total); host.append(grid);
-  if(d.toolOther && d.toolOther.length) host.append(listCard("أدوات أخرى ذكروها", d.toolOther));
-  if(d.usesOther && d.usesOther.length) host.append(listCard("استخدامات أخرى ذكروها", d.usesOther));
-  if(d.comments && d.comments.length) host.append(listCard("ما أرادوا معرفته وأسئلتهم", d.comments));
-}
+/* ================= شاشة المحتوى ================= */
+function presetMinutes(k){ const c = clone(DECK); applyPreset(k, c); return c.filter(s => !s.hidden).reduce((a, s) => a + (Number(s.min) || 0), 0); }
+function presetActive(k){ const c = clone(DECK); applyPreset(k, c); return c.every((s, i) => !!s.hidden === !!DECK[i].hidden); }
 
-/* ---------- تبويب اللقاء ---------- */
-function tabSession(host){
-  const left = h("div", { class:"controls" }), right = h("div", { class:"controls" });
-  left.append(h("div", { class:"adminbar" },
-    h("button", { type:"button", class:"btn", onclick:() => { afterLogin = null; openPresenter(); } }, "▶ بدء العرض من البداية"),
-    P.idx > 0 ? h("button", { type:"button", class:"btn light", onclick:() => { afterLogin = null; openPresenter(true); } }, "↩ متابعة من الشريحة " + (P.idx + 1)) : null,
-    h("button", { type:"button", class:"btn light", onclick:openPrint }, "🖨 طباعة الأوراق")));
-  left.append(h("div", { style:"height:12px" }));
-  left.append(h("div", { class:"adminbar" }, h("button", { type:"button", class:"btn light", onclick:() => adminSet({ slide:firstVisible(), step:0 }) }, "↺ إعادة العرض إلى الشريحة الأولى")));
-  left.append(h("div", { style:"height:12px" }));
-  left.append(switchRow("فتح اللقاء للطلاب", "تظهر لهم الشرائح على جوالاتهم ويستطيعون المشاركة", !!S.live, v => adminSet({ live:v })));
-  left.append(switchRow("السماح للطلاب بالتنقل بأنفسهم", "مفيد إن تعطلت الشاشة: يفتحون الشرائح على جوالاتهم", !!S.free, v => adminSet({ free:v })));
-  left.append(h("p", { class:"note dk" }, "رابط الطلاب هو رابط الصفحة نفسه، وفيه زر «ادخل اللقاء» حين تفتح اللقاء. ويمكنك إضافة #live مباشرة في آخر الرابط. ولمعاينة ما يراه الطلاب اضغط «معاينة كطالب» في الأعلى."));
-  right.append(h("div", { class:"card setcard" },
-    h("div", { class:"dlab" }, "نمط المشاركة"),
-    seg([["individual", "فردي (مجهول)"], ["group", "مجموعات"]], S.mode, v => adminSet({ mode:v })),
-    S.mode === "group" ? h("div", {}, h("div", { class:"dlab" }, "عدد المجموعات (اكتب الرقم)"), numInput(S.groups, 2, 30, v => setStQuiet({ groups:v }))) : null,
-    h("div", { class:"dlab" }, "عرض المشاركات للطلاب"),
-    seg([["hidden", "مخفية"], ["stage", "واحدة على الشاشة"], ["all", "الكل"]], S.subs, v => adminSet({ subs:v }))));
-  right.append(h("div", { class:"adminbar" },
-    h("button", { type:"button", class:"btn danger", onclick:async () => { if(confirm("حذف كل مشاركات اللقاء نهائيًّا؟")){ await adminOp("clearSubs"); toast("تم الحذف"); renderAdminTab(); } } }, "حذف كل المشاركات")));
-  host.append(h("div", { class:"grid2" }, left, right));
-}
-async function setStQuiet(patch){ try{ await adminOp("setState", { patch:patch }); toast("تم الحفظ"); }catch(e){ $("a-err").textContent = "تعذّر الاتصال بالسكربت."; } }
-
-/* ---------- تبويب المحتوى ---------- */
-function tabContent(host){
-  const box = h("div", { class:"controls" });
-  box.append(h("p", { class:"note dk" }, "عدّل أي شريحة أو رتّبها، ثم اضغط «نشر التعديلات» ليراها الطلاب. ويمكنك التعديل أيضًا أثناء العرض من زر ✎."));
+function viewContent(host){
+  host.append(h("div", { class:"vhead" }, h("p", { class:"vdesc" }, "اختر ما يظهر في لقائك، ثم اضغط على أي شريحة لمعاينتها كما يراها الطالب. كل تغيير يُحفظ تلقائيًّا."), h("span", { id:"savepill", class:"pill" })));
   if(needsMerge()){
-    box.append(h("div", { class:"card setcard" }, h("b", {}, "🆕 توجد حزم جديدة جاهزة"), h("p", { class:"note" }, "محتواك المحفوظ سابقًا لا يحتوي على الحزم الإضافية (المذاكرة، الإنجليزية، التحقق، البرّ، الإبداع). الدمج يضيفها مخفيةً دون المساس بتعديلاتك."),
-      h("button", { type:"button", class:"btn", onclick:async () => { const n = mergeNewDefaults(); await saveDeck(); toast("أُضيفت " + n + " شرائح"); renderAdminTab(); } }, "دمج الحزم الجديدة")));
+    host.append(h("div", { class:"mergecard" }, h("b", {}, "🆕 توجد حزم جديدة جاهزة"), h("p", {}, "محتواك المحفوظ سابقًا لا يتضمن الحزم الإضافية. الدمج يضيفها مخفيةً دون المساس بتعديلاتك."),
+      h("button", { type:"button", class:"btn", onclick:() => { const n = mergeNewDefaults(); queueSave(); toast("أُضيفت " + n + " شرائح"); renderAdmin(); } }, "دمج الحزم الجديدة")));
   }
-  box.append(h("h3", { class:"sect" }, "حزم المحتوى: أظهر ما يناسب مكانك"), packsPanel(renderAdminTab));
-  box.append(h("h3", { class:"sect" }, "كل الشرائح"));
-  const list = h("div", { class:"slist" });
-  DECK.forEach((s, i) => {
-    const tag = s.mod && MODULES[s.mod] ? MODULES[s.mod].icon + " " : "";
-    const row = h("div", { class:"srow" + (A.sel === i ? " on" : "") + (s.hidden ? " hid" : "") },
-      h("span", { class:"sn2" }, String(i + 1)),
-      h("div", { class:"sinfo" }, h("b", {}, tag + (s.title || KIND_NAMES[s.kind] || s.kind)), h("small", {}, (KIND_NAMES[s.kind] || s.kind) + " · " + (s.min || 0) + " د" + (s.hidden ? " · مخفية" : ""))),
-      h("div", { class:"sbt" },
-        h("button", { type:"button", class:"pb2", title:s.hidden ? "إظهار" : "إخفاء", onclick:() => { s.hidden = !s.hidden; saveDeck(); renderAdminTab(); } }, s.hidden ? "🚫" : "👁"),
-        h("button", { type:"button", class:"pb2", title:"أعلى", onclick:() => moveSlide(i, -1) }, "↑"),
-        h("button", { type:"button", class:"pb2", title:"أسفل", onclick:() => moveSlide(i, 1) }, "↓"),
-        h("button", { type:"button", class:"pb2", onclick:() => { A.sel = A.sel === i ? -1 : i; renderAdminTab(); } }, "تعديل"),
-        h("button", { type:"button", class:"pb2 del", onclick:() => { if(confirm("حذف هذه الشريحة؟")){ DECK.splice(i, 1); A.sel = -1; renderAdminTab(); } } }, "حذف")));
-    list.append(row);
-    if(A.sel === i) list.append(h("div", { class:"edwrap" }, buildEditor(s, c => { if(c === "cancel") A.sel = -1; renderAdminTab(); if(c !== "cancel") saveDeck(); })));
+  host.append(sectionTitle("١) نمط اللقاء", "اختر وصفة جاهزة، ثم عدّل عليها إن شئت"));
+  const pg = h("div", { class:"presetgrid" });
+  Object.keys(PRESETS).forEach(k => pg.append(h("button", { type:"button", class:"pcard" + (presetActive(k) ? " on" : ""), onclick:() => { applyPreset(k); queueSave(); sfx("tap"); renderAdmin(); } },
+    h("b", {}, PRESETS[k].name), h("small", {}, PRESETS[k].desc || ""), h("span", { class:"pm" }, "نحو " + presetMinutes(k) + " د"))));
+  host.append(pg);
+
+  host.append(sectionTitle("٢) الحزم الإضافية", "كل حزمة مجموعة شرائح تُظهرها أو تُخفيها"));
+  const packs = h("div", { class:"scards" });
+  Object.keys(MODULES).forEach(m => {
+    const st = packStats(m); if(!st.n) return;
+    packs.append(h("div", { class:"packcard" },
+      h("span", { class:"pi" }, MODULES[m].icon),
+      h("div", { class:"pt" }, h("b", {}, MODULES[m].name), h("small", {}, MODULES[m].desc), h("small", {}, st.n + " شرائح · " + st.min + " د")),
+      h("button", { type:"button", class:"pb2", onclick:() => openSlidePreview(DECK.findIndex(s => s.mod === m)) }, "معاينة"),
+      sw(st.on, () => { DECK.forEach(s => { if(s.mod === m) s.hidden = st.on; }); sfx("tap"); queueSave(); renderAdmin(); }, MODULES[m].name)));
   });
-  box.append(list);
+  host.append(packs);
+
+  host.append(sectionTitle("٣) الشرائح", "اضغط على الشريحة لمعاينتها وتعديلها وترتيبها"));
+  const chips = h("div", { class:"chips2" });
+  [["all", "الكل (" + DECK.length + ")"], ["vis", "الظاهرة (" + DECK.filter(s => !s.hidden).length + ")"], ["hid", "المخفية (" + DECK.filter(s => s.hidden).length + ")"]].forEach(([v, t]) =>
+    chips.append(h("button", { type:"button", class:"chip2" + (A.filter === v ? " on" : ""), onclick:() => { A.filter = v; renderAdmin(); } }, t)));
+  host.append(chips);
+  const list = h("div", { class:"scards" });
+  DECK.forEach((s, i) => {
+    if(A.filter === "vis" && s.hidden) return; if(A.filter === "hid" && !s.hidden) return;
+    const tag = s.mod && MODULES[s.mod] ? MODULES[s.mod].icon + " " : "";
+    list.append(h("div", { class:"scard" + (s.hidden ? " hid" : ""), role:"button", tabindex:"0", onclick:() => openSlidePreview(i) },
+      h("span", { class:"sn2" }, String(i + 1)),
+      h("div", { class:"st2" }, h("b", {}, tag + (s.title || KIND_NAMES[s.kind] || s.kind)), h("small", {}, (KIND_NAMES[s.kind] || s.kind) + " · " + (s.min || 0) + " د" + (s.hidden ? " · مخفية" : ""))),
+      sw(!s.hidden, () => { s.hidden = !s.hidden; sfx("tap"); queueSave(); renderAdmin(); }, "إظهار الشريحة", true)));
+  });
+  if(!list.children.length) list.append(h("p", { class:"dim" }, "لا شرائح في هذا العرض."));
+  host.append(list);
+
   const sel = h("select", { id:"newkind" }); Object.keys(NEW_SLIDE).forEach(k => sel.append(h("option", { value:k }, KIND_NAMES[k] || k)));
-  box.append(h("div", { class:"adminbar" }, sel,
-    h("button", { type:"button", class:"btn light", onclick:() => { DECK.push(NEW_SLIDE[$("newkind").value]()); A.sel = DECK.length - 1; renderAdminTab(); } }, "+ إضافة شريحة")));
-  box.append(h("div", { class:"adminbar" },
-    h("button", { type:"button", class:"btn", onclick:async () => { await saveDeck(); toast("نُشرت التعديلات"); } }, "نشر التعديلات"),
-    h("button", { type:"button", class:"btn danger", onclick:async () => { if(confirm("إرجاع المحتوى الأصلي وفقدان تعديلاتك؟")){ DECK = clone(DEFAULT_DECK); A.sel = -1; await saveDeck(); renderAdminTab(); } } }, "إرجاع الأصل")));
-  host.append(box);
+  host.append(sectionTitle("٤) إضافة شريحة"), h("div", { class:"addbar" }, sel,
+    h("button", { type:"button", class:"btn light", onclick:() => { DECK.push(NEW_SLIDE[$("newkind").value]()); queueSave(); openSlidePreview(DECK.length - 1, true); } }, "+ أضف وعدّل")));
+  host.append(h("details", { class:"adv" }, h("summary", {}, "خيارات متقدمة"),
+    h("button", { type:"button", class:"btn danger small", onclick:() => { if(confirm("إرجاع المحتوى الأصلي وفقدان تعديلاتك؟")){ DECK = clone(DEFAULT_DECK); queueSave(); renderAdmin(); } } }, "إرجاع المحتوى الأصلي")));
 }
-function moveSlide(i, d){
-  const j = i + d; if(j < 0 || j >= DECK.length) return;
-  const t = DECK[i]; DECK[i] = DECK[j]; DECK[j] = t; A.sel = -1; renderAdminTab();
+
+/* ================= شاشة الاستبانة ================= */
+function viewSurvey(host){
+  const d = A.data || { total:0, counts:{}, comments:[], toolOther:[], usesOther:[] };
+  host.append(h("div", { class:"statstrip" }, h("div", { class:"schip" }, "عدد المشاركين: ", h("b", {}, String(d.total)))));
+  host.append(h("div", { class:"setgrid" },
+    setting("إظهار النتائج للطلاب", "تظهر لهم الأرقام فقط ولا تظهر نصوصهم.", sw(!!S.visible, v => adminSet({ visible:v }), "إظهار النتائج")),
+    setting("استقبال الإجابات", "أغلقه فتتوقف الاستبانة عن القبول.", sw(S.open !== false, v => adminSet({ open:v }), "استقبال الإجابات"))));
+  host.append(h("div", { class:"adminbar" },
+    h("button", { type:"button", class:"btn", onclick:async () => { await refreshAdmin(); $("s-admin").classList.add("present"); document.body.classList.add("report"); window.scrollTo(0, 0); } }, "عرض التقرير على الشاشة"),
+    h("button", { type:"button", class:"btn light", onclick:refreshAdmin }, "تحديث")));
+  host.append(h("div", { style:"height:12px" }), kpiRow(d.counts, d.total));
+  const grid = h("div", { class:"rgrid" }); renderResults(grid, d.counts, d.total); host.append(grid);
+  const lc = (title, arr) => { const c = h("div", { class:"card res private" }, h("h3", {}, title)); arr.forEach(t => c.append(h("div", { class:"quote" }, t))); return c; };
+  if(d.toolOther && d.toolOther.length) host.append(lc("أدوات أخرى ذكروها", d.toolOther));
+  if(d.usesOther && d.usesOther.length) host.append(lc("استخدامات أخرى ذكروها", d.usesOther));
+  if(d.comments && d.comments.length) host.append(lc("ما أرادوا معرفته وأسئلتهم", d.comments));
+  host.append(h("details", { class:"adv controls" }, h("summary", {}, "خيارات متقدمة"),
+    h("button", { type:"button", class:"btn danger small", onclick:async () => { if(confirm("حذف كل إجابات الاستبانة نهائيًّا؟")){ await adminOp("clear"); refreshAdmin(); } } }, "حذف كل الإجابات")));
 }
+
+/* ================= شاشة إعدادات اللقاء ================= */
+function viewSession(host){
+  host.append(h("button", { type:"button", class:"hero", onclick:() => { afterLogin = null; openPresenter(); } },
+    h("span", { class:"hi" }, "▶"), h("span", {}, h("b", {}, "ابدأ العرض"), h("small", {}, "يفتح العرض التقديمي"))));
+  const g = h("div", { class:"setgrid" });
+  g.append(setting("فتح اللقاء للطلاب", "عند فتحه يظهر للطلاب زر «ادخل اللقاء» ويتبعون شريحتك.", sw(!!S.live, v => adminSet({ live:v }), "فتح اللقاء")));
+  g.append(setting("السماح للطلاب بالتنقل", "كل طالب يتصفح الشرائح بنفسه. فعّله فقط إن تعطلت الشاشة.", sw(!!S.free, v => adminSet({ free:v }), "التنقل الحر")));
+  const modeCtl = h("div", {}, seg([["individual", "فردي (مجهول)"], ["group", "مجموعات"]], S.mode, v => adminSet({ mode:v })));
+  if(S.mode === "group") modeCtl.append(h("div", { class:"dlab dk2" }, "عدد المجموعات (اكتب الرقم)"), numInput(S.groups, 2, 30, v => setStQuiet({ groups:v })));
+  g.append(setting("كيف يشارك الطلاب؟", "فردي: بلا أسماء. مجموعات: يختار الطالب رقم مجموعته.", modeCtl));
+  g.append(setting("ما الذي يراه الطلاب من المشاركات؟", "مخفية: أنت وحدك ترى. واحدة: تعرض مشاركة تختارها. الكل: تظهر مشاركات النشاط كلها.", seg([["hidden", "مخفية"], ["stage", "واحدة"], ["all", "الكل"]], S.subs, v => adminSet({ subs:v }))));
+  host.append(g);
+  host.append(h("div", { class:"adminbar" },
+    h("button", { type:"button", class:"btn light", onclick:() => adminSet({ slide:firstVisible(), step:0 }) }, "↺ العودة بالعرض إلى أول شريحة"),
+    h("button", { type:"button", class:"btn light", onclick:copyStudentLink }, "🔗 نسخ رابط الطلاب")));
+  host.append(h("details", { class:"adv" }, h("summary", {}, "خيارات متقدمة"),
+    h("button", { type:"button", class:"btn danger small", onclick:async () => { if(confirm("حذف كل مشاركات اللقاء نهائيًّا؟")){ await adminOp("clearSubs"); toast("تم الحذف"); } } }, "حذف كل مشاركات اللقاء")));
+}
+
+/* ================= نافذة معاينة الشريحة (من خانتها مباشرة، بلا تفعيل اللقاء) ================= */
+const PV = { idx:0, edit:false, mode:"phone", dirty:false, pal:"slate" };
+function openSlidePreview(i, edit){
+  if(i < 0 || !DECK[i]) return;
+  PV.idx = i; PV.edit = !!edit; PV.dirty = false; SUB_DRY = true;
+  $("pvmodal").hidden = false; document.body.classList.add("modal-open"); renderPV();
+}
+function closeSlidePreview(silent){
+  const m = $("pvmodal"); if(!m || m.hidden) return;
+  m.hidden = true; m.innerHTML = ""; SUB_DRY = false; document.body.classList.remove("modal-open"); setPal("slate");
+  if(!silent && PV.dirty && A.view === "content" && $("s-admin").classList.contains("on")) renderAdmin();
+}
+function renderPV(){
+  const m = $("pvmodal"), s = DECK[PV.idx]; if(!s){ closeSlidePreview(); return; }
+  setPal(PAL_BY_KIND[s.kind] || "a");
+  m.innerHTML = "";
+  m.append(h("div", { class:"pvtop" },
+    h("button", { type:"button", class:"abtn", onclick:() => closeSlidePreview() }, "✕ إغلاق"),
+    h("span", { class:"ttl" }, (PV.idx + 1) + " / " + DECK.length + " — " + (s.title || KIND_NAMES[s.kind] || "")),
+    h("span", { class:"pill " + (s.hidden ? "busy" : "ok") }, s.hidden ? "مخفية" : "ظاهرة"),
+    seg([["phone", "📱 جوال"], ["screen", "🖥 شاشة"]], PV.mode, v => { PV.mode = v; renderPV(); })));
+  const sc = h("div", { class:"pvscroll" });
+  if(PV.edit){
+    sc.append(h("div", { class:"pvframe phone" }, h("div", { class:"card" }, h("h3", { style:"margin:0 0 6px" }, "تعديل: " + (KIND_NAMES[s.kind] || s.kind)),
+      buildEditor(s, c => { PV.edit = false; if(c !== "cancel"){ PV.dirty = true; queueSave(); } renderPV(); }))));
+  } else {
+    const frame = h("div", { class:"pvframe " + PV.mode });
+    frame.append(renderSlide(s, { step:99, student:PV.mode === "phone" }));
+    const ac = actCard(s); if(ac) frame.append(ac);
+    sc.append(frame);
+  }
+  m.append(sc);
+  const btn = (txt, title, fn, cls) => h("button", { type:"button", class:"pvb" + (cls ? " " + cls : ""), title:title, onclick:fn }, h("span", {}, txt), h("small", {}, title));
+  m.append(h("div", { class:"pvbar" },
+    btn("◀", "السابق", () => { if(PV.idx > 0){ PV.idx--; PV.edit = false; renderPV(); } }),
+    btn("▶", "التالي", () => { if(PV.idx < DECK.length - 1){ PV.idx++; PV.edit = false; renderPV(); } }),
+    btn("✎", "تعديل", () => { PV.edit = !PV.edit; renderPV(); }),
+    btn(s.hidden ? "👁" : "🚫", s.hidden ? "إظهار" : "إخفاء", () => { s.hidden = !s.hidden; PV.dirty = true; queueSave(); renderPV(); }),
+    btn("↑", "أعلى", () => { if(PV.idx > 0){ const j = PV.idx - 1, t = DECK[PV.idx]; DECK[PV.idx] = DECK[j]; DECK[j] = t; PV.idx = j; PV.dirty = true; queueSave(); renderPV(); } }),
+    btn("↓", "أسفل", () => { if(PV.idx < DECK.length - 1){ const j = PV.idx + 1, t = DECK[PV.idx]; DECK[PV.idx] = DECK[j]; DECK[j] = t; PV.idx = j; PV.dirty = true; queueSave(); renderPV(); } }),
+    btn("🗑", "حذف", () => { if(confirm("حذف هذه الشريحة نهائيًّا؟")){ DECK.splice(PV.idx, 1); PV.dirty = true; queueSave(); if(!DECK.length){ closeSlidePreview(); return; } PV.idx = Math.min(PV.idx, DECK.length - 1); renderPV(); } }, "danger")));
+}
+document.addEventListener("keydown", e => {
+  const m = $("pvmodal"); if(!m || m.hidden) return;
+  if(/^(INPUT|TEXTAREA|SELECT)$/.test((e.target || {}).tagName)) return;
+  if(e.key === "Escape") closeSlidePreview();
+  else if(e.key === "ArrowLeft" && PV.idx < DECK.length - 1){ PV.idx++; PV.edit = false; renderPV(); }
+  else if(e.key === "ArrowRight" && PV.idx > 0){ PV.idx--; PV.edit = false; renderPV(); }
+});
+
 
 /* ---------- الدخول ---------- */
 $("open-admin").addEventListener("click", () => goLogin(null));
 $("login-back").addEventListener("click", () => { $("pw").value = ""; $("login-err").textContent = ""; goHome(); });
-$("a-home").addEventListener("click", () => { adminPass = ""; renderFloatingTools(); const p = $("phone"); if(p) p.remove(); goHome(); });
-$("a-prev").addEventListener("click", togglePhone);
-$("a-exit").addEventListener("click", () => { $("s-admin").classList.remove("present"); window.scrollTo(0, 0); });
-document.querySelectorAll("#a-tabs .tabbtn").forEach(b => b.addEventListener("click", () => { A.tab = b.dataset.tab; A.sel = -1; renderAdminTab(); }));
+$("a-exit").addEventListener("click", () => { $("s-admin").classList.remove("present"); document.body.classList.remove("report"); window.scrollTo(0, 0); });
 $("login").addEventListener("click", async () => {
   const err = $("login-err"); err.textContent = "";
   if(DEMO){
@@ -2503,7 +2729,7 @@ function openPrint(){
   body.append(p4);
   show("s-print");
 }
-$("pr-back").addEventListener("click", () => { openAdmin(); });
+$("pr-back").addEventListener("click", () => { A.view = "home"; openAdmin(); });
 $("pr-go").addEventListener("click", () => window.print());
 
 /* ================= الروابط ================= */
