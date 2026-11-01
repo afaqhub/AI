@@ -648,12 +648,67 @@ body.modal-open{overflow:hidden}
 .pvscroll{flex:1; min-height:0; overflow:auto; padding:16px 12px 24px}
 .pvframe{margin:0 auto; width:100%}
 .pvframe.phone{max-width:430px; font-size:17px}
-.pvframe.screen{max-width:1100px; font-size:clamp(16px,1.5vw,24px)}
+.pvframe.wide{max-width:1100px; font-size:clamp(16px,1.5vw,24px)}
 .pvbar{flex:none; display:flex; gap:6px; padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px)); background:var(--pbar-bg); justify-content:center; flex-wrap:wrap}
 .pvb{display:flex; flex-direction:column; align-items:center; gap:0; min-width:54px; font:inherit; color:var(--fg); background:var(--glass2); border:0; border-radius:12px; padding:5px 10px; cursor:pointer}
 .pvb span{font-size:18px; line-height:1.3}
 .pvb small{font-size:11px}
 .pvb.danger{color:var(--err-t)}
+
+/* ---------- وضوح الخطوات للطالب ---------- */
+.how{background:var(--soft); border:2px solid var(--line); border-radius:14px; padding:10px 14px; margin:0 0 10px; color:var(--ink)}
+.how b{display:block; margin-bottom:4px}
+.how ol{margin:0; padding:0 22px 0 0; line-height:1.9}
+.slide .how{background:var(--glass); border:1px solid var(--glass-b); color:var(--fg); margin-top:14px}
+.ailinks{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:0 0 10px; color:var(--ink); font-size:15px}
+.ailink{font-weight:800; text-decoration:none; color:#fff; background:linear-gradient(135deg,var(--sky),var(--violet)); border-radius:99px; padding:3px 14px; font-size:14px}
+.lbadge{display:inline-block; font-size:.78em; font-weight:800; border-radius:99px; padding:.05em .8em; margin:.2em 0}
+.lbadge.ai{background:rgba(124,92,240,.18); color:var(--violet)}
+.lbadge.me{background:rgba(52,211,153,.2); color:var(--ok)}
+.slide .lbadge.ai{background:rgba(124,92,240,.35); color:var(--fg)}
+.slide .lbadge.me{background:rgba(52,211,153,.3); color:var(--fg)}
+.lablegend{display:flex; flex-wrap:wrap; gap:.4em 1.2em; font-size:.9em; color:var(--fg2); margin:0 0 .8em}
+.lfinal{margin-top:.8em; padding:.7em 1em; border-radius:1em; border:2px dashed var(--glass-b); color:var(--fg)}
+.lstep2.final{border-color:var(--violet); background:#F4F0FF}
+.hintline{margin:0 0 6px; color:var(--muted); font-weight:700; font-size:15px}
+.khint{margin:0 0 .7em; color:var(--gold); font-weight:700; font-size:.95em}
+.selfbar{height:6px; background:var(--bar-track); border-radius:99px; overflow:hidden; margin:0 0 12px}
+.selfbar i{display:block; height:100%; background:linear-gradient(90deg,var(--sky),var(--violet)); border-radius:99px; transition:width .4s}
+
+/* ---------- الشريط السفلي والفهرس عند الطالب ---------- */
+#s-live.withdock{padding-bottom:120px}
+#lv-dock .row{margin-top:0}
+#lv-dock .btn{font-size:16px; padding:10px 8px; min-height:50px}
+#lv-dock .idxb{flex:1.2}
+.syncchip{display:block; margin:0 auto 6px; font:inherit; font-weight:800; font-size:14px; color:#12213F; background:var(--gold); border:0; border-radius:99px; padding:4px 16px; cursor:pointer}
+#idxsheet{position:fixed; inset:0; z-index:80; background:rgba(6,10,30,.62); display:flex; align-items:flex-end; justify-content:center}
+.idxbox{background:#fff; color:var(--ink); width:100%; max-width:560px; max-height:82vh; overflow:auto; border-radius:22px 22px 0 0; padding:12px 14px calc(18px + env(safe-area-inset-bottom,0px)); animation:rise .25s both}
+.idxhead{display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; position:sticky; top:-12px; background:#fff; padding:8px 0; z-index:1}
+.idxhead b{font-size:18px}
+.idxhead .abtn{background:var(--soft); color:var(--ink)}
+.idxgroup{margin:12px 0 4px; font-weight:800; color:var(--violet); font-size:14px}
+.idxitem{display:flex; align-items:center; gap:10px; width:100%; text-align:right; font:inherit; background:var(--soft); color:var(--ink); border:2px solid transparent; border-radius:14px; padding:8px 10px; margin:5px 0; cursor:pointer}
+.idxitem.on{border-color:var(--violet); background:#F1ECFF}
+.idxitem .n{flex:none; width:2em; height:2em; border-radius:50%; background:#fff; display:grid; place-items:center; font-weight:800; font-size:14px}
+.idxitem .t{flex:1; min-width:0}
+.idxitem b{display:block; font-size:15px; line-height:1.4}
+.idxitem small{color:var(--muted)}
+.livecard.selfcard{background:linear-gradient(135deg,rgba(124,92,240,.28),rgba(76,195,255,.22))}
+.livecard small{display:block; color:var(--fg2); font-size:13px; font-weight:400}
+
+/* ---------- حذف فردي ومشاركات ---------- */
+.rcard{background:#fff; color:var(--ink); border-radius:14px; padding:10px 12px; margin:8px 0}
+.rcard .rt{font-size:12px; color:var(--muted)}
+.rcard .rl{font-weight:800; margin:2px 0}
+.rcard .rs{font-size:14px; color:var(--muted)}
+.rcard .quote{margin:6px 0}
+.rcard .pb2{margin-top:6px}
+.subgroup{background:var(--glass); border:1px solid var(--glass-b); border-radius:18px; padding:10px 12px; margin:12px 0}
+.sghead{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:6px}
+.sghead b{flex:1 1 180px}
+.subitem{display:flex; align-items:flex-start; gap:8px; margin:6px 0}
+.subitem .stagecard{flex:1}
+.subitem .pb2{flex:none}
 
 </style>
 </head>
@@ -679,6 +734,10 @@ body.modal-open{overflow:hidden}
   <div class="livecard" id="live-note" hidden>
     <b>اللقاء مفتوح الآن</b>
     <button class="btn" id="enter-live" type="button">ادخل اللقاء</button>
+  </div>
+  <div class="livecard selfcard" id="self-note" hidden>
+    <span><b>📘 تعلّم بنفسك</b><small>دورة قصيرة تسير فيها بالسرعة التي تناسبك</small></span>
+    <button class="btn" id="enter-self" type="button">ابدأ</button>
   </div>
   <p class="closed" id="closed-note" hidden>الاستبانة مغلقة الآن.</p>
   <div class="row"><button class="btn" id="start">ابدأ الاستبانة</button></div>
@@ -746,6 +805,7 @@ body.modal-open{overflow:hidden}
   <div id="lv-slide"></div>
   <div id="lv-act"></div>
   <div id="lv-extra"></div>
+  <div class="dock" id="lv-dock" hidden></div>
   <button class="adminlink" id="lv-exit" type="button">الخروج من اللقاء</button>
 </section>
 
@@ -1101,6 +1161,8 @@ async function submit(){
     if(!DEMO && !PREVIEW){
       await fetch(ENDPOINT, { method:"POST", mode:"no-cors", headers:{ "Content-Type":"text/plain;charset=utf-8" }, body:JSON.stringify(payload) });
       markSent();
+    } else if(DEMO && !PREVIEW){
+      demoResp.unshift({ id:"r" + Date.now(), t:new Date().toISOString(), tool:payload.tool, uses:(payload.uses || []).join("، "), asis:payload.asis, style:payload.style, verify:payload.verify, wish:(payload.wish || []).join("، "), comment:payload.comment });
     }
     $("prog").style.width = "100%";
     show("s-done"); sfx("done");
@@ -1277,12 +1339,12 @@ const DEFAULT_DECK = [
     instruction:"تجربة من أربع خطوات على فقرة علمية قصيرة. افتح الذكاء الاصطناعي الذي تستخدمه ونفّذ الخطوات بالترتيب.",
     sample:"التمثيل الضوئي عملية تصنع بها النباتات غذاءها. تمتص الورقة ضوء الشمس بمادة الكلوروفيل الخضراء، وتأخذ ثاني أكسيد الكربون من الهواء والماء من الجذور، فتنتج سكر الغلوكوز وتطلق الأكسجين.",
     steps:[
-      { t:"اطلب منه أن يشرح", d:"انسخ الطلب والصقه، ثم اقرأ الشرح.", p:"أنت معلم علوم يشرح لطالب في أولى متوسط. اشرح لي هذه الفقرة ببساطة وأعطني مثالًا من حياتي: {{sample}}" },
-      { t:"اطلب منه أن يختبرك", d:"اجعله يختبرك بدل أن تقرأ الفقرة مرة أخرى.", p:"اختبرني بثلاثة أسئلة على الفقرة السابقة، سؤالًا سؤالًا، ولا تعطني الجواب قبل أن أجيب." },
-      { t:"أجب بنفسك", d:"أجب عن كل سؤال من ذاكرتك، دون أن تعود إلى الفقرة ودون أن تسأله.", p:"" },
-      { t:"اطلب منه أن يصحّح", d:"بعد أن تجيب عن الأسئلة الثلاثة.", p:"صحّح إجاباتي، وقل لي ما الذي فاتني، واقترح عليّ طريقة أراجع بها هذه الفقرة غدًا." }
+      { t:"اطلب منه أن يشرح", d:"انسخ الطلب، والصقه في الذكاء الاصطناعي، ثم اقرأ شرحه.", p:"أنت معلم علوم يشرح لطالب في أولى متوسط. اشرح لي هذه الفقرة ببساطة وأعطني مثالًا من حياتي: {{sample}}" },
+      { t:"اطلب منه أن يختبرك", d:"في نفس المحادثة: انسخ الطلب والصقه، وسيطرح عليك أسئلة.", p:"اختبرني بثلاثة أسئلة على الفقرة السابقة، سؤالًا سؤالًا، ولا تعطني الجواب قبل أن أجيب." },
+      { t:"أجب بنفسك", d:"اكتب إجابتك في نفس المحادثة من ذاكرتك، دون أن تعود إلى الفقرة.", p:"" },
+      { t:"اطلب منه أن يصحّح", d:"بعد أن تجيب عن الأسئلة الثلاثة: انسخ الطلب والصقه ليصحّح لك.", p:"صحّح إجاباتي، وقل لي ما الذي فاتني، واقترح عليّ طريقة أراجع بها هذه الفقرة غدًا." }
     ],
-    ask:"ما الذي أفادك أكثر: الشرح أم الاختبار؟ ولماذا؟",
+    ask:"اكتب بكلماتك أنت: ما الذي أفادك أكثر، الشرح أم الاختبار؟ ولماذا؟",
     notes:"هذه التجربة تطبّق مهارة «أجب أولًا، ثم اسأل» على المذاكرة، ولا تحتاج قصة ولا تلخيصًا. أقول: خذوا أي درس عندكم وكرروها. إن كانت أدواتهم لا تفتح فأعرضها أنا من جوالي وهم يتابعون. بعد الخطوة الرابعة أسأل: من وجد أن الاختبار كشف له شيئًا لم يفهمه؟" },
 
   { id:"m-plan", mod:"study", hidden:true, kind:"activity", akind:"lab", min:5,
@@ -1290,9 +1352,9 @@ const DEFAULT_DECK = [
     instruction:"اجعله يخطط لك، ثم عدّل الخطة بما يناسبك أنت. هو يقترح وأنت تقرر.",
     sample:"",
     steps:[
-      { t:"أخبره بظروفك", d:"غيّر المواد والأوقات بما يطابق وضعك الحقيقي.", p:"عندي اختبارات في الرياضيات والعلوم واللغة العربية بعد أسبوع. أستطيع المذاكرة ساعة ونصفًا بعد صلاة المغرب. ضع لي جدول مذاكرة لسبعة أيام يتضمن وقتًا للراحة." },
-      { t:"راجع الجدول بنفسك", d:"هل تستطيع تنفيذه فعلًا؟ ما الذي ستغيّره؟", p:"" },
-      { t:"اطلب التعديل", d:"اكتب ما تريد تغييره.", p:"عدّل الجدول بحيث يكون يوم الجمعة خفيفًا، واجعل المادة الأصعب في أول المساء." }
+      { t:"أخبره بظروفك", d:"انسخ الطلب، وغيّر المواد والأوقات بما يطابق وضعك الحقيقي، ثم الصقه في الذكاء الاصطناعي.", p:"عندي اختبارات في الرياضيات والعلوم واللغة العربية بعد أسبوع. أستطيع المذاكرة ساعة ونصفًا بعد صلاة المغرب. ضع لي جدول مذاكرة لسبعة أيام يتضمن وقتًا للراحة." },
+      { t:"راجع الجدول بنفسك", d:"بدون ذكاء اصطناعي: هل تستطيع تنفيذه فعلًا؟ ما الذي ستغيّره؟", p:"" },
+      { t:"اطلب التعديل", d:"انسخ الطلب وعدّله بما تريد، ثم الصقه في نفس المحادثة.", p:"عدّل الجدول بحيث يكون يوم الجمعة خفيفًا، واجعل المادة الأصعب في أول المساء." }
     ],
     ask:"ما التعديل الذي طلبته؟ وهل صار الجدول مناسبًا لك؟",
     notes:"أؤكد أن الجدول الذي ينفّذه الطالب أفضل من أجمل جدول لا ينفّذه. وأن الذكاء الاصطناعي لا يعرف ظروفنا حتى نخبره بها." },
@@ -1302,10 +1364,10 @@ const DEFAULT_DECK = [
     instruction:"تدرّب على الإنجليزية دون خوف من الخطأ. الخطأ هنا جزء من التعلّم.",
     sample:"",
     steps:[
-      { t:"ابدأ المحادثة", d:"انسخ الطلب والصقه.", p:"You are a friendly English teacher for a 7th-grade student. Talk with me about my favorite hobby in very simple English. Ask me one short question at a time." },
-      { t:"أجب بنفسك", d:"اكتب جوابك بالإنجليزية ولو كان بسيطًا أو فيه أخطاء.", p:"" },
-      { t:"اطلب التصحيح", d:"الصق هذا الطلب بعد جوابك.", p:"Please correct the mistakes in my last message, explain each mistake in Arabic in one short line, then ask me the next question." },
-      { t:"كرّر ثلاث مرات", d:"كل مرة تتحسّن أكثر.", p:"" }
+      { t:"ابدأ المحادثة", d:"انسخ الطلب والصقه في الذكاء الاصطناعي لتبدأ المحادثة.", p:"You are a friendly English teacher for a 7th-grade student. Talk with me about my favorite hobby in very simple English. Ask me one short question at a time." },
+      { t:"أجب بنفسك", d:"اكتب جوابك بالإنجليزية في نفس المحادثة، ولو كان بسيطًا أو فيه أخطاء.", p:"" },
+      { t:"اطلب التصحيح", d:"الصق هذا الطلب بعد جوابك ليصحّح لك.", p:"Please correct the mistakes in my last message, explain each mistake in Arabic in one short line, then ask me the next question." },
+      { t:"كرّر ثلاث مرات", d:"أعد الخطوتين 2 و3 ثلاث مرات. كل مرة تتحسّن أكثر.", p:"" }
     ],
     ask:"كم خطأً اكتشفت في إجاباتك؟ وأيّها ستتجنبه لاحقًا؟",
     notes:"مناسبة لمن يستخدمون الذكاء الاصطناعي في الواجبات فقط: أريهم استخدامًا مختلفًا. أقول: هو لا يحكم عليك ولا يسخر من أخطائك." },
@@ -1328,12 +1390,12 @@ const DEFAULT_DECK = [
     instruction:"جرّب بنفسك أنه يخطئ. اسأله عن شيء تعرفه جيدًا، وابحث عن معلومة خاطئة.",
     sample:"",
     steps:[
-      { t:"اختر شيئًا تعرفه جيدًا", d:"هوايتك أو فريقك المفضل أو حيّك أو لعبتك. اختر ما تعرف تفاصيله.", p:"" },
-      { t:"اسأله عنه", d:"استبدل الجزء بين القوسين بموضوعك.", p:"أخبرني بثلاث معلومات دقيقة عن [اكتب موضوعك هنا]." },
-      { t:"قارن بما تعرفه", d:"هل في إجابته معلومة خاطئة أو مختلقة؟ علّم عليها.", p:"" },
-      { t:"اسأله عن مصدره", d:"لاحظ كيف يجيب.", p:"من أين عرفت هذه المعلومة؟ وكيف أتحقق منها؟" }
+      { t:"اختر شيئًا تعرفه جيدًا", d:"بدون ذكاء اصطناعي: هوايتك أو فريقك المفضل أو حيّك أو لعبتك. اختر ما تعرف تفاصيله.", p:"" },
+      { t:"اسأله عنه", d:"انسخ الطلب، واستبدل الجزء بين القوسين بموضوعك، ثم الصقه في الذكاء الاصطناعي.", p:"أخبرني بثلاث معلومات دقيقة عن [اكتب موضوعك هنا]." },
+      { t:"قارن بما تعرفه", d:"بدون ذكاء اصطناعي: قارن إجابته بما تعرفه. هل فيها معلومة خاطئة أو مختلقة؟", p:"" },
+      { t:"اسأله عن مصدره", d:"انسخ الطلب والصقه في نفس المحادثة، ولاحظ كيف يجيب.", p:"من أين عرفت هذه المعلومة؟ وكيف أتحقق منها؟" }
     ],
-    ask:"هل وجدت خطأً؟ ما هو؟ وكيف ستتحقق من معلوماته بعد اليوم؟",
+    ask:"اكتب بكلماتك أنت: هل وجدت خطأً؟ ما هو؟ وكيف ستتحقق من معلوماته بعد اليوم؟",
     notes:"أهم نتيجة: الطالب الذي يكتشف الخطأ بنفسه يتذكره أكثر من أي تحذير أقوله. أطلب ممن وجد خطأً أن يحكيه للجميع." },
 
   { id:"m-fam", mod:"family", hidden:true, kind:"activity", akind:"lab", min:5,
@@ -1341,11 +1403,11 @@ const DEFAULT_DECK = [
     instruction:"الذكاء الاصطناعي يقترح، وأنت تنفّذ. اختر فكرة واحدة والتزم بها هذا الأسبوع.",
     sample:"",
     steps:[
-      { t:"اطلب أفكارًا", d:"انسخ الطلب والصقه.", p:"أنا طالب في أولى متوسط. اقترح عليّ خمس أفكار صغيرة وسهلة أخدم بها والدتي أو والدي هذا الأسبوع، دون أن أحتاج مالًا." },
-      { t:"اختر بنفسك", d:"اقرأ الأفكار واختر واحدة تناسبك، أو غيّرها بما تراه.", p:"" },
-      { t:"اطلب الخطة", d:"ثم اكتب متى ستنفذها.", p:"ساعدني أضع خطة بسيطة لتنفيذ الفكرة التي اخترتها خلال هذا الأسبوع، في ثلاث خطوات." }
+      { t:"اطلب أفكارًا", d:"انسخ الطلب والصقه في الذكاء الاصطناعي، ثم اقرأ الأفكار التي يعطيك إياها.", p:"أنا طالب في أولى متوسط. اقترح عليّ خمس أفكار صغيرة وسهلة أخدم بها والدتي أو والدي هذا الأسبوع، دون أن أحتاج مالًا." },
+      { t:"اختر بنفسك", d:"بدون ذكاء اصطناعي: اختر فكرة واحدة تناسبك من الأفكار التي قرأتها، أو غيّرها بما تراه.", p:"" },
+      { t:"اطلب الخطة", d:"انسخ الطلب والصقه في نفس المحادثة ليساعدك على تنفيذ الفكرة التي اخترتها.", p:"ساعدني أضع خطة بسيطة لتنفيذ الفكرة التي اخترتها خلال هذا الأسبوع، في ثلاث خطوات." }
     ],
-    ask:"ما الفكرة التي اخترتها؟ ومتى ستنفذها؟",
+    ask:"اكتب بكلماتك أنت: ما الفكرة التي اخترتها؟ ومتى ستنفذها؟",
     notes:"أربط بين الذكاء الاصطناعي والبرّ: هو يعطيك فكرة، لكن البرّ لا يتم إلا بعملك أنت. وأذكر أن أجمل خدمة قد تكون بلا كلمة." },
 
   { id:"m-art", mod:"creative", hidden:true, kind:"activity", akind:"lab", min:5,
@@ -1353,9 +1415,9 @@ const DEFAULT_DECK = [
     instruction:"كلما وصفتَ أكثر اقتربت الصورة مما في خيالك. جرّبها في أداة تدعم الصور.",
     sample:"",
     steps:[
-      { t:"اطلب طلبًا قصيرًا", d:"انظر إلى النتيجة.", p:"ارسم لي بيتًا." },
-      { t:"أضف التفاصيل", d:"الموضوع + المكان + الوقت + الألوان + الأسلوب.", p:"ارسم بيتًا صغيرًا من الطين على قمة جبل وقت الغروب، بألوان دافئة وبأسلوب رسوم متحركة هادئة." },
-      { t:"قارن", d:"أي الصورتين أقرب إلى ما في خيالك؟", p:"" }
+      { t:"اطلب طلبًا قصيرًا", d:"انسخ الطلب والصقه في أداة تدعم الصور، ثم انظر إلى النتيجة.", p:"ارسم لي بيتًا." },
+      { t:"أضف التفاصيل", d:"في نفس الأداة: انسخ الطلب المفصّل والصقه. لاحظ ما أضفناه: الموضوع والمكان والوقت والألوان والأسلوب.", p:"ارسم بيتًا صغيرًا من الطين على قمة جبل وقت الغروب، بألوان دافئة وبأسلوب رسوم متحركة هادئة." },
+      { t:"قارن", d:"بدون ذكاء اصطناعي: أي الصورتين أقرب إلى ما في خيالك؟", p:"" }
     ],
     ask:"ما الذي غيّر الصورة أكثر: المكان؟ الألوان؟ الأسلوب؟",
     notes:"كثير منهم يستخدمونه في الصور فهذه تجربة تربطها بمهارة كتابة الطلب. قبل اللقاء أتأكد أن الأدوات المجانية عندهم تدعم الصور، وإلا أخفي الحزمة. وأذكّرهم بألا يطلبوا صورًا لأشخاص حقيقيين." },
@@ -1468,6 +1530,7 @@ let S = { open:true, visible:false, live:DEMO, slide:0, step:0, mode:"individual
 let DECK = clone(DEFAULT_DECK);
 let deckV = -1, adminPass = "";
 const demoSubs = [];
+const demoResp = [];
 const slideById = id => DECK.find(s => s.id === id);
 const clampIdx = n => Math.max(0, Math.min(DECK.length - 1, Number(n) || 0));
 const pctOf = (counts, key, label, total) => total ? Math.round((((counts[key] || {})[label]) || 0) / total * 100) : 0;
@@ -1501,7 +1564,7 @@ function demoAdmin(op, x){
   if(op === "setState"){
     const p = x.patch || {};
     if("live" in p && p.live && !S.live && !("slide" in p)){ S.slide = 0; S.step = 0; }
-    ["live","open","visible","free"].forEach(k => { if(k in p) S[k] = !!p[k]; });
+    ["live","open","visible","free","self"].forEach(k => { if(k in p) S[k] = !!p[k]; });
     ["slide","step","groups"].forEach(k => { if(k in p) S[k] = Number(p[k]) || 0; });
     if(p.mode === "individual" || p.mode === "group") S.mode = p.mode;
     if(["hidden","stage","all"].includes(p.subs)) S.subs = p.subs;
@@ -1509,6 +1572,8 @@ function demoAdmin(op, x){
   }
   if(op === "setDeck") return { ok:true, state:S };
   if(op === "subs") return { ok:true, subs: demoSubs.filter(s => s.slide === x.slide), state:S };
+  if(op === "responses") return { ok:true, responses: clone(demoResp), state:S };
+  if(op === "delResp"){ const i = demoResp.findIndex(z => z.id === x.id); if(i >= 0) demoResp.splice(i, 1); return { ok:true, responses: clone(demoResp), state:S }; }
   if(op === "allSubs") return { ok:true, subs: clone(demoSubs), state:S };
   if(op === "stage"){
     const s = demoSubs.find(z => z.id === x.id);
@@ -1612,6 +1677,16 @@ async function loadResultsInto(host){
   }catch(e){ host.innerHTML = ""; host.append(h("p", { class:"dim" }, "تعذّر تحميل النتائج.")); }
 }
 
+/* ================= عناصر شرح للطالب ================= */
+function howCard(items, title){
+  return h("div", { class:"how" }, h("b", {}, title || "كيف تعمل هذه الخطوة؟"), h("ol", {}, items.map(t => h("li", {}, t))));
+}
+function aiLinks(){
+  return h("div", { class:"ailinks" }, h("span", {}, "افتح أداتك:"),
+    [["ChatGPT", "https://chatgpt.com"], ["Gemini", "https://gemini.google.com"], ["Claude", "https://claude.ai"]].map(([n, u]) => h("a", { href:u, target:"_blank", rel:"noopener noreferrer", class:"ailink" }, n)));
+}
+const KHINT = { flip:"👆 اضغط على كل بطاقة لتنقلب ويظهر الجواب", anatomy:"👆 اضغط على كل جزء ملوّن لترى مكانه في الطلب", quiz:"👆 اضغط «صحيح» أو «خطأ» لكل عبارة" };
+
 /* ================= رسم الشرائح ================= */
 function stepsOf(s){
   if(s.kind === "bullets" || s.kind === "cards") return (s.items || []).length;
@@ -1619,15 +1694,16 @@ function stepsOf(s){
   return 0;
 }
 /* ---------- إخفاء الشرائح والحزم ---------- */
-const isHid = i => !!(DECK[i] && DECK[i].hidden);
-const visibleIdx = () => DECK.map((s, i) => i).filter(i => !DECK[i].hidden);
-function nextVisible(i, d){ let j = i + d; while(j >= 0 && j < DECK.length && DECK[j].hidden) j += d; return (j < 0 || j >= DECK.length) ? -1 : j; }
+const isGone = s => !!(s && (s.hidden || s.deleted));
+const isHid = i => isGone(DECK[i]);
+const visibleIdx = () => DECK.map((s, i) => i).filter(i => !isGone(DECK[i]));
+function nextVisible(i, d){ let j = i + d; while(j >= 0 && j < DECK.length && isGone(DECK[j])) j += d; return (j < 0 || j >= DECK.length) ? -1 : j; }
 function firstVisible(){ const v = visibleIdx(); return v.length ? v[0] : 0; }
 function lastVisible(){ const v = visibleIdx(); return v.length ? v[v.length - 1] : DECK.length - 1; }
-function packStats(m){ const sl = DECK.filter(s => s.mod === m); return { n:sl.length, min:sl.reduce((a, s) => a + (Number(s.min) || 0), 0), on:sl.some(s => !s.hidden) }; }
+function packStats(m){ const sl = DECK.filter(s => s.mod === m && !s.deleted); return { n:sl.length, min:sl.reduce((a, s) => a + (Number(s.min) || 0), 0), on:sl.some(s => !s.hidden) }; }
 function applyPreset(k, deck){
   const pr = PRESETS[k]; if(!pr) return; deck = deck || DECK;
-  deck.forEach(s => { if(!s.mod) s.hidden = false; else if(pr.mods[s.mod] != null) s.hidden = !pr.mods[s.mod]; });
+  deck.forEach(s => { if(s.deleted) return; if(!s.mod) s.hidden = false; else if(pr.mods[s.mod] != null) s.hidden = !pr.mods[s.mod]; });
   deck.forEach(s => { if(pr.hide.indexOf(s.id) >= 0) s.hidden = true; });
 }
 function needsMerge(){ return !DECK.some(s => s.mod); }
@@ -1674,7 +1750,7 @@ function renderSlide(s, o){
   const box = h("div", { class:"slide k-" + s.kind });
   const add = (...xs) => xs.flat(Infinity).forEach(x => { if(x != null && x !== false) box.append(x.nodeType ? x : document.createTextNode(String(x))); });
   const KCHIP = { results:"📊 أرقامكم", flip:"💡 فكّر", cards:"🧩 تعرّف", bullets:"📌 تذكّر", reading:"📖 قراءة", activity:"✍️ نشاط", anatomy:"🔬 تشريح", spot:"🎮 تحدٍّ", critique:"🧐 نقاش" };
-  const T = t => t ? [KCHIP[s.kind] ? h("div", { class:"kchip" }, KCHIP[s.kind]) : null, h("h2", { class:"st" }, t)] : null;
+  const T = t => t ? [KCHIP[s.kind] ? h("div", { class:"kchip" }, KCHIP[s.kind]) : null, h("h2", { class:"st" }, t), (o.student && KHINT[s.kind]) ? h("p", { class:"khint" }, KHINT[s.kind]) : null] : null;
   switch(s.kind){
     case "cover": {
       const rb = h("div", { class:"rb-slot" }); rb.innerHTML = ROBOT;
@@ -1725,14 +1801,19 @@ function renderSlide(s, o){
         const ol = h("ol", { class:"qlist" }); (s.questions || []).forEach(q => ol.append(h("li", {}, q.q))); add(ol);
       } else if(s.akind === "template"){
         add(h("div", { class:"tplbox" }, tplSkeleton(s.tpl)));
+      } else if(s.akind === "lab" && o.student){
+        /* عند الطالب تظهر الخطوات في لوحة «دورك الآن» أسفل الشريحة، فلا تُكرَّر هنا */
       } else if(s.akind === "lab"){
+        add(h("div", { class:"lablegend" }, h("span", {}, "🤖 خطوة في الذكاء الاصطناعي: تنسخ الطلب وتلصقه"), h("span", {}, "🧠 خطوة تفعلها بنفسك"), h("span", {}, "✍️ وفي النهاية تكتب ملاحظتك هنا في المنصة")));
         if(s.sample) add(h("div", { class:"labsample" }, h("b", {}, "المادة التجريبية: "), s.sample));
         const ls = h("div", { class:"lsteps" });
         (s.steps || []).forEach((st, i) => ls.append(h("div", { class:"lstep rv" + (i >= step ? " hid" : "") },
           h("span", { class:"ln" }, String(i + 1)),
-          h("div", { class:"lb" }, h("b", {}, st.t), st.d ? h("div", { class:"ld" }, st.d) : null,
+          h("div", { class:"lb" }, h("b", {}, st.t), " ", h("span", { class:"lbadge " + (st.p ? "ai" : "me") }, st.p ? "🤖 في الذكاء الاصطناعي" : "🧠 بنفسك"),
+            st.d ? h("div", { class:"ld" }, st.d) : null,
             (!o.student && st.p) ? h("pre", { class:"lp" }, String(st.p).replace(/\{\{sample\}\}/g, "«المادة التجريبية»")) : null))));
         add(ls);
+        add(h("div", { class:"lfinal" }, "✍️ ثم اكتب ملاحظتك هنا في المنصة: ", h("b", {}, s.ask || "ماذا لاحظت؟")));
       }
       if(o.present) add(h("div", { class:"pcount", id:"pcount" }));
       break;
@@ -1875,19 +1956,23 @@ function goHome(){
   if(typeof checkLive === "function") checkLive();
 }
 
+barFor("s-intro");
+
 /* ######## live.js ######## */
-/* ================= واجهة الطالب أثناء اللقاء ================= */
+/* ================= واجهة الطالب: اللقاء المباشر + التعلّم الذاتي ================= */
 let SUB_DRY = false;   // في المعاينة لا تُرسل المشاركات فعليًّا
-const L = { idx:0, step:0, follow:true, timer:null, conn:true, wall:[] };
+const L = { idx:0, step:0, follow:true, timer:null, conn:true, wall:[], self:false, started:false };
 /* المقدّم «نشط» إن كانت آخر نبضة منه حديثة. وإلا فالشريحة المخزنة قديمة ولا نقفز إليها */
 const presenterActive = () => S.age == null || S.age < 75;
 const startIdx = () => presenterActive() ? clampIdx(S.slide) : 0;
 const startStep = () => presenterActive() ? (S.step || 0) : 0;
-const canNav = () => !!(S.free || PREVIEW);
+const canNav = () => !!(L.self || S.free || PREVIEW);
+const isLive = () => !!(L.self || S.live);
 
 function setConn(ok){ L.conn = ok; const d = $("lv-dot"); if(d){ d.classList.toggle("ok", ok); d.title = ok ? "متصل" : "انقطع الاتصال"; } }
 
 async function enterLive(){
+  L.self = false;
   show("s-live");
   $("lv-slide").innerHTML = ""; $("lv-act").innerHTML = ""; $("lv-extra").innerHTML = "";
   try{ Object.assign(S, await API.state()); if(!("stage" in S)) S.stage = ""; }catch(e){ L.conn = false; }
@@ -1895,16 +1980,27 @@ async function enterLive(){
   L.follow = true; L.idx = startIdx(); L.step = startStep();
   renderLiveAll(); startLivePoll();
 }
+/* التعلّم الذاتي: يدخل الطالب في أي وقت ويسير بنفسه، دون متابعة المقدّم ودون إرسال شيء */
+async function enterSelf(){
+  stopLivePoll(); L.self = true; L.follow = false; L.started = !!LS.get("self_started", false);
+  show("s-live");
+  $("lv-slide").innerHTML = ""; $("lv-act").innerHTML = ""; $("lv-extra").innerHTML = "";
+  try{ Object.assign(S, await API.state()); }catch(e){ L.conn = false; }
+  if(!PREVIEW || deckV < 0) await loadDeck();
+  let i = Number(LS.get("self_idx", -1)); if(!(i >= 0) || !DECK[i] || isGone(DECK[i])) i = firstVisible();
+  L.idx = i; L.step = 99;
+  renderLiveAll();
+}
 function startLivePoll(){ stopLivePoll(); L.timer = setInterval(livePoll, 5000); }
 function stopLivePoll(){ if(L.timer){ clearInterval(L.timer); L.timer = null; } }
 
 async function livePoll(){
-  if(document.hidden || !$("s-live").classList.contains("on")) return;
+  if(L.self || document.hidden || !$("s-live").classList.contains("on")) return;
   try{
     const d = await API.state(); const p = Object.assign({}, S); const wasActive = presenterActive();
     Object.assign(S, d); if(!("stage" in d)){ S.stage = ""; S.stageData = null; }
     setConn(true);
-    if(S.dv !== deckV){ await loadDeck(); renderLiveAll(); return; }
+    if(S.dv !== deckV){ if(!PREVIEW) await loadDeck(); renderLiveAll(); return; }
     if(S.live !== p.live){ renderLiveAll(); return; }
     if(L.follow && presenterActive() && (!wasActive || S.slide !== p.slide || S.step !== p.step)){ L.idx = clampIdx(S.slide); L.step = S.step || 0; renderLiveAll(); return; }
     if(S.free !== p.free || presenterActive() !== wasActive) renderLiveSlide();
@@ -1915,31 +2011,74 @@ async function livePoll(){
   }catch(e){ setConn(false); }
 }
 
-function renderLiveAll(){ renderLiveSlide(); renderLiveAct(); renderLiveExtra(); }
+function renderLiveAll(){ renderLiveSlide(); renderLiveAct(); renderLiveExtra(); renderLiveDock(); }
 
 function waitCard(){
   const rb = h("div", { class:"rb-slot" }); rb.innerHTML = ROBOT;
   return h("div", { class:"slide k-wait" }, rb, h("h2", { class:"st center" }, "اللقاء لم يبدأ بعد"), h("p", { class:"intro center" }, "ستظهر الشرائح هنا فور أن يفتح المقدّم اللقاء."));
 }
+function selfWelcome(){
+  const rb = h("div", { class:"rb-slot" }); rb.innerHTML = ROBOT;
+  return h("div", { class:"slide k-wait" }, rb, h("h2", { class:"st center" }, "أهلًا بك في الدورة"),
+    h("p", { class:"intro center" }, "دورة صغيرة تتعلم فيها كيف تستفيد من الذكاء الاصطناعي دون أن يحلّ محلّك. تسير فيها بنفسك وبالسرعة التي تناسبك."),
+    howCard(["انتقل بين الشرائح بزر «التالي» أسفل الشاشة، أو افتح ☰ الفهرس واذهب لأي درس أو تجربة.", "اضغط على البطاقات والكلمات الملوّنة لتتفاعل معها.", "في التجارب: تنسخ الطلب ← تلصقه في الذكاء الاصطناعي ← ثم تعود وتكتب ملاحظتك هنا.", "ما تكتبه محفوظ على جهازك فقط، ولا يراه أحد."], "قبل أن تبدأ"),
+    h("button", { type:"button", class:"btn", onclick:() => { L.started = true; LS.set("self_started", true); sfx("ok"); renderLiveAll(); } }, "ابدأ الدورة"));
+}
 
 function renderLiveSlide(){
   const host = $("lv-slide"); host.innerHTML = "";
-  host.append(h("div", { class:"lv-bar" }, h("button", { type:"button", class:"lv-back", onclick:goHome }, "⌂ الرئيسية"), h("span", { id:"lv-dot", class:"dot" + (L.conn ? " ok" : "") }), h("b", {}, "اللقاء"), h("span", { class:"lv-n" }, S.live ? (L.idx + 1) + " / " + DECK.length : "")));
-  if(!S.live){ setPal("a"); host.append(waitCard()); return; }
+  const vis = visibleIdx(), pos = vis.indexOf(L.idx);
+  setBar(L.self ? "تعلّم بنفسك" : "اللقاء", goHome, "الرئيسية");
+  host.append(h("div", { class:"lv-bar" }, h("span", { id:"lv-dot", class:"dot" + (L.conn ? " ok" : "") }), h("b", {}, L.self ? "تعلّم بنفسك" : "اللقاء"),
+    h("span", { class:"lv-n" }, (isLive() && !(L.self && !L.started) && pos >= 0) ? (pos + 1) + " / " + vis.length : "")));
+  if(!isLive()){ setPal("a"); host.append(waitCard()); return; }
+  if(L.self && !L.started){ setPal("a"); host.append(selfWelcome()); return; }
   const s = DECK[L.idx]; if(!s) return;
   setPal(PAL_BY_KIND[s.kind] || "a");
-  const step = (canNav() && !L.follow) ? 99 : L.step;
-  if(!presenterActive() && S.live) host.append(h("p", { class:"note onbg" }, PREVIEW ? "المقدّم غير نشط الآن، فتبدأ من أول شريحة وتتنقل بنفسك." : "لم يبدأ المقدّم العرض بعد."));
-  host.append(renderSlide(s, { step:step, student:true }));
-  if(canNav()){
-    host.append(h("div", { class:"lv-nav" },
-      h("button", { type:"button", class:"btn ghost", onclick:() => liveMove(-1) }, "السابق"),
-      h("button", { type:"button", class:"btn ghost" + (L.follow ? " on" : ""), onclick:liveSync }, L.follow ? "تتابع الشاشة ✓" : "متابعة الشاشة"),
-      h("button", { type:"button", class:"btn ghost", onclick:() => liveMove(1) }, "التالي")));
+  if(L.self){
+    LS.set("seen_" + s.id, true); LS.set("self_idx", L.idx);
+    host.append(h("div", { class:"selfbar" }, h("i", { style:"width:" + (pos >= 0 ? Math.round((pos + 1) / vis.length * 100) : 0) + "%" })));
   }
+  const step = (canNav() && !L.follow) ? 99 : L.step;
+  if(!L.self && !presenterActive() && S.live) host.append(h("p", { class:"note onbg" }, PREVIEW ? "المقدّم غير نشط الآن، فتبدأ من أول شريحة وتتنقل بنفسك." : "لم يبدأ المقدّم العرض بعد."));
+  host.append(renderSlide(s, { step:step, student:true }));
 }
-function liveMove(d){ const j = nextVisible(L.idx, d); if(j < 0) return; L.follow = false; L.idx = j; L.step = 99; renderLiveAll(); window.scrollTo(0, 0); }
-function liveSync(){ L.follow = true; L.idx = startIdx(); L.step = startStep(); renderLiveAll(); }
+/* شريط سفلي ثابت: السابق | الفهرس | التالي */
+function renderLiveDock(){
+  const d = $("lv-dock"); d.innerHTML = "";
+  const on = isLive() && canNav() && !(L.self && !L.started) && $("s-live").classList.contains("on");
+  d.hidden = !on; $("s-live").classList.toggle("withdock", on);
+  if(!on) return;
+  const vis = visibleIdx(), pos = vis.indexOf(L.idx);
+  const inner = h("div", { class:"dock-in" });
+  if(!L.self && S.live && !L.follow) inner.append(h("button", { type:"button", class:"syncchip", onclick:liveSync }, "↻ العودة لمتابعة المقدّم"));
+  inner.append(h("div", { class:"row" },
+    h("button", { type:"button", class:"btn ghost", disabled:nextVisible(L.idx, -1) < 0, onclick:() => liveMove(-1) }, "→ السابق"),
+    h("button", { type:"button", class:"btn ghost idxb", onclick:openIndexSheet }, "☰ الفهرس " + (pos >= 0 ? (pos + 1) + "/" + vis.length : "")),
+    h("button", { type:"button", class:"btn", disabled:nextVisible(L.idx, 1) < 0, onclick:() => liveMove(1) }, "التالي ←")));
+  d.append(inner);
+}
+function liveGo(i){ L.follow = false; L.idx = i; L.step = 99; renderLiveAll(); window.scrollTo(0, 0); }
+function liveMove(d){ const j = nextVisible(L.idx, d); if(j < 0) return; sfx("next"); liveGo(j); }
+function liveSync(){ L.follow = true; L.idx = startIdx(); L.step = startStep(); renderLiveAll(); window.scrollTo(0, 0); }
+
+/* فهرس الدورة للطالب: قائمة بكل ما هو ظاهر، مجمّعة، يضغط فينتقل */
+function openIndexSheet(){
+  const old = $("idxsheet"); if(old){ old.remove(); return; }
+  const box = h("div", { class:"idxbox" });
+  const sheet = h("div", { id:"idxsheet", onclick:e => { if(e.target.id === "idxsheet") sheet.remove(); } }, box);
+  box.append(h("div", { class:"idxhead" }, h("b", {}, "فهرس الدورة"), h("button", { type:"button", class:"abtn", onclick:() => sheet.remove() }, "✕")));
+  let prev = "#";
+  visibleIdx().forEach((i, n) => {
+    const s = DECK[i], m = s.mod || "";
+    if(m !== prev){ prev = m; box.append(h("div", { class:"idxgroup" }, m && MODULES[m] ? MODULES[m].icon + " " + MODULES[m].name : "الأساسيات")); }
+    const seen = L.self && LS.get("seen_" + s.id, false);
+    box.append(h("button", { type:"button", class:"idxitem" + (i === L.idx ? " on" : ""), onclick:() => { sheet.remove(); liveGo(i); } },
+      h("span", { class:"n" }, seen ? "✓" : String(n + 1)),
+      h("span", { class:"t" }, h("b", {}, s.title || KIND_NAMES[s.kind] || "شريحة"), h("small", {}, (KIND_NAMES[s.kind] || s.kind) + " · " + (s.min || 0) + " د"))));
+  });
+  document.body.append(sheet);
+}
 
 /* ---------- المشاركة ---------- */
 function groupPicker(){
@@ -1954,6 +2093,7 @@ function groupPicker(){
 }
 async function sendSub(s, kind, payload, ui){
   if(SUB_DRY){ ui.msg.className = "sendmsg"; ui.msg.textContent = "معاينة: لم يُرسل شيء."; sfx("tap"); return; }
+  if(L.self){ LS.set("note_" + s.id + "_" + Date.now(), payload); ui.msg.className = "sendmsg sent"; ui.msg.textContent = "✓ حُفظت على جهازك."; sfx("ok"); return; }
   ui.btn.disabled = true; ui.msg.className = "sendmsg"; ui.msg.textContent = "";
   const g = S.mode === "group" ? LS.get("grp", 0) : 0;
   if(S.mode === "group" && !g){ ui.msg.className = "sendmsg bad"; ui.msg.textContent = "اختر رقم مجموعتك أولًا."; ui.btn.disabled = false; return; }
@@ -1978,6 +2118,7 @@ function buildPrompt(s){
 
 function answersForm(s){
   const wrap = h("div", { class:"form" });
+  wrap.append(h("p", { class:"hintline" }, "✍️ اكتب جوابك بنفسك أولًا، دون ذكاء اصطناعي. هذه إجابتك أنت."));
   const saved = LS.get("ans_" + s.id, []);
   const fields = [];
   (s.questions || []).forEach((q, i) => {
@@ -1997,7 +2138,7 @@ function answersForm(s){
     const vals = fields.map(f => f.value.trim());
     if(!vals.some(Boolean)){ msg.className = "sendmsg bad"; msg.textContent = "اكتب جوابًا واحدًا على الأقل."; return; }
     sendSub(s, "answers", vals, { btn, msg });
-  } }, "أرسل مشاركتي");
+  } }, L.self ? "احفظ إجابتي" : "أرسل مشاركتي");
   wrap.append(btn, msg); return wrap;
 }
 
@@ -2021,7 +2162,7 @@ function templateForm(s){
     if(!d.role && !d.task){ msg.className = "sendmsg bad"; msg.textContent = "املأ الدور أو المطلوب أولًا."; return; }
     sendSub(s, "template", d, { btn:sendBtn, msg });
   } }, "أرسل طلبي للنقاش");
-  wrap.append(warn, h("label", {}, s.roleLabel), role, h("label", {}, s.taskLabel), task, h("details", { class:"pv-d" }, h("summary", {}, "شاهد الطلب كاملًا"), preview), h("div", { class:"two" }, copyBtn, sendBtn), msg);
+  wrap.append(howCard(["املأ الفراغين: الدور والمطلوب.", "اضغط «انسخ الطلب».", "الصقه في الذكاء الاصطناعي الذي تستخدمه، واقرأ رده وقارنه بإجاباتك.", L.self ? "راجع طلبك: هل فيه الأربعة (دور ومادة ومطلوب وشكل)؟" : "اضغط «أرسل طلبي للنقاش» ليعرضه المقدّم (اختياري)."]), aiLinks(), warn, h("label", {}, s.roleLabel), role, h("label", {}, s.taskLabel), task, h("details", { class:"pv-d" }, h("summary", {}, "شاهد الطلب كاملًا"), preview), h("div", { class:"two" }, copyBtn, sendBtn), msg);
   return wrap;
 }
 
@@ -2039,44 +2180,47 @@ function freeForm(s){
 function labForm(s){
   const wrap = h("div", { class:"form" });
   const fill = p => String(p || "").replace(/\{\{sample\}\}/g, s.sample || "");
-  if(s.sample) wrap.append(h("div", { class:"labsample dk" }, h("b", {}, "المادة التجريبية"), h("div", {}, s.sample),
-    h("button", { type:"button", class:"btn light small", onclick:async () => { const ok = await copyText(s.sample); toast(ok ? "نُسخت المادة" : "تعذّر النسخ"); sfx(ok ? "pop" : "bad"); } }, "📋 انسخ المادة")));
+  wrap.append(howCard(["انسخ الطلب من المنصة بزر «📋 انسخ الطلب».", "افتح الذكاء الاصطناعي الذي تستخدمه، والصق الطلب فيه، واقرأ رده.", "الخطوات المكتوب عليها «بنفسك»: نفّذها دون ذكاء اصطناعي.", "في الآخر اكتب هنا ملاحظتك بكلماتك أنت. لا تلصق رد الذكاء الاصطناعي."], "كيف تعمل هذه التجربة؟"), aiLinks());
+  if(s.sample) wrap.append(h("div", { class:"labsample dk" }, h("b", {}, "المادة التجريبية (تُلصق داخل الطلب تلقائيًّا)"), h("div", {}, s.sample),
+    h("button", { type:"button", class:"btn light small", onclick:async () => { const ok = await copyText(s.sample); toast(ok ? "نُسخت المادة" : "تعذّر النسخ"); sfx(ok ? "pop" : "bad"); } }, "📋 انسخ المادة وحدها")));
   (s.steps || []).forEach((st, i) => {
     const key = "lab_" + s.id + "_" + i;
-    const chk = h("button", { type:"button", class:"labchk" + (LS.get(key, false) ? " on" : ""), "aria-label":"تمّت الخطوة", onclick:() => { const v = !chk.classList.contains("on"); chk.classList.toggle("on", v); LS.set(key, v); sfx(v ? "ok" : "tap"); } }, "✓");
-    const card = h("div", { class:"lstep2" }, h("div", { class:"lh" }, h("span", { class:"ln" }, String(i + 1)), h("b", {}, st.t), chk), st.d ? h("div", { class:"ld" }, st.d) : null);
+    const chk = h("button", { type:"button", class:"labchk" + (LS.get(key, false) ? " on" : ""), "aria-label":"تمّت الخطوة", title:"ضع علامة إذا أنهيت هذه الخطوة", onclick:() => { const v = !chk.classList.contains("on"); chk.classList.toggle("on", v); LS.set(key, v); sfx(v ? "ok" : "tap"); } }, "✓");
+    const card = h("div", { class:"lstep2" }, h("div", { class:"lh" }, h("span", { class:"ln" }, String(i + 1)), h("b", {}, st.t), chk),
+      h("span", { class:"lbadge " + (st.p ? "ai" : "me") }, st.p ? "🤖 في الذكاء الاصطناعي" : "🧠 بنفسك"), st.d ? h("div", { class:"ld" }, st.d) : null);
     if(st.p){
       card.append(h("pre", { class:"lp" }, fill(st.p)),
-        h("button", { type:"button", class:"btn light small", onclick:async () => { const ok = await copyText(fill(st.p)); toast(ok ? "نُسخ. الصقه في الأداة" : "تعذّر النسخ"); sfx(ok ? "pop" : "bad"); } }, "📋 انسخ الطلب"));
+        h("button", { type:"button", class:"btn light small", onclick:async () => { const ok = await copyText(fill(st.p)); toast(ok ? "نُسخ. الصقه في الذكاء الاصطناعي" : "تعذّر النسخ"); sfx(ok ? "pop" : "bad"); } }, "📋 انسخ الطلب"));
     }
     wrap.append(card);
   });
-  const ta = h("textarea", { rows:"3", maxlength:"300", placeholder:"اكتب ملاحظتك…" }), msg = h("div", { class:"sendmsg" });
+  const ta = h("textarea", { rows:"3", maxlength:"300", placeholder:"اكتب بكلماتك أنت…" }), msg = h("div", { class:"sendmsg" });
   const btn = h("button", { type:"button", class:"btn", onclick:() => {
     if(!ta.value.trim()){ msg.className = "sendmsg bad"; msg.textContent = "اكتب ملاحظة أولًا."; return; }
     sendSub(s, "free", ta.value.trim(), { btn, msg }); ta.value = "";
-  } }, "أرسل ملاحظتي");
-  wrap.append(h("label", {}, s.ask || "ماذا لاحظت؟"), ta, btn, msg);
+  } }, L.self ? "احفظ ملاحظتي" : "أرسل ملاحظتي");
+  wrap.append(h("div", { class:"lstep2 final" }, h("div", { class:"lh" }, h("span", { class:"ln" }, "✍️"), h("b", {}, "الخطوة الأخيرة: اكتب هنا في المنصة")),
+    h("div", { class:"ld" }, s.ask || "ماذا لاحظت؟"), h("div", { class:"ld" }, "جملة أو جملتان بكلماتك أنت. لا تلصق هنا رد الذكاء الاصطناعي."), ta, btn, msg));
   return wrap;
 }
 
 function actCard(s){
   if(!s || s.kind !== "activity") return null;
   const card = h("div", { class:"card act" });
-  card.append(h("div", { class:"act-t" }, "مشاركتك"));
-  card.append(S.mode === "group" ? groupPicker() : h("p", { class:"note" }, "مشاركتك مجهولة الاسم."));
+  card.append(h("div", { class:"act-t" }, "✍️ دورك الآن"));
+  card.append(L.self ? h("p", { class:"note" }, "ما تكتبه محفوظ على جهازك فقط.") : S.mode === "group" ? groupPicker() : h("p", { class:"note" }, "مشاركتك مجهولة الاسم."));
   card.append(s.akind === "answers" ? answersForm(s) : s.akind === "template" ? templateForm(s) : s.akind === "lab" ? labForm(s) : freeForm(s));
   return card;
 }
 function renderLiveAct(){
   const host = $("lv-act"); host.innerHTML = "";
-  if(!S.live) return;
+  if(!isLive() || (L.self && !L.started)) return;
   const c = actCard(DECK[L.idx]); if(c) host.append(c);
 }
 
 function renderLiveExtra(){
   const host = $("lv-extra"); host.innerHTML = "";
-  if(!S.live || S.subs === "hidden") return;
+  if(L.self || !S.live || S.subs === "hidden") return;
   const s = DECK[L.idx]; if(!s) return;
   if(S.subs === "all" && s.kind === "activity"){
     if(L.wall.length){ host.append(h("h3", { class:"wall-t" }, "مشاركات الجميع"), wallEl(L.wall)); }
@@ -2284,18 +2428,19 @@ function renderDrawer(){
   box.append(inner);
 }
 function drawerIndex(inner){
-  inner.append(h("h3", {}, "فهرس الشرائح"), h("p", { class:"dmeta" }, "اضغط على شريحة للذهاب إليها. العين تُخفي الشريحة أو تُظهرها. (Home للأولى، End للأخيرة)"));
+  inner.append(h("h3", {}, "فهرس الشرائح"), h("p", { class:"dmeta" }, "اضغط على شريحة للذهاب إليها. العين تُخفيها من اللقاء أو تُظهرها. (Home للأولى، End للأخيرة)"));
   inner.append(h("div", { class:"dlab" }, "الحزم الإضافية (تُظهر أو تُخفي مجموعة شرائح)"), packsPanel(() => { renderP(true); }));
   inner.append(h("div", { class:"dlab" }, "كل الشرائح"));
   let total = 0;
   DECK.forEach((x, i) => {
-    if(!x.hidden) total += Number(x.min) || 0;
+    if(x.deleted) return;
+    if(!isGone(x)) total += Number(x.min) || 0;
     const m = x.mod && MODULES[x.mod] ? MODULES[x.mod].icon + " " : "";
     inner.append(h("div", { class:"idxwrap" + (x.hidden ? " hid" : "") },
       h("button", { type:"button", class:"idxrow" + (i === P.idx ? " on" : ""), onclick:() => { pGo(i, 0); } },
         h("span", { class:"n" }, String(i + 1)),
-        h("span", { class:"t" }, h("b", {}, m + (x.title || KIND_NAMES[x.kind] || "شريحة")), h("small", {}, (KIND_NAMES[x.kind] || x.kind) + " · " + (x.min || 0) + " د" + (x.hidden ? " · مخفية" : "")))),
-      h("button", { type:"button", class:"pb2 eye", title:x.hidden ? "إظهار" : "إخفاء", onclick:() => { x.hidden = !x.hidden; sfx("tap"); queueSave(); renderP(true); } }, x.hidden ? "🚫" : "👁")));
+        h("span", { class:"t" }, h("b", {}, m + (x.title || KIND_NAMES[x.kind] || "شريحة")), h("small", {}, (KIND_NAMES[x.kind] || x.kind) + " · " + (x.min || 0) + " د" + (x.hidden ? " · مخفية من اللقاء" : "")))),
+      h("button", { type:"button", class:"pb2 eye", title:x.hidden ? "إظهار في اللقاء" : "إخفاء من اللقاء", onclick:() => { x.hidden = !x.hidden; sfx("tap"); queueSave(); renderP(true); } }, x.hidden ? "🚫" : "👁")));
   });
   inner.append(h("p", { class:"dmeta" }, "المجموع المقترح للشرائح الظاهرة: " + total + " دقيقة"));
 }
@@ -2309,7 +2454,7 @@ function drawerSubs(inner){
   if(S.mode === "group") inner.append(h("div", { class:"dlab" }, "عدد المجموعات (اكتب الرقم)"), numInput(S.groups, 2, 30, v => setSt({ groups:v })));
   inner.append(h("div", { class:"dlab" }, "عرضها للطلاب"), seg([["hidden", "مخفية"], ["stage", "واحدة"], ["all", "الكل"]], S.subs, v => setSt({ subs:v }).then(() => { renderDrawer(); renderP(true); })));
 
-  const acts = DECK.filter(x => x.kind === "activity" && (!x.hidden || subsOf(x.id).length));
+  const acts = DECK.filter(x => x.kind === "activity" && (!isGone(x) || subsOf(x.id).length));
   if(!acts.find(a => a.id === P.subSlide)){ const f = acts.find(a => subsOf(a.id).length) || acts[0]; P.subSlide = f ? f.id : ""; }
   const tabs = h("div", { class:"stabs" });
   acts.forEach(a => tabs.append(h("button", { type:"button", class:"stab" + (a.id === P.subSlide ? " on" : ""), onclick:() => { P.subSlide = a.id; renderDrawer(); } }, (a.title || a.id) + " (" + subsOf(a.id).length + ")")));
@@ -2418,7 +2563,7 @@ $("p-live").addEventListener("click", async () => { sfx("tap"); await setSt({ li
 /* ######## admin.js ######## */
 /* ================= لوحة الإدارة ================= */
 /* ================= لوحة الإدارة (مبسّطة): لوحة رئيسية ثم أربع شاشات واضحة ================= */
-const A = { view:"home", data:null, filter:"all", saving:false, saveErr:false, everSaved:false };
+const A = { view:"home", data:null, filter:"all", saving:false, saveErr:false, everSaved:false, subs:[], respOpen:false };
 let afterLogin = null;
 
 function goLogin(after){
@@ -2440,7 +2585,7 @@ async function refreshAdmin(){
   catch(e){ $("a-err").textContent = "تعذّر الاتصال بالسكربت."; }
   renderAdmin();
 }
-function adminGo(v){ A.view = v; renderAdmin(); window.scrollTo(0, 0); }
+function adminGo(v){ A.view = v; renderAdmin(); window.scrollTo(0, 0); if(v === "subs") loadSubs(); }
 function adminLogout(){
   adminPass = ""; renderBarTools(); const p = $("phone"); if(p) p.remove(); closeSlidePreview(true); goHome();
 }
@@ -2478,31 +2623,34 @@ function copyStudentLink(){
   const url = location.href.split("#")[0].split("?")[0];
   copyText(url).then(ok => { toast(ok ? "نُسخ رابط الطلاب" : "تعذّر النسخ: " + url); sfx(ok ? "pop" : "bad"); });
 }
-function visibleMinutes(){ return DECK.filter(s => !s.hidden).reduce((a, s) => a + (Number(s.min) || 0), 0); }
+const alive = () => DECK.map((s, i) => i).filter(i => !DECK[i].deleted);   // غير الموجودة في السلة
+function visibleMinutes(){ return DECK.filter(s => !isGone(s)).reduce((a, s) => a + (Number(s.min) || 0), 0); }
+const fmtTime = t => { try{ const d = new Date(t); return isNaN(d) ? String(t || "") : d.toLocaleString("ar", { month:"numeric", day:"numeric", hour:"numeric", minute:"2-digit" }); }catch(e){ return String(t || ""); } };
 
 function renderAdmin(){
   const host = $("a-view"); host.innerHTML = "";
-  const T = { home:"لوحة التحكم", content:"المحتوى والشرائح", survey:"نتائج الاستبانة", session:"إعدادات اللقاء" };
+  const T = { home:"لوحة التحكم", content:"المحتوى والشرائح", survey:"نتائج الاستبانة", session:"إعدادات اللقاء", subs:"مشاركات اللقاء" };
   setBar(T[A.view] || "", A.view === "home" ? adminLogout : () => adminGo("home"), A.view === "home" ? "خروج" : "← اللوحة");
-  ({ home:viewHome, content:viewContent, survey:viewSurvey, session:viewSession }[A.view] || viewHome)(host);
+  ({ home:viewHome, content:viewContent, survey:viewSurvey, session:viewSession, subs:viewSubs }[A.view] || viewHome)(host);
   drawPill();
 }
 
 /* ================= الشاشة الرئيسية ================= */
 function viewHome(host){
-  const d = A.data || { total:0 }, vis = DECK.filter(s => !s.hidden);
+  const d = A.data || { total:0 }, vis = DECK.filter(s => !isGone(s));
   host.append(h("div", { class:"statstrip" },
     h("div", { class:"schip" }, h("span", { class:"dotl" + (S.live ? " on" : "") }), "اللقاء: ", h("b", {}, S.live ? "مفتوح" : "مغلق")),
     h("div", { class:"schip" }, "📝 الاستبانة: ", h("b", {}, d.total + " إجابة")),
-    h("div", { class:"schip" }, "🎞️ الشرائح: ", h("b", {}, vis.length + " (نحو " + visibleMinutes() + " د)"))));
+    h("div", { class:"schip" }, "🎞️ الشرائح الظاهرة: ", h("b", {}, vis.length + " (نحو " + visibleMinutes() + " د)"))));
   host.append(h("button", { type:"button", class:"hero", onclick:() => { afterLogin = null; openPresenter(); } },
     h("span", { class:"hi" }, "▶"), h("span", {}, h("b", {}, "ابدأ العرض"), h("small", {}, "يفتح العرض التقديمي، وتتحكم من داخله بما يراه الطلاب"))));
   if(P.idx > 0 && DECK[P.idx]) host.append(h("button", { type:"button", class:"hero2", onclick:() => { afterLogin = null; openPresenter(true); } }, "↩ متابعة من الشريحة " + (P.idx + 1)));
   const tiles = h("div", { class:"tiles" });
   const tile = (ic, t, s, fn) => tiles.append(h("button", { type:"button", class:"tile", onclick:fn }, h("span", { class:"ti" }, ic), h("b", {}, t), h("small", {}, s)));
   tile("📚", "المحتوى", "اختر الحزم، وعاين كل شريحة وعدّلها", () => adminGo("content"));
-  tile("📊", "الاستبانة", "نتائج الطلاب وإظهارها لهم", () => adminGo("survey"));
-  tile("👥", "إعدادات اللقاء", "فتح اللقاء ونمط المشاركة", () => adminGo("session"));
+  tile("📊", "الاستبانة", "نتائج الطلاب، وحذف أي إجابة", () => adminGo("survey"));
+  tile("👥", "إعدادات اللقاء", "فتح اللقاء والتعلّم الذاتي والمشاركة", () => adminGo("session"));
+  tile("🗂", "مشاركات اللقاء", "راجع ما كتبه الطلاب واحذف ما تريد", () => adminGo("subs"));
   tile("👁", "معاينة كطالب", "نافذة جوال تعرض ما يراه الطلاب", togglePhone);
   tile("🖨", "الأوراق المطبوعة", "أوراق المجموعات ودليل المقدّم", openPrint);
   tile("🔗", "رابط الطلاب", "اضغط لنسخه وإرساله", copyStudentLink);
@@ -2510,7 +2658,7 @@ function viewHome(host){
 }
 
 /* ================= شاشة المحتوى ================= */
-function presetMinutes(k){ const c = clone(DECK); applyPreset(k, c); return c.filter(s => !s.hidden).reduce((a, s) => a + (Number(s.min) || 0), 0); }
+function presetMinutes(k){ const c = clone(DECK); applyPreset(k, c); return c.filter(s => !isGone(s)).reduce((a, s) => a + (Number(s.min) || 0), 0); }
 function presetActive(k){ const c = clone(DECK); applyPreset(k, c); return c.every((s, i) => !!s.hidden === !!DECK[i].hidden); }
 
 function viewContent(host){
@@ -2525,31 +2673,34 @@ function viewContent(host){
     h("b", {}, PRESETS[k].name), h("small", {}, PRESETS[k].desc || ""), h("span", { class:"pm" }, "نحو " + presetMinutes(k) + " د"))));
   host.append(pg);
 
-  host.append(sectionTitle("٢) الحزم الإضافية", "كل حزمة مجموعة شرائح تُظهرها أو تُخفيها"));
+  host.append(sectionTitle("٢) الحزم الإضافية", "كل حزمة مجموعة شرائح تُظهرها في اللقاء أو تُخفيها"));
   const packs = h("div", { class:"scards" });
   Object.keys(MODULES).forEach(m => {
     const st = packStats(m); if(!st.n) return;
     packs.append(h("div", { class:"packcard" },
       h("span", { class:"pi" }, MODULES[m].icon),
       h("div", { class:"pt" }, h("b", {}, MODULES[m].name), h("small", {}, MODULES[m].desc), h("small", {}, st.n + " شرائح · " + st.min + " د")),
-      h("button", { type:"button", class:"pb2", onclick:() => openSlidePreview(DECK.findIndex(s => s.mod === m)) }, "معاينة"),
-      sw(st.on, () => { DECK.forEach(s => { if(s.mod === m) s.hidden = st.on; }); sfx("tap"); queueSave(); renderAdmin(); }, MODULES[m].name)));
+      h("button", { type:"button", class:"pb2", onclick:() => openSlidePreview(DECK.findIndex(s => s.mod === m && !s.deleted)) }, "معاينة"),
+      sw(st.on, () => { DECK.forEach(s => { if(s.mod === m && !s.deleted) s.hidden = st.on; }); sfx("tap"); queueSave(); renderAdmin(); }, MODULES[m].name)));
   });
   host.append(packs);
 
-  host.append(sectionTitle("٣) الشرائح", "اضغط على الشريحة لمعاينتها وتعديلها وترتيبها"));
+  const live = DECK.filter(s => !s.deleted);
+  host.append(sectionTitle("٣) الشرائح", "المفتاح = تظهر الشريحة في اللقاء أو لا. اضغط الشريحة لمعاينتها وتعديلها."));
   const chips = h("div", { class:"chips2" });
-  [["all", "الكل (" + DECK.length + ")"], ["vis", "الظاهرة (" + DECK.filter(s => !s.hidden).length + ")"], ["hid", "المخفية (" + DECK.filter(s => s.hidden).length + ")"]].forEach(([v, t]) =>
+  [["all", "الكل (" + live.length + ")"], ["vis", "الظاهرة (" + live.filter(s => !s.hidden).length + ")"], ["hid", "المخفية (" + live.filter(s => s.hidden).length + ")"]].forEach(([v, t]) =>
     chips.append(h("button", { type:"button", class:"chip2" + (A.filter === v ? " on" : ""), onclick:() => { A.filter = v; renderAdmin(); } }, t)));
   host.append(chips);
   const list = h("div", { class:"scards" });
+  let n = 0;
   DECK.forEach((s, i) => {
+    if(s.deleted) return; n++;
     if(A.filter === "vis" && s.hidden) return; if(A.filter === "hid" && !s.hidden) return;
     const tag = s.mod && MODULES[s.mod] ? MODULES[s.mod].icon + " " : "";
     list.append(h("div", { class:"scard" + (s.hidden ? " hid" : ""), role:"button", tabindex:"0", onclick:() => openSlidePreview(i) },
-      h("span", { class:"sn2" }, String(i + 1)),
-      h("div", { class:"st2" }, h("b", {}, tag + (s.title || KIND_NAMES[s.kind] || s.kind)), h("small", {}, (KIND_NAMES[s.kind] || s.kind) + " · " + (s.min || 0) + " د" + (s.hidden ? " · مخفية" : ""))),
-      sw(!s.hidden, () => { s.hidden = !s.hidden; sfx("tap"); queueSave(); renderAdmin(); }, "إظهار الشريحة", true)));
+      h("span", { class:"sn2" }, String(n)),
+      h("div", { class:"st2" }, h("b", {}, tag + (s.title || KIND_NAMES[s.kind] || s.kind)), h("small", {}, (KIND_NAMES[s.kind] || s.kind) + " · " + (s.min || 0) + " د" + (s.hidden ? " · مخفية من اللقاء" : ""))),
+      sw(!s.hidden, () => { s.hidden = !s.hidden; sfx("tap"); queueSave(); renderAdmin(); }, "تظهر في اللقاء", true)));
   });
   if(!list.children.length) list.append(h("p", { class:"dim" }, "لا شرائح في هذا العرض."));
   host.append(list);
@@ -2557,11 +2708,40 @@ function viewContent(host){
   const sel = h("select", { id:"newkind" }); Object.keys(NEW_SLIDE).forEach(k => sel.append(h("option", { value:k }, KIND_NAMES[k] || k)));
   host.append(sectionTitle("٤) إضافة شريحة"), h("div", { class:"addbar" }, sel,
     h("button", { type:"button", class:"btn light", onclick:() => { DECK.push(NEW_SLIDE[$("newkind").value]()); queueSave(); openSlidePreview(DECK.length - 1, true); } }, "+ أضف وعدّل")));
+
+  const gone = DECK.filter(s => s.deleted);
+  if(gone.length){
+    host.append(sectionTitle("🗑 السلة (" + gone.length + ")", "شرائح حذفتها. استرجعها متى شئت، أو احذفها نهائيًّا"));
+    const tl = h("div", { class:"scards" });
+    DECK.forEach((s, i) => { if(!s.deleted) return;
+      tl.append(h("div", { class:"scard hid" }, h("span", { class:"sn2" }, "🗑"),
+        h("div", { class:"st2" }, h("b", {}, s.title || KIND_NAMES[s.kind] || s.kind), h("small", {}, KIND_NAMES[s.kind] || s.kind)),
+        h("button", { type:"button", class:"pb2", onclick:() => { s.deleted = false; queueSave(); renderAdmin(); } }, "↩ استرجاع"),
+        h("button", { type:"button", class:"pb2 del", onclick:() => { if(confirm("حذف نهائي لا يمكن التراجع عنه؟")){ DECK.splice(i, 1); queueSave(); renderAdmin(); } } }, "حذف نهائي")));
+    });
+    host.append(tl);
+  }
   host.append(h("details", { class:"adv" }, h("summary", {}, "خيارات متقدمة"),
     h("button", { type:"button", class:"btn danger small", onclick:() => { if(confirm("إرجاع المحتوى الأصلي وفقدان تعديلاتك؟")){ DECK = clone(DEFAULT_DECK); queueSave(); renderAdmin(); } } }, "إرجاع المحتوى الأصلي")));
 }
 
 /* ================= شاشة الاستبانة ================= */
+function drawResponses(box, list){
+  box.innerHTML = "";
+  if(!list.length){ box.append(h("p", { class:"dim" }, "لا توجد إجابات.")); return; }
+  list.forEach(r => box.append(h("div", { class:"rcard" },
+    h("div", { class:"rt" }, fmtTime(r.t)),
+    h("div", { class:"rl" }, [r.tool, r.asis, r.style, r.verify].filter(Boolean).join(" · ")),
+    r.uses ? h("div", { class:"rs" }, "الاستخدامات: " + r.uses) : null,
+    r.wish ? h("div", { class:"rs" }, "يريد تعلّم: " + r.wish) : null,
+    r.comment ? h("div", { class:"quote" }, r.comment) : null,
+    h("button", { type:"button", class:"pb2 del", onclick:async () => { if(!confirm("حذف هذه الإجابة وحدها؟")) return; await adminOp("delResp", { id:r.id }); A.respOpen = true; await refreshAdmin(); toast("حُذفت الإجابة"); } }, "حذف هذه الإجابة"))));
+}
+async function loadResponses(box){
+  box.innerHTML = ""; box.append(h("p", { class:"dim" }, "جارٍ التحميل…"));
+  try{ const d = await adminOp("responses"); drawResponses(box, d.responses || []); }
+  catch(e){ box.innerHTML = ""; box.append(h("p", { class:"dim" }, "تعذّر التحميل.")); }
+}
 function viewSurvey(host){
   const d = A.data || { total:0, counts:{}, comments:[], toolOther:[], usesOther:[] };
   host.append(h("div", { class:"statstrip" }, h("div", { class:"schip" }, "عدد المشاركين: ", h("b", {}, String(d.total)))));
@@ -2577,6 +2757,11 @@ function viewSurvey(host){
   if(d.toolOther && d.toolOther.length) host.append(lc("أدوات أخرى ذكروها", d.toolOther));
   if(d.usesOther && d.usesOther.length) host.append(lc("استخدامات أخرى ذكروها", d.usesOther));
   if(d.comments && d.comments.length) host.append(lc("ما أرادوا معرفته وأسئلتهم", d.comments));
+  const box = h("div", { class:"respbox" });
+  const det = h("details", { class:"adv controls resp" }, h("summary", {}, "الإجابات الفردية: راجعها واحذف ما تريد (مثل إجابات التجربة)"), box);
+  det.addEventListener("toggle", () => { A.respOpen = det.open; if(det.open) loadResponses(box); });
+  if(A.respOpen) det.open = true;
+  host.append(det);
   host.append(h("details", { class:"adv controls" }, h("summary", {}, "خيارات متقدمة"),
     h("button", { type:"button", class:"btn danger small", onclick:async () => { if(confirm("حذف كل إجابات الاستبانة نهائيًّا؟")){ await adminOp("clear"); refreshAdmin(); } } }, "حذف كل الإجابات")));
 }
@@ -2587,7 +2772,8 @@ function viewSession(host){
     h("span", { class:"hi" }, "▶"), h("span", {}, h("b", {}, "ابدأ العرض"), h("small", {}, "يفتح العرض التقديمي"))));
   const g = h("div", { class:"setgrid" });
   g.append(setting("فتح اللقاء للطلاب", "عند فتحه يظهر للطلاب زر «ادخل اللقاء» ويتبعون شريحتك.", sw(!!S.live, v => adminSet({ live:v }), "فتح اللقاء")));
-  g.append(setting("السماح للطلاب بالتنقل", "كل طالب يتصفح الشرائح بنفسه. فعّله فقط إن تعطلت الشاشة.", sw(!!S.free, v => adminSet({ free:v }), "التنقل الحر")));
+  g.append(setting("إتاحة الفهرس والتنقل للطلاب", "يظهر للطالب زر ☰ الفهرس وأزرار السابق والتالي، فيتنقل بين الشرائح بنفسه (يوفّر الوقت، أو يفيد إن تعطلت الشاشة).", sw(!!S.free, v => adminSet({ free:v }), "الفهرس والتنقل")));
+  g.append(setting("فتح التعلّم الذاتي", "يظهر في الصفحة الرئيسية زر «تعلّم بنفسك»، فيدخل الطالب في أي وقت ويسير في الدورة بسرعته (الشرائح الظاهرة فقط). ما يكتبه يُحفظ على جهازه ولا يصلك.", sw(!!S.self, v => adminSet({ self:v }), "التعلم الذاتي")));
   const modeCtl = h("div", {}, seg([["individual", "فردي (مجهول)"], ["group", "مجموعات"]], S.mode, v => adminSet({ mode:v })));
   if(S.mode === "group") modeCtl.append(h("div", { class:"dlab dk2" }, "عدد المجموعات (اكتب الرقم)"), numInput(S.groups, 2, 30, v => setStQuiet({ groups:v })));
   g.append(setting("كيف يشارك الطلاب؟", "فردي: بلا أسماء. مجموعات: يختار الطالب رقم مجموعته.", modeCtl));
@@ -2595,13 +2781,37 @@ function viewSession(host){
   host.append(g);
   host.append(h("div", { class:"adminbar" },
     h("button", { type:"button", class:"btn light", onclick:() => adminSet({ slide:firstVisible(), step:0 }) }, "↺ العودة بالعرض إلى أول شريحة"),
-    h("button", { type:"button", class:"btn light", onclick:copyStudentLink }, "🔗 نسخ رابط الطلاب")));
-  host.append(h("details", { class:"adv" }, h("summary", {}, "خيارات متقدمة"),
-    h("button", { type:"button", class:"btn danger small", onclick:async () => { if(confirm("حذف كل مشاركات اللقاء نهائيًّا؟")){ await adminOp("clearSubs"); toast("تم الحذف"); } } }, "حذف كل مشاركات اللقاء")));
+    h("button", { type:"button", class:"btn light", onclick:copyStudentLink }, "🔗 نسخ رابط الطلاب"),
+    h("button", { type:"button", class:"btn light", onclick:() => adminGo("subs") }, "🗂 مشاركات اللقاء")));
+}
+
+/* ================= شاشة مشاركات اللقاء (حذف فردي) ================= */
+async function loadSubs(){
+  try{ const d = await adminOp("allSubs"); A.subs = d.subs || []; }
+  catch(e){ A.subs = []; $("a-err").textContent = "تعذّر الاتصال بالسكربت."; }
+  if(A.view === "subs") renderAdmin();
+}
+function viewSubs(host){
+  const subs = A.subs || [];
+  host.append(h("div", { class:"vhead" }, h("p", { class:"vdesc" }, "كل ما أرسله الطلاب في الأنشطة، مجمّعًا بحسب النشاط. احذف مشاركة واحدة، أو كل مشاركات نشاط، أو الكل."),
+    subs.length ? h("button", { type:"button", class:"pb2 del", onclick:async () => { if(confirm("حذف كل مشاركات اللقاء نهائيًّا؟")){ await adminOp("clearSubs"); A.subs = []; renderAdmin(); } } }, "حذف الكل") : null));
+  if(!subs.length){ host.append(h("p", { class:"dim" }, "لا توجد مشاركات بعد.")); return; }
+  const order = [], seen = {};
+  DECK.forEach(s => { if(s.kind === "activity" && subs.some(x => x.slide === s.id)){ order.push(s.id); seen[s.id] = 1; } });
+  subs.forEach(x => { if(!seen[x.slide]){ order.push(x.slide); seen[x.slide] = 1; } });
+  order.forEach(id => {
+    const sl = slideById(id), list = subs.filter(x => x.slide === id);
+    const card = h("div", { class:"subgroup" },
+      h("div", { class:"sghead" }, h("b", {}, (sl && sl.title) || id), h("span", { class:"pill" }, list.length + " مشاركة"),
+        h("button", { type:"button", class:"pb2 del", onclick:async () => { if(confirm("حذف مشاركات هذا النشاط؟")){ await adminOp("clearSubs", { slide:id }); await loadSubs(); } } }, "حذف مشاركات النشاط")));
+    list.forEach(sb => card.append(h("div", { class:"subitem" }, stageCard(sb),
+      h("button", { type:"button", class:"pb2 del", onclick:async () => { if(!confirm("حذف هذه المشاركة وحدها؟")) return; await adminOp("delSub", { id:sb.id }); A.subs = A.subs.filter(z => z.id !== sb.id); renderAdmin(); toast("حُذفت المشاركة"); } }, "حذف"))));
+    host.append(card);
+  });
 }
 
 /* ================= نافذة معاينة الشريحة (من خانتها مباشرة، بلا تفعيل اللقاء) ================= */
-const PV = { idx:0, edit:false, mode:"phone", dirty:false, pal:"slate" };
+const PV = { idx:0, edit:false, mode:"phone", dirty:false };
 function openSlidePreview(i, edit){
   if(i < 0 || !DECK[i]) return;
   PV.idx = i; PV.edit = !!edit; PV.dirty = false; SUB_DRY = true;
@@ -2612,21 +2822,27 @@ function closeSlidePreview(silent){
   m.hidden = true; m.innerHTML = ""; SUB_DRY = false; document.body.classList.remove("modal-open"); setPal("slate");
   if(!silent && PV.dirty && A.view === "content" && $("s-admin").classList.contains("on")) renderAdmin();
 }
+function pvStep(d){ const a = alive(), p = a.indexOf(PV.idx), j = a[p + d]; if(j != null){ PV.idx = j; PV.edit = false; renderPV(); } }
+function pvMove(d){
+  const a = alive(), p = a.indexOf(PV.idx), j = a[p + d]; if(j == null) return;
+  const t = DECK[PV.idx]; DECK[PV.idx] = DECK[j]; DECK[j] = t; PV.idx = j; PV.dirty = true; queueSave(); renderPV();
+}
 function renderPV(){
-  const m = $("pvmodal"), s = DECK[PV.idx]; if(!s){ closeSlidePreview(); return; }
+  const m = $("pvmodal"), s = DECK[PV.idx]; if(!s || s.deleted){ closeSlidePreview(); return; }
   setPal(PAL_BY_KIND[s.kind] || "a");
+  const a = alive(), pos = a.indexOf(PV.idx);
   m.innerHTML = "";
   m.append(h("div", { class:"pvtop" },
     h("button", { type:"button", class:"abtn", onclick:() => closeSlidePreview() }, "✕ إغلاق"),
-    h("span", { class:"ttl" }, (PV.idx + 1) + " / " + DECK.length + " — " + (s.title || KIND_NAMES[s.kind] || "")),
-    h("span", { class:"pill " + (s.hidden ? "busy" : "ok") }, s.hidden ? "مخفية" : "ظاهرة"),
+    h("span", { class:"ttl" }, (pos + 1) + " / " + a.length + " — " + (s.title || KIND_NAMES[s.kind] || "")),
+    h("span", { class:"pill " + (s.hidden ? "busy" : "ok") }, s.hidden ? "مخفية من اللقاء" : "تظهر في اللقاء"),
     seg([["phone", "📱 جوال"], ["screen", "🖥 شاشة"]], PV.mode, v => { PV.mode = v; renderPV(); })));
   const sc = h("div", { class:"pvscroll" });
   if(PV.edit){
     sc.append(h("div", { class:"pvframe phone" }, h("div", { class:"card" }, h("h3", { style:"margin:0 0 6px" }, "تعديل: " + (KIND_NAMES[s.kind] || s.kind)),
       buildEditor(s, c => { PV.edit = false; if(c !== "cancel"){ PV.dirty = true; queueSave(); } renderPV(); }))));
   } else {
-    const frame = h("div", { class:"pvframe " + PV.mode });
+    const frame = h("div", { class:"pvframe " + (PV.mode === "screen" ? "wide" : "phone") });
     frame.append(renderSlide(s, { step:99, student:PV.mode === "phone" }));
     const ac = actCard(s); if(ac) frame.append(ac);
     sc.append(frame);
@@ -2634,20 +2850,25 @@ function renderPV(){
   m.append(sc);
   const btn = (txt, title, fn, cls) => h("button", { type:"button", class:"pvb" + (cls ? " " + cls : ""), title:title, onclick:fn }, h("span", {}, txt), h("small", {}, title));
   m.append(h("div", { class:"pvbar" },
-    btn("◀", "السابق", () => { if(PV.idx > 0){ PV.idx--; PV.edit = false; renderPV(); } }),
-    btn("▶", "التالي", () => { if(PV.idx < DECK.length - 1){ PV.idx++; PV.edit = false; renderPV(); } }),
+    btn("◀", "السابق", () => pvStep(-1)),
+    btn("▶", "التالي", () => pvStep(1)),
     btn("✎", "تعديل", () => { PV.edit = !PV.edit; renderPV(); }),
-    btn(s.hidden ? "👁" : "🚫", s.hidden ? "إظهار" : "إخفاء", () => { s.hidden = !s.hidden; PV.dirty = true; queueSave(); renderPV(); }),
-    btn("↑", "أعلى", () => { if(PV.idx > 0){ const j = PV.idx - 1, t = DECK[PV.idx]; DECK[PV.idx] = DECK[j]; DECK[j] = t; PV.idx = j; PV.dirty = true; queueSave(); renderPV(); } }),
-    btn("↓", "أسفل", () => { if(PV.idx < DECK.length - 1){ const j = PV.idx + 1, t = DECK[PV.idx]; DECK[PV.idx] = DECK[j]; DECK[j] = t; PV.idx = j; PV.dirty = true; queueSave(); renderPV(); } }),
-    btn("🗑", "حذف", () => { if(confirm("حذف هذه الشريحة نهائيًّا؟")){ DECK.splice(PV.idx, 1); PV.dirty = true; queueSave(); if(!DECK.length){ closeSlidePreview(); return; } PV.idx = Math.min(PV.idx, DECK.length - 1); renderPV(); } }, "danger")));
+    btn(s.hidden ? "👁" : "🙈", s.hidden ? "إظهار في اللقاء" : "إخفاء من اللقاء", () => { s.hidden = !s.hidden; PV.dirty = true; queueSave(); sfx("tap"); renderPV(); }),
+    btn("↑", "أعلى", () => pvMove(-1)),
+    btn("↓", "أسفل", () => pvMove(1)),
+    btn("🗑", "نقل للسلة", () => {
+      if(!confirm("نقل هذه الشريحة إلى السلة؟ تختفي من اللقاء ويمكنك استرجاعها لاحقًا من قسم السلة.")) return;
+      s.deleted = true; PV.dirty = true; queueSave(); toast("نُقلت إلى السلة");
+      const left = alive(); if(!left.length){ closeSlidePreview(); return; }
+      PV.idx = left.find(i => i > PV.idx); if(PV.idx == null) PV.idx = left[left.length - 1]; PV.edit = false; renderPV();
+    }, "danger")));
 }
 document.addEventListener("keydown", e => {
   const m = $("pvmodal"); if(!m || m.hidden) return;
   if(/^(INPUT|TEXTAREA|SELECT)$/.test((e.target || {}).tagName)) return;
   if(e.key === "Escape") closeSlidePreview();
-  else if(e.key === "ArrowLeft" && PV.idx < DECK.length - 1){ PV.idx++; PV.edit = false; renderPV(); }
-  else if(e.key === "ArrowRight" && PV.idx > 0){ PV.idx--; PV.edit = false; renderPV(); }
+  else if(e.key === "ArrowLeft") pvStep(1);
+  else if(e.key === "ArrowRight") pvStep(-1);
 });
 
 
@@ -2674,7 +2895,7 @@ $("pw").addEventListener("keydown", e => { if(e.key === "Enter") $("login").clic
 /* ================= الطباعة ================= */
 function openPrint(){
   const body = $("print-body"); body.innerHTML = "";
-  const vis = DECK.filter(s => !s.hidden);
+  const vis = DECK.filter(s => !isGone(s));
   const rd = vis.find(s => s.kind === "reading"), an = vis.find(s => s.kind === "activity" && s.akind === "answers");
   const tp = vis.find(s => s.kind === "activity" && s.akind === "template"), at = vis.find(s => s.kind === "anatomy");
   const lines = n => Array.from({ length:n }, () => h("div", { class:"wline" }));
@@ -2724,7 +2945,7 @@ function openPrint(){
   const p4 = h("section", { class:"sheet guide" }, h("h2", {}, "دليل المقدّم"));
   const tbl = h("table", {}, h("tr", {}, h("th", {}, "#"), h("th", {}, "الشريحة"), h("th", {}, "د"), h("th", {}, "ما أقوله وأفعله")));
   let total = 0;
-  DECK.forEach((s, i) => { if(!s.hidden) total += Number(s.min) || 0; tbl.append(h("tr", {}, h("td", {}, String(i + 1)), h("td", {}, (s.title || KIND_NAMES[s.kind]) + (s.hidden ? " (مخفية)" : "")), h("td", {}, String(s.min || 0)), h("td", {}, s.notes || ""))); });
+  DECK.forEach((s, i) => { if(s.deleted) return; if(!isGone(s)) total += Number(s.min) || 0; tbl.append(h("tr", {}, h("td", {}, String(i + 1)), h("td", {}, (s.title || KIND_NAMES[s.kind]) + (s.hidden ? " (مخفية)" : "")), h("td", {}, String(s.min || 0)), h("td", {}, s.notes || ""))); });
   p4.append(tbl, h("p", { class:"sub" }, "المجموع المقترح للشرائح الظاهرة: " + total + " دقيقة"));
   body.append(p4);
   show("s-print");
@@ -2734,10 +2955,10 @@ $("pr-go").addEventListener("click", () => window.print());
 
 /* ================= الروابط ================= */
 async function checkLive(){
-  if(DEMO){ $("live-note").hidden = false; return; }
+  if(DEMO){ $("live-note").hidden = false; $("self-note").hidden = false; return; }
   try{
     const d = await API.state(); Object.assign(S, d);
-    $("live-note").hidden = !d.live;
+    $("live-note").hidden = !d.live; $("self-note").hidden = !d.self;
     $("closed-note").hidden = d.open !== false ? true : false; $("start").disabled = d.open === false;
   }catch(e){}
 }
@@ -2745,6 +2966,7 @@ checkLive();
 $("done-home").addEventListener("click", goHome);
 $("res-home").addEventListener("click", goHome);
 $("enter-live").addEventListener("click", enterLive);
+$("enter-self").addEventListener("click", enterSelf);
 
 function route(){
   const hs = location.hash;
@@ -2752,6 +2974,7 @@ function route(){
   else if(hs === "#present") goLogin("present");
   else if(hs === "#print") goLogin("print");
   else if(hs === "#live") enterLive();
+  else if(hs === "#self") enterSelf();
   else if(hs === "#results") showPublic();
 }
 addEventListener("hashchange", route); route();
