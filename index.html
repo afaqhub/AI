@@ -2193,12 +2193,33 @@ async function adminOp(op, extra){
   if(d && d.state) S = Object.assign(S, d.state);
   return d;
 }
+/* يضبط محتوى محفوظ سابقًا: يعطي كل شريحة معروفة لقاءاتها الافتراضية، ويدمج الجديد ويفعّل اللقاء الأول تلقائيًّا عند الإدارة */
+function normalizeDeck(){
+  let changed = false;
+  DECK.forEach(s => {
+    const ds = DEFAULT_DECK.find(x => x.id === s.id);
+    if(ds){
+      if(s.meet == null){ s.meet = ds.meet.slice(); changed = true; }
+      if(s.mod == null && ds.mod){ s.mod = ds.mod; changed = true; }
+      if(s.liveOnly == null && ds.liveOnly){ s.liveOnly = true; changed = true; }
+    } else if(s.meet == null){ s.meet = []; changed = true; }
+  });
+  return changed;
+}
+function adoptDeck(arr){
+  DECK = arr; const ch = normalizeDeck();
+  if(adminPass && needsMerge()){
+    mergeNewDefaults(); activateMeeting("m1"); normalizeDeck();
+    if(typeof queueSave === "function") queueSave();
+    if(typeof toast === "function") toast("أُضيفت الألعاب واللقاءات الجديدة وفُعّل اللقاء الأول");
+  } else if(ch && adminPass && typeof queueSave === "function") queueSave();
+}
 async function loadDeck(){
   try{
     let d;
     if(adminPass && !DEMO){ d = await adminOp("getDeck"); if(d && d.ok === false) d = await API.deck(); }
     else d = await API.deck();
-    if(d && Array.isArray(d.deck) && d.deck.length) DECK = d.deck;
+    if(d && Array.isArray(d.deck) && d.deck.length) adoptDeck(d.deck);
     deckV = (d && d.state) ? d.state.dv : (d && d.dv != null ? d.dv : deckV);
     if(DEMO) deckV = S.dv;
   }catch(e){}
