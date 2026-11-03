@@ -1076,6 +1076,42 @@ html[data-theme="light"] body[data-pal="gold"]{--pa:#FFF7E3; --pb:#FBE9B8; --pc:
 .drawer .dkd{color:var(--ink); margin-top:12px}
 .drawer .dkd summary{font-weight:700; cursor:pointer}
 
+/* ---------- لوحات ألوان جديدة: لكل لعبة جوّها ---------- */
+body[data-pal="sunset"]{--pa:#2D0A2B; --pb:#8C1D54; --pc:#F26A2E; --g1:rgba(255,160,90,.38); --g2:rgba(236,72,153,.36)}
+body[data-pal="aurora"]{--pa:#041F25; --pb:#0F6B66; --pc:#6D3FD1; --g1:rgba(94,234,212,.32); --g2:rgba(167,139,250,.4)}
+body[data-pal="candy"]{--pa:#2A0A3F; --pb:#7A1FB6; --pc:#E0489A; --g1:rgba(249,168,212,.34); --g2:rgba(192,132,252,.4)}
+body[data-pal="forest"]{--pa:#052614; --pb:#14672E; --pc:#6BA312; --g1:rgba(134,239,172,.3); --g2:rgba(250,204,21,.22)}
+body[data-pal="crimson"]{--pa:#33080F; --pb:#8E1233; --pc:#D93A2B; --g1:rgba(252,165,165,.3); --g2:rgba(251,146,60,.3)}
+body[data-pal="amber"]{--pa:#2E1803; --pb:#9A4A08; --pc:#E9990F; --g1:rgba(253,224,71,.3); --g2:rgba(251,146,60,.34)}
+/* الألوان المميزة للأزرار والأشرطة تتبع اللوحة (في الوضع الليلي) */
+html:not([data-theme="light"]) body[data-pal="sunset"]{--sky:#FDBA74; --violet:#F43F5E}
+html:not([data-theme="light"]) body[data-pal="aurora"]{--sky:#5EEAD4; --violet:#8B5CF6}
+html:not([data-theme="light"]) body[data-pal="candy"]{--sky:#F9A8D4; --violet:#A855F7}
+html:not([data-theme="light"]) body[data-pal="forest"]{--sky:#86EFAC; --violet:#16A34A}
+html:not([data-theme="light"]) body[data-pal="crimson"]{--sky:#FCA5A5; --violet:#E11D48}
+html:not([data-theme="light"]) body[data-pal="amber"]{--sky:#FCD34D; --violet:#EA580C}
+html[data-theme="light"] body[data-pal="sunset"]{--pa:#FFF1E8; --pb:#FDD9C4; --pc:#FBD0E0}
+html[data-theme="light"] body[data-pal="aurora"]{--pa:#E6FAF7; --pb:#CFF1EC; --pc:#E3DCFB}
+html[data-theme="light"] body[data-pal="candy"]{--pa:#FCEBFA; --pb:#F4D6F6; --pc:#FBD3E6}
+html[data-theme="light"] body[data-pal="forest"]{--pa:#EAF8EE; --pb:#D3F0DC; --pc:#EAF3C9}
+html[data-theme="light"] body[data-pal="crimson"]{--pa:#FDECEC; --pb:#F9D2D5; --pc:#FBDCCB}
+html[data-theme="light"] body[data-pal="amber"]{--pa:#FFF6DD; --pb:#FBE7B0; --pc:#FAD9A5}
+body{transition:background-color .4s}
+
+/* ---------- الأدوار ---------- */
+.turnbar{display:flex; align-items:center; gap:.7em; background:var(--glass); border:2px solid var(--c); border-right-width:8px; border-radius:1em; padding:.25em .8em; margin:.1em 0 .5em; animation:turnin .5s both}
+.turnbar .tbi{font-size:2.1em; line-height:1}
+.turnbar .tbt{flex:1; line-height:1.3}
+.turnbar .tbt small{display:block; color:var(--fg3); font-size:.8em}
+.turnbar .tbt b{font-size:1.25em}
+.ring.mini{width:3.2em; height:3.2em}
+.ring.mini .rnum{font-size:1.1em}
+.ring.mini circle{stroke-width:11}
+@keyframes turnin{from{transform:translateX(30px); opacity:0}to{transform:none; opacity:1}}
+.rcount{display:inline-block; font-weight:800; color:var(--fg2); background:var(--glass2); border-radius:99px; padding:.05em 1em; margin:.1em 0 .4em; font-size:.9em}
+.hteam.turn{box-shadow:0 0 0 3px var(--c),0 0 18px var(--c); transform:scale(1.05)}
+.hteam.turn .hn::after{content:" ◀"; color:var(--gold)}
+
 </style>
 </head>
 <body>
@@ -1298,7 +1334,7 @@ const SFX = {
 function sfx(n){ try{ if(SFX[n]) SFX[n](); }catch(e){} }
 
 /* ---- ألوان الصفحة بحسب نوع الشريحة والشاشة ---- */
-const PAL_BY_KIND = { teams:"game", qwall:"ocean", predict:"ocean", brain:"slate", scenario:"game", build:"game", challenge:"game", hunt:"plum", sort:"teal", trap:"plum", path:"ink", style:"ember", chain:"ocean", library:"slate", podium:"gold", timeline:"ocean", cover:"a", results:"teal", big:"ember", flip:"ocean", cards:"ocean", bullets:"a", reading:"ink", activity:"teal", anatomy:"ocean", spot:"plum", critique:"slate" };
+const PAL_BY_KIND = { teams:"game", qwall:"candy", predict:"sunset", brain:"aurora", scenario:"candy", build:"amber", challenge:"game", hunt:"crimson", sort:"forest", trap:"plum", path:"ink", style:"ember", chain:"aurora", library:"slate", podium:"gold", timeline:"amber", cover:"a", results:"teal", big:"ember", flip:"ocean", cards:"ocean", bullets:"a", reading:"ink", activity:"teal", anatomy:"ocean", spot:"plum", critique:"slate" };
 const PAL_BY_SCREEN = { "s-intro":"a", "s-q":"a", "s-done":"teal", "s-res":"teal", "s-login":"slate", "s-admin":"slate", "s-print":"slate", "s-live":"a", "s-present":"a" };
 function setPal(p){ document.body.dataset.pal = p || "a"; }
 
@@ -1846,7 +1882,9 @@ const PRESETS = {
 
 /* ######## plan.js ######## */
 /* ================= خطة اللقاءات: الشرائح الجديدة والترتيب والتوزيع ================= */
-const DECK_VERSION = 2;
+const DECK_VERSION = 3;
+/* شرائح زِيدت أسئلتها في هذا الإصدار: تُحدَّث في المحتوى المحفوظ إن كانت أسئلتها أقل (أي لم تُعدَّل بعد) */
+const PLAN_REFRESH = ["s-predict", "s-scen", "s-build", "s-hunt", "m-trap"];
 const MEETINGS = {
   m1:{ name:"اللقاء الأول", icon:"🌟", sub:"الأساسيات: ما هو الذكاء الاصطناعي؟ وكيف أطلب منه وأتحقق؟ (للخميس)" },
   m2:{ name:"اللقاء الثاني", icon:"🎓", sub:"المذاكرة والتحقق: اجعله معلّمك، ولا تصدّقه بلا فحص" },
@@ -2063,6 +2101,70 @@ const PLAN_PATCH = {
 };
 const PLAN_MOD = { "s-predict":"inside", "s-brain":"inside", "m-time":"inside" };
 
+
+/* أسئلة كافية ليأخذ كل فريق سؤالًا مختلفًا، فلا يسمع فريقٌ جواب غيره */
+Object.assign(PLAN_PATCH, {
+  "s-predict":{ rows:[
+    ["السلام ___", "عليكم:92 ؛ الشمس:3 ؛ سيارة:3 ؛ غدًا:2", "لكل كلمة احتمال، وهذه الأعلى لأن الناس تقولها كثيرًا بعد هذه الكلمة."],
+    ["ذهب الطبيب إلى المستشفى وفحص ___", "المريض:74 ؛ المسألة:12 ؛ السيارة:8 ؛ الكتاب:6", "«الطبيب» و«المستشفى» قادا التوقع إلى «المريض»."],
+    ["ذهب المهندس إلى الورشة وفحص ___", "السيارة:42 ؛ الآلة:36 ؛ المشروع:16 ؛ المريض:6", "غيّرنا كلمتين فتغيّر التوقع! السياق مهم جدًّا."],
+    ["أحب في الصباح أن أشرب كوبًا من ___", "الحليب:44 ؛ الشاي:32 ؛ القهوة:20 ؛ الإسفلت:4", "الكلمات غير المنطقية احتمالها قريب من الصفر."],
+    ["ذهبتُ إلى المكتبة لأستعير ___", "كتابًا:68 ؛ قصة:20 ؛ قلمًا:10 ؛ ملعبًا:2", "«المكتبة» و«أستعير» جعلتا «كتابًا» هو الأرجح."],
+    ["في ليالي الشتاء الباردة نشعل ___", "المدفأة:60 ؛ النار:25 ؛ المصباح:10 ؛ المكيّف:5", "كلمة «الباردة» ترجّح ما يعطي الدفء."],
+    ["الطالب المجتهد يذاكر دروسه ثم ___", "يراجعها:50 ؛ يلعب:25 ؛ ينام:22 ؛ يطير:3", "لا شيء مؤكد، لكن بعض الكلمات أرجح من بعض."],
+    ["في الصباح تشرق ___", "الشمس:94 ؛ النجوم:3 ؛ القمر:2 ؛ الثلج:1", "هنا يكاد يكون التوقع مؤكدًا، لأن الجملة مألوفة جدًّا."]
+  ] },
+  "s-scen":{ rows:[
+    ["عندي اختبار في العلوم غدًا وأريد أن أتأكد أنني فهمت.", "2", "الممتحِن يسألك فتكشف ما لم تفهمه قبل الاختبار."],
+    ["كتبت مقالًا عن الرياضة ولا أعرف أخطائي.", "3", "المصحِّح يدلّك على الأخطاء دون أن يكتب المقال عنك."],
+    ["لا أفهم درس الكسور إطلاقًا.", "1", "المعلّم يشرح لك ببساطة وبأمثلة من حياتك."],
+    ["عندي أسبوع مزدحم: اختبارات وتمارين وزيارة أهلي.", "4", "المخطِّط يرتّب لك وقتك، وأنت تقرّر وتنفّذ."],
+    ["أريد أن أراجع درس الخلية الليلة وأعرف أين ضعفي.", "2", "الممتحِن يكشف نقاط ضعفك بالأسئلة."],
+    ["كتبت فقرة بالإنجليزية وأريد أن أعرف أخطائي.", "3", "المصحِّح يدلّك على الخطأ ويشرحه."],
+    ["لا أعرف كيف أبدأ مذاكرة ثلاث مواد في يومين.", "4", "المخطِّط يقسّم لك الوقت."],
+    ["فهمت نصف درس الجاذبية وأريد شرح الباقي ببساطة.", "1", "المعلّم يكمل لك الشرح بأسلوب سهل."]
+  ] },
+  "s-build":{ rows:[
+    ["أنت معلم علوم لطالب في أولى متوسط.", "هذا درس الخلية: […]", "اشرحه لي ثم اسألني سؤالين.", "في 5 نقاط قصيرة."],
+    ["أنت مدرّب لغة إنجليزية ودود.", "هذه فقرتي: […]", "صحّح أخطائي واشرحها بالعربية.", "في جدول من عمودين."],
+    ["أنت مخطط مذاكرة محترف.", "عندي اختبارات في الرياضيات والعلوم يوم الخميس.", "ضع لي جدولًا لثلاثة أيام.", "جدول فيه أوقات للراحة."],
+    ["أنت مدرّب رياضي لطالب في المتوسطة.", "أنا ألعب كرة القدم وأريد تحسين لياقتي.", "اقترح عليّ تمارين بسيطة لأسبوع.", "في قائمة مرتبة بالأيام."],
+    ["أنت كاتب قصص للأطفال.", "الفكرة: قطة تتعلم السباحة.", "اكتب لي قصة قصيرة ممتعة.", "في ثلاث فقرات قصيرة."]
+  ] },
+  "s-hunt":{ rows:[
+    ["1", "ابتلى الله ثلاثة رجال من بني إسرائيل: أبرص وأقرع وأعمى.", "صح", ""],
+    ["1", "أعطاهم الملَك ما تمنَّوه: جلدًا حسنًا وشعرًا حسنًا وبصرًا.", "صح", ""],
+    ["1", "الأبرص والأقرع نسبا المال إلى آبائهما، وأنكرا فضل الله.", "صح", ""],
+    ["1", "رفض الأعمى أن يعطي الملَك شيئًا لأنه يحتاج ماله.", "خطأ", "الأعمى قال للملَك: خذ ما شئت. الذي منع هما الأبرص والأقرع."],
+    ["1", "رضي الله عن الأعمى وغضب على صاحبيه.", "صح", ""],
+    ["2", "يتعلم الذكاء الاصطناعي من نصوص كثيرة جدًّا.", "صح", ""],
+    ["2", "يكتب جوابه كلمة بعد كلمة.", "صح", ""],
+    ["2", "لا يخطئ أبدًا لأنه يملك كل المعلومات الصحيحة.", "خطأ", "يخطئ أحيانًا وبثقة، ولا يملك كل المعلومات."],
+    ["2", "قد يستعين بأداة بحث إن أُعطيها.", "صح", ""],
+    ["2", "لا نسأله وحده في الحلال والحرام.", "صح", ""],
+    ["3", "لا أكتب كلمات السر في أي أداة.", "صح", ""],
+    ["3", "أتحقق من المعلومة المهمة.", "صح", ""],
+    ["3", "أكتب بيانات أهلي كاملة ليجوّد لي الجواب.", "خطأ", "بيانات الأسرة أسرار لا نسلّمها لأي أداة."],
+    ["3", "أستشير معلمًا في الأمور المهمة.", "صح", ""],
+    ["4", "أبحث عن المعلومة في كتاب أو موقع رسمي لأتأكد.", "صح", ""],
+    ["4", "إذا ذكر الذكاء الاصطناعي اسم مصدر فهذا يعني أنه موجود وصحيح.", "خطأ", "قد يختلق مصادر وأسماء تبدو حقيقية، فنتأكد منها."],
+    ["4", "أسأل معلمي إذا شككت في جواب.", "صح", ""],
+    ["4", "قد يخطئ حتى لو كان أسلوبه واثقًا.", "صح", ""],
+    ["5", "أستعمله ليشرح لي ما لم أفهم.", "صح", ""],
+    ["5", "أعطيه صورة هويتي ليساعدني في تعبئة نموذج.", "خطأ", "الوثائق الشخصية لا تُرفع لأي أداة."],
+    ["5", "أكتب له سؤالي دون اسمي الكامل.", "صح", ""],
+    ["5", "أقرأ جوابه وأراجعه بنفسي.", "صح", ""]
+  ] },
+  "m-trap":{ rows:[
+    ["تقع مدينة الرياض في المنطقة الوسطى من المملكة العربية السعودية، وهي عاصمتها.", "حقيقي", "جملة عادية ومعروفة.", "هذه معلومة صحيحة."],
+    ["اخترع العالم المسلم ابن الهيثم المصباح الكهربائي عام 1879.", "مختلق", "انتبه: اسم مخترع وتاريخ في جملة واحدة.", "ابن الهيثم اشتهر بعلم البصريات، أما المصباح الكهربائي فارتبط باسم إديسون في 1879. جمع الجواب اسمين لا يجتمعان."],
+    ["الرمز الكيميائي للذهب هو Au، وعدده الذري 79.", "حقيقي", "معلومة محددة بأرقام.", "نعم، هذا صحيح."],
+    ["أُطلق تطبيق ChatGPT للعامة في عام 2010.", "مختلق", "فكّر: هل كانت أدوات المحادثة الذكية معروفة بين الناس في 2010؟", "أُطلق في أواخر 2022."],
+    ["أول قمر صناعي أطلقه الإنسان كان «سبوتنيك» عام 1957.", "حقيقي", "معلومة تاريخية محددة بتاريخ.", "نعم، أُطلق سبوتنيك 1 عام 1957."],
+    ["أعلى جبل في العالم فوق سطح البحر هو إيفرست في ماليزيا.", "مختلق", "انتبه إلى اسم البلد.", "إيفرست في سلسلة الهيمالايا بين نيبال والصين، لا في ماليزيا."]
+  ] }
+});
+
 function buildDefaultDeck(){
   const all = BASE_DECK.concat(NEW_SLIDES).map(s => JSON.parse(JSON.stringify(s))), by = {};
   all.forEach(s => { by[s.id] = s; });
@@ -2231,11 +2333,12 @@ function normalizeDeck(){
   return changed;
 }
 function adoptDeck(arr){
+  const hadMeet = arr.some(s => Array.isArray(s.meet) && s.meet.length);
   DECK = arr; const ch = normalizeDeck();
   if(adminPass && needsMerge()){
-    mergeNewDefaults(); activateMeeting("m1"); normalizeDeck();
+    mergeNewDefaults(); if(!hadMeet) activateMeeting("m1"); normalizeDeck();
     if(typeof queueSave === "function") queueSave();
-    if(typeof toast === "function") toast("أُضيفت الألعاب واللقاءات الجديدة وفُعّل اللقاء الأول");
+    if(typeof toast === "function") toast(hadMeet ? "حُدّثت الأسئلة والألعاب الجديدة (اختياراتك في الإخفاء والإظهار كما هي)" : "أُضيفت الألعاب واللقاءات الجديدة وفُعّل اللقاء الأول");
   } else if(ch && adminPass && typeof queueSave === "function") queueSave();
 }
 async function loadDeck(){
@@ -2371,7 +2474,9 @@ function mergeNewDefaults(){
   let added = 0;
   DEFAULT_DECK.forEach((ds, di) => {
     const ex = DECK.find(x => x.id === ds.id);
-    if(ex){ if(ex.meet == null) ex.meet = ds.meet.slice(); if(ex.mod == null && ds.mod) ex.mod = ds.mod; if(ex.liveOnly == null && ds.liveOnly) ex.liveOnly = true; return; }
+    if(ex){
+      if(PLAN_REFRESH.indexOf(ds.id) >= 0 && Array.isArray(ds.rows) && (!Array.isArray(ex.rows) || ex.rows.length < ds.rows.length)){ ex.rows = clone(ds.rows); if(ds.examples) ex.examples = clone(ds.examples); }
+      if(ex.meet == null) ex.meet = ds.meet.slice(); if(ex.mod == null && ds.mod) ex.mod = ds.mod; if(ex.liveOnly == null && ds.liveOnly) ex.liveOnly = true; return; }
     let pos = 0;
     for(let k = di - 1; k >= 0; k--){ const p = DECK.findIndex(x => x.id === DEFAULT_DECK[k].id); if(p >= 0){ pos = p + 1; break; } }
     DECK.splice(pos, 0, clone(ds)); added++;
@@ -2698,8 +2803,20 @@ function ringTimer(sec, o){
 const TEAM_ICONS = ["🦅", "🐆", "🦁", "🐺", "🐬", "🦊", "🐻", "🦉"];
 const TEAM_NAMES = ["الصقور", "النمور", "الأسود", "الذئاب", "الدلافين", "الثعالب", "الدببة", "البوم"];
 const TEAM_COLORS = ["#4CC3FF", "#FFB703", "#34D399", "#F472B6", "#A78BFA", "#FB923C", "#60A5FA", "#F87171"];
-const TEAMS = Object.assign({ list:[], show:true }, LS.get("teams", {}));
-function saveTeams(){ LS.set("teams", { list:TEAMS.list, show:TEAMS.show }); }
+const TEAMS = Object.assign({ list:[], show:true, turn:0 }, LS.get("teams", {}));
+function saveTeams(){ LS.set("teams", { list:TEAMS.list, show:TEAMS.show, turn:TEAMS.turn || 0 }); }
+/* ---------- الأدوار: لكل فريق دوره وسؤاله ---------- */
+function curTeam(){ return TEAMS.list.length ? TEAMS.list[(TEAMS.turn || 0) % TEAMS.list.length] : null; }
+function nextTurn(){ if(!TEAMS.list.length) return; TEAMS.turn = ((TEAMS.turn || 0) + 1) % TEAMS.list.length; saveTeams(); drawHud(); }
+function scoreTurn(n){ const t = curTeam(); if(!t) return; addPoints(t.id, n); toast("+" + n + " لفريق " + t.name + " " + t.icon); }
+/* شريط «الدور الآن» مع مؤقت تفكير يبدأ تلقائيًّا */
+function turnBar(secs){
+  const t = curTeam(); if(!t) return null;
+  const ring = ringTimer(secs || 20, { onDone:() => toast("انتهى وقت التفكير ⏱") });
+  ring.el.classList.add("mini");
+  const bar = h("div", { class:"turnbar", style:"--c:" + t.color }, h("span", { class:"tbi" }, t.icon), h("div", { class:"tbt" }, h("small", {}, "الدور الآن"), h("b", {}, "فريق " + t.name)), ring.el);
+  ring.start(); return bar;
+}
 function countTo(el, from, to){
   if(from === to || typeof requestAnimationFrame !== "function"){ el.textContent = String(to); return; }
   const t0 = Date.now(), dur = 450;
@@ -2716,7 +2833,8 @@ function drawHud(bumpId){
   hud.innerHTML = "";
   TEAMS.list.forEach(t => {
     const pts = h("b", { class:"hp" }, String(t._shown != null ? t._shown : (t.pts || 0)));
-    const chip = h("div", { class:"hteam" + (bumpId === t.id ? " bump" : ""), style:"--c:" + t.color },
+    const isTurn = TEAMS.list.length > 1 && ((TEAMS.turn || 0) % TEAMS.list.length) === TEAMS.list.indexOf(t);
+    const chip = h("div", { class:"hteam" + (bumpId === t.id ? " bump" : "") + (isTurn ? " turn" : ""), style:"--c:" + t.color },
       h("span", { class:"hi" }, t.icon), h("span", { class:"hn" }, t.name), pts,
       h("button", { type:"button", class:"hb", title:"+1", "aria-label":"زِد نقطة لـ" + t.name, onclick:() => addPoints(t.id, 1) }, "+"),
       h("button", { type:"button", class:"hb m", title:"-1", "aria-label":"أنقص نقطة من " + t.name, onclick:() => addPoints(t.id, -1) }, "−"));
@@ -2836,7 +2954,7 @@ GAMES.teams = (s, o, box) => {
   };
   box.append(h("div", { class:"tcount" }, h("span", {}, "عدد الفرق:"), numInput(n, 2, 8, v => { n = v; draw(); })), grid);
   box.append(gctl(
-    gbtn("🚀 ابدأ المنافسة", () => { sync(); commit(); TEAMS.show = true; saveTeams(); drawHud(); confetti(); sfx("done"); }, "go"),
+    gbtn("🚀 ابدأ المنافسة", () => { sync(); commit(); TEAMS.show = true; TEAMS.turn = 0; saveTeams(); drawHud(); confetti(); sfx("done"); }, "go"),
     gbtn("🔄 صفّر النقاط", () => { listNow().forEach(t => { t.pts = 0; t._shown = 0; t.badges = []; }); if(!draft){ saveTeams(); drawHud(); } sfx("tap"); }),
     gbtn("👁 إظهار/إخفاء لوحة النقاط", () => { TEAMS.show = !TEAMS.show; saveTeams(); drawHud(); sfx("tap"); })));
   box.append(h("p", { class:"gnote" }, "النقاط تُمنح بلمسة من أعلى الشاشة أو بعد كل جولة. وفي النهاية يأخذ كل فريق شارة."));
@@ -2871,44 +2989,6 @@ GAMES.qwall = (s, o, box) => {
   })();
 };
 
-/* ---------- خمّن الكلمة التالية ---------- */
-GAMES.predict = (s, o, box) => {
-  const rounds = (s.rows || []).map(r => ({ sent:r[0] || "", opts:parseOpts(r[1]), note:r[2] || "" }));
-  let ri = 0, picked = -1, revealed = false, animate = false;
-  const top = r => r.opts.reduce((a, b) => b.p > a.p ? b : a, r.opts[0]);
-  box.append(gameHead(s));
-  const tabs = h("div", { class:"rtabs" }), stage = h("div", { class:"pstage2" }), ctl = h("div", {});
-  box.append(tabs, stage, ctl);
-  const draw = () => {
-    tabs.innerHTML = ""; stage.innerHTML = ""; ctl.innerHTML = "";
-    rounds.forEach((r, i) => tabs.append(h("button", { type:"button", class:"rtab" + (i === ri ? " on" : ""), onclick:() => { ri = i; picked = -1; revealed = false; animate = false; draw(); sfx("tap"); } }, String(i + 1))));
-    const r = rounds[ri]; if(!r) return;
-    const parts = r.sent.split("___");
-    stage.append(h("div", { class:"sentence" }, parts[0], h("span", { class:"blank2" + (revealed ? " filled" : "") }, revealed ? top(r).w : "؟"), parts[1] || ""));
-    const opts = h("div", { class:"popts" });
-    r.opts.forEach((op, i) => {
-      const bar = h("i", { style:"height:" + (revealed && !animate ? op.p : 0) + "%" });
-      opts.append(h("button", { type:"button", class:"popt c" + (i % 4) + (picked === i ? " pick" : "") + (revealed && op === top(r) ? " top" : ""), onclick:() => { if(revealed) return; picked = i; sfx("tap"); draw(); } },
-        h("span", { class:"pbarw" }, bar), h("b", { class:"pw" }, op.w), h("small", { class:"pp" }, revealed ? op.p + "%" : (picked === i ? "اختيارنا" : ""))));
-    });
-    stage.append(opts);
-    if(revealed){
-      if(r.note) stage.append(h("p", { class:"pnote" }, r.note));
-      if(picked >= 0){ const ok = r.opts[picked] === top(r); stage.append(h("div", { class:"pverdict " + (ok ? "ok" : "no") }, ok ? "✓ توقّعتم مثل الذكاء الاصطناعي" : "✗ الذكاء الاصطناعي رجّح غير ذلك")); }
-    }
-    ctl.append(gctl(
-      gbtn("👁 اكشف ما رجّحه الذكاء الاصطناعي", () => {
-        if(revealed) return; revealed = true; animate = true; sfx("reveal"); draw();
-        requestAnimationFrame(() => requestAnimationFrame(() => { animate = false; stage.querySelectorAll(".pbarw i").forEach((b, k) => { b.style.height = r.opts[k].p + "%"; }); }));
-        if(picked >= 0 && r.opts[picked] === top(r)){ confetti(); sfx("ok"); }
-      }, "go"),
-      gbtn("التالية ▶", () => { ri = (ri + 1) % rounds.length; picked = -1; revealed = false; animate = false; draw(); sfx("next"); })));
-    ctl.append(h("p", { class:"gnote" }, "الأرقام توضيحية لتقريب الفكرة، وليست قياسًا حقيقيًّا."));
-    const a = awardBar(); if(a) ctl.append(a);
-  };
-  draw();
-};
-
 /* ---------- داخل العقل ---------- */
 GAMES.brain = (s, o, box) => {
   const stages = (s.rows || []).map(r => ({ t:r[0] || "", d:r[1] || "" }));
@@ -2937,66 +3017,6 @@ GAMES.brain = (s, o, box) => {
   };
   inp.addEventListener("input", chunk);
   box.append(pipe, info, h("div", { class:"pdemo" }, h("label", {}, "جرّب بنفسك: كيف يقطّع كلامك؟ (تقطيع وأرقام توضيحية)"), inp, chips), gctl(gbtn("▶ شاهد العملية", play, "go"), gbtn("↻ من البداية", () => { nodes.forEach(n => n.classList.remove("lit", "on")); links.forEach(l => l.classList.remove("lit")); info.textContent = "اضغط على أي مرحلة لتعرف ما يحدث فيها."; })));
-};
-
-/* ---------- أي دور أطلب؟ ---------- */
-GAMES.scenario = (s, o, box) => {
-  const rows = (s.rows || []).map(r => ({ story:r[0] || "", role:(Number(r[1]) || 1) - 1, why:r[2] || "" }));
-  const ex = s.examples || [];
-  let i = 0, score = 0, tries = 0, done = false;
-  box.append(gameHead(s));
-  const body = h("div", {}); box.append(body);
-  const draw = () => {
-    body.innerHTML = ""; const r = rows[i]; done = false; tries = 0;
-    if(!r){ body.append(robotSay("wow", "انتهت المواقف! أصبتم من أول محاولة " + score + " من " + rows.length), gctl(gbtn("↻ من جديد", () => { i = 0; score = 0; draw(); }, "go"))); const a = awardBar(); if(a) body.append(a); return; }
-    const card = h("div", { class:"scene" }, h("div", { class:"sq" }, "«" + r.story + "»"), h("div", { class:"sprog" }, (i + 1) + " / " + rows.length));
-    const opts = h("div", { class:"roles" });
-    ROLES.forEach(([ic, nm], k) => opts.append(h("button", { type:"button", class:"role r" + k, onclick:ev => {
-      if(done) return; const b = ev.currentTarget;
-      if(k === r.role){
-        done = true; if(tries === 0) score++; b.classList.add("right"); sfx("ok");
-        card.classList.add("solved"); card.append(h("div", { class:"swhy" }, h("b", {}, "✓ " + pickOne(MSG_OK) + " "), r.why, ex[k] ? h("div", { class:"sex" }, "جرّب أن تطلب: «" + ex[k] + "»") : null));
-        nxt.disabled = false;
-      } else { tries++; b.classList.add("wrong"); shake(b); sfx("bad"); hint.textContent = pickOne(MSG_BAD); }
-    } }, h("span", { class:"ri" }, ic), h("b", {}, nm))));
-    const hint = h("div", { class:"shint" }, "اختر الدور الأنسب لهذا الموقف");
-    const nxt = h("button", { type:"button", class:"gb go", disabled:true, onclick:() => { i++; sfx("next"); draw(); } }, "الموقف التالي ▶");
-    body.append(card, opts, hint, gctl(nxt));
-    const a = awardBar(); if(a) body.append(a);
-  };
-  draw();
-};
-
-/* ---------- ركّب الطلب ---------- */
-GAMES.build = (s, o, box) => {
-  const SL = [["🎭", "الدور"], ["📄", "المادة"], ["🎯", "المطلوب"], ["📋", "الشكل"]];
-  const rounds = (s.rows || []).map(r => r.slice(0, 4));
-  let ri = 0, sel = -1, placed = [false, false, false, false], finished = false;
-  box.append(gameHead(s));
-  const body = h("div", {}); box.append(body);
-  const order = k => [2, 0, 3, 1].map(x => (x + k) % 4);
-  const draw = () => {
-    body.innerHTML = ""; const r = rounds[ri]; if(!r) return;
-    const slots = h("div", { class:"slots" });
-    SL.forEach(([ic, nm], j) => slots.append(h("button", { type:"button", class:"slot" + (placed[j] ? " filled" : "") + (finished ? " joined" : ""), onclick:ev => {
-      if(placed[j] || sel < 0) return;
-      if(sel === j){ placed[j] = true; sel = -1; sfx("ok"); if(placed.every(Boolean)){ finished = true; sfx("done"); confetti(); } draw(); }
-      else { shake(ev.currentTarget); sfx("bad"); sel = -1; draw(); }
-    } }, h("span", { class:"sli" }, ic), h("b", {}, nm), placed[j] ? h("span", { class:"slt" }, r[j]) : null)));
-    body.append(slots);
-    if(finished){
-      const full = r.join(" ");
-      body.append(h("div", { class:"assembled" }, h("div", { class:"al2" }, "طلبك المتكامل ✨"), h("div", { class:"atxt" }, full),
-        h("button", { type:"button", class:"btn light small", onclick:async () => { toast((await copyText(full)) ? "نُسخ الطلب" : "تعذّر النسخ"); sfx("pop"); } }, "📋 انسخ الطلب")));
-    } else {
-      const pieces = h("div", { class:"pieces" });
-      order(ri).forEach(k => { if(placed[k]) return; pieces.append(h("button", { type:"button", class:"piece" + (sel === k ? " sel" : ""), onclick:() => { sel = (sel === k ? -1 : k); sfx("tap"); draw(); } }, r[k])); });
-      body.append(h("p", { class:"gnote" }, "اضغط على قطعة، ثم اضغط على الخانة التي تناسبها."), pieces);
-    }
-    body.append(gctl(gbtn("جولة جديدة ▶", () => { ri = (ri + 1) % rounds.length; placed = [false, false, false, false]; sel = -1; finished = false; draw(); sfx("next"); }, finished ? "go" : "")));
-    if(finished){ const a = awardBar(); if(a) body.append(a); }
-  };
-  draw();
 };
 
 /* ---------- تحدي المتطوعين ---------- */
@@ -3028,86 +3048,6 @@ GAMES.challenge = (s, o, box) => {
     meters.push({ card, chips, fill, num }); cards.append(card);
   }
   box.append(cards);
-};
-
-/* ---------- صائد الأخطاء ---------- */
-GAMES.hunt = (s, o, box) => {
-  const rounds = []; (s.rows || []).forEach(r => { const k = String(r[0] || "1"); let g = rounds.find(x => x.k === k); if(!g){ g = { k, items:[] }; rounds.push(g); } g.items.push({ text:r[1] || "", wrong:(r[2] || "") === "خطأ", why:r[3] || "" }); });
-  let ri = 0, solved = false, tries = 0;
-  box.append(gameHead(s));
-  const body = h("div", {}); box.append(body);
-  const draw = () => {
-    body.innerHTML = ""; solved = false; tries = 0; const g = rounds[ri]; if(!g) return;
-    const tabs = h("div", { class:"rtabs" }); rounds.forEach((x, i) => tabs.append(h("button", { type:"button", class:"rtab" + (i === ri ? " on" : ""), onclick:() => { ri = i; draw(); sfx("tap"); } }, String(i + 1))));
-    const file = h("div", { class:"dossier" }, h("div", { class:"dhead" }, h("span", {}, "ملف تحقيق رقم " + (ri + 1)), h("span", { class:"dstamp", hidden:true }, "تم اكتشاف الخطأ!")));
-    const msg = h("div", { class:"dmsg" });
-    g.items.forEach((it, i) => {
-      const line = h("button", { type:"button", class:"dline", onclick:() => {
-        if(solved) return;
-        if(it.wrong){ solved = true; line.classList.add("found"); file.querySelector(".dstamp").hidden = false; msg.className = "dmsg good"; msg.textContent = "✓ " + (it.why || ""); confetti(); sfx("ok"); }
-        else { tries++; line.classList.add("clear"); shake(line); msg.className = "dmsg bad"; msg.textContent = pickOne(MSG_BAD); sfx("bad"); }
-      } }, h("span", { class:"dn" }, String(i + 1)), it.text);
-      file.append(line);
-    });
-    body.append(tabs, file, msg, gctl(
-      gbtn("👁 اكشف الخطأ", () => { const w = g.items.findIndex(x => x.wrong); if(w >= 0 && !solved){ solved = true; file.querySelectorAll(".dline")[w].classList.add("found"); file.querySelector(".dstamp").hidden = false; msg.className = "dmsg good"; msg.textContent = "الخطأ: " + g.items[w].why; sfx("reveal"); } }),
-      gbtn("التالي ▶", () => { ri = (ri + 1) % rounds.length; draw(); sfx("next"); }, "go")));
-    const a = awardBar(); if(a) body.append(a);
-  };
-  draw();
-};
-
-/* ---------- الغرفة الآمنة ---------- */
-GAMES.sort = (s, o, box) => {
-  const all = (s.rows || []).map(r => ({ text:r[0] || "", level:Number(r[1]) || 1, safe:(r[2] || "") === "آمن", why:r[3] || "" }));
-  let level = 1, i = 0, good = 0, total = 0;
-  box.append(gameHead(s));
-  const body = h("div", {}); box.append(body);
-  const draw = () => {
-    body.innerHTML = ""; const list = all.filter(x => x.level === level), it = list[i];
-    if(!it){
-      const hasNext = all.some(x => x.level === level + 1);
-      body.append(robotSay(good === total ? "wow" : "happy", "أنهيتم المستوى " + level + ": أصبتم " + good + " من " + total + "."), s.rule ? h("div", { class:"rulecard" }, "🔒 تذكّر: " + s.rule) : null,
-        gctl(hasNext ? gbtn("المستوى " + (level + 1) + " ▶", () => { level++; i = 0; good = 0; total = 0; draw(); }, "go") : null, gbtn("↻ من البداية", () => { level = 1; i = 0; good = 0; total = 0; draw(); })));
-      const a = awardBar(); if(a) body.append(a); sfx("done"); return;
-    }
-    const card = h("div", { class:"scard2" }, h("div", { class:"sprog" }, "المستوى " + level + " · " + (i + 1) + " / " + list.length), h("div", { class:"stxt2" }, it.text));
-    const why = h("div", { class:"sexp" });
-    const zone = (safe, ic, label) => h("button", { type:"button", class:"zone " + (safe ? "safe" : "unsafe"), onclick:() => {
-      if(why.dataset.locked) return;
-      total++; 
-      if(safe === it.safe){ good++; card.classList.add(safe ? "to-safe" : "to-unsafe"); sfx("ok"); why.dataset.locked = "1"; why.textContent = "✓ " + it.why; setTimeout(() => { i++; draw(); }, 1600); }
-      else { shake(card); card.classList.add("nope"); sfx("bad"); why.textContent = "✗ " + it.why; setTimeout(() => card.classList.remove("nope"), 600); }
-    } }, h("span", { class:"zi" }, ic), h("b", {}, label));
-    body.append(card, why, h("div", { class:"zones" }, zone(true, "🛡️", "آمن أن أشاركه"), zone(false, "⛔", "لا أشاركه")));
-  };
-  draw();
-};
-
-/* ---------- فخ الثقة ---------- */
-GAMES.trap = (s, o, box) => {
-  const rows = (s.rows || []).map(r => ({ ans:r[0] || "", real:(r[1] || "") === "حقيقي", hint:r[2] || "", why:r[3] || "" }));
-  let i = 0, busy = false;
-  box.append(gameHead(s));
-  const body = h("div", {}); box.append(body);
-  const draw = () => {
-    body.innerHTML = ""; busy = false; const r = rows[i];
-    if(!r){ body.append(robotSay("happy", "انتهت الجولات! تذكّروا: الثقة في الأسلوب لا تعني صحة المعلومة."), gctl(gbtn("↻ من جديد", () => { i = 0; draw(); }, "go"))); return; }
-    const bubble = h("div", { class:"abubble" }, h("div", { class:"who2" }, "المساعد الذكي"), h("div", { class:"atext" }, r.ans));
-    const fb = h("div", { class:"tfb" });
-    const vote = (real) => () => {
-      if(busy) return; busy = true; sfx("tap");
-      fb.innerHTML = ""; fb.append(h("div", { class:"thint" }, "🔎 تلميح: " + r.hint));
-      setTimeout(() => {
-        if(!body.isConnected) return; const ok = real === r.real; sfx(ok ? "ok" : "bad"); if(ok) confetti();
-        fb.append(h("div", { class:"tverdict " + (ok ? "ok" : "no") }, (ok ? "✓ أصبتم. " : "✗ لم تصيبوا. ") + "الجواب: " + (r.real ? "حقيقي" : "مختلق") + ". " + r.why),
-          gctl(gbtn("التالي ▶", () => { i++; draw(); sfx("next"); }, "go")));
-        const a = awardBar(); if(a) fb.append(a);
-      }, 1500);
-    };
-    body.append(bubble, h("div", { class:"tvote" }, h("button", { type:"button", class:"tv real", onclick:vote(true) }, "✅ حقيقي"), h("button", { type:"button", class:"tv fake", onclick:vote(false) }, "🚫 مختلق")), fb);
-  };
-  draw();
 };
 
 /* ---------- المحقق الصغير: قرارات متفرعة ---------- */
@@ -3237,6 +3177,197 @@ GAMES.podium = (s, o, box) => {
     if(first){ first = false; requestAnimationFrame(() => requestAnimationFrame(() => { stage.querySelectorAll(".pfill").forEach((f, k) => { f.style.height = Math.max(8, (sorted[k].pts || 0) / mx * 100) + "%"; }); })); }
   };
   box.append(gctl(gbtn("🎉 احتفال", () => { confetti(); sfx("done"); }, "go")));
+  draw();
+};
+
+
+/* ======================= الألعاب ذات الأدوار: كل فريق له سؤاله ======================= */
+const roundLabel = (i, n) => h("div", { class:"rcount" }, "السؤال " + (i + 1) + " من " + n);
+
+/* ---------- خمّن الكلمة التالية ---------- */
+GAMES.predict = (s, o, box) => {
+  const rounds = (s.rows || []).map(r => ({ sent:r[0] || "", opts:parseOpts(r[1]), note:r[2] || "" }));
+  let ri = 0, picked = -1, revealed = false, animate = false, scored = false;
+  const top = r => r.opts.reduce((a, b) => b.p > a.p ? b : a, r.opts[0]);
+  box.append(gameHead(s));
+  const holder = h("div", {}); box.append(holder);
+  const draw = () => {
+    holder.innerHTML = ""; const r = rounds[ri]; if(!r) return;
+    const teamsOn = TEAMS.list.length > 0;
+    const tb = turnBar(s.think || 20); if(tb) holder.append(tb);
+    if(teamsOn) holder.append(roundLabel(ri, rounds.length));
+    else { const tabs = h("div", { class:"rtabs" }); rounds.forEach((x, i) => tabs.append(h("button", { type:"button", class:"rtab" + (i === ri ? " on" : ""), onclick:() => { ri = i; picked = -1; revealed = false; animate = false; scored = false; draw(); sfx("tap"); } }, String(i + 1)))); holder.append(tabs); }
+    const parts = r.sent.split("___");
+    holder.append(h("div", { class:"sentence" }, parts[0], h("span", { class:"blank2" + (revealed ? " filled" : "") }, revealed ? top(r).w : "؟"), parts[1] || ""));
+    const opts = h("div", { class:"popts" });
+    r.opts.forEach((op, i) => {
+      const bar = h("i", { style:"height:" + (revealed && !animate ? op.p : 0) + "%" });
+      opts.append(h("button", { type:"button", class:"popt c" + (i % 4) + (picked === i ? " pick" : "") + (revealed && op === top(r) ? " top" : ""), onclick:() => { if(revealed) return; picked = i; sfx("tap"); draw(); } },
+        h("span", { class:"pbarw" }, bar), h("b", { class:"pw" }, op.w), h("small", { class:"pp" }, revealed ? op.p + "%" : (picked === i ? "اختيارنا" : ""))));
+    });
+    holder.append(opts);
+    if(revealed){
+      if(r.note) holder.append(h("p", { class:"pnote" }, r.note));
+      if(picked >= 0){ const ok = r.opts[picked] === top(r); holder.append(h("div", { class:"pverdict " + (ok ? "ok" : "no") }, ok ? "✓ توقّعتم مثل الذكاء الاصطناعي" : "✗ الذكاء الاصطناعي رجّح غير ذلك")); }
+    }
+    holder.append(gctl(
+      gbtn("👁 اكشف ما رجّحه الذكاء الاصطناعي", () => {
+        if(revealed) return; revealed = true; animate = true; sfx("reveal"); draw();
+        requestAnimationFrame(() => requestAnimationFrame(() => { animate = false; holder.querySelectorAll(".pbarw i").forEach((b, k) => { b.style.height = r.opts[k].p + "%"; }); }));
+        if(picked >= 0 && r.opts[picked] === top(r)){ confetti(); sfx("ok"); if(teamsOn && !scored){ scored = true; scoreTurn(1); } }
+      }, "go"),
+      gbtn(teamsOn ? "الفريق التالي ▶" : "التالية ▶", () => { ri = (ri + 1) % rounds.length; picked = -1; revealed = false; animate = false; scored = false; if(teamsOn) nextTurn(); draw(); sfx("next"); })));
+    holder.append(h("p", { class:"gnote" }, "الأرقام توضيحية لتقريب الفكرة، وليست قياسًا حقيقيًّا."));
+    const a = awardBar(); if(a) holder.append(a);
+  };
+  draw();
+};
+
+/* ---------- أي دور أطلب؟ ---------- */
+GAMES.scenario = (s, o, box) => {
+  const rows = (s.rows || []).map(r => ({ story:r[0] || "", role:(Number(r[1]) || 1) - 1, why:r[2] || "" }));
+  const ex = s.examples || [];
+  let i = 0, score = 0, tries = 0, done = false;
+  box.append(gameHead(s));
+  const body = h("div", {}); box.append(body);
+  const draw = () => {
+    body.innerHTML = ""; const r = rows[i]; done = false; tries = 0; const teamsOn = TEAMS.list.length > 0;
+    if(!r){ body.append(robotSay("wow", "انتهت المواقف! أصبتم من أول محاولة " + score + " من " + rows.length), gctl(gbtn("↻ من جديد", () => { i = 0; score = 0; draw(); }, "go"))); const a = awardBar(); if(a) body.append(a); return; }
+    const tb = turnBar(s.think || 20); if(tb) body.append(tb);
+    const card = h("div", { class:"scene" }, h("div", { class:"sq" }, "«" + r.story + "»"), h("div", { class:"sprog" }, (i + 1) + " / " + rows.length));
+    const opts = h("div", { class:"roles" });
+    ROLES.forEach(([ic, nm], k) => opts.append(h("button", { type:"button", class:"role r" + k, onclick:ev => {
+      if(done) return; const b = ev.currentTarget;
+      if(k === r.role){
+        done = true; if(tries === 0){ score++; if(teamsOn) scoreTurn(1); } b.classList.add("right"); sfx("ok");
+        card.classList.add("solved"); card.append(h("div", { class:"swhy" }, h("b", {}, "✓ " + pickOne(MSG_OK) + " "), r.why, ex[k] ? h("div", { class:"sex" }, "جرّب أن تطلب: «" + ex[k] + "»") : null));
+        nxt.disabled = false;
+      } else { tries++; b.classList.add("wrong"); shake(b); sfx("bad"); hint.textContent = pickOne(MSG_BAD); }
+    } }, h("span", { class:"ri" }, ic), h("b", {}, nm))));
+    const hint = h("div", { class:"shint" }, "اختر الدور الأنسب لهذا الموقف");
+    const nxt = h("button", { type:"button", class:"gb go", disabled:true, onclick:() => { i++; if(teamsOn) nextTurn(); sfx("next"); draw(); } }, teamsOn ? "الفريق التالي ▶" : "الموقف التالي ▶");
+    body.append(card, opts, hint, gctl(nxt));
+    const a = awardBar(); if(a) body.append(a);
+  };
+  draw();
+};
+
+/* ---------- ركّب الطلب ---------- */
+GAMES.build = (s, o, box) => {
+  const SL = [["🎭", "الدور"], ["📄", "المادة"], ["🎯", "المطلوب"], ["📋", "الشكل"]];
+  const rounds = (s.rows || []).map(r => r.slice(0, 4));
+  let ri = 0, sel = -1, placed = [false, false, false, false], finished = false;
+  box.append(gameHead(s));
+  const body = h("div", {}); box.append(body);
+  const order = k => [2, 0, 3, 1].map(x => (x + k) % 4);
+  const draw = () => {
+    body.innerHTML = ""; const r = rounds[ri]; if(!r) return; const teamsOn = TEAMS.list.length > 0;
+    const tb = turnBar(s.think || 45); if(tb && !finished) body.append(tb);
+    const slots = h("div", { class:"slots" });
+    SL.forEach(([ic, nm], j) => slots.append(h("button", { type:"button", class:"slot" + (placed[j] ? " filled" : "") + (finished ? " joined" : ""), onclick:ev => {
+      if(placed[j] || sel < 0) return;
+      if(sel === j){ placed[j] = true; sel = -1; sfx("ok"); if(placed.every(Boolean)){ finished = true; sfx("done"); confetti(); if(teamsOn) scoreTurn(1); } draw(); }
+      else { shake(ev.currentTarget); sfx("bad"); sel = -1; draw(); }
+    } }, h("span", { class:"sli" }, ic), h("b", {}, nm), placed[j] ? h("span", { class:"slt" }, r[j]) : null)));
+    body.append(slots);
+    if(finished){
+      const full = r.join(" ");
+      body.append(h("div", { class:"assembled" }, h("div", { class:"al2" }, "طلبك المتكامل ✨"), h("div", { class:"atxt" }, full),
+        h("button", { type:"button", class:"btn light small", onclick:async () => { toast((await copyText(full)) ? "نُسخ الطلب" : "تعذّر النسخ"); sfx("pop"); } }, "📋 انسخ الطلب")));
+    } else {
+      const pieces = h("div", { class:"pieces" });
+      order(ri).forEach(k => { if(placed[k]) return; pieces.append(h("button", { type:"button", class:"piece" + (sel === k ? " sel" : ""), onclick:() => { sel = (sel === k ? -1 : k); sfx("tap"); draw(); } }, r[k])); });
+      body.append(h("p", { class:"gnote" }, "اضغط على قطعة، ثم اضغط على الخانة التي تناسبها."), pieces);
+    }
+    body.append(gctl(gbtn(teamsOn ? "الفريق التالي ▶" : "جولة جديدة ▶", () => { ri = (ri + 1) % rounds.length; placed = [false, false, false, false]; sel = -1; finished = false; if(teamsOn) nextTurn(); draw(); sfx("next"); }, finished ? "go" : "")));
+    if(finished){ const a = awardBar(); if(a) body.append(a); }
+  };
+  draw();
+};
+
+/* ---------- صائد الأخطاء ---------- */
+GAMES.hunt = (s, o, box) => {
+  const rounds = []; (s.rows || []).forEach(r => { const k = String(r[0] || "1"); let g = rounds.find(x => x.k === k); if(!g){ g = { k, items:[] }; rounds.push(g); } g.items.push({ text:r[1] || "", wrong:(r[2] || "") === "خطأ", why:r[3] || "" }); });
+  let ri = 0, solved = false, tries = 0;
+  box.append(gameHead(s));
+  const body = h("div", {}); box.append(body);
+  const draw = () => {
+    body.innerHTML = ""; solved = false; tries = 0; const g = rounds[ri]; if(!g) return; const teamsOn = TEAMS.list.length > 0;
+    const tb = turnBar(s.think || 40); if(tb) body.append(tb);
+    if(teamsOn) body.append(roundLabel(ri, rounds.length));
+    else { const tabs = h("div", { class:"rtabs" }); rounds.forEach((x, i) => tabs.append(h("button", { type:"button", class:"rtab" + (i === ri ? " on" : ""), onclick:() => { ri = i; draw(); sfx("tap"); } }, String(i + 1)))); body.append(tabs); }
+    const file = h("div", { class:"dossier" }, h("div", { class:"dhead" }, h("span", {}, "ملف تحقيق رقم " + (ri + 1)), h("span", { class:"dstamp", hidden:true }, "تم اكتشاف الخطأ!")));
+    const msg = h("div", { class:"dmsg" });
+    g.items.forEach((it, i) => {
+      const line = h("button", { type:"button", class:"dline", onclick:() => {
+        if(solved) return;
+        if(it.wrong){ solved = true; line.classList.add("found"); file.querySelector(".dstamp").hidden = false; msg.className = "dmsg good"; msg.textContent = "✓ " + (it.why || ""); confetti(); sfx("ok"); if(teamsOn) scoreTurn(tries === 0 ? 2 : 1); }
+        else { tries++; line.classList.add("clear"); shake(line); msg.className = "dmsg bad"; msg.textContent = pickOne(MSG_BAD); sfx("bad"); }
+      } }, h("span", { class:"dn" }, String(i + 1)), it.text);
+      file.append(line);
+    });
+    body.append(file, msg, gctl(
+      gbtn("👁 اكشف الخطأ", () => { const w = g.items.findIndex(x => x.wrong); if(w >= 0 && !solved){ solved = true; file.querySelectorAll(".dline")[w].classList.add("found"); file.querySelector(".dstamp").hidden = false; msg.className = "dmsg good"; msg.textContent = "الخطأ: " + g.items[w].why; sfx("reveal"); } }),
+      gbtn(teamsOn ? "الفريق التالي ▶" : "التالي ▶", () => { ri = (ri + 1) % rounds.length; if(teamsOn) nextTurn(); draw(); sfx("next"); }, "go")));
+    const a = awardBar(); if(a) body.append(a);
+  };
+  draw();
+};
+
+/* ---------- الغرفة الآمنة ---------- */
+GAMES.sort = (s, o, box) => {
+  const all = (s.rows || []).map(r => ({ text:r[0] || "", level:Number(r[1]) || 1, safe:(r[2] || "") === "آمن", why:r[3] || "" }));
+  let level = 1, i = 0, good = 0, total = 0;
+  box.append(gameHead(s));
+  const body = h("div", {}); box.append(body);
+  const draw = () => {
+    body.innerHTML = ""; const list = all.filter(x => x.level === level), it = list[i]; const teamsOn = TEAMS.list.length > 0;
+    if(!it){
+      const hasNext = all.some(x => x.level === level + 1);
+      body.append(robotSay(good === total ? "wow" : "happy", "أنهيتم المستوى " + level + ": أصبتم " + good + " من " + total + "."), s.rule ? h("div", { class:"rulecard" }, "🔒 تذكّر: " + s.rule) : null,
+        gctl(hasNext ? gbtn("المستوى " + (level + 1) + " ▶", () => { level++; i = 0; good = 0; total = 0; draw(); }, "go") : null, gbtn("↻ من البداية", () => { level = 1; i = 0; good = 0; total = 0; draw(); })));
+      const a = awardBar(); if(a) body.append(a); sfx("done"); return;
+    }
+    const tb = turnBar(s.think || 15); if(tb) body.append(tb);
+    const card = h("div", { class:"scard2" }, h("div", { class:"sprog" }, "المستوى " + level + " · " + (i + 1) + " / " + list.length), h("div", { class:"stxt2" }, it.text));
+    const why = h("div", { class:"sexp" });
+    const advance = ms => setTimeout(() => { if(!body.isConnected) return; i++; if(teamsOn) nextTurn(); draw(); }, ms);
+    const zone = (safe, ic, label) => h("button", { type:"button", class:"zone " + (safe ? "safe" : "unsafe"), onclick:() => {
+      if(why.dataset.locked) return;
+      total++;
+      if(safe === it.safe){ good++; card.classList.add(safe ? "to-safe" : "to-unsafe"); sfx("ok"); why.dataset.locked = "1"; why.textContent = "✓ " + it.why; if(teamsOn) scoreTurn(1); advance(1600); }
+      else if(teamsOn){ why.dataset.locked = "1"; shake(card); card.classList.add("nope"); sfx("bad"); why.textContent = "✗ " + it.why; advance(2400); }
+      else { shake(card); card.classList.add("nope"); sfx("bad"); why.textContent = "✗ " + it.why; setTimeout(() => card.classList.remove("nope"), 600); }
+    } }, h("span", { class:"zi" }, ic), h("b", {}, label));
+    body.append(card, why, h("div", { class:"zones" }, zone(true, "🛡️", "آمن أن أشاركه"), zone(false, "⛔", "لا أشاركه")));
+  };
+  draw();
+};
+
+/* ---------- فخ الثقة ---------- */
+GAMES.trap = (s, o, box) => {
+  const rows = (s.rows || []).map(r => ({ ans:r[0] || "", real:(r[1] || "") === "حقيقي", hint:r[2] || "", why:r[3] || "" }));
+  let i = 0, busy = false;
+  box.append(gameHead(s));
+  const body = h("div", {}); box.append(body);
+  const draw = () => {
+    body.innerHTML = ""; busy = false; const r = rows[i]; const teamsOn = TEAMS.list.length > 0;
+    if(!r){ body.append(robotSay("happy", "انتهت الجولات! تذكّروا: الثقة في الأسلوب لا تعني صحة المعلومة."), gctl(gbtn("↻ من جديد", () => { i = 0; draw(); }, "go"))); return; }
+    const tb = turnBar(s.think || 20); if(tb) body.append(tb);
+    const bubble = h("div", { class:"abubble" }, h("div", { class:"who2" }, "المساعد الذكي"), h("div", { class:"atext" }, r.ans));
+    const fb = h("div", { class:"tfb" });
+    const vote = real => () => {
+      if(busy) return; busy = true; sfx("tap");
+      fb.innerHTML = ""; fb.append(h("div", { class:"thint" }, "🔎 تلميح: " + r.hint));
+      setTimeout(() => {
+        if(!body.isConnected) return; const ok = real === r.real; sfx(ok ? "ok" : "bad"); if(ok){ confetti(); if(teamsOn) scoreTurn(1); }
+        fb.append(h("div", { class:"tverdict " + (ok ? "ok" : "no") }, (ok ? "✓ أصبتم. " : "✗ لم تصيبوا. ") + "الجواب: " + (r.real ? "حقيقي" : "مختلق") + ". " + r.why),
+          gctl(gbtn(teamsOn ? "الفريق التالي ▶" : "التالي ▶", () => { i++; if(teamsOn) nextTurn(); draw(); sfx("next"); }, "go")));
+        const a = awardBar(); if(a) fb.append(a);
+      }, 1500);
+    };
+    body.append(bubble, h("div", { class:"tvote" }, h("button", { type:"button", class:"tv real", onclick:vote(true) }, "✅ حقيقي"), h("button", { type:"button", class:"tv fake", onclick:vote(false) }, "🚫 مختلق")), fb);
+  };
   draw();
 };
 
