@@ -710,6 +710,348 @@ body.modal-open{overflow:hidden}
 .subitem .stagecard{flex:1}
 .subitem .pb2{flex:none}
 
+/* ===================== الألعاب والتحديات ===================== */
+body[data-pal="game"]{--pa:#1A0F3A; --pb:#4B1D8A; --pc:#B5503C}
+body[data-pal="gold"]{--pa:#241506; --pb:#5A3A0A; --pc:#B07A12}
+html[data-theme="light"] body[data-pal="game"]{--pa:#F3ECFF; --pb:#E6D9FB; --pc:#FBE3D5}
+html[data-theme="light"] body[data-pal="gold"]{--pa:#FFF7E3; --pb:#FBE9B8; --pc:#F8DDA0}
+
+.game{animation:rise .45s both}
+.ghead{position:relative; display:flex; align-items:flex-start; justify-content:space-between; gap:.6em; flex-wrap:wrap; margin-bottom:.6em}
+.ghead .st{margin:0}
+.lessonbtn{font:inherit; font-size:.8em; font-weight:800; color:var(--fg); background:var(--glass2); border:0; border-radius:99px; padding:.25em 1em; cursor:pointer}
+.lessonb{flex-basis:100%}
+.lessonb[hidden]{display:none}
+.rsay{display:flex; align-items:center; gap:.6em; background:var(--glass); border:1px solid var(--glass-b); border-radius:1em; padding:.4em .9em .4em .6em; animation:pop .4s both}
+.rsay .rb-slot .robot{width:4.4em}
+.rsay .bubble{flex:1; font-weight:700; line-height:1.7}
+.gnote{color:var(--fg3); font-size:.85em; margin:.5em 0}
+.gctl{display:flex; flex-wrap:wrap; gap:.5em; margin:.8em 0 .4em}
+.gb{font:inherit; font-weight:800; font-size:.95em; color:var(--fg); background:var(--glass2); border:2px solid var(--glass-b); border-radius:.9em; padding:.45em 1.1em; cursor:pointer; transition:transform .12s}
+.gb:active{transform:scale(.96)}
+.gb.go{color:#fff; background:linear-gradient(135deg,var(--sky),var(--violet)); border-color:transparent; box-shadow:0 6px 18px rgba(76,195,255,.3)}
+.gb[disabled]{opacity:.4; cursor:not-allowed}
+.shake2{animation:shake .4s}
+
+/* لوحة نقاط الفرق */
+.hud{flex:none; display:flex; gap:.5em; flex-wrap:wrap; justify-content:center; padding:.35em .8em; background:var(--pbar-bg); border-bottom:1px solid var(--glass-b)}
+.hud[hidden]{display:none}
+.hteam{display:flex; align-items:center; gap:.4em; background:var(--glass); border:1px solid var(--glass-b); border-right:5px solid var(--c); border-radius:.8em; padding:.15em .6em; font-size:15px; color:var(--fg)}
+.hteam .hi{font-size:1.3em}
+.hteam .hp{min-width:1.6em; text-align:center; font-size:1.2em; color:var(--gold)}
+.hb{font:inherit; font-weight:800; width:1.7em; height:1.7em; border-radius:50%; border:0; background:var(--glass2); color:var(--fg); cursor:pointer; line-height:1}
+.hb.m{opacity:.55}
+.hteam.bump{animation:bumpk .6s}
+@keyframes bumpk{0%{transform:scale(1)}30%{transform:scale(1.12); box-shadow:0 0 0 4px var(--c)}100%{transform:scale(1)}}
+.award{display:flex; align-items:center; gap:.4em; flex-wrap:wrap; margin:.7em 0; padding:.4em .7em; border:2px dashed var(--glass-b); border-radius:1em}
+.award .al{font-weight:700; font-size:.9em; color:var(--fg2)}
+.apts{display:flex; gap:.2em}
+.ap{font:inherit; font-size:.85em; font-weight:800; border:0; border-radius:99px; padding:.1em .7em; background:var(--glass2); color:var(--fg); cursor:pointer}
+.ap.on{background:var(--gold); color:#12213F}
+.at{font-size:1.5em; line-height:1; border:3px solid var(--c); background:var(--glass); border-radius:.7em; padding:.1em .3em; cursor:pointer}
+.at.pop2{animation:pop .4s both}
+
+/* الشاشة الافتتاحية */
+.sting{text-align:center; padding:1em 0; animation:pop .5s cubic-bezier(.2,1.4,.4,1) both}
+.sting .sicon{font-size:4.2em; line-height:1.1; animation:floaty 2.4s ease-in-out infinite}
+@keyframes floaty{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-8px) rotate(3deg)}}
+.sting .rb-slot .robot{width:6em}
+.sting .stt{font-size:2.3em; font-weight:800; margin:.1em 0}
+.sting .stg{font-size:1.25em; color:var(--fg2); margin:0 0 .9em}
+.sting .go{font-size:1.2em; padding:.5em 2em; min-height:0}
+.sting .smin{display:block; color:var(--fg3); margin-top:.6em}
+.mirror{text-align:center}
+
+/* مؤقت دائري */
+.ring{position:relative; width:6.5em; height:6.5em; flex:none}
+.ring svg{width:100%; height:100%; transform:rotate(-90deg)}
+.ring circle{fill:none; stroke-width:9}
+.ring .rbg{stroke:var(--glass-b)}
+.ring .rfg{stroke:var(--sky); stroke-linecap:round; transition:stroke .3s}
+.ring .rnum{position:absolute; inset:0; display:grid; place-items:center; font-size:2em; font-weight:800; color:var(--fg)}
+.ring.low .rfg{stroke:#FF6B6B}
+.ring.low .rnum{color:#FF6B6B; animation:glow 1s infinite}
+.vctl{display:flex; align-items:center; gap:1em; flex-wrap:wrap; margin-top:.8em}
+
+/* فرقنا */
+.tcount{display:flex; align-items:center; gap:.8em; margin:.4em 0 .8em; font-weight:700}
+.tcount .num input{font-size:1em; background:var(--glass); color:var(--fg); border-color:var(--glass-b)}
+.tcount .pb2{background:var(--glass2); color:var(--fg)}
+.tgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(11em,1fr)); gap:.7em}
+.tcard{display:flex; align-items:center; gap:.6em; background:var(--glass); border:1px solid var(--glass-b); border-top:5px solid var(--c); border-radius:1em; padding:.6em .8em; animation:rise .4s both}
+.ticon{font-size:2.2em; line-height:1; border:0; background:transparent; cursor:pointer}
+.tcard input{flex:1; min-width:0; font:inherit; font-weight:800; font-size:1.1em; color:var(--fg); background:transparent; border:0; border-bottom:2px dashed var(--glass-b); padding:.1em .2em}
+
+/* جدار الأسئلة */
+.qgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(14em,1fr)); gap:.8em}
+.qcard{position:relative; font:inherit; text-align:right; color:#fff; border:0; border-radius:1.1em; padding:1em; min-height:7em; cursor:pointer; animation:pop .5s both; animation-delay:var(--d,0ms); box-shadow:0 8px 20px rgba(0,0,0,.25); transition:transform .15s}
+.qcard:hover{transform:translateY(-3px) rotate(-.6deg)}
+.qcard.c0{background:linear-gradient(135deg,#2563EB,#7C5CF0)} .qcard.c1{background:linear-gradient(135deg,#059669,#14B8A6)} .qcard.c2{background:linear-gradient(135deg,#D97706,#EF4444)} .qcard.c3{background:linear-gradient(135deg,#DB2777,#7C3AED)} .qcard.c4{background:linear-gradient(135deg,#0891B2,#2563EB)}
+.qcard .qn{position:absolute; top:.5em; left:.6em; font-weight:800; opacity:.7}
+.qcard .qt{display:block; font-size:1.05em; line-height:1.7; font-weight:700}
+.qcard.done{opacity:.45; filter:saturate(.4)}
+.qbig{position:fixed; inset:0; z-index:85; background:rgba(6,10,30,.7); display:grid; place-items:center; padding:1em}
+.qbox{background:#fff; color:var(--ink); border-radius:1.4em; padding:1.4em; max-width:46em; width:100%; animation:pop .35s both}
+.qbox .qtxt{font-size:1.6em; font-weight:800; line-height:1.8; margin-bottom:.8em; white-space:pre-wrap}
+
+/* خمّن الكلمة التالية */
+.rtabs{display:flex; gap:.4em; margin:.2em 0 .8em; flex-wrap:wrap}
+.rtab{font:inherit; font-weight:800; min-width:2.2em; height:2.2em; padding:0 .8em; border-radius:99px; border:2px solid var(--glass-b); background:var(--glass); color:var(--fg); cursor:pointer}
+.rtab.on{background:linear-gradient(135deg,var(--sky),var(--violet)); color:#fff; border-color:transparent}
+.sentence{font-size:2.1em; font-weight:800; line-height:1.7; text-align:center; margin:.3em 0 .8em}
+.blank2{display:inline-block; min-width:2.4em; padding:0 .5em; border-radius:.5em; background:rgba(255,209,102,.25); border:3px dashed var(--gold); color:var(--gold); animation:glow 1.6s infinite}
+.blank2.filled{animation:pop .5s both; background:var(--gold); color:#12213F; border-style:solid}
+.popts{display:grid; grid-template-columns:repeat(auto-fit,minmax(8em,1fr)); gap:.7em; align-items:end}
+.popt{position:relative; font:inherit; color:var(--fg); border:3px solid var(--glass-b); background:var(--glass); border-radius:1em; padding:.6em .4em; min-height:9em; display:flex; flex-direction:column; justify-content:flex-end; align-items:center; gap:.2em; cursor:pointer; overflow:hidden; transition:transform .12s}
+.popt:active{transform:scale(.97)}
+.popt.pick{border-color:var(--gold); box-shadow:0 0 0 4px rgba(255,209,102,.3)}
+.popt.top{border-color:#34D399}
+.popt .pbarw{position:absolute; inset:0; display:flex; align-items:flex-end; pointer-events:none}
+.popt .pbarw i{display:block; width:100%; background:linear-gradient(to top,rgba(76,195,255,.55),rgba(124,92,240,.35)); transition:height .9s cubic-bezier(.3,.9,.3,1)}
+.popt.top .pbarw i{background:linear-gradient(to top,rgba(52,211,153,.6),rgba(52,211,153,.25))}
+.popt .pw{position:relative; font-size:1.4em}
+.popt .pp{position:relative; font-weight:800; min-height:1.3em}
+.pnote{margin:.8em 0 .2em; color:var(--fg2); text-align:center}
+.pverdict{margin:.4em auto; text-align:center; font-weight:800; font-size:1.2em; padding:.3em 1em; border-radius:99px; width:fit-content; animation:pop .4s both}
+.pverdict.ok{background:rgba(52,211,153,.3); color:var(--good-t)} .pverdict.no{background:rgba(229,72,77,.25); color:var(--err-t)}
+
+/* داخل العقل */
+.pipe{display:flex; align-items:center; gap:.2em; flex-wrap:wrap; justify-content:center; margin:.6em 0}
+.pnode{font:inherit; color:var(--fg); background:var(--glass); border:3px solid var(--glass-b); border-radius:1em; padding:.5em .9em; cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:.1em; min-width:5.8em; transition:border-color .25s,background-color .25s,box-shadow .25s,transform .25s,opacity .25s}
+.pnode .pn{width:1.8em; height:1.8em; border-radius:50%; background:var(--glass2); display:grid; place-items:center; font-weight:800; font-size:.9em}
+.pnode.lit{border-color:var(--sky); background:rgba(76,195,255,.22); box-shadow:0 0 18px rgba(76,195,255,.45)}
+.pnode.on{border-color:var(--gold)}
+.plink{display:block; width:2.2em; height:4px; border-radius:99px; background:var(--glass-b); overflow:hidden}
+.plink i{display:block; width:40%; height:100%; background:var(--sky); border-radius:99px; transform:translateX(120%); opacity:0}
+.plink.lit i{opacity:1; animation:flow 1s linear infinite}
+@keyframes flow{from{transform:translateX(120%)}to{transform:translateX(-160%)}}
+.pinfo{min-height:3.2em; background:var(--glass); border:1px solid var(--glass-b); border-radius:1em; padding:.7em 1em; margin:.6em 0; line-height:1.8}
+.pdemo label{display:block; font-weight:700; margin-bottom:.3em; color:var(--fg2)}
+.pdemo input{width:100%; font:inherit; color:var(--fg); background:var(--glass); border:2px solid var(--glass-b); border-radius:.9em; padding:.4em .8em}
+.chunks{display:flex; flex-wrap:wrap; gap:.4em; margin-top:.5em}
+.chunk{display:flex; flex-direction:column; align-items:center; background:var(--glass2); border-radius:.6em; padding:.15em .6em; animation:pop .3s both}
+.chunk small{color:var(--gold); font-weight:800}
+
+/* أي دور أطلب؟ */
+.scene{position:relative; background:linear-gradient(135deg,rgba(124,92,240,.35),rgba(76,195,255,.25)); border:1px solid var(--glass-b); border-radius:1.2em; padding:1.1em 1.2em; margin:.4em 0 .8em; animation:pop .4s both}
+.scene .sq{font-size:1.6em; font-weight:800; line-height:1.8}
+.scene .sprog{position:absolute; top:.5em; left:.8em; font-size:.8em; color:var(--fg3)}
+.scene.solved{border-color:#34D399}
+.swhy{margin-top:.7em; padding-top:.6em; border-top:1px dashed var(--glass-b); line-height:1.8; animation:rise .4s both}
+.sex{margin-top:.3em; color:var(--gold); font-weight:700}
+.roles{display:grid; grid-template-columns:repeat(auto-fit,minmax(8em,1fr)); gap:.6em}
+.role{font:inherit; color:var(--fg); background:var(--glass); border:3px solid var(--glass-b); border-radius:1em; padding:.6em; cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:.1em; transition:border-color .25s,background-color .25s,box-shadow .25s,transform .25s,opacity .25s}
+.role .ri{font-size:2.2em; line-height:1.2}
+.role.right{border-color:#34D399; background:rgba(52,211,153,.25); transform:scale(1.04)}
+.role.wrong{border-color:#FF6B6B; background:rgba(255,107,107,.15)}
+.shint{text-align:center; margin:.6em 0 0; color:var(--fg2)}
+
+/* ركّب الطلب */
+.slots{display:grid; grid-template-columns:repeat(auto-fit,minmax(11em,1fr)); gap:.6em}
+.slot{font:inherit; color:var(--fg); text-align:right; min-height:6em; background:var(--glass); border:3px dashed var(--glass-b); border-radius:1em; padding:.5em .7em; display:flex; flex-direction:column; gap:.1em; cursor:pointer; transition:border-color .25s,background-color .25s,box-shadow .25s,transform .25s,opacity .25s}
+.slot .sli{font-size:1.6em}
+.slot.filled{border-style:solid; border-color:#34D399; background:rgba(52,211,153,.18); cursor:default}
+.slot .slt{font-size:.95em; line-height:1.6; animation:rise .3s both}
+.slot.joined{box-shadow:0 0 22px rgba(255,209,102,.55); border-color:var(--gold)}
+.pieces{display:flex; flex-wrap:wrap; gap:.6em; margin:.4em 0}
+.piece{font:inherit; color:var(--fg); background:linear-gradient(135deg,rgba(124,92,240,.4),rgba(76,195,255,.3)); border:3px solid var(--glass-b); border-radius:1em; padding:.6em 1em; cursor:pointer; line-height:1.6; animation:pop .4s both; max-width:100%}
+.piece.sel{border-color:var(--gold); transform:translateY(-4px) scale(1.03); box-shadow:0 10px 24px rgba(0,0,0,.3)}
+.assembled{margin:.8em 0; padding:1em 1.2em; border-radius:1.2em; border:3px solid var(--gold); background:rgba(255,209,102,.12); animation:pop .5s both}
+.assembled .al2{font-weight:800; color:var(--gold); margin-bottom:.3em}
+.assembled .atxt{font-size:1.25em; line-height:1.9}
+
+/* تحدي المتطوعين */
+.ctask{background:var(--glass); border:1px solid var(--glass-b); border-radius:1em; padding:.6em 1em; margin:.3em 0 .8em; font-size:1.1em}
+.vcards{display:grid; grid-template-columns:repeat(auto-fit,minmax(14em,1fr)); gap:.8em}
+.vcard{background:var(--glass); border:2px solid var(--glass-b); border-radius:1.1em; padding:.7em; transition:border-color .25s,background-color .25s,box-shadow .25s,transform .25s,opacity .25s; animation:rise .4s both}
+.vcard.best{border-color:var(--gold); box-shadow:0 0 0 4px rgba(255,209,102,.25)}
+.vtop{display:flex; align-items:center; gap:.5em; margin-bottom:.4em}
+.vn{width:1.9em; height:1.9em; border-radius:50%; background:linear-gradient(135deg,var(--sky),var(--violet)); color:#fff; display:grid; place-items:center; font-weight:800}
+.vname{flex:1; min-width:0; font:inherit; font-weight:800; color:var(--fg); background:transparent; border:0; border-bottom:2px dashed var(--glass-b)}
+.vcard textarea{width:100%; font:inherit; color:var(--fg); background:var(--glass2); border:2px solid var(--glass-b); border-radius:.8em; padding:.4em .6em; margin:0; min-height:5em}
+.cchips{display:flex; flex-wrap:wrap; gap:.3em; margin:.5em 0}
+.cchip{display:flex; gap:.3em; align-items:center; font:inherit; font-size:.85em; font-weight:700; color:var(--fg); background:var(--glass2); border:2px solid var(--glass-b); border-radius:99px; padding:.1em .8em; cursor:pointer}
+.cchip .ck{opacity:0}
+.cchip.on{background:rgba(52,211,153,.3); border-color:#34D399}
+.cchip.on .ck{opacity:1}
+.vmeter{display:flex; align-items:center; gap:.5em}
+.vbar{flex:1; height:.7em; background:var(--bar-track); border-radius:99px; overflow:hidden}
+.vbar i{display:block; height:100%; width:0; background:linear-gradient(90deg,var(--sky),#34D399); transition:width .5s}
+.vaward{display:flex; align-items:center; gap:.3em; margin-top:.4em}
+.vaward .at{font-size:1.1em}
+.timesup .ring{animation:glow 1s 3}
+
+/* صائد الأخطاء */
+.dossier{background:#FBF7EA; color:#2A2418; border-radius:.8em; padding:.8em 1em; box-shadow:0 12px 30px rgba(0,0,0,.3); background-image:repeating-linear-gradient(transparent 0 2.6em,rgba(180,150,80,.18) 2.6em 2.65em); position:relative}
+.dhead{display:flex; justify-content:space-between; align-items:center; font-weight:800; border-bottom:2px solid #2A2418; padding-bottom:.3em; margin-bottom:.4em; letter-spacing:.03em}
+.dstamp{color:#C62828; border:3px solid #C62828; border-radius:.4em; padding:0 .6em; transform:rotate(-6deg); font-size:.9em; animation:stamp .5s both}
+.dstamp[hidden]{display:none}
+@keyframes stamp{from{transform:rotate(-6deg) scale(2.2); opacity:0}to{transform:rotate(-6deg) scale(1); opacity:1}}
+.dline{display:flex; gap:.6em; width:100%; text-align:right; font:inherit; color:#2A2418; background:transparent; border:2px solid transparent; border-radius:.6em; padding:.4em .5em; cursor:pointer; line-height:1.8; transition:border-color .25s,background-color .25s,box-shadow .25s,transform .25s,opacity .25s}
+.dline:hover{background:rgba(255,209,102,.25)}
+.dline .dn{flex:none; font-weight:800; color:#8A6D1E}
+.dline.found{background:rgba(198,40,40,.15); border-color:#C62828}
+.dline.clear{background:rgba(46,125,50,.12); border-color:#2E7D32}
+.dmsg{min-height:1.6em; margin:.6em 0 0; font-weight:800}
+.dmsg.good{color:var(--good-t)} .dmsg.bad{color:var(--err-t)}
+
+/* الغرفة الآمنة */
+.scard2{background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.04)); border:2px solid var(--glass-b); border-radius:1.2em; padding:1.2em; text-align:center; margin:.4em auto .8em; max-width:32em; position:relative; transition:transform .7s, opacity .7s; animation:pop .4s both}
+.scard2 .sprog{font-size:.8em; color:var(--fg3); margin-bottom:.3em}
+.scard2 .stxt2{font-size:1.5em; font-weight:800; line-height:1.8}
+.scard2.to-safe{transform:translate(-30%,120%) scale(.5); opacity:0}
+.scard2.to-unsafe{transform:translate(30%,120%) scale(.5); opacity:0}
+.scard2.nope{border-color:#FF6B6B}
+.sexp{min-height:2.4em; text-align:center; font-weight:700; margin-bottom:.6em}
+.zones{display:grid; grid-template-columns:1fr 1fr; gap:.8em}
+.zone{font:inherit; color:var(--fg); border:3px solid; border-radius:1.2em; padding:.9em .5em; cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:.1em; transition:transform .12s}
+.zone:active{transform:scale(.97)}
+.zone .zi{font-size:2.4em; line-height:1.1}
+.zone.safe{border-color:#34D399; background:rgba(52,211,153,.18)}
+.zone.unsafe{border-color:#FF6B6B; background:rgba(255,107,107,.15)}
+.rulecard{margin:.8em 0; padding:.7em 1em; border-radius:1em; border:2px solid var(--gold); background:rgba(255,209,102,.14); font-weight:800; animation:pop .5s both}
+
+/* فخ الثقة */
+.abubble{background:linear-gradient(135deg,rgba(76,195,255,.22),rgba(124,92,240,.28)); border:1px solid var(--glass-b); border-radius:1.2em 1.2em 1.2em .3em; padding:.9em 1.1em; margin:.4em 0 .8em; animation:pop .4s both}
+.who2{font-weight:800; color:var(--sky); font-size:.85em; margin-bottom:.2em}
+.atext{font-size:1.45em; line-height:1.9; font-weight:700}
+.tvote{display:flex; gap:.8em}
+.tv{flex:1; font:inherit; font-weight:800; font-size:1.2em; color:var(--fg); border:3px solid; border-radius:1em; padding:.6em; cursor:pointer}
+.tv.real{border-color:#34D399; background:rgba(52,211,153,.18)} .tv.fake{border-color:#FF6B6B; background:rgba(255,107,107,.15)}
+.thint{margin:.7em 0 .3em; padding:.5em 1em; border-radius:1em; background:rgba(255,209,102,.2); color:var(--gold); font-weight:700; animation:rise .4s both}
+.tverdict{margin:.5em 0; padding:.6em 1em; border-radius:1em; font-weight:700; line-height:1.8; animation:pop .4s both}
+.tverdict.ok{background:rgba(52,211,153,.25)} .tverdict.no{background:rgba(255,107,107,.2)}
+
+/* المحقق الصغير */
+.trail{display:flex; gap:.4em; justify-content:center; margin:.2em 0 .6em}
+.td{width:.8em; height:.8em; border-radius:50%; background:var(--glass-b)}
+.td.now{background:var(--gold); transform:scale(1.4)}
+.pcardx{background:var(--glass); border:1px solid var(--glass-b); border-radius:1.2em; padding:1em 1.2em; font-size:1.35em; line-height:1.9; animation:pop .4s both}
+.pcardx.ended{border-color:#34D399}
+.pchoices{display:grid; gap:.6em; margin-top:.8em}
+.pch{font:inherit; font-weight:700; text-align:right; color:var(--fg); background:linear-gradient(135deg,rgba(124,92,240,.35),rgba(76,195,255,.25)); border:2px solid var(--glass-b); border-radius:1em; padding:.7em 1em; cursor:pointer; transition:transform .12s}
+.pch:hover{transform:translateX(-4px)}
+
+/* حوّل الأسلوب */
+.sgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(14em,1fr)); gap:.8em}
+.stcard{border-radius:1.1em; padding:.9em 1em; min-height:9em; border:2px solid var(--glass-b); background:var(--glass); animation:flipin .6s both; position:relative}
+.stcard.back{display:grid; place-items:center; font-size:3em; color:var(--fg3); border-style:dashed; animation:none}
+.stcard .stn{display:block; font-size:1.15em; margin-bottom:.3em}
+.stcard p{margin:0 0 .5em; line-height:1.9}
+.stcard.c0{background:linear-gradient(135deg,rgba(251,146,60,.3),rgba(239,68,68,.2))} .stcard.c1{background:linear-gradient(135deg,rgba(76,195,255,.3),rgba(124,92,240,.2))} .stcard.c2{background:linear-gradient(135deg,rgba(52,211,153,.3),rgba(76,195,255,.2))}
+.stcard.win{border-color:var(--gold); box-shadow:0 0 0 4px rgba(255,209,102,.3)}
+.vote{font:inherit; font-weight:800; border:0; border-radius:99px; padding:.1em .9em; background:var(--glass2); color:var(--fg); cursor:pointer}
+@keyframes flipin{from{transform:perspective(600px) rotateY(80deg); opacity:0}to{transform:none; opacity:1}}
+
+/* السلسلة */
+.clabel{font-weight:800; color:var(--fg2); margin-top:.4em}
+.cprompt{background:var(--glass); border:2px solid var(--glass-b); border-radius:1.1em; padding:.9em 1.1em; font-size:1.3em; line-height:2; margin:.3em 0 .6em}
+.cadd{background:rgba(52,211,153,.22); border-radius:.4em; padding:0 .25em}
+.cadd.fresh{animation:pop .5s both; background:rgba(255,209,102,.4)}
+.cchain{display:flex; flex-wrap:wrap; gap:.4em; margin-bottom:.4em}
+.cl{padding:.1em .8em; border-radius:99px; background:var(--glass2); color:var(--fg3); font-weight:700; font-size:.9em}
+.cl.on{background:rgba(52,211,153,.3); color:var(--fg)}
+.cmp{display:grid; grid-template-columns:1fr 1fr; gap:.7em; margin-top:.6em}
+.cmpc{border-radius:1em; padding:.6em .9em; background:var(--glass); border:2px solid var(--glass-b); animation:rise .4s both}
+.cmpc.after{border-color:#34D399; background:rgba(52,211,153,.14)}
+.cmpc p{margin:.2em 0 0; line-height:1.9}
+
+/* مكتبة الأوامر / خط الزمن */
+.rtabs.wide .rtab{min-width:4em}
+.libgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(16em,1fr)); gap:.8em}
+.libcard{background:var(--glass); border:1px solid var(--glass-b); border-radius:1.1em; padding:.8em 1em; animation:rise .4s both}
+.libcard b{display:block; font-size:1.1em}
+.libcard p{white-space:pre-wrap; line-height:1.8; font-size:.95em; margin:.3em 0}
+.tline{display:flex; gap:.4em; overflow-x:auto; padding:.5em 0 .8em; border-bottom:4px solid var(--glass-b); margin-bottom:.8em}
+.tnode{font:inherit; color:var(--fg); background:var(--glass); border:3px solid var(--glass-b); border-radius:1em; padding:.4em .8em; min-width:6.5em; cursor:pointer; display:flex; flex-direction:column; align-items:center; transition:border-color .25s,background-color .25s,box-shadow .25s,transform .25s,opacity .25s}
+.tnode .ty{font-size:1.4em; font-weight:800}
+.tnode small{color:var(--fg3)}
+.tnode.lit{border-color:var(--sky); background:rgba(76,195,255,.2)}
+.tnode.on{border-color:var(--gold)}
+.tinfo{background:var(--glass); border:1px solid var(--glass-b); border-radius:1em; padding:.8em 1em; line-height:1.9; min-height:4em}
+.tinfo p{margin:.3em 0 0; font-size:1.1em}
+
+/* التتويج */
+.podbars{display:flex; align-items:flex-end; justify-content:center; gap:.8em; min-height:14em; margin:.4em 0 .8em}
+.pcol{flex:1; max-width:9em; display:flex; flex-direction:column; align-items:center; gap:.3em; cursor:pointer}
+.pbarbox{width:100%; height:9em; display:flex; align-items:flex-end; background:var(--glass); border-radius:.8em .8em 0 0; overflow:hidden}
+.pfill{display:block; width:100%; background:linear-gradient(to top,var(--c),rgba(255,255,255,.35)); transition:height 1.4s cubic-bezier(.2,.9,.3,1); border-radius:.5em .5em 0 0}
+.plab{text-align:center; line-height:1.4}
+.plab .pi2{font-size:1.8em; display:block}
+.plab small{display:block; color:var(--gold); font-weight:800}
+.pbadges{display:flex; gap:.15em; min-height:3em; flex-wrap:wrap; justify-content:center}
+.pb3 .badge-svg{width:2.6em; height:auto; animation:pop .5s both}
+.shelf{display:grid; grid-template-columns:repeat(auto-fit,minmax(9em,1fr)); gap:.6em}
+.badge{font:inherit; color:var(--fg); background:var(--glass); border:3px solid var(--glass-b); border-radius:1em; padding:.4em; cursor:pointer; display:flex; flex-direction:column; align-items:center; text-align:center; transition:border-color .25s,background-color .25s,box-shadow .25s,transform .25s,opacity .25s}
+.badge .bsvg .badge-svg{width:3.4em; height:auto}
+.badge small{color:var(--fg3); font-size:.78em; line-height:1.4}
+.badge.sel{border-color:var(--gold); transform:translateY(-4px) scale(1.04); box-shadow:0 0 0 4px rgba(255,209,102,.3)}
+.closing{margin-top:.8em}
+
+/* استفتاء سريع + مقارنة */
+.pq2{font-size:1.7em; font-weight:800; line-height:1.7; margin:.2em 0 .6em}
+.pbars{display:grid; gap:.6em}
+.pbr{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:.2em .8em; align-items:center; background:var(--glass); border:2px solid var(--glass-b); border-radius:1em; padding:.5em .9em; transition:border-color .25s,background-color .25s,box-shadow .25s,transform .25s,opacity .25s}
+.pbr .pbl{font-size:1.1em; font-weight:700; line-height:1.7}
+.pbr .pbt{grid-column:1 / -1; height:.9em; background:var(--bar-track); border-radius:99px; overflow:hidden}
+.pbr .pbt i{display:block; height:100%; width:0; background:linear-gradient(90deg,var(--sky),var(--violet)); transition:width .9s cubic-bezier(.3,.9,.3,1)}
+.pbr .pbn{font-size:1.3em; color:var(--gold)}
+.pbr.hide{opacity:.9}
+.pbr.ok{border-color:#34D399; background:rgba(52,211,153,.2)}
+.pbr.ok .pbt i{background:linear-gradient(90deg,#34D399,#86EFAC)}
+.popt2{display:flex; gap:.6em; align-items:center; width:100%; text-align:right; font:inherit; font-weight:700; color:var(--ink); background:var(--soft); border:3px solid var(--line); border-radius:14px; padding:10px 12px; margin:6px 0; cursor:pointer}
+.popt2 b{flex:none; width:1.9em; height:1.9em; border-radius:50%; background:#fff; display:grid; place-items:center}
+.popt2.on{border-color:var(--violet); background:#F1ECFF}
+.cmp3{display:grid; grid-template-columns:repeat(auto-fit,minmax(11em,1fr)); gap:.7em; margin-top:.6em}
+.cmp3c{background:var(--glass); border:2px solid var(--glass-b); border-radius:1em; padding:.7em .9em; display:flex; flex-direction:column}
+.cmp3c.c1{border-color:var(--sky)} .cmp3c.c2{border-color:#34D399}
+.cmp3c span{color:var(--fg3); font-size:.9em}
+.cfirst{background:var(--soft); border:2px solid var(--line); border-radius:14px; padding:8px 12px; margin-bottom:6px; color:var(--ink)}
+.cfirst .cf{font-size:14px; margin-top:3px; line-height:1.7}
+.cf.dim2{color:var(--muted)}
+
+/* اللقاءات في لوحة الإدارة */
+.meetcard{background:#fff; color:var(--ink); border-radius:20px; padding:12px 14px; margin:12px 0; border:3px solid transparent}
+.meetcard.on{border-color:var(--violet)}
+.mhead{display:flex; align-items:center; gap:12px}
+.mhead .mi{font-size:34px}
+.mhead .mt{flex:1; min-width:0}
+.mhead .mt b{display:block; font-size:18px}
+.mhead .mt small{display:block; color:var(--muted); line-height:1.5}
+.mlist{display:grid; gap:6px; margin-top:8px}
+.mrow{display:flex; align-items:center; gap:10px; background:var(--soft); border-radius:12px; padding:6px 10px; opacity:.6}
+.mrow.on{opacity:1; background:#F1ECFF}
+.mrow .st2{flex:1; min-width:0}
+.mrow .st2 b{display:block; font-size:14px; line-height:1.4}
+.mrow .st2 small{color:var(--muted)}
+.meetcard .adv{color:var(--ink)}
+@media (max-width:560px){ .sentence{font-size:1.6em} .cmp{grid-template-columns:1fr} .podbars{gap:.4em} }
+
+/* ضغط الارتفاع ليتسع المحتوى بخط أكبر على الشاشة */
+.pbr{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) auto; padding:.35em .8em}
+.pbr .pbt{grid-column:auto; height:.8em}
+.vctl .ring{width:5em; height:5em}
+.vctl .ring .rnum{font-size:1.5em}
+.vcard textarea{min-height:3.2em}
+.ctask{padding:.35em .8em; margin:.2em 0 .5em}
+.ghead{margin-bottom:.3em}
+.pq2{font-size:1.5em; margin:.1em 0 .4em}
+
+.ctop{display:flex; align-items:center; gap:.8em; flex-wrap:wrap; margin:.2em 0 .6em}
+.ctop .ctask{flex:1 1 18em; margin:0}
+.ctop .gctl{margin:0}
+.ctop .ring{width:4.4em; height:4.4em}
+.ctop .ring .rnum{font-size:1.3em}
+.cnote{color:var(--fg3)}
+.vcard textarea{min-height:2.8em}
+
+/* حقول الألعاب: حشوات بوحدة em حتى يتناسب الارتفاع مع الخط */
+.vcard textarea{min-height:0; padding:.3em .6em; margin:0; border-radius:.8em; border:2px solid var(--glass-b); background:var(--glass2); color:var(--fg); box-shadow:none}
+.vcard .vname{background:transparent; padding:.1em .3em; margin:0; border:0; border-bottom:2px dashed var(--glass-b); border-radius:0; color:var(--fg); box-shadow:none}
+.vcard textarea:focus,.vcard .vname:focus{box-shadow:none; border-color:var(--gold)}
+.pdemo input{margin:0}
+.tcard input{padding:.1em .2em; margin:0; box-shadow:none}
+
 </style>
 </head>
 <body>
@@ -835,6 +1177,7 @@ body.modal-open{overflow:hidden}
     <span class="ptools" id="p-tools"></span>
     <span class="syncdot ok" id="p-sync" title="متصل"></span>
   </div>
+  <div class="hud" id="hud" hidden></div>
   <div class="pmain">
     <div class="pstage" id="pstage"></div>
     <aside class="drawer" id="drawer"></aside>
@@ -923,12 +1266,15 @@ const SFX = {
   send: () => { tone(660, 0.1, "sine", 0.12); tone(990, 0.16, "sine", 0.12, 0.09); },
   done: () => [523, 659, 784, 1047].forEach((f, i) => tone(f, 0.22, "sine", 0.12, i * 0.1)),
   ding: () => { tone(988, 0.18, "sine", 0.12); tone(1319, 0.3, "sine", 0.1, 0.1); },
+  start:() => { tone(440, 0.08, "triangle", 0.09); tone(660, 0.12, "triangle", 0.1, 0.07); },
+  reveal:() => { tone(392, 0.1, "sine", 0.1); tone(523, 0.1, "sine", 0.1, 0.08); tone(784, 0.2, "sine", 0.1, 0.16); },
+  score:() => { tone(880, 0.07, "sine", 0.1); tone(1175, 0.14, "sine", 0.1, 0.06); },
   alarm:() => [0, 0.3, 0.6].forEach(d => tone(880, 0.2, "square", 0.07, d))
 };
 function sfx(n){ try{ if(SFX[n]) SFX[n](); }catch(e){} }
 
 /* ---- ألوان الصفحة بحسب نوع الشريحة والشاشة ---- */
-const PAL_BY_KIND = { cover:"a", results:"teal", big:"ember", flip:"ocean", cards:"ocean", bullets:"a", reading:"ink", activity:"teal", anatomy:"ocean", spot:"plum", critique:"slate" };
+const PAL_BY_KIND = { teams:"game", qwall:"ocean", predict:"ocean", brain:"slate", scenario:"game", build:"game", challenge:"game", hunt:"plum", sort:"teal", trap:"plum", path:"ink", style:"ember", chain:"ocean", library:"slate", podium:"gold", timeline:"ocean", cover:"a", results:"teal", big:"ember", flip:"ocean", cards:"ocean", bullets:"a", reading:"ink", activity:"teal", anatomy:"ocean", spot:"plum", critique:"slate" };
 const PAL_BY_SCREEN = { "s-intro":"a", "s-q":"a", "s-done":"teal", "s-res":"teal", "s-login":"slate", "s-admin":"slate", "s-print":"slate", "s-live":"a", "s-present":"a" };
 function setPal(p){ document.body.dataset.pal = p || "a"; }
 
@@ -1233,7 +1579,7 @@ const HADITH_TEXT = `إنَّ ثَلاثةً في بَني إسرائيلَ: {{�
 
 وأتى الأعمى في صورَتِه، فقال: رَجُلٌ مِسكينٌ و{{ابنُ سَبيلٍ|مسافر انقطع به الطريق}}، وتَقَطَّعَت بيَ الحِبالُ في سَفَري، فلا بَلاغَ اليومَ إلَّا باللهِ ثُمَّ بكَ، أسألُكَ بالذي رَدَّ عليك بَصَرَكَ شاةً أتَبَلَّغُ بها في سَفَري، فقال: قد كُنتُ أعمى فرَدَّ اللهُ بَصَري، وفقيرًا فقد أغناني، فخُذْ ما شِئتَ، فواللهِ {{لا أجهَدُكَ اليومَ بشَيءٍ أخَذتَه للَّهِ|لن أشق عليك ولن أمنعك شيئًا تأخذه}}، فقال: أمسِكْ مالَكَ؛ فإنَّما {{ابتُليتُم|اختُبرتم}}، فقد رَضيَ اللهُ عنكَ، و{{سَخِطَ|غضب}} على صاحِبَيكَ.`;
 
-const DEFAULT_DECK = [
+const BASE_DECK = [
   { id:"s-cover", kind:"cover", min:1,
     title:"ذكاؤك أولًا… ثم الذكاء الاصطناعي", sub:"لقاء قصير، ومهارة واحدة تخرج بها",
     notes:"أرحّب بهم وأقول إن اللقاء تفاعلي: سنقرأ ونجيب ونجرّب. الجوال أداة اليوم، لكن لا نفتحه حتى أقول." },
@@ -1474,6 +1820,258 @@ const PRESETS = {
   all:   { name:"كل شيء", desc:"كل الحزم، لمكان يتسع وقته", mods:{ story:true, study:true, english:true, verify:true, family:true, creative:true }, hide:[] }
 };
 
+/* ######## plan.js ######## */
+/* ================= خطة اللقاءات: الشرائح الجديدة والترتيب والتوزيع ================= */
+const DECK_VERSION = 2;
+const MEETINGS = {
+  m1:{ name:"اللقاء الأول", icon:"🌟", sub:"الأساسيات: ما هو الذكاء الاصطناعي؟ وكيف أطلب منه وأتحقق؟ (للخميس)" },
+  m2:{ name:"اللقاء الثاني", icon:"🎓", sub:"المذاكرة والتحقق: اجعله معلّمك، ولا تصدّقه بلا فحص" },
+  m3:{ name:"اللقاء الثالث", icon:"🚀", sub:"الإبداع والنفع: خط الزمن وقرارات المحقق والصور وبرّ الأهل" }
+};
+Object.assign(KIND_NAMES, {
+  teams:"فرقنا", qwall:"جدار الأسئلة", predict:"خمّن الكلمة", brain:"داخل العقل", scenario:"أي دور أطلب؟", build:"ركّب الطلب", challenge:"تحدي المتطوعين",
+  hunt:"صائد الأخطاء", sort:"الغرفة الآمنة", trap:"فخ الثقة", path:"المحقق الصغير", style:"حوّل الأسلوب", chain:"السلسلة", library:"مكتبة الأوامر", podium:"التتويج", timeline:"خط الزمن"
+});
+Object.assign(MODULES, {
+  inside:{ name:"كيف يعمل؟", icon:"🧠", desc:"خمّن الكلمة وداخل العقل وخط الزمن" },
+  prompt:{ name:"مهارة الطلب", icon:"✍️", desc:"أي دور وركّب الطلب والتحديات والسلسلة" }
+});
+
+const ALL3 = ["m1", "m2", "m3"];
+const NEW_SLIDES = [
+  { id:"s-teams", kind:"teams", liveOnly:true, min:2, title:"فرقنا", tagline:"اختاروا اسمًا ورمزًا… وانطلقوا",
+    notes:"أقسّم الطلاب إلى فرق (أربعة غالبًا). كل فريق يختار اسمًا ورمزًا. النقاط قليلة وللمتعة، وفي النهاية ينال كل فريق شارة. إن لم تناسب المنافسة هذا المكان فاضغط «إخفاء لوحة النقاط»." },
+
+  { id:"s-qwall", kind:"qwall", liveOnly:true, min:1, title:"أسئلتكم",
+    samples:["كيف يعرف الذكاء الاصطناعي كل هذه المعلومات؟", "هل يستطيع أن يقرر بنفسه؟", "من أين بدأ هذا كله؟"],
+    notes:"هذه أسئلة الطلاب من الاستبانة بلا أسماء. أقرأ ثلاثة أو أربعة منها وأقول: سنجيب عن كثير منها اليوم. أضغط البطاقة لتكبيرها، ثم «أجبنا عنه»." },
+
+  { id:"s-predict", mod:"inside", kind:"predict", min:4, title:"خمّن الكلمة التالية", tagline:"هل تستطيع أن تخمّن مثل الذكاء الاصطناعي؟",
+    lesson:"الذكاء الاصطناعي لا «يعرف» الجواب مسبقًا، بل يرجّح الكلمة الأنسب بحسب ما قبلها. وإذا تغيّر السياق تغيّر التوقع.",
+    rows:[
+      ["السلام ___", "عليكم:92 ؛ الشمس:3 ؛ سيارة:3 ؛ غدًا:2", "لكل كلمة احتمال، وهذه الأعلى لأن الناس تقولها كثيرًا بعد هذه الكلمة."],
+      ["ذهب الطبيب إلى المستشفى وفحص ___", "المريض:74 ؛ المسألة:12 ؛ السيارة:8 ؛ الكتاب:6", "«الطبيب» و«المستشفى» قادا التوقع إلى «المريض»."],
+      ["ذهب المهندس إلى الورشة وفحص ___", "السيارة:42 ؛ الآلة:36 ؛ المشروع:16 ؛ المريض:6", "غيّرنا كلمتين فتغيّر التوقع! السياق مهم جدًّا."],
+      ["أحب في الصباح أن أشرب كوبًا من ___", "الحليب:44 ؛ الشاي:32 ؛ القهوة:20 ؛ الإسفلت:4", "الكلمات غير المنطقية احتمالها قريب من الصفر."]
+    ],
+    notes:"هذا أبسط تفسير لـ«كيف يركّب الكلام؟»: كلمة بعد كلمة، يختار الأنسب بحسب ما كُتب قبلها. مثل اقتراح الكلمات في لوحة مفاتيح الجوال، لكنه ينظر إلى الجملة كلها لا إلى آخر كلمة. الفرق تتناقش ثم أضغط خيارها، ثم أكشف. أقول: الأرقام توضيحية وليست قياسًا حقيقيًّا. في الجولتين 2 و3 أنبّههم أننا غيّرنا الكلمات فتغيّر التوقع." },
+
+  { id:"s-brain", mod:"inside", kind:"brain", min:3, title:"داخل العقل", tagline:"لنرَ ماذا يحدث بين سؤالك وجوابه",
+    lesson:"ليس شخصًا يفكر مثلنا. هو برنامج يحوّل الكلام إلى أرقام ويحسب أنسب كلمة تالية ثم يكرر ذلك.",
+    rows:[
+      ["كلامك", "تكتب سؤالك بالكلمات التي تعرفها."],
+      ["قطع صغيرة", "يقسّم كلامك إلى قطع صغيرة، قد تكون كلمة أو جزءًا من كلمة."],
+      ["أرقام", "يحوّل كل قطعة إلى أرقام، لأن الحاسوب لا يتعامل إلا بالأرقام."],
+      ["احتمالات", "يحسب احتمال كل كلمة يمكن أن تأتي بعد ما كُتب، اعتمادًا على ما تعلّمه من نصوص كثيرة جدًّا."],
+      ["الجواب", "يختار كلمة مناسبة ويضيفها، ثم يكرر العملية كلمة بعد كلمة حتى يكتمل الجواب."]
+    ],
+    notes:"أقول بأمانة: لا أشرح الرياضيات التي بداخله، لكن هذه الفكرة العامة. أشغّل العملية كاملة ثم أدعو طالبًا يكتب جملة ليرى كيف تُقطّع. ومن أين معلوماته؟ من قراءة كمّ هائل من النصوص (كتب ومقالات وصفحات)، لا يحتفظ بها كمكتبة بل بـ«خلاصة أنماطها». ولذلك قد ينسى أو يختلق. وبعض الأدوات فيها بحث في الإنترنت كخاصية إضافية. وهو سريع لأنه يحسب على حواسيب ضخمة لا لأنه يبحث." },
+
+  { id:"s-scen", mod:"prompt", kind:"scenario", min:3, title:"أي دور أطلب؟", tagline:"موقف قصير… واختر الدور الأنسب",
+    lesson:"اختيار الدور المناسب يجعل المساعدة أدقّ وأنفع.",
+    rows:[
+      ["عندي اختبار في العلوم غدًا وأريد أن أتأكد أنني فهمت.", "2", "الممتحِن يسألك فتكشف ما لم تفهمه قبل الاختبار."],
+      ["كتبت مقالًا عن الرياضة ولا أعرف أخطائي.", "3", "المصحِّح يدلّك على الأخطاء دون أن يكتب المقال عنك."],
+      ["لا أفهم درس الكسور إطلاقًا.", "1", "المعلّم يشرح لك ببساطة وبأمثلة من حياتك."],
+      ["عندي أسبوع مزدحم: اختبارات وتمارين وزيارة أهلي.", "4", "المخطِّط يرتّب لك وقتك، وأنت تقرّر وتنفّذ."]
+    ],
+    examples:["اشرح لي درس الكسور كأني في أولى متوسط، وأعطني مثالًا.", "اسألني خمسة أسئلة على الدرس ولا تعطني الجواب.", "راجع مقالي ودلّني على أخطائي دون أن تكتبه عني.", "ضع لي جدولًا لأسبوع الاختبارات."],
+    notes:"أقرأ الموقف وأترك الفرق تتناقش 10 ثوانٍ ثم تختار. في كل موقف أركّز: الذكاء الاصطناعي يقترح، وأنا الذي أعمل." },
+
+  { id:"s-build", mod:"prompt", kind:"build", min:3, title:"ركّب الطلب", tagline:"رتّب القطع الأربع قبل أن تلتئم",
+    lesson:"الطلب الجيد له أربعة أجزاء: دور، مادة، مطلوب، شكل.",
+    rows:[
+      ["أنت معلم علوم لطالب في أولى متوسط.", "هذا درس الخلية: […]", "اشرحه لي ثم اسألني سؤالين.", "في 5 نقاط قصيرة."],
+      ["أنت مدرّب لغة إنجليزية ودود.", "هذه فقرتي: […]", "صحّح أخطائي واشرحها بالعربية.", "في جدول من عمودين."],
+      ["أنت مخطط مذاكرة محترف.", "عندي اختبارات في الرياضيات والعلوم يوم الخميس.", "ضع لي جدولًا لثلاثة أيام.", "جدول فيه أوقات للراحة."]
+    ],
+    notes:"أمام كل قطعة: أي جزء هي؟ يضغط الفريق القطعة ثم الخانة. إن تعسّر السحب على الجوال فالضغط يكفي." },
+
+  { id:"s-cmp", mod:"story", kind:"activity", akind:"compare", min:2, title:"قارن واستفد",
+    instruction:"بعد أن قرأت ردّ الذكاء الاصطناعي: قارنه بإجابتك الأولى، ثم اكتب بكلماتك ما أضافه لك وما تعلّمته.", answersFrom:"s-ans",
+    notes:"هذه الخطوة هي لبّ مهارة «أجب أولًا ثم اسأل»: المقارنة. أريد أن يخرج الطالب بشيء تعلّمه هو، لا بنسخة جاهزة." },
+
+  { id:"s-pulse", kind:"activity", akind:"pulse", liveOnly:true, min:2, title:"التحدي الصامت", seconds:20,
+    question:"أي هذه الطلبات أقوى؟", opts:["لخّص لي الدرس", "لخّص لي درس الخلية في 5 نقاط", "أنت معلم علوم لطالب أولى متوسط: لخّص لي درس الخلية في 5 نقاط ثم اسألني سؤالين"], answer:2,
+    instruction:"اضغط جوابك على جوالك قبل أن ينتهي الوقت.",
+    notes:"يجيبون على جوالاتهم دون كلام. أضغط «ابدأ» فيبدأ العد، ثم «اعرض النتائج» فتتحرك الأعمدة. إن لم تتوفر جوالات فاخفِ الشريحة." },
+
+  { id:"s-vol", mod:"prompt", kind:"challenge", liveOnly:true, min:4, title:"تحدي المتطوعين", tagline:"من يكتب أقوى طلب في دقيقة؟",
+    prompt:"اكتب طلبًا للذكاء الاصطناعي ليشرح لك درس «الدورة الدموية» ثم يختبرك فيه.", count:3, seconds:60, criteria:["دور", "مادة", "مطلوب واضح", "شكل وطول"],
+    lesson:"ليس المهم من يفوز فقط، بل كيف نحسّن الطلب. كل طلب يمكن أن يصير أقوى.",
+    notes:"أدعو ثلاثة متطوعين (يبدّلون كل لقاء). كل واحد يكتب على لوحة المفاتيح طلبه في دقيقة. بعدها أضغط المعايير التي حققها كل طلب. أثني على نقطة قوة في كل طلب ولو لم يفز." },
+
+  { id:"s-hunt", mod:"verify", kind:"hunt", min:3, title:"صائد الأخطاء", tagline:"هناك خطأ مختبئ… هل تكتشفونه؟",
+    lesson:"التحقق قاعدة ذهبية: قد يخطئ الذكاء الاصطناعي بثقة تامة.",
+    rows:[
+      ["1", "ابتلى الله ثلاثة رجال من بني إسرائيل: أبرص وأقرع وأعمى.", "صح", ""],
+      ["1", "أعطاهم الملَك ما تمنَّوه: جلدًا حسنًا وشعرًا حسنًا وبصرًا.", "صح", ""],
+      ["1", "الأبرص والأقرع نسبا المال إلى آبائهما، وأنكرا فضل الله.", "صح", ""],
+      ["1", "رفض الأعمى أن يعطي الملَك شيئًا لأنه يحتاج ماله.", "خطأ", "الأعمى قال للملَك: خذ ما شئت. الذي منع هما الأبرص والأقرع."],
+      ["1", "رضي الله عن الأعمى وغضب على صاحبيه.", "صح", ""],
+      ["2", "يتعلم الذكاء الاصطناعي من نصوص كثيرة جدًّا.", "صح", ""],
+      ["2", "يكتب جوابه كلمة بعد كلمة.", "صح", ""],
+      ["2", "لا يخطئ أبدًا لأنه يملك كل المعلومات الصحيحة.", "خطأ", "يخطئ أحيانًا وبثقة، ولا يملك كل المعلومات."],
+      ["2", "قد يستعين بأداة بحث إن أُعطيها.", "صح", ""],
+      ["2", "لا نسأله وحده في الحلال والحرام.", "صح", ""],
+      ["3", "لا أكتب كلمات السر في أي أداة.", "صح", ""],
+      ["3", "أتحقق من المعلومة المهمة.", "صح", ""],
+      ["3", "أكتب بيانات أهلي كاملة ليجوّد لي الجواب.", "خطأ", "بيانات الأسرة أسرار لا نسلّمها لأي أداة."],
+      ["3", "أستشير معلمًا في الأمور المهمة.", "صح", ""]
+    ],
+    notes:"ثلاث جولات. كل فريق يتناقش ثم أضغط الجملة التي اختاروها. في الجولة الأولى الملخّص عن حديث الأبرص والأقرع والأعمى: أذكّر أنه ملخّص كتبه ذكاء اصطناعي وفيه خطأ، والتحقق علينا." },
+
+  { id:"s-sort", mod:"verify", kind:"sort", min:3, title:"الغرفة الآمنة", tagline:"ما الذي نشاركه وما الذي نحتفظ به؟",
+    rule:"لا أسلّمه أسراري. وأي خدمة مجانية: أفترض أن ما أكتبه ليس سرًّا.",
+    lesson:"قبل أن أكتب له شيئًا أسأل نفسي: هل أرضى أن يراه الجميع؟",
+    rows:[
+      ["كلمة سر حسابي في اللعبة", "1", "غير آمن", "كلمات السر لا تُعطى لأي أداة."],
+      ["نص درس أريد تلخيصه", "1", "آمن", "نص الدرس العام لا يضرّ."],
+      ["عنوان بيتنا ورقم جوال أمي", "1", "غير آمن", "معلومات الأسرة خاصة."],
+      ["سؤال عن مسألة في الرياضيات", "1", "آمن", "سؤال تعليمي عام."],
+      ["صورة بطاقة هويتي", "1", "غير آمن", "الوثائق الشخصية لا تُرفع."],
+      ["فكرة لمشروع المدرسة", "1", "آمن", "فكرة عامة لا تكشف شيئًا خاصًا."],
+      ["أسأله: هل هذا الفعل حلال أم حرام؟ وأعتمد جوابه.", "2", "غير آمن", "هذا ليس من اختصاصه. نسأل أهل العلم."],
+      ["ألصق رسالة خاصة من صديقي لأسأله كيف أردّ.", "2", "غير آمن", "فيها معلومات صديقك الخاصة وقد لا يرضى."],
+      ["أطلب منه تمرينًا جديدًا عن الدرس ثم أحلّه بنفسي.", "2", "آمن", "تستعمله لتتدرّب أنت."],
+      ["أكتب له اسمي الكامل واسم مدرستي وصفّي ليجيب بشكل شخصي.", "2", "غير آمن", "هذه معلومات تعرّف بك."]
+    ],
+    notes:"أربع حقائق: أي خدمة مجانية افترض أن ما أكتبه ليس سرًّا. وفي الحلال والحرام نسأل أهل العلم. وقد ذكر بعض الطلاب في الاستبانة أنهم يسألونه عن الفتاوى، فأذكّر بلطف دون نسبة لأحد." },
+
+  { id:"s-podium", kind:"podium", liveOnly:true, min:2, title:"لحظة التتويج", tagline:"لنرَ ما أنجزناه اليوم",
+    closing:"ما استفدتموه اليوم يبقى معكم أكثر من أي ملخص جاهز: أجب أولًا، ثم اسأل.",
+    rows:[["صائد الأخطاء", "اكتشف الخطأ وتحقق قبل أن يصدّق", "detective"], ["مهندس الطلبات", "كتب طلبًا واضحًا قويًّا", "engineer"], ["حارس الأسرار", "عرف ما لا يُشارَك", "shield"], ["المتعاون", "عمل مع فريقه", "team"], ["المبدع", "فكرة جميلة وجديدة", "creator"]],
+    notes:"أختم بالفرق: تظهر الأعمدة وترتفع. ثم أمنح كل فريق شارة مناسبة له (اضغط الشارة ثم الفريق). ينال الجميع شارة. وأختم بالرسالة." },
+
+  /* ---------- اللقاء الثاني ---------- */
+  { id:"m-style", mod:"prompt", kind:"style", min:5, title:"حوّل الأسلوب", tagline:"الدرس نفسه… بثلاثة أساليب",
+    topic:"درس الخلية", lesson:"الدور الذي تطلبه يغيّر طريقة الجواب. اطلب الأسلوب الذي يناسب فهمك.",
+    rows:[
+      ["المذيع الرياضي", "وها هي الخلية تدخل الملعب! النواة هي المدرّب الذي يوجّه اللاعبين، والميتوكوندريا تولّد الطاقة، وغشاء الخلية حارس المرمى يمنع من لا نريد!"],
+      ["المعلّم الهادئ", "الخلية هي الوحدة الأساسية للحياة. لكل جزء فيها وظيفة: النواة تتحكم، والميتوكوندريا تنتج الطاقة، والغشاء ينظّم ما يدخل ويخرج."],
+      ["الشرح لطفل", "تخيّل الخلية بيتًا صغيرًا: فيه غرفة تقول للجميع ماذا يفعلون، ومطبخ يصنع الطاقة، وباب ينتقي من يدخل."]
+    ],
+    notes:"هذه نصوص كتبتُها كأمثلة (لا من الذكاء الاصطناعي). الطلاب يصوّتون بأيديهم لأي أسلوب أعجبهم وأضغط 👍." },
+
+  { id:"m-trap", mod:"verify", kind:"trap", min:4, title:"فخ الثقة", tagline:"جواب واثق جدًّا… لكن هل هو صحيح؟",
+    lesson:"الثقة في أسلوب الجواب لا تعني صحة المعلومة.",
+    rows:[
+      ["تقع مدينة الرياض في المنطقة الوسطى من المملكة العربية السعودية، وهي عاصمتها.", "حقيقي", "جملة عادية ومعروفة.", "هذه معلومة صحيحة."],
+      ["اخترع العالم المسلم ابن الهيثم المصباح الكهربائي عام 1879.", "مختلق", "انتبه: اسم مخترع وتاريخ في جملة واحدة.", "ابن الهيثم اشتهر بعلم البصريات، أما المصباح الكهربائي فارتبط باسم إديسون في 1879. جمع الجواب اسمين لا يجتمعان."],
+      ["الرمز الكيميائي للذهب هو Au، وعدده الذري 79.", "حقيقي", "معلومة محددة بأرقام.", "نعم، هذا صحيح."],
+      ["أُطلق تطبيق ChatGPT للعامة في عام 2010.", "مختلق", "فكّر: هل كانت أدوات المحادثة الذكية معروفة بين الناس في 2010؟", "أُطلق في أواخر 2022."]
+    ],
+    notes:"كل جواب مكتوب بثقة. الفرق تصوّت: حقيقي أم مختلق؟ ثم أعطي تلميحًا قبل الكشف ليشعروا أنهم اكتشفوا بأنفسهم. تحقق من الأمثلة بنفسك قبل اللقاء." },
+
+  { id:"m-chain", mod:"prompt", kind:"chain", min:5, title:"السلسلة", tagline:"طلب ضعيف يصير قويًّا خطوة بخطوة",
+    base:"لخّص لي الدرس.", lesson:"كل جزء يضيف وضوحًا: الدور والمادة والمطلوب والشكل.",
+    rows:[["دور", "أنت معلّم علوم لطالب في أولى متوسط."], ["مادة", "هذا الدرس: [نص الدرس]."], ["مطلوب", "لخّصه ثم اسألني سؤالين لأختبر فهمي."], ["شكل", "اكتب في خمس نقاط قصيرة."]],
+    notes:"كل ضغطة تضيف تحسينًا واحدًا. أسأل الطلاب قبل كل ضغطة: ماذا ينقص هذا الطلب؟ وفي النهاية نقارن قبل وبعد." },
+
+  { id:"m-inv", mod:"prompt", kind:"challenge", liveOnly:true, min:5, title:"تحدي الاختراع", tagline:"صمّم طلبًا لموقف حقيقي",
+    prompt:"صمّم طلبًا يساعد صديقًا جديدًا في الفصل على أن يفهم درسًا فاته.", count:2, seconds:90, criteria:["دور", "مادة", "مطلوب واضح", "شكل وطول"],
+    notes:"متطوعان فقط، 90 ثانية. نختار الطلب الأوضح بالتصفيق لا بالدرجات." },
+
+  /* ---------- اللقاء الثالث ---------- */
+  { id:"m-time", mod:"inside", kind:"timeline", min:4, title:"رحلة عبر الزمن", tagline:"من سؤال بسيط إلى أدوات اليوم",
+    rows:[
+      ["1950", "سؤال تورنغ", "كتب العالم آلان تورنغ سؤالًا مشهورًا: هل تستطيع الآلات أن تفكر؟"],
+      ["1956", "ولادة الاسم", "في مؤتمر علمي عام 1956 سُمّي هذا المجال «الذكاء الاصطناعي»."],
+      ["1997", "الحاسوب والشطرنج", "فاز حاسوب اسمه «ديب بلو» على بطل العالم في الشطرنج غاري كاسباروف."],
+      ["2016", "لعبة غو", "برنامج «ألفاغو» هزم أحد أبرز لاعبي لعبة غو."],
+      ["2017", "فكرة جديدة", "نُشر بحث علمي قدّم طريقة جديدة صارت أساس نماذج اللغة اليوم."],
+      ["2022", "ChatGPT للجميع", "ظهر ChatGPT للعامة في نهاية 2022 وانتشر انتشارًا واسعًا."]
+    ],
+    notes:"تحقق من هذه التواريخ من مصدر موثوق قبل أن تذكرها. وهذا يخدم قاعدتنا: التحقق علينا." },
+
+  { id:"m-path", mod:"verify", kind:"path", min:3, title:"المحقق الصغير", tagline:"قرارك يغيّر القصة",
+    rows:[
+      ["a", "كتبتَ واجبك بمساعدة الذكاء الاصطناعي ونسخت الإجابة كما هي. سألك المعلم: كيف حللت هذه المسألة؟ ماذا تفعل؟", "أقول الصدق: استعنت به ولم أفهمها جيدًا=>b ؛ أحاول الإجابة وكأنني حللتها بنفسي=>c ؛ أقول: لا أتذكر=>d", ""],
+      ["b", "قلتَ الحقيقة. قدّر المعلم صدقك وطلب منك أن تحل مسألة مشابهة معه الآن لتفهمها.", "أحاول حلها معه=>e", ""],
+      ["c", "بدأ المعلم يسأل أسئلة صغيرة عن الخطوات، ولم تستطع الإجابة. صار الموقف محرجًا.", "ماذا تفعل الآن؟ أقول الصدق=>b", ""],
+      ["d", "قال المعلم: لنراجعها معًا الآن. اتضح أنك لم تقرأ الحل.", "نحاول معًا=>e", ""],
+      ["e", "انتهت القصة.", "", "أفضل الطرق: استعن بالذكاء الاصطناعي لتفهم، ثم حاول بنفسك، وكن صادقًا. فالنسخ يحرمك من الفهم ويضعك في مواقف محرجة."]
+    ],
+    notes:"أقرأ الموقف وتختار الفرق، وأضغط. ليس هدفنا التخويف، بل أن يروا أن الصدق والفهم أنفع من النسخ." },
+
+  { id:"m-lib", mod:"prompt", kind:"library", min:4, title:"مكتبة الأوامر",
+    rows:[
+      ["تلخيص", "تلخيص درس", "لخّص لي هذا الدرس في خمس نقاط قصيرة بلغة سهلة، ثم اسألني سؤالين لأختبر فهمي: [الصق الدرس]"],
+      ["اختبار", "اختبار قصير", "اسألني خمسة أسئلة متنوعة على هذا الدرس، سؤالًا سؤالًا، ولا تعطني الجواب قبل أن أجيب: [الدرس]"],
+      ["شرح", "شرح مفهوم صعب", "اشرح لي مفهوم [المفهوم] كأنني في أولى متوسط، وأعطني مثالًا من حياتي اليومية."],
+      ["إنجليزي", "محادثة إنجليزية", "You are a friendly English teacher. Talk with me about [topic] in simple English, one short question at a time, and correct my mistakes in Arabic."],
+      ["مذاكرة", "جدول مذاكرة", "عندي اختبارات في [المواد] بعد [المدة]. أستطيع المذاكرة [الوقت] يوميًّا. ضع لي جدولًا يتضمن وقتًا للراحة."],
+      ["مراجعة", "مراجعة إجابتي", "هذه إجابتي: [إجابتك]. راجعها: ما الصحيح؟ وما الذي فاتني؟ دون أن تكتب الإجابة عني."]
+    ],
+    notes:"أوامر جاهزة تُنسخ وتُعدَّل. أقول: استبدلوا ما بين الأقواس بما يناسبكم." },
+
+  { id:"m-min", mod:"prompt", kind:"challenge", liveOnly:true, min:5, title:"دقيقة التحدي", tagline:"أفضل طلب في 60 ثانية",
+    prompt:"اكتب أفضل طلب لمراجعة درس «الخلية» في دقيقة واحدة.", count:3, seconds:60, criteria:["دور", "مادة", "مطلوب واضح", "شكل وطول"],
+    notes:"المؤقت الدائري يتغير لونه في آخر عشر ثوانٍ. بعد النهاية نقرأ الطلبات ونقيّمها بالمعايير." }
+];
+
+/* الترتيب العام (اللقاءات مجموعات جزئية منه) */
+const PLAN_ORDER = ["s-cover", "s-teams",
+  "s-results", "s-qwall", "s-predict", "s-brain", "s-flip", "s-roles", "s-scen", "s-rule", "s-read", "s-ans", "s-anat", "s-build", "s-tpl", "s-cmp", "s-pulse", "s-vol", "s-hunt", "s-sort", "s-rules",
+  "m-study", "m-plan", "m-style", "m-trap", "m-chain", "m-inv", "m-quiz", "m-bug",
+  "m-time", "m-path", "m-lib", "m-min", "m-fam", "m-art", "m-eng",
+  "s-nlm", "s-hook", "s-spot", "s-crit",
+  "s-free", "s-podium", "s-end"];
+const PLAN_MEET = { "s-cover":ALL3, "s-teams":ALL3, "s-free":ALL3, "s-podium":ALL3, "s-end":ALL3,
+  "s-qwall":["m1", "m3"],
+  "s-results":["m1"], "s-predict":["m1"], "s-brain":["m1"], "s-flip":["m1"], "s-roles":["m1"], "s-scen":["m1"], "s-rule":["m1"], "s-read":["m1"], "s-ans":["m1"], "s-anat":["m1"], "s-build":["m1"], "s-tpl":["m1"], "s-cmp":["m1"], "s-pulse":["m1"], "s-vol":["m1"], "s-hunt":["m1"], "s-sort":["m1"], "s-rules":["m1"],
+  "m-study":["m2"], "m-plan":["m2"], "m-style":["m2"], "m-trap":["m2"], "m-chain":["m2"], "m-inv":["m2"], "m-quiz":["m2"], "m-bug":["m2"],
+  "m-time":["m3"], "m-path":["m3"], "m-lib":["m3"], "m-min":["m3"], "m-fam":["m3"], "m-art":["m3"], "m-eng":["m3"] };
+/* تعديلات على الشرائح القديمة */
+const PLAN_PATCH = {
+  "s-cover":{ ver:DECK_VERSION },
+  "s-results":{ min:2, sub:"نتائج الاستبانة المجهولة", notes:"أذكر رقمًا واحدًا بلا حرج، مثل: «أغلبكم يقول إنه يراجع جواب الذكاء الاصطناعي، وهذا جميل، وسنتدرب على مراجعة أقوى». أشكر صدقهم. لا أذكر أي نص كتبه أحدهم." },
+  "s-flip":{ title:"أسئلتكم عن الذكاء الاصطناعي", min:4, cards:[
+    { q:"هل يوجد شخص يكتب الجواب خلفه؟", a:"لا. هو برنامج. لكن وراءه بشر: كتّاب النصوص التي تعلّم منها، ومهندسون صنعوه، ومراجعون قيّموا إجاباته. أما لحظة سؤالك فلا يتدخل أحد." },
+    { q:"من أين جاءته معلوماته؟", a:"من قراءة كمٍّ هائل من الكتب والمقالات والصفحات. لا يحتفظ بها كمكتبة، بل بـ«أنماط الكلام». ولهذا قد ينسى التفاصيل أو يؤلّف تفصيلة تبدو صحيحة." },
+    { q:"كيف يركّب الكلام؟", a:"يخمّن الكلمة الأنسب بعد كل ما كُتب، ثم التي بعدها، وهكذا. كاقتراح الكلمات في لوحة مفاتيح جوالك، لكنه أذكى بكثير." },
+    { q:"هل يبحث في الإنترنت قبل أن يجيب؟", a:"الأصل لا، يجيب مما تعلّمه. لكن في بعض الأدوات ميزة بحث تُشغَّل عند الحاجة. وحتى مع البحث قد يخطئ." },
+    { q:"هل يتفوق علينا ويصير خطرًا؟", a:"يتفوق في السرعة والذاكرة وكشف الأنماط. لكنه لا يملك رغبات ولا ضميرًا ولا مسؤولية. والعلماء مختلفون في مستقبله، والخطر القريب سببه سوء استعمال الناس له." },
+    { q:"هل نعتمد على إجابته؟", a:"لا. نتحقق: هل ذكر مصدرًا؟ هل المصدر موجود؟ هل يوافقه كتاب أو معلم؟ وفي الحلال والحرام نسأل أهل العلم." }
+  ], notes:"أقول أولًا: «أنا لست مختصًّا في برمجة الذكاء الاصطناعي، وما سأقوله خلاصة قراءة عامة، وسأقول لكم متى أكون متأكدًا ومتى لا». لا أقلب البطاقات كلها: أختار ثلاثًا أو أربعًا بحسب الوقت. أترك الطلاب يجيبون أولًا ثم أقلب البطاقة. وإن سألني أحدهم ما لا أعرفه فأقول: لا أعرف، لنسأل الأداة ثم نتحقق." },
+  "s-read":{ min:3 }, "s-ans":{ min:4 }, "s-anat":{ min:2 }, "s-tpl":{ min:4 }, "s-rules":{ min:2 }, "s-roles":{ min:3 }, "s-free":{ min:1 },
+  "m-quiz":{ title:"الكرسي الساخن: صح أم خطأ؟" }
+};
+const PLAN_MOD = { "s-predict":"inside", "s-brain":"inside", "m-time":"inside" };
+
+function buildDefaultDeck(){
+  const all = BASE_DECK.concat(NEW_SLIDES).map(s => JSON.parse(JSON.stringify(s))), by = {};
+  all.forEach(s => { by[s.id] = s; });
+  Object.keys(PLAN_PATCH).forEach(id => { if(by[id]) Object.assign(by[id], PLAN_PATCH[id]); });
+  const out = PLAN_ORDER.map(id => by[id]).filter(Boolean);
+  all.forEach(s => { if(out.indexOf(s) < 0) out.push(s); });
+  out.forEach(s => { s.meet = (PLAN_MEET[s.id] || []).slice(); s.hidden = s.meet.indexOf("m1") < 0; if(PLAN_MOD[s.id]) s.mod = PLAN_MOD[s.id]; });
+  return out;
+}
+const DEFAULT_DECK = buildDefaultDeck();
+
+/* ---------- اللقاءات: تفعيل وإحصاء ---------- */
+const inMeeting = (s, k) => (s.meet || []).indexOf(k) >= 0;
+function meetingStats(k){ const sl = DECK.filter(s => !s.deleted && inMeeting(s, k)); return { n:sl.length, min:sl.reduce((a, s) => a + (Number(s.min) || 0), 0) }; }
+function meetingActive(k){ const live = DECK.filter(s => !s.deleted); return live.length > 0 && live.some(s => inMeeting(s, k)) && live.every(s => !!s.hidden === !inMeeting(s, k)); }
+function activateMeeting(k){ DECK.forEach(s => { if(!s.deleted) s.hidden = !inMeeting(s, k); }); }
+
+Object.assign(NEW_SLIDE, {
+  predict:() => ({ id:"s-" + Date.now(), kind:"predict", min:3, title:"خمّن الكلمة التالية", rows:[["جملة ناقصة ___", "كلمة:60 ؛ أخرى:30 ؛ ثالثة:10", "ملاحظة"]], notes:"" }),
+  scenario:() => ({ id:"s-" + Date.now(), kind:"scenario", min:3, title:"أي دور أطلب؟", rows:[["موقف قصير", "1", "لماذا هذا الدور؟"]], examples:["مثال 1", "مثال 2", "مثال 3", "مثال 4"], notes:"" }),
+  build:() => ({ id:"s-" + Date.now(), kind:"build", min:3, title:"ركّب الطلب", rows:[["أنت معلم.", "هذا الدرس: […]", "اشرحه لي.", "في 5 نقاط."]], notes:"" }),
+  hunt:() => ({ id:"s-" + Date.now(), kind:"hunt", min:3, title:"صائد الأخطاء", rows:[["1", "جملة صحيحة", "صح", ""], ["1", "جملة خاطئة", "خطأ", "لماذا هي خطأ؟"]], notes:"" }),
+  sort:() => ({ id:"s-" + Date.now(), kind:"sort", min:3, title:"الغرفة الآمنة", rule:"", rows:[["شيء يُشارَك", "1", "آمن", "لأن…"], ["شيء لا يُشارَك", "1", "غير آمن", "لأن…"]], notes:"" }),
+  trap:() => ({ id:"s-" + Date.now(), kind:"trap", min:3, title:"فخ الثقة", rows:[["جواب واثق", "مختلق", "تلميح", "شرح"]], notes:"" }),
+  path:() => ({ id:"s-" + Date.now(), kind:"path", min:3, title:"المحقق الصغير", rows:[["a", "موقف", "خيار أول=>b ؛ خيار ثانٍ=>b", ""], ["b", "نتيجة", "", "خلاصة القصة"]], notes:"" }),
+  style:() => ({ id:"s-" + Date.now(), kind:"style", min:4, title:"حوّل الأسلوب", topic:"موضوع", rows:[["أسلوب أول", "نص"], ["أسلوب ثانٍ", "نص"]], notes:"" }),
+  chain:() => ({ id:"s-" + Date.now(), kind:"chain", min:4, title:"السلسلة", base:"طلب ضعيف", rows:[["تحسين 1", "إضافة"]], notes:"" }),
+  library:() => ({ id:"s-" + Date.now(), kind:"library", min:3, title:"مكتبة الأوامر", rows:[["تصنيف", "عنوان", "الطلب"]], notes:"" }),
+  timeline:() => ({ id:"s-" + Date.now(), kind:"timeline", min:3, title:"خط الزمن", rows:[["2000", "حدث", "شرح"]], notes:"" }),
+  challenge:() => ({ id:"s-" + Date.now(), kind:"challenge", min:4, title:"تحدٍّ", prompt:"اكتب طلبًا لـ…", count:3, seconds:60, criteria:["دور", "مادة", "مطلوب", "شكل"], notes:"" }),
+  pulse:() => ({ id:"s-" + Date.now(), kind:"activity", akind:"pulse", liveOnly:true, min:2, title:"التحدي الصامت", seconds:20, question:"سؤال؟", opts:["أ", "ب", "ج"], answer:0, notes:"" })
+});
+
 /* ######## ui.js ######## */
 /* ================= أدوات مشتركة ================= */
 function h(tag, attrs, ...kids){
@@ -1642,9 +2240,8 @@ function payloadView(p, sl){
     const qs = (sl && sl.questions) || [];
     p.forEach((a, i) => { if(a) d.append(h("div", { class:"pq" }, qs[i] ? qs[i].q : "السؤال " + (i + 1)), h("div", { class:"pa" }, a)); });
   } else if(p && typeof p === "object"){
-    if("role" in p || "task" in p){
-      d.append(h("div", { class:"pq" }, "الدور"), h("div", { class:"pa" }, p.role || "—"), h("div", { class:"pq" }, "المطلوب"), h("div", { class:"pa" }, p.task || "—"));
-    } else Object.keys(p).forEach(k => d.append(h("div", { class:"pa" }, p[k])));
+    const LB = { role:"الدور", task:"المطلوب", added:"ما أضافته الأداة", learned:"ما تعلّمه" };
+    Object.keys(p).forEach(k => d.append(h("div", { class:"pq" }, LB[k] || k), h("div", { class:"pa" }, p[k] || "—")));
   } else d.append(h("div", { class:"pa" }, String(p || "")));
   return d;
 }
@@ -1685,6 +2282,23 @@ function aiLinks(){
   return h("div", { class:"ailinks" }, h("span", {}, "افتح أداتك:"),
     [["ChatGPT", "https://chatgpt.com"], ["Gemini", "https://gemini.google.com"], ["Claude", "https://claude.ai"]].map(([n, u]) => h("a", { href:u, target:"_blank", rel:"noopener noreferrer", class:"ailink" }, n)));
 }
+const PULSE_REV = {};
+function pulseCounts(s){
+  const c = (s.opts || []).map(() => 0);
+  if(typeof P !== "undefined") P.all.filter(x => x.slide === s.id).forEach(x => { const i = Number(x.payload); if(i >= 0 && i < c.length) c[i]++; });
+  return c;
+}
+function pulseRefresh(){
+  const el = document.querySelector("#pstage .pbars"), s = (typeof P !== "undefined") ? DECK[P.idx] : null;
+  if(!el || !s || s.akind !== "pulse") return;
+  const c = pulseCounts(s), tot = c.reduce((a, b) => a + b, 0), rev = !!PULSE_REV[s.id];
+  el.querySelectorAll(".pbr").forEach((r, i) => {
+    r.classList.toggle("hide", !rev); r.classList.toggle("ok", rev && s.answer === i);
+    r.querySelector(".pbt i").style.width = rev ? (tot ? Math.round(c[i] / tot * 100) : 0) + "%" : "0%";
+    r.querySelector(".pbn").textContent = rev ? String(c[i]) : "؟";
+  });
+  const pc = $("pcount"); if(pc) pc.textContent = tot ? "وصلت " + tot + " إجابة" : "لم تصل إجابات بعد";
+}
 const KHINT = { flip:"👆 اضغط على كل بطاقة لتنقلب ويظهر الجواب", anatomy:"👆 اضغط على كل جزء ملوّن لترى مكانه في الطلب", quiz:"👆 اضغط «صحيح» أو «خطأ» لكل عبارة" };
 
 /* ================= رسم الشرائح ================= */
@@ -1694,7 +2308,7 @@ function stepsOf(s){
   return 0;
 }
 /* ---------- إخفاء الشرائح والحزم ---------- */
-const isGone = s => !!(s && (s.hidden || s.deleted));
+const isGone = s => !!(s && (s.hidden || s.deleted || (s.liveOnly && typeof L !== "undefined" && L.self)));
 const isHid = i => isGone(DECK[i]);
 const visibleIdx = () => DECK.map((s, i) => i).filter(i => !isGone(DECK[i]));
 function nextVisible(i, d){ let j = i + d; while(j >= 0 && j < DECK.length && isGone(DECK[j])) j += d; return (j < 0 || j >= DECK.length) ? -1 : j; }
@@ -1706,17 +2320,18 @@ function applyPreset(k, deck){
   deck.forEach(s => { if(s.deleted) return; if(!s.mod) s.hidden = false; else if(pr.mods[s.mod] != null) s.hidden = !pr.mods[s.mod]; });
   deck.forEach(s => { if(pr.hide.indexOf(s.id) >= 0) s.hidden = true; });
 }
-function needsMerge(){ return !DECK.some(s => s.mod); }
-/* يدمج الشرائح والحزم الجديدة في محتوى محفوظ سابقًا دون المساس بتعديلاتك */
+function needsMerge(){ const c = DECK.find(s => s.id === "s-cover"); return !c || (c.ver || 0) < DECK_VERSION; }
+/* يدمج الشرائح واللقاءات الجديدة في محتوى محفوظ سابقًا دون المساس بتعديلاتك */
 function mergeNewDefaults(){
   let added = 0;
   DEFAULT_DECK.forEach((ds, di) => {
     const ex = DECK.find(x => x.id === ds.id);
-    if(ex){ if(ex.mod == null && ds.mod) ex.mod = ds.mod; return; }
+    if(ex){ if(ex.meet == null) ex.meet = ds.meet.slice(); if(ex.mod == null && ds.mod) ex.mod = ds.mod; if(ex.liveOnly == null && ds.liveOnly) ex.liveOnly = true; return; }
     let pos = 0;
     for(let k = di - 1; k >= 0; k--){ const p = DECK.findIndex(x => x.id === DEFAULT_DECK[k].id); if(p >= 0){ pos = p + 1; break; } }
     DECK.splice(pos, 0, clone(ds)); added++;
   });
+  const cov = DECK.find(s => s.id === "s-cover"); if(cov) cov.ver = DECK_VERSION;
   return added;
 }
 function packsPanel(onChange){
@@ -1727,9 +2342,6 @@ function packsPanel(onChange){
       onclick:() => { DECK.forEach(s => { if(s.mod === m) s.hidden = st.on; }); sfx("tap"); queueSave(); onChange(); } });
     box.append(h("div", { class:"switchrow" }, h("span", {}, MODULES[m].icon + " " + MODULES[m].name, h("small", {}, MODULES[m].desc + " · " + st.n + " شرائح · " + st.min + " د")), sw));
   });
-  const row = h("div", { class:"presets" });
-  Object.keys(PRESETS).forEach(k => row.append(h("button", { type:"button", class:"pb2", onclick:() => { applyPreset(k); queueSave(); onChange(); toast("طُبّق: " + PRESETS[k].name); } }, PRESETS[k].name)));
-  box.append(h("div", { class:"dlab" }, "إعدادات جاهزة"), row);
   return box;
 }
 
@@ -1746,6 +2358,8 @@ function critiqueInner(s){
 
 function renderSlide(s, o){
   o = o || {};
+  if(GAME_KINDS.has(s.kind)) return renderGame(s, o);
+  if(s.kind === "quiz" && !o._inner) return withSting(s, o, () => renderSlide(s, Object.assign({}, o, { _inner:true })));
   const step = o.step == null ? 99 : o.step;
   const box = h("div", { class:"slide k-" + s.kind });
   const add = (...xs) => xs.flat(Infinity).forEach(x => { if(x != null && x !== false) box.append(x.nodeType ? x : document.createTextNode(String(x))); });
@@ -1814,6 +2428,20 @@ function renderSlide(s, o){
             (!o.student && st.p) ? h("pre", { class:"lp" }, String(st.p).replace(/\{\{sample\}\}/g, "«المادة التجريبية»")) : null))));
         add(ls);
         add(h("div", { class:"lfinal" }, "✍️ ثم اكتب ملاحظتك هنا في المنصة: ", h("b", {}, s.ask || "ماذا لاحظت؟")));
+      } else if(s.akind === "pulse"){
+        add(h("div", { class:"pq2" }, s.question || ""));
+        const bars = h("div", { class:"pbars" });
+        (s.opts || []).forEach((t, i) => bars.append(h("div", { class:"pbr hide", "data-i":String(i) }, h("span", { class:"pbl" }, String.fromCharCode(65 + i) + ") " + t), h("span", { class:"pbt" }, h("i", {})), h("b", { class:"pbn" }, "؟"))));
+        add(bars);
+        if(o.present){
+          const ring = ringTimer(Number(s.seconds) || 20, { onDone:() => { PULSE_REV[s.id] = true; pulseRefresh(); } });
+          add(h("div", { class:"vctl" }, ring.el, gctl(
+            gbtn("▶ ابدأ", () => { PULSE_REV[s.id] = false; ring.reset(); ring.start(); sfx("start"); pulseRefresh(); }, "go"),
+            gbtn("📊 اعرض النتائج", () => { PULSE_REV[s.id] = true; ring.stop(); sfx("reveal"); pulseRefresh(); }),
+            gbtn("↻ جولة جديدة", async () => { ring.reset(); PULSE_REV[s.id] = false; try{ await adminOp("clearSubs", { slide:s.id }); }catch(e){} P.all = P.all.filter(x => x.slide !== s.id); pulseRefresh(); }))));
+        }
+      } else if(s.akind === "compare"){
+        add(h("div", { class:"cmp3" }, ["إجابتي الأولى", "ما أضافته الأداة", "ما تعلّمته"].map((t, i) => h("div", { class:"cmp3c c" + i }, h("b", {}, t), h("span", {}, ["اكتبها قبل أن تسأل", "بعد قراءة ردّ الأداة", "بكلماتك أنت"][i])))));
       }
       if(o.present) add(h("div", { class:"pcount", id:"pcount" }));
       break;
@@ -1958,6 +2586,615 @@ function goHome(){
 
 barFor("s-intro");
 
+/* ######## games_core.js ######## */
+/* ================= أدوات الألعاب: روبوت بحالات، مؤقت دائري، فرق ونقاط، شاشة افتتاحية ================= */
+
+/* ---------- الروبوت بتعبيرات ---------- */
+function robotSVG(mood){
+  mood = mood || "happy";
+  const eyes = {
+    happy:'<ellipse class="eye" cx="62" cy="70" rx="8" ry="10" fill="#fff"/><ellipse class="eye" cx="98" cy="70" rx="8" ry="10" fill="#fff"/>',
+    think:'<ellipse class="eye" cx="62" cy="71" rx="8" ry="8" fill="#fff"/><ellipse class="eye" cx="98" cy="68" rx="8" ry="11" fill="#fff"/><path d="M52 56 Q62 50 72 56" stroke="#4CC3FF" stroke-width="3" fill="none" stroke-linecap="round"/>',
+    wow:'<ellipse cx="62" cy="68" rx="10" ry="13" fill="#fff"/><ellipse cx="98" cy="68" rx="10" ry="13" fill="#fff"/><circle cx="62" cy="68" r="4" fill="#0B1B3F"/><circle cx="98" cy="68" r="4" fill="#0B1B3F"/>',
+    warn:'<ellipse class="eye" cx="62" cy="70" rx="8" ry="8" fill="#FFD166"/><ellipse class="eye" cx="98" cy="70" rx="8" ry="8" fill="#FFD166"/>'
+  };
+  const mouth = {
+    happy:'<path d="M66 90 Q80 100 94 90" stroke="#4CC3FF" stroke-width="4" fill="none" stroke-linecap="round"/>',
+    think:'<path d="M68 92 L92 92" stroke="#4CC3FF" stroke-width="4" stroke-linecap="round"/>',
+    wow:'<ellipse cx="80" cy="93" rx="7" ry="8" fill="#4CC3FF"/>',
+    warn:'<path d="M66 95 Q80 86 94 95" stroke="#FFD166" stroke-width="4" fill="none" stroke-linecap="round"/>'
+  };
+  const ant = mood === "warn" ? "#FF6B6B" : "#FFD166";
+  const extra = mood === "warn" ? '<path d="M122 14 L142 50 L102 50 Z" fill="#FFD166"/><text x="122" y="44" text-anchor="middle" font-size="22" font-weight="800" fill="#0B1B3F">!</text>'
+    : mood === "think" ? '<circle cx="126" cy="26" r="4" fill="#fff"/><circle cx="136" cy="14" r="6" fill="#fff"/>' : "";
+  return '<svg viewBox="0 0 160 170" class="robot" aria-hidden="true"><g class="bob">' +
+    '<line x1="80" y1="16" x2="80" y2="36" stroke="#CFE9FF" stroke-width="4" stroke-linecap="round"/><circle class="ant" cx="80" cy="13" r="7" fill="' + ant + '"/>' +
+    '<rect x="16" y="66" width="12" height="28" rx="6" fill="#7C5CF0"/><rect x="132" y="66" width="12" height="28" rx="6" fill="#7C5CF0"/>' +
+    '<rect x="30" y="36" width="100" height="78" rx="26" fill="#4CC3FF"/><rect x="40" y="48" width="80" height="54" rx="18" fill="#0B1B3F"/>' +
+    eyes[mood] + mouth[mood] +
+    '<rect x="48" y="120" width="64" height="36" rx="14" fill="#7C5CF0"/><circle cx="80" cy="138" r="6" fill="#fff" opacity=".85"/>' + extra + '</g></svg>';
+}
+function robotEl(mood, cls){ const d = h("div", { class:"rb-slot " + (cls || "") }); d.innerHTML = robotSVG(mood); return d; }
+function robotSay(mood, text){ return h("div", { class:"rsay" }, robotEl(mood), h("div", { class:"bubble" }, text)); }
+
+const MSG_OK = ["أحسنت!", "رائع! اكتشفت الفكرة.", "ممتاز، هذا هو الصواب.", "وصلت! أحسنت."];
+const MSG_BAD = ["فكّر مرة أخرى.", "قريب، جرّب غيرها.", "ليست هذه، لا بأس.", "هناك تفصيل يستحق الانتباه."];
+const pickOne = a => a[Math.floor(Math.random() * a.length)];
+function shake(el){ el.classList.remove("shake2"); void el.offsetWidth; el.classList.add("shake2"); }
+
+/* ---------- مؤقت دائري ---------- */
+function ringTimer(sec, o){
+  o = o || {};
+  const C = 2 * Math.PI * 44;
+  const wrap = h("div", { class:"ring" });
+  wrap.innerHTML = '<svg viewBox="0 0 100 100"><circle class="rbg" cx="50" cy="50" r="44"/><circle class="rfg" cx="50" cy="50" r="44" stroke-dasharray="' + C + '" stroke-dashoffset="0"/></svg><div class="rnum">' + sec + '</div>';
+  let left = sec, t = null;
+  const fg = wrap.querySelector(".rfg"), num = wrap.querySelector(".rnum");
+  const draw = () => { fg.style.strokeDashoffset = String(C * (1 - left / sec)); num.textContent = String(Math.ceil(left)); wrap.classList.toggle("low", left <= 10 && left > 0); };
+  const api = {
+    el:wrap, running:false,
+    start(){
+      if(t) return; api.running = true; wrap.classList.add("run"); let last = Date.now(); if(left <= 0) left = sec;
+      t = setInterval(() => {
+        if(!wrap.isConnected){ clearInterval(t); t = null; return; }
+        const n = Date.now(); left -= (n - last) / 1000; last = n;
+        if(left <= 0){ left = 0; api.stop(); draw(); sfx("alarm"); if(o.onDone) o.onDone(); return; }
+        draw(); if(o.onTick) o.onTick(left);
+      }, 100);
+    },
+    stop(){ clearInterval(t); t = null; api.running = false; wrap.classList.remove("run"); },
+    reset(){ api.stop(); left = sec; draw(); },
+    left:() => left
+  };
+  draw(); return api;
+}
+
+/* ---------- الفرق ولوحة النقاط ---------- */
+const TEAM_ICONS = ["🦅", "🐆", "🦁", "🐺", "🐬", "🦊", "🐻", "🦉"];
+const TEAM_NAMES = ["الصقور", "النمور", "الأسود", "الذئاب", "الدلافين", "الثعالب", "الدببة", "البوم"];
+const TEAM_COLORS = ["#4CC3FF", "#FFB703", "#34D399", "#F472B6", "#A78BFA", "#FB923C", "#60A5FA", "#F87171"];
+const TEAMS = Object.assign({ list:[], show:true }, LS.get("teams", {}));
+function saveTeams(){ LS.set("teams", { list:TEAMS.list, show:TEAMS.show }); }
+function countTo(el, from, to){
+  if(from === to || typeof requestAnimationFrame !== "function"){ el.textContent = String(to); return; }
+  const t0 = Date.now(), dur = 450;
+  (function f(){ const k = Math.min(1, (Date.now() - t0) / dur); el.textContent = String(Math.round(from + (to - from) * k)); if(k < 1) requestAnimationFrame(f); })();
+}
+function addPoints(id, n){
+  const t = TEAMS.list.find(x => x.id === id); if(!t) return;
+  t.pts = Math.max(0, (t.pts || 0) + n); saveTeams(); sfx(n > 0 ? "score" : "tap"); drawHud(id);
+}
+function drawHud(bumpId){
+  const hud = $("hud"); if(!hud) return;
+  const on = TEAMS.show && TEAMS.list.length > 0;
+  hud.hidden = !on; if(!on){ hud.innerHTML = ""; if(typeof autoFit === "function") setTimeout(autoFit, 50); return; }
+  hud.innerHTML = "";
+  TEAMS.list.forEach(t => {
+    const pts = h("b", { class:"hp" }, String(t._shown != null ? t._shown : (t.pts || 0)));
+    const chip = h("div", { class:"hteam" + (bumpId === t.id ? " bump" : ""), style:"--c:" + t.color },
+      h("span", { class:"hi" }, t.icon), h("span", { class:"hn" }, t.name), pts,
+      h("button", { type:"button", class:"hb", title:"+1", "aria-label":"زِد نقطة لـ" + t.name, onclick:() => addPoints(t.id, 1) }, "+"),
+      h("button", { type:"button", class:"hb m", title:"-1", "aria-label":"أنقص نقطة من " + t.name, onclick:() => addPoints(t.id, -1) }, "−"));
+    hud.append(chip);
+    countTo(pts, t._shown != null ? t._shown : (t.pts || 0), t.pts || 0); t._shown = t.pts || 0;
+  });
+  if(typeof autoFit === "function") setTimeout(autoFit, 50);
+}
+/* شريط «امنح النقاط» داخل اللعبة (يظهر فقط إن وُجدت فرق) */
+function awardBar(label){
+  if(!TEAMS.list.length) return null;
+  let n = 1;
+  const row = h("div", { class:"award" }, h("span", { class:"al" }, label || "امنح نقاط لـ:"));
+  const pts = h("div", { class:"apts" });
+  [1, 2, 3].forEach(v => pts.append(h("button", { type:"button", class:"ap" + (v === 1 ? " on" : ""), onclick:() => { n = v; pts.querySelectorAll(".ap").forEach(b => b.classList.toggle("on", Number(b.dataset.v) === v)); }, "data-v":String(v) }, "+" + v)));
+  row.append(pts);
+  TEAMS.list.forEach(t => row.append(h("button", { type:"button", class:"at", style:"--c:" + t.color, title:t.name, onclick:ev => {
+    addPoints(t.id, n); const b = ev.currentTarget; b.classList.remove("pop2"); void b.offsetWidth; b.classList.add("pop2");
+  } }, t.icon)));
+  return row;
+}
+
+/* ---------- الشاشة الافتتاحية لكل لعبة ---------- */
+const STING = {
+  predict:["🔮", "خمّن الكلمة التالية", "هل تستطيع أن تخمّن مثل الذكاء الاصطناعي؟", "think"],
+  brain:["🧠", "داخل العقل", "لنرَ ماذا يحدث بين سؤالك وجوابه", "think"],
+  scenario:["🎭", "أي دور أطلب؟", "موقف قصير… واختر الدور الأنسب", "happy"],
+  build:["🧩", "ركّب الطلب", "رتّب القطع الأربع قبل أن تلتئم", "happy"],
+  challenge:["⚡", "تحدٍّ للمتطوعين", "من يكتب أقوى طلب في دقيقة؟", "wow"],
+  hunt:["🕵️", "صائد الأخطاء", "هناك خطأ مختبئ… هل تكتشفونه؟", "think"],
+  sort:["🛡️", "الغرفة الآمنة", "ما الذي نشاركه وما الذي نحتفظ به؟", "warn"],
+  trap:["🪤", "فخ الثقة", "جواب واثق جدًّا… لكن هل هو صحيح؟", "think"],
+  path:["🕯️", "المحقق الصغير", "قرارك يغيّر القصة", "think"],
+  style:["🎙️", "حوّل الأسلوب", "الدرس نفسه… بثلاثة أساليب", "happy"],
+  chain:["⛓️", "السلسلة", "طلب ضعيف يصير قويًّا خطوة بخطوة", "happy"],
+  quiz:["🎯", "صحيح أم خطأ؟", "اضغط وانظر كم تعرف", "happy"],
+  timeline:["⏳", "رحلة عبر الزمن", "من سؤال بسيط إلى أدوات اليوم", "wow"],
+  library:["📚", "مكتبة الأوامر", "أوامر جاهزة تنسخها وتجرّبها", "happy"],
+  podium:["🏆", "لحظة التتويج", "لنرَ ما أنجزناه اليوم", "wow"]
+};
+const STARTED = {};
+function stingerEl(s, st, onStart){
+  const card = h("div", { class:"sting" },
+    h("div", { class:"sicon" }, st[0]), robotEl(st[3]),
+    h("h2", { class:"stt" }, s.title || st[1]), h("p", { class:"stg" }, s.tagline || st[2]),
+    h("button", { type:"button", class:"btn go", onclick:onStart }, "ابدأ الجولة ▶"),
+    h("small", { class:"smin" }, (s.min ? "نحو " + s.min + " د" : "")));
+  return card;
+}
+function gameHead(s, extra){
+  const wrap = h("div", { class:"ghead" }, h("div", {}, h("div", { class:"kchip" }, (STING[s.kind] ? STING[s.kind][0] + " " : "") + (KIND_NAMES[s.kind] || "")), h("h2", { class:"st" }, s.title || "")));
+  if(s.lesson){
+    const bub = h("div", { class:"lessonb", hidden:true }, robotSay("happy", s.lesson));
+    wrap.append(h("button", { type:"button", class:"lessonbtn", onclick:() => { bub.hidden = !bub.hidden; sfx("pop"); } }, "💡 ما الفائدة؟"));
+    wrap.append(bub);
+  }
+  if(extra) wrap.append(extra);
+  return wrap;
+}
+/* شريط تحكم موحّد داخل اللعبة */
+function gctl(...btns){ return h("div", { class:"gctl" }, btns.filter(Boolean)); }
+function gbtn(txt, fn, cls){ return h("button", { type:"button", class:"gb" + (cls ? " " + cls : ""), onclick:fn }, txt); }
+const MIRROR = new Set(["teams", "qwall", "challenge", "podium"]);
+function mirrorCard(s){
+  const st = STING[s.kind] || ["👀", s.title || "", "", "happy"];
+  return h("div", { class:"mirror" }, robotEl(st[3] || "happy"), h("h2", { class:"st center" }, st[0] + " " + (s.title || st[1])),
+    h("p", { class:"intro center" }, "هذه فقرة جماعية. تابع الشاشة 👀"));
+}
+
+/* ######## games_kinds.js ######## */
+/* ================= الألعاب والأنشطة التفاعلية ================= */
+const GAMES = {};
+const GAME_KINDS = new Set(["teams", "qwall", "predict", "brain", "scenario", "build", "challenge", "hunt", "sort", "trap", "path", "style", "chain", "library", "podium", "timeline"]);
+const parseOpts = str => String(str || "").split(/[؛;]/).map(x => x.trim()).filter(Boolean).map(x => { const i = x.lastIndexOf(":"); return { w:x.slice(0, i).trim(), p:Number(x.slice(i + 1)) || 0 }; });
+const ROLES = [["🧑‍🏫", "معلّم"], ["📝", "ممتحِن"], ["✍️", "مصحِّح"], ["🗓️", "مخطِّط"]];
+
+function renderGame(s, o){
+  const box = h("div", { class:"slide game k-" + s.kind });
+  const body = () => { box.innerHTML = ""; box.classList.add("playing"); GAMES[s.kind](s, o, box); };
+  if(o.mirror && MIRROR.has(s.kind)){ box.append(mirrorCard(s)); return box; }
+  const st = STING[s.kind];
+  if(st && !o.student && !STARTED[s.id]){ box.append(stingerEl(s, st, () => { STARTED[s.id] = true; sfx("start"); body(); })); return box; }
+  STARTED[s.id] = true; body(); return box;
+}
+/* يغلّف لعبة قديمة (مثل صح وخطأ) بالشاشة الافتتاحية نفسها */
+function withSting(s, o, build){
+  const st = STING[s.kind];
+  if(!st || o.student || STARTED[s.id]){ STARTED[s.id] = true; return build(); }
+  const box = h("div", { class:"slide game k-" + s.kind });
+  box.append(stingerEl(s, st, () => { STARTED[s.id] = true; sfx("start"); box.replaceWith(build()); }));
+  return box;
+}
+
+/* ---------- فرقنا ---------- */
+GAMES.teams = (s, o, box) => {
+  box.append(gameHead(s));
+  /* قبل الضغط على «ابدأ» نعمل على مسودة، فلا تظهر لوحة النقاط قبل أوانها */
+  let draft = TEAMS.list.length ? null : [];
+  const listNow = () => draft || TEAMS.list;
+  let n = Math.max(2, Math.min(8, listNow().length || 4));
+  const grid = h("div", { class:"tgrid" });
+  const sync = () => {
+    const list = listNow();
+    while(list.length < n){ const i = list.length; list.push({ id:"t" + (i + 1), name:TEAM_NAMES[i], icon:TEAM_ICONS[i], pts:0 }); }
+    list.length = n; list.forEach((t, i) => { t.color = TEAM_COLORS[i % 8]; t.id = "t" + (i + 1); });
+  };
+  const commit = () => { if(draft){ TEAMS.list = draft; draft = null; } };
+  const draw = () => {
+    sync(); grid.innerHTML = "";
+    listNow().forEach((t, i) => {
+      const ic = h("button", { type:"button", class:"ticon", title:"غيّر الرمز", onclick:() => { const k = TEAM_ICONS.indexOf(t.icon); t.icon = TEAM_ICONS[(k + 1) % TEAM_ICONS.length]; ic.textContent = t.icon; sfx("tap"); if(!draft){ saveTeams(); drawHud(); } } }, t.icon);
+      const nm = h("input", { type:"text", maxlength:"14", value:t.name, "aria-label":"اسم الفريق " + (i + 1) });
+      nm.addEventListener("input", () => { t.name = nm.value; if(!draft){ saveTeams(); drawHud(); } });
+      grid.append(h("div", { class:"tcard", style:"--c:" + t.color }, ic, nm));
+    });
+    if(!draft){ saveTeams(); drawHud(); }
+  };
+  box.append(h("div", { class:"tcount" }, h("span", {}, "عدد الفرق:"), numInput(n, 2, 8, v => { n = v; draw(); })), grid);
+  box.append(gctl(
+    gbtn("🚀 ابدأ المنافسة", () => { sync(); commit(); TEAMS.show = true; saveTeams(); drawHud(); confetti(); sfx("done"); }, "go"),
+    gbtn("🔄 صفّر النقاط", () => { listNow().forEach(t => { t.pts = 0; t._shown = 0; t.badges = []; }); if(!draft){ saveTeams(); drawHud(); } sfx("tap"); }),
+    gbtn("👁 إظهار/إخفاء لوحة النقاط", () => { TEAMS.show = !TEAMS.show; saveTeams(); drawHud(); sfx("tap"); })));
+  box.append(h("p", { class:"gnote" }, "النقاط تُمنح بلمسة من أعلى الشاشة أو بعد كل جولة. وفي النهاية يأخذ كل فريق شارة."));
+  draw();
+};
+
+/* ---------- جدار الأسئلة (من الاستبانة) ---------- */
+GAMES.qwall = (s, o, box) => {
+  box.append(gameHead(s));
+  const grid = h("div", { class:"qgrid" }, robotSay("think", "نقرأ أسئلتكم…"));
+  box.append(grid);
+  (async () => {
+    let qs = [];
+    try{
+      if(DEMO) qs = (s.samples || []).slice();
+      else if(adminPass){ const d = await adminOp("results"); qs = (d.comments || []).slice(); }
+    }catch(e){}
+    qs = qs.map(x => String(x).trim()).filter(x => x.length > 3);
+    grid.innerHTML = "";
+    if(!qs.length){ grid.append(robotSay("happy", "لم تصل أسئلة بعد. اسأل الطلاب: ما الذي تتمنون معرفته؟")); return; }
+    qs.forEach((q, i) => {
+      const key = "qdone_" + q.length + "_" + q.slice(0, 12);
+      const card = h("button", { type:"button", class:"qcard c" + (i % 5) + (LS.get(key, false) ? " done" : ""), style:"--d:" + (i * 60) + "ms", onclick:() => {
+        const big = h("div", { class:"qbig", onclick:e => { if(e.target.classList.contains("qbig")) big.remove(); } },
+          h("div", { class:"qbox" }, h("div", { class:"qtxt" }, q), h("div", { class:"two" },
+            h("button", { type:"button", class:"btn", onclick:() => { LS.set(key, true); card.classList.add("done"); big.remove(); sfx("ok"); } }, "✓ أجبنا عنه"),
+            h("button", { type:"button", class:"btn light", onclick:() => big.remove() }, "إغلاق"))));
+        box.append(big); sfx("pop");
+      } }, h("span", { class:"qn" }, String(i + 1)), h("span", { class:"qt" }, q.length > 150 ? q.slice(0, 150) + "…" : q));
+      grid.append(card);
+    });
+  })();
+};
+
+/* ---------- خمّن الكلمة التالية ---------- */
+GAMES.predict = (s, o, box) => {
+  const rounds = (s.rows || []).map(r => ({ sent:r[0] || "", opts:parseOpts(r[1]), note:r[2] || "" }));
+  let ri = 0, picked = -1, revealed = false, animate = false;
+  const top = r => r.opts.reduce((a, b) => b.p > a.p ? b : a, r.opts[0]);
+  box.append(gameHead(s));
+  const tabs = h("div", { class:"rtabs" }), stage = h("div", { class:"pstage2" }), ctl = h("div", {});
+  box.append(tabs, stage, ctl);
+  const draw = () => {
+    tabs.innerHTML = ""; stage.innerHTML = ""; ctl.innerHTML = "";
+    rounds.forEach((r, i) => tabs.append(h("button", { type:"button", class:"rtab" + (i === ri ? " on" : ""), onclick:() => { ri = i; picked = -1; revealed = false; animate = false; draw(); sfx("tap"); } }, String(i + 1))));
+    const r = rounds[ri]; if(!r) return;
+    const parts = r.sent.split("___");
+    stage.append(h("div", { class:"sentence" }, parts[0], h("span", { class:"blank2" + (revealed ? " filled" : "") }, revealed ? top(r).w : "؟"), parts[1] || ""));
+    const opts = h("div", { class:"popts" });
+    r.opts.forEach((op, i) => {
+      const bar = h("i", { style:"height:" + (revealed && !animate ? op.p : 0) + "%" });
+      opts.append(h("button", { type:"button", class:"popt c" + (i % 4) + (picked === i ? " pick" : "") + (revealed && op === top(r) ? " top" : ""), onclick:() => { if(revealed) return; picked = i; sfx("tap"); draw(); } },
+        h("span", { class:"pbarw" }, bar), h("b", { class:"pw" }, op.w), h("small", { class:"pp" }, revealed ? op.p + "%" : (picked === i ? "اختيارنا" : ""))));
+    });
+    stage.append(opts);
+    if(revealed){
+      if(r.note) stage.append(h("p", { class:"pnote" }, r.note));
+      if(picked >= 0){ const ok = r.opts[picked] === top(r); stage.append(h("div", { class:"pverdict " + (ok ? "ok" : "no") }, ok ? "✓ توقّعتم مثل الذكاء الاصطناعي" : "✗ الذكاء الاصطناعي رجّح غير ذلك")); }
+    }
+    ctl.append(gctl(
+      gbtn("👁 اكشف ما رجّحه الذكاء الاصطناعي", () => {
+        if(revealed) return; revealed = true; animate = true; sfx("reveal"); draw();
+        requestAnimationFrame(() => requestAnimationFrame(() => { animate = false; stage.querySelectorAll(".pbarw i").forEach((b, k) => { b.style.height = r.opts[k].p + "%"; }); }));
+        if(picked >= 0 && r.opts[picked] === top(r)){ confetti(); sfx("ok"); }
+      }, "go"),
+      gbtn("التالية ▶", () => { ri = (ri + 1) % rounds.length; picked = -1; revealed = false; animate = false; draw(); sfx("next"); })));
+    ctl.append(h("p", { class:"gnote" }, "الأرقام توضيحية لتقريب الفكرة، وليست قياسًا حقيقيًّا."));
+    const a = awardBar(); if(a) ctl.append(a);
+  };
+  draw();
+};
+
+/* ---------- داخل العقل ---------- */
+GAMES.brain = (s, o, box) => {
+  const stages = (s.rows || []).map(r => ({ t:r[0] || "", d:r[1] || "" }));
+  box.append(gameHead(s));
+  const pipe = h("div", { class:"pipe" }), info = h("div", { class:"pinfo" }, "اضغط على أي مرحلة لتعرف ما يحدث فيها، أو شاهد العملية كاملة.");
+  const nodes = [], links = [];
+  stages.forEach((st, i) => {
+    const n = h("button", { type:"button", class:"pnode", onclick:() => focus(i) }, h("span", { class:"pn" }, String(i + 1)), h("b", {}, st.t));
+    nodes.push(n); pipe.append(n);
+    if(i < stages.length - 1){ const l = h("span", { class:"plink" }, h("i", {})); links.push(l); pipe.append(l); }
+  });
+  function focus(i){ nodes.forEach((n, j) => n.classList.toggle("on", j === i)); info.innerHTML = ""; info.append(h("b", {}, stages[i].t + ": "), stages[i].d); sfx("tap"); }
+  function play(){
+    nodes.forEach(n => n.classList.remove("lit")); links.forEach(l => l.classList.remove("lit"));
+    let i = 0;
+    const step = () => { if(!pipe.isConnected) return; nodes.forEach((n, j) => n.classList.toggle("lit", j <= i)); links.forEach((l, j) => l.classList.toggle("lit", j < i)); focus(i); i++; if(i < stages.length) setTimeout(step, 1200); };
+    step();
+  }
+  const chips = h("div", { class:"chunks" });
+  const inp = h("input", { type:"text", maxlength:"40", placeholder:"اكتب جملة قصيرة لترى كيف يقطّعها…", "aria-label":"جملة للتجربة" });
+  const chunk = () => {
+    chips.innerHTML = "";
+    String(inp.value).trim().split(/\s+/).filter(Boolean).forEach(w => {
+      for(let k = 0; k < w.length; k += 3){ const piece = w.slice(k, k + 3); let sum = 0; for(const ch of piece) sum += ch.charCodeAt(0); chips.append(h("span", { class:"chunk" }, h("b", {}, piece), h("small", {}, String(100 + (sum * 7) % 900)))); }
+    });
+  };
+  inp.addEventListener("input", chunk);
+  box.append(pipe, info, h("div", { class:"pdemo" }, h("label", {}, "جرّب بنفسك: كيف يقطّع كلامك؟ (تقطيع وأرقام توضيحية)"), inp, chips), gctl(gbtn("▶ شاهد العملية", play, "go"), gbtn("↻ من البداية", () => { nodes.forEach(n => n.classList.remove("lit", "on")); links.forEach(l => l.classList.remove("lit")); info.textContent = "اضغط على أي مرحلة لتعرف ما يحدث فيها."; })));
+};
+
+/* ---------- أي دور أطلب؟ ---------- */
+GAMES.scenario = (s, o, box) => {
+  const rows = (s.rows || []).map(r => ({ story:r[0] || "", role:(Number(r[1]) || 1) - 1, why:r[2] || "" }));
+  const ex = s.examples || [];
+  let i = 0, score = 0, tries = 0, done = false;
+  box.append(gameHead(s));
+  const body = h("div", {}); box.append(body);
+  const draw = () => {
+    body.innerHTML = ""; const r = rows[i]; done = false; tries = 0;
+    if(!r){ body.append(robotSay("wow", "انتهت المواقف! أصبتم من أول محاولة " + score + " من " + rows.length), gctl(gbtn("↻ من جديد", () => { i = 0; score = 0; draw(); }, "go"))); const a = awardBar(); if(a) body.append(a); return; }
+    const card = h("div", { class:"scene" }, h("div", { class:"sq" }, "«" + r.story + "»"), h("div", { class:"sprog" }, (i + 1) + " / " + rows.length));
+    const opts = h("div", { class:"roles" });
+    ROLES.forEach(([ic, nm], k) => opts.append(h("button", { type:"button", class:"role r" + k, onclick:ev => {
+      if(done) return; const b = ev.currentTarget;
+      if(k === r.role){
+        done = true; if(tries === 0) score++; b.classList.add("right"); sfx("ok");
+        card.classList.add("solved"); card.append(h("div", { class:"swhy" }, h("b", {}, "✓ " + pickOne(MSG_OK) + " "), r.why, ex[k] ? h("div", { class:"sex" }, "جرّب أن تطلب: «" + ex[k] + "»") : null));
+        nxt.disabled = false;
+      } else { tries++; b.classList.add("wrong"); shake(b); sfx("bad"); hint.textContent = pickOne(MSG_BAD); }
+    } }, h("span", { class:"ri" }, ic), h("b", {}, nm))));
+    const hint = h("div", { class:"shint" }, "اختر الدور الأنسب لهذا الموقف");
+    const nxt = h("button", { type:"button", class:"gb go", disabled:true, onclick:() => { i++; sfx("next"); draw(); } }, "الموقف التالي ▶");
+    body.append(card, opts, hint, gctl(nxt));
+    const a = awardBar(); if(a) body.append(a);
+  };
+  draw();
+};
+
+/* ---------- ركّب الطلب ---------- */
+GAMES.build = (s, o, box) => {
+  const SL = [["🎭", "الدور"], ["📄", "المادة"], ["🎯", "المطلوب"], ["📋", "الشكل"]];
+  const rounds = (s.rows || []).map(r => r.slice(0, 4));
+  let ri = 0, sel = -1, placed = [false, false, false, false], finished = false;
+  box.append(gameHead(s));
+  const body = h("div", {}); box.append(body);
+  const order = k => [2, 0, 3, 1].map(x => (x + k) % 4);
+  const draw = () => {
+    body.innerHTML = ""; const r = rounds[ri]; if(!r) return;
+    const slots = h("div", { class:"slots" });
+    SL.forEach(([ic, nm], j) => slots.append(h("button", { type:"button", class:"slot" + (placed[j] ? " filled" : "") + (finished ? " joined" : ""), onclick:ev => {
+      if(placed[j] || sel < 0) return;
+      if(sel === j){ placed[j] = true; sel = -1; sfx("ok"); if(placed.every(Boolean)){ finished = true; sfx("done"); confetti(); } draw(); }
+      else { shake(ev.currentTarget); sfx("bad"); sel = -1; draw(); }
+    } }, h("span", { class:"sli" }, ic), h("b", {}, nm), placed[j] ? h("span", { class:"slt" }, r[j]) : null)));
+    body.append(slots);
+    if(finished){
+      const full = r.join(" ");
+      body.append(h("div", { class:"assembled" }, h("div", { class:"al2" }, "طلبك المتكامل ✨"), h("div", { class:"atxt" }, full),
+        h("button", { type:"button", class:"btn light small", onclick:async () => { toast((await copyText(full)) ? "نُسخ الطلب" : "تعذّر النسخ"); sfx("pop"); } }, "📋 انسخ الطلب")));
+    } else {
+      const pieces = h("div", { class:"pieces" });
+      order(ri).forEach(k => { if(placed[k]) return; pieces.append(h("button", { type:"button", class:"piece" + (sel === k ? " sel" : ""), onclick:() => { sel = (sel === k ? -1 : k); sfx("tap"); draw(); } }, r[k])); });
+      body.append(h("p", { class:"gnote" }, "اضغط على قطعة، ثم اضغط على الخانة التي تناسبها."), pieces);
+    }
+    body.append(gctl(gbtn("جولة جديدة ▶", () => { ri = (ri + 1) % rounds.length; placed = [false, false, false, false]; sel = -1; finished = false; draw(); sfx("next"); }, finished ? "go" : "")));
+    if(finished){ const a = awardBar(); if(a) body.append(a); }
+  };
+  draw();
+};
+
+/* ---------- تحدي المتطوعين ---------- */
+GAMES.challenge = (s, o, box) => {
+  const count = Math.max(1, Math.min(5, Number(s.count) || 3)), secs = Number(s.seconds) || 60, mode = s.mode || "write";
+  const crit = (s.criteria && s.criteria.length) ? s.criteria : ["دور", "مادة", "مطلوب واضح", "شكل وطول"];
+  box.append(gameHead(s));
+  const tas = [], cards = h("div", { class:"vcards" }), meters = [];
+  const refresh = () => {
+    const sc = meters.map(m => m.chips.filter(c => c.classList.contains("on")).length), mx = Math.max.apply(null, sc.concat([0]));
+    meters.forEach((m, i) => { m.fill.style.width = (sc[i] / crit.length * 100) + "%"; m.card.classList.toggle("best", mx > 0 && sc[i] === mx); m.num.textContent = sc[i] + "/" + crit.length; });
+  };
+  const ring = ringTimer(secs, { onDone:() => { tas.forEach(t => { t.disabled = true; }); box.classList.add("timesup"); toast("انتهى الوقت!"); } });
+  /* المهمة والمؤقت وأزرار التحكم في صف واحد لتوفير الارتفاع */
+  box.append(h("div", { class:"ctop" },
+    h("div", { class:"ctask" }, h("b", {}, "المهمة: "), s.prompt || "", h("small", { class:"cnote" }, " — بعد انتهاء الوقت اضغط المعايير التي حقّقها كل طلب. المهم أن نتعلم كيف نحسّن الطلب.")),
+    ring.el,
+    gctl(
+      gbtn("▶ ابدأ المؤقت", () => { tas.forEach(t => { t.disabled = false; }); if(tas[0]) tas[0].focus(); ring.start(); sfx("start"); }, "go"),
+      gbtn("⏹ أوقف", () => { ring.stop(); tas.forEach(t => { t.disabled = true; }); }),
+      gbtn("↻ جولة جديدة", () => { ring.reset(); tas.forEach(t => { t.value = ""; t.disabled = true; }); meters.forEach(m => m.chips.forEach(c => c.classList.remove("on"))); box.classList.remove("timesup"); refresh(); }))));
+  for(let i = 0; i < count; i++){
+    const name = h("input", { type:"text", class:"vname", placeholder:"متطوع " + (i + 1), maxlength:"14", "aria-label":"اسم المتطوع " + (i + 1) });
+    const ta = mode === "write" ? h("textarea", { rows:"3", maxlength:"400", disabled:true, placeholder:"يكتب المتطوع طلبه هنا…" }) : null; if(ta) tas.push(ta);
+    const chips = crit.map(c => h("button", { type:"button", class:"cchip", onclick:ev => { ev.currentTarget.classList.toggle("on"); sfx("tap"); refresh(); } }, h("span", { class:"ck" }, "✓"), c));
+    const fill = h("i", {}), num = h("b", {}, "0/" + crit.length);
+    const card = h("div", { class:"vcard c" + (i % 5) }, h("div", { class:"vtop" }, h("span", { class:"vn" }, String(i + 1)), name), ta, h("div", { class:"cchips" }, chips), h("div", { class:"vmeter" }, h("span", { class:"vbar" }, fill), num));
+    if(TEAMS.list.length){ const row = h("div", { class:"vaward" }, h("small", {}, "نقطة لفريق:")); TEAMS.list.forEach(t => row.append(h("button", { type:"button", class:"at", style:"--c:" + t.color, onclick:() => addPoints(t.id, 1) }, t.icon))); card.append(row); }
+    meters.push({ card, chips, fill, num }); cards.append(card);
+  }
+  box.append(cards);
+};
+
+/* ---------- صائد الأخطاء ---------- */
+GAMES.hunt = (s, o, box) => {
+  const rounds = []; (s.rows || []).forEach(r => { const k = String(r[0] || "1"); let g = rounds.find(x => x.k === k); if(!g){ g = { k, items:[] }; rounds.push(g); } g.items.push({ text:r[1] || "", wrong:(r[2] || "") === "خطأ", why:r[3] || "" }); });
+  let ri = 0, solved = false, tries = 0;
+  box.append(gameHead(s));
+  const body = h("div", {}); box.append(body);
+  const draw = () => {
+    body.innerHTML = ""; solved = false; tries = 0; const g = rounds[ri]; if(!g) return;
+    const tabs = h("div", { class:"rtabs" }); rounds.forEach((x, i) => tabs.append(h("button", { type:"button", class:"rtab" + (i === ri ? " on" : ""), onclick:() => { ri = i; draw(); sfx("tap"); } }, String(i + 1))));
+    const file = h("div", { class:"dossier" }, h("div", { class:"dhead" }, h("span", {}, "ملف تحقيق رقم " + (ri + 1)), h("span", { class:"dstamp", hidden:true }, "تم اكتشاف الخطأ!")));
+    const msg = h("div", { class:"dmsg" });
+    g.items.forEach((it, i) => {
+      const line = h("button", { type:"button", class:"dline", onclick:() => {
+        if(solved) return;
+        if(it.wrong){ solved = true; line.classList.add("found"); file.querySelector(".dstamp").hidden = false; msg.className = "dmsg good"; msg.textContent = "✓ " + (it.why || ""); confetti(); sfx("ok"); }
+        else { tries++; line.classList.add("clear"); shake(line); msg.className = "dmsg bad"; msg.textContent = pickOne(MSG_BAD); sfx("bad"); }
+      } }, h("span", { class:"dn" }, String(i + 1)), it.text);
+      file.append(line);
+    });
+    body.append(tabs, file, msg, gctl(
+      gbtn("👁 اكشف الخطأ", () => { const w = g.items.findIndex(x => x.wrong); if(w >= 0 && !solved){ solved = true; file.querySelectorAll(".dline")[w].classList.add("found"); file.querySelector(".dstamp").hidden = false; msg.className = "dmsg good"; msg.textContent = "الخطأ: " + g.items[w].why; sfx("reveal"); } }),
+      gbtn("التالي ▶", () => { ri = (ri + 1) % rounds.length; draw(); sfx("next"); }, "go")));
+    const a = awardBar(); if(a) body.append(a);
+  };
+  draw();
+};
+
+/* ---------- الغرفة الآمنة ---------- */
+GAMES.sort = (s, o, box) => {
+  const all = (s.rows || []).map(r => ({ text:r[0] || "", level:Number(r[1]) || 1, safe:(r[2] || "") === "آمن", why:r[3] || "" }));
+  let level = 1, i = 0, good = 0, total = 0;
+  box.append(gameHead(s));
+  const body = h("div", {}); box.append(body);
+  const draw = () => {
+    body.innerHTML = ""; const list = all.filter(x => x.level === level), it = list[i];
+    if(!it){
+      const hasNext = all.some(x => x.level === level + 1);
+      body.append(robotSay(good === total ? "wow" : "happy", "أنهيتم المستوى " + level + ": أصبتم " + good + " من " + total + "."), s.rule ? h("div", { class:"rulecard" }, "🔒 تذكّر: " + s.rule) : null,
+        gctl(hasNext ? gbtn("المستوى " + (level + 1) + " ▶", () => { level++; i = 0; good = 0; total = 0; draw(); }, "go") : null, gbtn("↻ من البداية", () => { level = 1; i = 0; good = 0; total = 0; draw(); })));
+      const a = awardBar(); if(a) body.append(a); sfx("done"); return;
+    }
+    const card = h("div", { class:"scard2" }, h("div", { class:"sprog" }, "المستوى " + level + " · " + (i + 1) + " / " + list.length), h("div", { class:"stxt2" }, it.text));
+    const why = h("div", { class:"sexp" });
+    const zone = (safe, ic, label) => h("button", { type:"button", class:"zone " + (safe ? "safe" : "unsafe"), onclick:() => {
+      if(why.dataset.locked) return;
+      total++; 
+      if(safe === it.safe){ good++; card.classList.add(safe ? "to-safe" : "to-unsafe"); sfx("ok"); why.dataset.locked = "1"; why.textContent = "✓ " + it.why; setTimeout(() => { i++; draw(); }, 1600); }
+      else { shake(card); card.classList.add("nope"); sfx("bad"); why.textContent = "✗ " + it.why; setTimeout(() => card.classList.remove("nope"), 600); }
+    } }, h("span", { class:"zi" }, ic), h("b", {}, label));
+    body.append(card, why, h("div", { class:"zones" }, zone(true, "🛡️", "آمن أن أشاركه"), zone(false, "⛔", "لا أشاركه")));
+  };
+  draw();
+};
+
+/* ---------- فخ الثقة ---------- */
+GAMES.trap = (s, o, box) => {
+  const rows = (s.rows || []).map(r => ({ ans:r[0] || "", real:(r[1] || "") === "حقيقي", hint:r[2] || "", why:r[3] || "" }));
+  let i = 0, busy = false;
+  box.append(gameHead(s));
+  const body = h("div", {}); box.append(body);
+  const draw = () => {
+    body.innerHTML = ""; busy = false; const r = rows[i];
+    if(!r){ body.append(robotSay("happy", "انتهت الجولات! تذكّروا: الثقة في الأسلوب لا تعني صحة المعلومة."), gctl(gbtn("↻ من جديد", () => { i = 0; draw(); }, "go"))); return; }
+    const bubble = h("div", { class:"abubble" }, h("div", { class:"who2" }, "المساعد الذكي"), h("div", { class:"atext" }, r.ans));
+    const fb = h("div", { class:"tfb" });
+    const vote = (real) => () => {
+      if(busy) return; busy = true; sfx("tap");
+      fb.innerHTML = ""; fb.append(h("div", { class:"thint" }, "🔎 تلميح: " + r.hint));
+      setTimeout(() => {
+        if(!body.isConnected) return; const ok = real === r.real; sfx(ok ? "ok" : "bad"); if(ok) confetti();
+        fb.append(h("div", { class:"tverdict " + (ok ? "ok" : "no") }, (ok ? "✓ أصبتم. " : "✗ لم تصيبوا. ") + "الجواب: " + (r.real ? "حقيقي" : "مختلق") + ". " + r.why),
+          gctl(gbtn("التالي ▶", () => { i++; draw(); sfx("next"); }, "go")));
+        const a = awardBar(); if(a) fb.append(a);
+      }, 1500);
+    };
+    body.append(bubble, h("div", { class:"tvote" }, h("button", { type:"button", class:"tv real", onclick:vote(true) }, "✅ حقيقي"), h("button", { type:"button", class:"tv fake", onclick:vote(false) }, "🚫 مختلق")), fb);
+  };
+  draw();
+};
+
+/* ---------- المحقق الصغير: قرارات متفرعة ---------- */
+GAMES.path = (s, o, box) => {
+  const nodes = {}; (s.rows || []).forEach(r => { nodes[r[0]] = { text:r[1] || "", choices:String(r[2] || "").split(/[؛;]/).map(x => x.trim()).filter(Boolean).map(x => { const k = x.indexOf("=>"); return { label:x.slice(0, k).trim(), to:x.slice(k + 2).trim() }; }), end:r[3] || "" }; });
+  const first = (s.rows && s.rows[0]) ? s.rows[0][0] : ""; let cur = first, trail = [first];
+  box.append(gameHead(s));
+  const body = h("div", {}); box.append(body);
+  const draw = () => {
+    body.innerHTML = ""; const n = nodes[cur]; if(!n) return;
+    const dots = h("div", { class:"trail" }); trail.forEach((t, i) => dots.append(h("span", { class:"td" + (i === trail.length - 1 ? " now" : "") })));
+    const card = h("div", { class:"pcardx" + (n.end ? " ended" : "") }, n.text);
+    body.append(dots, card);
+    if(n.end){ body.append(robotSay("happy", n.end), gctl(gbtn("↻ ابدأ من جديد", () => { cur = first; trail = [first]; draw(); sfx("tap"); }, "go"))); sfx("reveal"); return; }
+    const ch = h("div", { class:"pchoices" }); n.choices.forEach(c => ch.append(h("button", { type:"button", class:"pch", onclick:() => { cur = c.to; trail.push(cur); sfx("next"); draw(); } }, c.label)));
+    body.append(ch);
+  };
+  draw();
+};
+
+/* ---------- حوّل الأسلوب ---------- */
+GAMES.style = (s, o, box) => {
+  const rows = (s.rows || []).map(r => ({ name:r[0] || "", text:r[1] || "" }));
+  let shown = 0; const votes = rows.map(() => 0);
+  box.append(gameHead(s));
+  box.append(h("div", { class:"ctask" }, h("b", {}, "الموضوع: "), s.topic || ""));
+  const grid = h("div", { class:"sgrid" });
+  const draw = () => {
+    grid.innerHTML = "";
+    rows.forEach((r, i) => {
+      if(i >= shown){ grid.append(h("div", { class:"stcard back" }, h("span", {}, "؟"))); return; }
+      const mx = Math.max.apply(null, votes), win = shown === rows.length && mx > 0 && votes[i] === mx;
+      grid.append(h("div", { class:"stcard c" + (i % 3) + (win ? " win" : "") }, h("b", { class:"stn" }, r.name), h("p", {}, r.text),
+        h("button", { type:"button", class:"vote", onclick:() => { votes[i]++; sfx("pop"); draw(); } }, "👍 " + votes[i])));
+    });
+  };
+  box.append(grid, gctl(gbtn("اكشف الأسلوب التالي ▶", () => { if(shown < rows.length){ shown++; sfx("reveal"); draw(); } }, "go"), gbtn("↻ من جديد", () => { shown = 0; votes.fill(0); draw(); })));
+  const a = awardBar(); if(a) box.append(a);
+  draw();
+};
+
+/* ---------- السلسلة ---------- */
+GAMES.chain = (s, o, box) => {
+  const adds = (s.rows || []).map(r => ({ label:r[0] || "", add:r[1] || "" }));
+  let n = 0;
+  box.append(gameHead(s));
+  const body = h("div", {}); box.append(body);
+  const draw = () => {
+    body.innerHTML = "";
+    const prompt = h("div", { class:"cprompt" }, h("span", { class:"cbase" }, s.base || ""));
+    adds.slice(0, n).forEach((a, i) => prompt.append(" ", h("span", { class:"cadd" + (i === n - 1 ? " fresh" : "") }, a.add)));
+    const chips = h("div", { class:"cchain" }); adds.forEach((a, i) => chips.append(h("span", { class:"cl" + (i < n ? " on" : "") }, (i + 1) + ". " + a.label)));
+    body.append(h("div", { class:"clabel" }, "الطلب الآن:"), prompt, chips);
+    if(n === adds.length && n > 0){
+      const final = [s.base || ""].concat(adds.map(a => a.add)).join(" ");
+      body.append(h("div", { class:"cmp" }, h("div", { class:"cmpc before" }, h("b", {}, "قبل"), h("p", {}, s.base || "")), h("div", { class:"cmpc after" }, h("b", {}, "بعد"), h("p", {}, final))));
+    }
+    body.append(gctl(gbtn("➕ أضف تحسينًا", () => { if(n < adds.length){ n++; sfx("pop"); draw(); if(n === adds.length){ confetti(); sfx("ok"); } } }, "go"), gbtn("↻ من جديد", () => { n = 0; draw(); })));
+  };
+  draw();
+};
+
+/* ---------- مكتبة الأوامر ---------- */
+GAMES.library = (s, o, box) => {
+  const rows = (s.rows || []).map(r => ({ cat:r[0] || "", title:r[1] || "", p:r[2] || "" }));
+  const cats = []; rows.forEach(r => { if(cats.indexOf(r.cat) < 0) cats.push(r.cat); });
+  let cat = cats[0] || "";
+  box.append(gameHead(s));
+  const tabs = h("div", { class:"rtabs wide" }), list = h("div", { class:"libgrid" });
+  const draw = () => {
+    tabs.innerHTML = ""; list.innerHTML = "";
+    cats.forEach(c => tabs.append(h("button", { type:"button", class:"rtab" + (c === cat ? " on" : ""), onclick:() => { cat = c; draw(); sfx("tap"); } }, c)));
+    rows.filter(r => r.cat === cat).forEach(r => list.append(h("div", { class:"libcard" }, h("b", {}, r.title), h("p", {}, r.p),
+      h("button", { type:"button", class:"btn light small", onclick:async () => { toast((await copyText(r.p)) ? "نُسخ الأمر" : "تعذّر النسخ"); sfx("pop"); } }, "📋 انسخ"))));
+  };
+  box.append(tabs, list); draw();
+};
+
+/* ---------- خط الزمن ---------- */
+GAMES.timeline = (s, o, box) => {
+  const rows = (s.rows || []).map(r => ({ y:r[0] || "", t:r[1] || "", d:r[2] || "" }));
+  box.append(gameHead(s));
+  const line = h("div", { class:"tline" }), info = h("div", { class:"tinfo" }, "اضغط على أي محطة، أو شغّل الرحلة.");
+  const nodes = rows.map((r, i) => h("button", { type:"button", class:"tnode", onclick:() => show(i) }, h("span", { class:"ty" }, r.y), h("small", {}, r.t)));
+  nodes.forEach(n => line.append(n));
+  function show(i){ nodes.forEach((n, j) => n.classList.toggle("on", j === i)); info.innerHTML = ""; info.append(h("b", {}, rows[i].y + " — " + rows[i].t), h("p", {}, rows[i].d)); sfx("tap"); }
+  function play(){ let i = 0; const step = () => { if(!line.isConnected) return; nodes.forEach((n, j) => n.classList.toggle("lit", j <= i)); show(i); i++; if(i < rows.length) setTimeout(step, 1500); }; nodes.forEach(n => n.classList.remove("lit")); step(); }
+  box.append(line, info, gctl(gbtn("▶ شغّل الرحلة", play, "go")), h("p", { class:"gnote" }, "تأكّد من التواريخ من مصدر موثوق قبل ذكرها."));
+};
+
+/* ---------- لحظة التتويج ---------- */
+function badgeSVG(type){
+  const col = { detective:"#4CC3FF", creator:"#FFB703", team:"#34D399", shield:"#A78BFA", engineer:"#F472B6" }[type] || "#4CC3FF";
+  const icon = {
+    detective:'<circle cx="46" cy="44" r="12" fill="none" stroke="#fff" stroke-width="5"/><line x1="55" y1="53" x2="68" y2="66" stroke="#fff" stroke-width="6" stroke-linecap="round"/>',
+    creator:'<path d="M50 24 L56 42 L74 48 L56 54 L50 72 L44 54 L26 48 L44 42 Z" fill="#fff"/>',
+    team:'<circle cx="42" cy="48" r="13" fill="none" stroke="#fff" stroke-width="5"/><circle cx="58" cy="48" r="13" fill="none" stroke="#fff" stroke-width="5"/>',
+    shield:'<path d="M50 24 L72 32 L72 50 Q72 66 50 74 Q28 66 28 50 L28 32 Z" fill="#fff"/>',
+    engineer:'<text x="50" y="60" text-anchor="middle" font-size="34" font-weight="800" fill="#fff">{ }</text>'
+  }[type] || "";
+  return '<svg viewBox="0 0 100 120" class="badge-svg" aria-hidden="true"><polygon points="34,78 24,112 40,104 50,116 50,84" fill="' + col + '" opacity=".8"/><polygon points="66,78 76,112 60,104 50,116 50,84" fill="' + col + '" opacity=".6"/><circle cx="50" cy="48" r="38" fill="' + col + '"/><circle cx="50" cy="48" r="31" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="2"/>' + icon + '</svg>';
+}
+GAMES.podium = (s, o, box) => {
+  const badges = (s.rows || []).map(r => ({ name:r[0] || "", desc:r[1] || "", type:r[2] || "detective" }));
+  let selBadge = -1;
+  box.append(gameHead(s));
+  const stage = h("div", {}); box.append(stage);
+  let first = true;
+  const draw = () => {
+    stage.innerHTML = "";
+    if(!TEAMS.list.length){ stage.append(robotSay("think", "لم تتشكل الفرق بعد. ابدأ من فقرة «فرقنا» لتظهر هنا النقاط والشارات.")); return; }
+    const sorted = TEAMS.list.slice().sort((a, b) => (b.pts || 0) - (a.pts || 0)), mx = Math.max(1, sorted[0].pts || 0);
+    const bars = h("div", { class:"podbars" });
+    sorted.forEach((t, i) => {
+      const col = h("div", { class:"pcol", style:"--c:" + t.color, onclick:() => {
+        if(selBadge < 0) return; t.badges = t.badges || []; if(t.badges.indexOf(selBadge) < 0) t.badges.push(selBadge); saveTeams(); sfx("ok"); selBadge = -1; draw();
+      } },
+        h("div", { class:"pbadges" }, (t.badges || []).map(b => { const d = h("span", { class:"pb3", title:badges[b] ? badges[b].name : "" }); d.innerHTML = badgeSVG(badges[b] ? badges[b].type : "detective"); return d; })),
+        h("div", { class:"pbarbox" }, h("i", { class:"pfill", style:"height:" + (first ? 0 : Math.max(8, (t.pts || 0) / mx * 100)) + "%" })),
+        h("div", { class:"plab" }, h("span", {}, ["🥇", "🥈", "🥉"][i] || ""), h("span", { class:"pi2" }, t.icon), h("b", {}, t.name), h("small", {}, (t.pts || 0) + " نقطة")));
+      bars.append(col);
+    });
+    stage.append(bars);
+    const shelf = h("div", { class:"shelf" }); badges.forEach((b, i) => { const c = h("button", { type:"button", class:"badge" + (selBadge === i ? " sel" : ""), onclick:() => { selBadge = (selBadge === i ? -1 : i); sfx("tap"); draw(); } }, h("span", { class:"bsvg" }), h("b", {}, b.name), h("small", {}, b.desc)); c.querySelector(".bsvg").innerHTML = badgeSVG(b.type); shelf.append(c); });
+    stage.append(h("p", { class:"gnote" }, "اضغط على شارة ثم على الفريق الذي يستحقها. ينال كل فريق شارة."), shelf);
+    if(s.closing) stage.append(h("div", { class:"closing" }, robotSay("wow", s.closing)));
+    if(first){ first = false; requestAnimationFrame(() => requestAnimationFrame(() => { stage.querySelectorAll(".pfill").forEach((f, k) => { f.style.height = Math.max(8, (sorted[k].pts || 0) / mx * 100) + "%"; }); })); }
+  };
+  box.append(gctl(gbtn("🎉 احتفال", () => { confetti(); sfx("done"); }, "go")));
+  draw();
+};
+
 /* ######## live.js ######## */
 /* ================= واجهة الطالب: اللقاء المباشر + التعلّم الذاتي ================= */
 let SUB_DRY = false;   // في المعاينة لا تُرسل المشاركات فعليًّا
@@ -2041,7 +3278,7 @@ function renderLiveSlide(){
   }
   const step = (canNav() && !L.follow) ? 99 : L.step;
   if(!L.self && !presenterActive() && S.live) host.append(h("p", { class:"note onbg" }, PREVIEW ? "المقدّم غير نشط الآن، فتبدأ من أول شريحة وتتنقل بنفسك." : "لم يبدأ المقدّم العرض بعد."));
-  host.append(renderSlide(s, { step:step, student:true }));
+  host.append(renderSlide(s, { step:step, student:true, mirror:!canNav() && !L.self }));
 }
 /* شريط سفلي ثابت: السابق | الفهرس | التالي */
 function renderLiveDock(){
@@ -2204,12 +3441,41 @@ function labForm(s){
   return wrap;
 }
 
+/* استفتاء سريع: يضغط الطالب خيارًا فيصل صوته للمقدّم */
+function pulseForm(s){
+  const wrap = h("div", { class:"form" }), key = "pulse_" + s.id;
+  const msg = h("div", { class:"sendmsg" });
+  const mine = LS.get(key, -1), btns = [];
+  wrap.append(h("p", { class:"hintline" }, s.question || "اختر جوابك"));
+  (s.opts || []).forEach((t, i) => {
+    const b = h("button", { type:"button", class:"popt2" + (mine === i ? " on" : ""), onclick:async () => {
+      btns.forEach(x => x.classList.remove("on")); b.classList.add("on"); LS.set(key, i);
+      await sendSub(s, "poll", String(i), { btn:b, msg }); b.disabled = false;
+    } }, h("b", {}, String.fromCharCode(65 + i)), t);
+    btns.push(b); wrap.append(b);
+  });
+  wrap.append(msg); return wrap;
+}
+/* قارن واستفد: إجابتي الأولى + ما أضافته الأداة + ما تعلّمته */
+function compareForm(s){
+  const wrap = h("div", { class:"form" }), first = LS.get("ans_" + s.answersFrom, []);
+  wrap.append(h("div", { class:"cfirst" }, h("b", {}, "إجابتي الأولى (قبل أن أسأل)"), ((first || []).filter(Boolean).length ? (first || []).filter(Boolean).map((a, i) => h("div", { class:"cf" }, (i + 1) + ") " + a)) : h("div", { class:"cf dim2" }, "لم تكتب إجاباتك بعد. ارجع إلى «أجب بنفسك» أولًا."))));
+  const added = h("textarea", { rows:"3", maxlength:"300", placeholder:"ماذا أضاف ردّ الذكاء الاصطناعي على ما كتبتَ؟" });
+  const learned = h("textarea", { rows:"3", maxlength:"300", placeholder:"ما الذي تعلّمته أنت من المقارنة؟" });
+  const msg = h("div", { class:"sendmsg" });
+  const btn = h("button", { type:"button", class:"btn", onclick:() => {
+    if(!added.value.trim() && !learned.value.trim()){ msg.className = "sendmsg bad"; msg.textContent = "اكتب شيئًا أولًا."; return; }
+    sendSub(s, "compare", { added:added.value.trim(), learned:learned.value.trim() }, { btn, msg });
+  } }, L.self ? "احفظ مقارنتي" : "أرسل مقارنتي");
+  wrap.append(h("label", {}, "ما الذي أضافته الأداة؟"), added, h("label", {}, "ما الذي تعلّمته؟"), learned, btn, msg);
+  return wrap;
+}
 function actCard(s){
   if(!s || s.kind !== "activity") return null;
   const card = h("div", { class:"card act" });
   card.append(h("div", { class:"act-t" }, "✍️ دورك الآن"));
   card.append(L.self ? h("p", { class:"note" }, "ما تكتبه محفوظ على جهازك فقط.") : S.mode === "group" ? groupPicker() : h("p", { class:"note" }, "مشاركتك مجهولة الاسم."));
-  card.append(s.akind === "answers" ? answersForm(s) : s.akind === "template" ? templateForm(s) : s.akind === "lab" ? labForm(s) : freeForm(s));
+  card.append(s.akind === "answers" ? answersForm(s) : s.akind === "template" ? templateForm(s) : s.akind === "lab" ? labForm(s) : s.akind === "pulse" ? pulseForm(s) : s.akind === "compare" ? compareForm(s) : freeForm(s));
   return card;
 }
 function renderLiveAct(){
@@ -2275,7 +3541,7 @@ async function openPresenter(resume){
 }
 function closePresenter(){
   document.removeEventListener("keydown", pKeys); window.removeEventListener("resize", autoFit);
-  clearInterval(P.poll); clearInterval(P.hb); clearInterval(P.tm.t); P.drawer = ""; $("drawer").classList.remove("on");
+  clearInterval(P.poll); clearInterval(P.hb); clearInterval(P.fast); clearInterval(P.tm.t); P.drawer = ""; $("drawer").classList.remove("on");
   if(document.fullscreenElement && document.exitFullscreen) document.exitFullscreen();
   openAdmin();
 }
@@ -2312,11 +3578,16 @@ function autoFit(){
   const st = $("pstage"); if(!st || !$("s-present").classList.contains("on")) return;
   st.style.fontSize = "";
   const base = parseFloat(getComputedStyle(st).fontSize) || 20;
-  let sz = base, n = 0;
-  st.style.fontSize = sz + "px";
-  while(st.scrollHeight > st.clientHeight + 2 && sz > 12 && n < 24){ sz *= 0.94; st.style.fontSize = sz + "px"; n++; }
+  const fits = sz => { st.style.fontSize = sz + "px"; return st.scrollHeight <= st.clientHeight + 2; };
+  let best = base;
+  if(!fits(base)){
+    /* بحث ثنائي عن أكبر خط يتسع فيه المحتوى دون تمرير */
+    let lo = 11, hi = base;
+    for(let i = 0; i < 9; i++){ const mid = (lo + hi) / 2; if(fits(mid)) lo = mid; else hi = mid; }
+    best = lo;
+  }
   /* ثم يُضرب في اختيار المستخدم (A+ / A−) فيظهر أثره مهما كان حجم الملاءمة */
-  st.style.fontSize = (sz * (typeof getScale === "function" ? getScale() : 1)) + "px";
+  st.style.fontSize = (best * (typeof getScale === "function" ? getScale() : 1)) + "px";
 }
 
 function stageOverlay(){
@@ -2331,6 +3602,8 @@ function stageOverlay(){
 
 function renderP(noanim){
   const s = DECK[P.idx]; if(!s) return;
+  if(P.last !== P.idx) delete STARTED[s.id];
+  clearInterval(P.fast); P.fast = (s.akind === "pulse") ? setInterval(pPoll, 2000) : null;
   setPal(PAL_BY_KIND[s.kind] || "a");
   if(subKey(s) && s.kind === "activity") P.subSlide = s.id;
   const stage = $("pstage"); stage.className = "pstage" + (noanim ? " noanim" : ""); stage.innerHTML = "";
@@ -2347,7 +3620,7 @@ function renderP(noanim){
   const dots = $("p-dots"); dots.innerHTML = "";
   vis.forEach((i, n) => dots.append(h("button", { type:"button", class:"dotp" + (i === P.idx ? " on" : "") + (i < P.idx ? " done" : ""), title:(n + 1) + ". " + (DECK[i].title || KIND_NAMES[DECK[i].kind] || ""), onclick:() => pGo(i, 0) }, String(n + 1))));
   if(pos < 0) dots.append(h("span", { class:"dotp on", title:"شريحة مخفية" }, "★"));
-  drawBar(); updateCount();
+  drawBar(); updateCount(); drawHud(); pulseRefresh();
   if(P.last !== P.idx){ P.last = P.idx; tmSet(); }
   if(P.drawer) renderDrawer();
   autoFit();
@@ -2371,7 +3644,7 @@ async function pPoll(){
       const prevIds = P.all.map(x => x.id).join(",");
       P.all = d.subs || []; setSync(true);
       if(P.seen >= 0 && P.all.length > P.seen) sfx("ding");
-      P.seen = P.all.length; updateCount();
+      P.seen = P.all.length; updateCount(); pulseRefresh();
       if(prevIds !== P.all.map(x => x.id).join(",")){
         const s = DECK[P.idx];
         if(S.subs === "all" && s && s.kind === "activity"){ const w = $("pwall"); if(w){ w.innerHTML = ""; w.append(wallEl(subsOf(s.id))); } }
@@ -2478,13 +3751,30 @@ function drawerSubs(inner){
 const COMMON = [["min", "الدقائق المقترحة", "number"], ["notes", "ملاحظاتي (لا تظهر للطلاب في الشاشة)", "area"]];
 const SPEC = {
   cover:[["title", "العنوان", "text"], ["sub", "العنوان الفرعي", "text"]],
+  teams:[["title", "العنوان", "text"], ["tagline", "عبارة تشويقية", "text"]],
+  qwall:[["title", "العنوان", "text"]],
+  predict:[["title", "العنوان", "text"], ["tagline", "عبارة تشويقية", "text"], ["lesson", "ما الفائدة؟ (خلاصة قصيرة)", "text"], ["rows", "الجملة (ضع ___ مكان الكلمة) | كلمة:نسبة ؛ كلمة:نسبة | ملاحظة", "lines:rows"]],
+  brain:[["title", "العنوان", "text"], ["lesson", "ما الفائدة؟", "text"], ["rows", "المرحلة | الشرح (سطر لكل مرحلة)", "lines:rows"]],
+  scenario:[["title", "العنوان", "text"], ["lesson", "ما الفائدة؟", "text"], ["rows", "الموقف | رقم الدور الصحيح (1 معلّم، 2 ممتحِن، 3 مصحِّح، 4 مخطِّط) | الشرح", "lines:rows"], ["examples", "مثال طلب لكل دور (سطر لكل دور بالترتيب)", "lines:str"]],
+  build:[["title", "العنوان", "text"], ["lesson", "ما الفائدة؟", "text"], ["rows", "الدور | المادة | المطلوب | الشكل (سطر لكل جولة)", "lines:rows"]],
+  challenge:[["title", "العنوان", "text"], ["prompt", "المهمة", "area"], ["count", "عدد المتطوعين (1 إلى 5)", "number"], ["seconds", "الثواني", "number"], ["mode", "النوع", "select:write=يكتبون طلبًا,explain=يشرحون شفهيًّا"], ["criteria", "المعايير (سطر لكل معيار)", "lines:str"], ["lesson", "ما الفائدة؟", "text"]],
+  hunt:[["title", "العنوان", "text"], ["lesson", "ما الفائدة؟", "text"], ["rows", "رقم الجولة | الجملة | صح أو خطأ | شرح الخطأ", "lines:rows"]],
+  sort:[["title", "العنوان", "text"], ["rule", "القاعدة الختامية", "text"], ["lesson", "ما الفائدة؟", "text"], ["rows", "العنصر | المستوى (1 أو 2) | آمن أو غير آمن | الشرح", "lines:rows"]],
+  trap:[["title", "العنوان", "text"], ["lesson", "ما الفائدة؟", "text"], ["rows", "الجواب | حقيقي أو مختلق | تلميح | الشرح", "lines:rows"]],
+  path:[["title", "العنوان", "text"], ["rows", "المعرّف | النص | الخيارات (نص=>معرّف ؛ نص=>معرّف) | الخاتمة (للنهاية فقط)", "lines:rows"]],
+  style:[["title", "العنوان", "text"], ["topic", "الموضوع", "text"], ["lesson", "ما الفائدة؟", "text"], ["rows", "الأسلوب | النص", "lines:rows"]],
+  chain:[["title", "العنوان", "text"], ["base", "الطلب الأول (الضعيف)", "text"], ["lesson", "ما الفائدة؟", "text"], ["rows", "الاسم | الإضافة (سطر لكل تحسين)", "lines:rows"]],
+  library:[["title", "العنوان", "text"], ["rows", "التصنيف | العنوان | الطلب", "lines:rows"]],
+  timeline:[["title", "العنوان", "text"], ["rows", "السنة | العنوان | الشرح", "lines:rows"]],
+  podium:[["title", "العنوان", "text"], ["closing", "الرسالة الختامية", "text"], ["rows", "اسم الشارة | وصفها | النوع (detective,creator,team,shield,engineer)", "lines:rows"]],
   results:[["title", "العنوان", "text"], ["sub", "تعليق", "text"]],
   bullets:[["title", "العنوان", "text"], ["items", "النقاط (سطر لكل نقطة)", "lines:str"]],
   big:[["title", "العنوان الصغير", "text"], ["text", "الجملة الكبيرة", "text"], ["sub", "سطر توضيحي", "area"]],
   flip:[["title", "العنوان", "text"], ["cards", "سؤال | جواب (سطر لكل بطاقة)", "lines:qa"]],
   cards:[["title", "العنوان", "text"], ["intro", "جملة تمهيدية", "area"], ["items", "أيقونة | عنوان | نص (سطر لكل بطاقة)", "lines:ict"], ["foot", "سطر ختامي", "text"]],
   reading:[["title", "العنوان", "text"], ["instruction", "التعليمات", "text"], ["text", "النص (لشرح لفظ اكتب {{اللفظ|معناه}})", "area:big"], ["source", "المصدر", "text"]],
-  activity:[["title", "العنوان", "text"], ["instruction", "التعليمات", "area"], ["akind", "نوع النشاط", "select:answers=أسئلة بإجابات,template=بناء طلب,free=كتابة حرة,lab=تجربة بخطوات"],
+  activity:[["title", "العنوان", "text"], ["instruction", "التعليمات", "area"], ["akind", "نوع النشاط", "select:answers=أسئلة بإجابات,template=بناء طلب,free=كتابة حرة,lab=تجربة بخطوات,compare=مقارنة,pulse=استفتاء سريع"],
+            ["question", "للنوع «استفتاء»: السؤال", "text"], ["opts", "للنوع «استفتاء»: الخيارات (سطر لكل خيار)", "lines:str"], ["seconds", "للنوع «استفتاء»: الثواني", "number"], ["answer", "للنوع «استفتاء»: رقم الجواب الصحيح (يبدأ من 0)", "number"],
             ["sample", "للنوع «تجربة»: مادة تجريبية (اختياري)", "area"], ["steps", "للنوع «تجربة»: عنوان الخطوة | ماذا يفعل الطالب | الطلب القابل للنسخ (استعمل {{sample}} للمادة)", "lines:lab"], ["ask", "للنوع «تجربة»: سؤال الملاحظة", "text"],
             ["questions", "للنوع «أسئلة»: سؤال | اقتراح1 ; اقتراح2", "lines:qo"], ["tpl", "للنوع «بناء طلب»: قالب الطلب", "area"],
             ["roleLabel", "عنوان حقل الدور", "text"], ["taskLabel", "عنوان حقل المطلوب", "text"], ["textFrom", "معرّف شريحة النص", "text"], ["answersFrom", "معرّف شريحة الإجابات", "text"], ["ph", "تلميح الكتابة الحرة", "text"]],
@@ -2503,6 +3793,7 @@ function toForm(v, type){
     case "lines:qo": return (v || []).map(c => c.q + (c.opts && c.opts.length ? " | " + c.opts.join(" ; ") : "")).join("\n");
     case "lines:lt": return (v || []).map(c => c.label + " | " + c.text).join("\n");
     case "lines:spot": return (v || []).map(c => c.text + " | " + (c.wrong ? "خطأ" : "صح") + " | " + (c.why || "")).join("\n");
+    case "lines:rows": return (v || []).map(r => r.join(" | ")).join("\n");
     case "lines:lab": return (v || []).map(c => [c.t, c.d || "", c.p || ""].join(" | ")).join("\n");
     case "lines:quiz": return (v || []).map(c => c.q + " | " + (c.a ? "صح" : "خطأ") + " | " + (c.why || "")).join("\n");
     default: return String(v);
@@ -2517,6 +3808,7 @@ function fromForm(raw, type){
     case "lines:qo": return lines().map(l => { const p = sp(l); return { q:p[0] || "", opts:(p[1] || "").split(";").map(x => x.trim()).filter(Boolean) }; });
     case "lines:lt": return lines().map(l => { const p = sp(l); return { label:p[0] || "", text:p.slice(1).join(" | ") }; });
     case "lines:spot": return lines().map(l => { const p = sp(l); return { text:p[0] || "", wrong:(p[1] || "") === "خطأ", why:p.slice(2).join(" | ") }; });
+    case "lines:rows": return lines().map(l => sp(l));
     case "lines:lab": return lines().map(l => { const q = sp(l); return { t:q[0] || "", d:q[1] || "", p:q.slice(2).join(" | ") }; });
     case "lines:quiz": return lines().map(l => { const q = sp(l); return { q:q[0] || "", a:(q[1] || "") === "صح", why:q.slice(2).join(" | ") }; });
     case "number": return Number(raw) || 0;
@@ -2559,6 +3851,17 @@ $("p-notes").addEventListener("click", () => toggleDrawer("notes"));
 $("p-list").addEventListener("click", () => { toggleDrawer("subs"); pPoll(); });
 $("p-edit").addEventListener("click", () => toggleDrawer("edit"));
 $("p-live").addEventListener("click", async () => { sfx("tap"); await setSt({ live:!S.live, slide:P.idx, step:P.step }); drawBar(); });
+
+/* بعد أي تغيير داخل الشريحة (كشف نتيجة، جولة جديدة…) نعيد ملاءمة الخط عدة مرات حتى تستقر الحركات، فتبقى الأزرار ظاهرة دون تمرير */
+(function(){
+  let timers = [];
+  if(typeof MutationObserver === "undefined") return;
+  const kick = () => {
+    timers.forEach(clearTimeout);
+    timers = [60, 500, 1100].map(ms => setTimeout(() => { if($("s-present").classList.contains("on")) autoFit(); }, ms));
+  };
+  new MutationObserver(kick).observe($("pstage"), { childList:true, subtree:true });
+})();
 
 /* ######## admin.js ######## */
 /* ================= لوحة الإدارة ================= */
@@ -2629,9 +3932,9 @@ const fmtTime = t => { try{ const d = new Date(t); return isNaN(d) ? String(t ||
 
 function renderAdmin(){
   const host = $("a-view"); host.innerHTML = "";
-  const T = { home:"لوحة التحكم", content:"المحتوى والشرائح", survey:"نتائج الاستبانة", session:"إعدادات اللقاء", subs:"مشاركات اللقاء" };
+  const T = { home:"لوحة التحكم", content:"المحتوى والشرائح", survey:"نتائج الاستبانة", session:"إعدادات اللقاء", subs:"مشاركات اللقاء", meet:"اللقاءات" };
   setBar(T[A.view] || "", A.view === "home" ? adminLogout : () => adminGo("home"), A.view === "home" ? "خروج" : "← اللوحة");
-  ({ home:viewHome, content:viewContent, survey:viewSurvey, session:viewSession, subs:viewSubs }[A.view] || viewHome)(host);
+  ({ home:viewHome, content:viewContent, survey:viewSurvey, session:viewSession, subs:viewSubs, meet:viewMeet }[A.view] || viewHome)(host);
   drawPill();
 }
 
@@ -2647,6 +3950,7 @@ function viewHome(host){
   if(P.idx > 0 && DECK[P.idx]) host.append(h("button", { type:"button", class:"hero2", onclick:() => { afterLogin = null; openPresenter(true); } }, "↩ متابعة من الشريحة " + (P.idx + 1)));
   const tiles = h("div", { class:"tiles" });
   const tile = (ic, t, s, fn) => tiles.append(h("button", { type:"button", class:"tile", onclick:fn }, h("span", { class:"ti" }, ic), h("b", {}, t), h("small", {}, s)));
+  tile("🗓", "اللقاءات", "اللقاء الأول والثاني والثالث وتركيب كل لقاء", () => adminGo("meet"));
   tile("📚", "المحتوى", "اختر الحزم، وعاين كل شريحة وعدّلها", () => adminGo("content"));
   tile("📊", "الاستبانة", "نتائج الطلاب، وحذف أي إجابة", () => adminGo("survey"));
   tile("👥", "إعدادات اللقاء", "فتح اللقاء والتعلّم الذاتي والمشاركة", () => adminGo("session"));
@@ -2664,14 +3968,17 @@ function presetActive(k){ const c = clone(DECK); applyPreset(k, c); return c.eve
 function viewContent(host){
   host.append(h("div", { class:"vhead" }, h("p", { class:"vdesc" }, "اختر ما يظهر في لقائك، ثم اضغط على أي شريحة لمعاينتها كما يراها الطالب. كل تغيير يُحفظ تلقائيًّا."), h("span", { id:"savepill", class:"pill" })));
   if(needsMerge()){
-    host.append(h("div", { class:"mergecard" }, h("b", {}, "🆕 توجد حزم جديدة جاهزة"), h("p", {}, "محتواك المحفوظ سابقًا لا يتضمن الحزم الإضافية. الدمج يضيفها مخفيةً دون المساس بتعديلاتك."),
-      h("button", { type:"button", class:"btn", onclick:() => { const n = mergeNewDefaults(); queueSave(); toast("أُضيفت " + n + " شرائح"); renderAdmin(); } }, "دمج الحزم الجديدة")));
+    host.append(h("div", { class:"mergecard" }, h("b", {}, "🆕 توجد ألعاب ولقاءات جديدة جاهزة"), h("p", {}, "محتواك المحفوظ سابقًا لا يتضمن الألعاب واللقاءات الجديدة. الدمج يضيفها دون المساس بتعديلاتك، ويمكن تفعيل اللقاء الأول معها."),
+      h("div", { class:"two" },
+        h("button", { type:"button", class:"btn", onclick:() => { const n = mergeNewDefaults(); activateMeeting("m1"); queueSave(); toast("أُضيفت " + n + " شرائح وفُعّل اللقاء الأول"); renderAdmin(); } }, "دمج وتفعيل اللقاء الأول"),
+        h("button", { type:"button", class:"btn light", onclick:() => { const n = mergeNewDefaults(); queueSave(); toast("أُضيفت " + n + " شرائح"); renderAdmin(); } }, "دمج فقط"))));
   }
-  host.append(sectionTitle("١) نمط اللقاء", "اختر وصفة جاهزة، ثم عدّل عليها إن شئت"));
-  const pg = h("div", { class:"presetgrid" });
-  Object.keys(PRESETS).forEach(k => pg.append(h("button", { type:"button", class:"pcard" + (presetActive(k) ? " on" : ""), onclick:() => { applyPreset(k); queueSave(); sfx("tap"); renderAdmin(); } },
-    h("b", {}, PRESETS[k].name), h("small", {}, PRESETS[k].desc || ""), h("span", { class:"pm" }, "نحو " + presetMinutes(k) + " د"))));
-  host.append(pg);
+  host.append(sectionTitle("١) اللقاء", "اختر اللقاء الذي تقدّمه الآن، فيتغيّر ما يظهر في العرض"));
+  const mg = h("div", { class:"presetgrid" });
+  Object.keys(MEETINGS).forEach(k => { const st = meetingStats(k);
+    mg.append(h("button", { type:"button", class:"pcard" + (meetingActive(k) ? " on" : ""), onclick:() => { activateMeeting(k); queueSave(); sfx("tap"); renderAdmin(); } },
+      h("b", {}, MEETINGS[k].icon + " " + MEETINGS[k].name), h("small", {}, MEETINGS[k].sub), h("span", { class:"pm" }, "نحو " + st.min + " د · " + st.n + " شرائح"))); });
+  host.append(mg, h("button", { type:"button", class:"btn light small", onclick:() => adminGo("meet") }, "🗓 تعديل تركيب اللقاءات"));
 
   host.append(sectionTitle("٢) الحزم الإضافية", "كل حزمة مجموعة شرائح تُظهرها في اللقاء أو تُخفيها"));
   const packs = h("div", { class:"scards" });
@@ -2723,6 +4030,26 @@ function viewContent(host){
   }
   host.append(h("details", { class:"adv" }, h("summary", {}, "خيارات متقدمة"),
     h("button", { type:"button", class:"btn danger small", onclick:() => { if(confirm("إرجاع المحتوى الأصلي وفقدان تعديلاتك؟")){ DECK = clone(DEFAULT_DECK); queueSave(); renderAdmin(); } } }, "إرجاع المحتوى الأصلي")));
+}
+
+/* ================= شاشة اللقاءات ================= */
+function viewMeet(host){
+  host.append(h("div", { class:"vhead" }, h("p", { class:"vdesc" }, "كل لقاء مجموعة فقرات مرتبة. اللقاء الأول للخميس وهو المفعّل افتراضيًّا. فعّل اللقاء الذي تقدّمه، وعدّل تركيبه متى شئت. الفقرات المشتركة («فرقنا» و«التتويج») تظهر في كل لقاء. والترتيب هو ترتيب الشرائح في شاشة المحتوى."), h("span", { id:"savepill", class:"pill" })));
+  Object.keys(MEETINGS).forEach(k => {
+    const st = meetingStats(k), act = meetingActive(k);
+    const head = h("div", { class:"mhead" }, h("span", { class:"mi" }, MEETINGS[k].icon),
+      h("div", { class:"mt" }, h("b", {}, MEETINGS[k].name), h("small", {}, MEETINGS[k].sub), h("small", {}, "نحو " + st.min + " د · " + st.n + " شرائح")),
+      act ? h("span", { class:"pill ok" }, "مفعّل الآن") : h("button", { type:"button", class:"btn", onclick:() => { activateMeeting(k); queueSave(); sfx("ok"); toast("فُعّل " + MEETINGS[k].name); renderAdmin(); } }, "تفعيل"));
+    const list = h("div", { class:"mlist" });
+    DECK.forEach(s => {
+      if(s.deleted) return;
+      const on = inMeeting(s, k), tag = s.mod && MODULES[s.mod] ? MODULES[s.mod].icon + " " : "";
+      list.append(h("div", { class:"mrow" + (on ? " on" : "") },
+        h("div", { class:"st2" }, h("b", {}, tag + (s.title || KIND_NAMES[s.kind] || s.kind)), h("small", {}, (KIND_NAMES[s.kind] || s.kind) + " · " + (s.min || 0) + " د" + (s.liveOnly ? " · للقاء المباشر فقط" : ""))),
+        sw(on, () => { s.meet = (s.meet || []).filter(x => x !== k); if(!on) s.meet.push(k); if(act) s.hidden = !inMeeting(s, k); sfx("tap"); queueSave(); renderAdmin(); }, "ضمن " + MEETINGS[k].name, true)));
+    });
+    host.append(h("div", { class:"meetcard" + (act ? " on" : "") }, head, h("details", { class:"adv" }, h("summary", {}, "تركيب اللقاء: اختر الفقرات"), list)));
+  });
 }
 
 /* ================= شاشة الاستبانة ================= */
