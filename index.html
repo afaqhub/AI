@@ -1052,6 +1052,30 @@ html[data-theme="light"] body[data-pal="gold"]{--pa:#FFF7E3; --pb:#FBE9B8; --pc:
 .pdemo input{margin:0}
 .tcard input{padding:.1em .2em; margin:0; box-shadow:none}
 
+/* ---------- وضع المقدّم على الجوال: صف واحد قابل للتمرير، وأزرار تنقل كبيرة ---------- */
+@media (max-width:700px){
+  .pbar{flex-wrap:nowrap; overflow-x:auto; gap:6px; padding:6px 8px; scrollbar-width:none}
+  .pbar::-webkit-scrollbar{display:none}
+  .pbar > *{flex:none}
+  .pbar .seg{flex-wrap:nowrap}
+  .ptools{flex-wrap:nowrap}
+  .syncdot{margin-right:0}
+  .hud{flex-wrap:nowrap; overflow-x:auto; justify-content:flex-start; padding:.3em .5em}
+  .hteam{flex:none}
+  .dots{display:none}
+  .pnav{gap:8px; padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px))}
+  .pnav .pbtn{flex:1; padding:10px 6px; font-size:16px}
+  .pnav .pbtn.icon{flex:0 0 auto; padding:10px 14px}
+  .pstage{padding:1.2vh 3vw}
+}
+
+@media (max-width:700px){
+  .pbar > *{order:3}
+  #p-exit{order:0} .pcounter{order:1} #p-index{order:2}
+}
+.drawer .dkd{color:var(--ink); margin-top:12px}
+.drawer .dkd summary{font-weight:700; cursor:pointer}
+
 </style>
 </head>
 <body>
@@ -1165,7 +1189,7 @@ html[data-theme="light"] body[data-pal="gold"]{--pa:#FFF7E3; --pb:#FBE9B8; --pc:
 <!-- وضع المقدّم -->
 <div class="screen pres" id="s-present">
   <div class="pbar">
-    <button class="pb" id="p-exit" type="button">✕ خروج</button>
+    <button class="pb" id="p-exit" type="button">✕ إنهاء العرض</button>
     <span class="pcounter" id="p-count"></span>
     <button class="pb timer" id="p-timer" type="button">⏱ 00:00</button>
     <button class="pb" id="p-live" type="button">○ اللقاء مغلق</button>
@@ -3722,21 +3746,23 @@ function renderDrawer(){
   box.append(inner);
 }
 function drawerIndex(inner){
-  inner.append(h("h3", {}, "فهرس الشرائح"), h("p", { class:"dmeta" }, "اضغط على شريحة للذهاب إليها. العين تُخفيها من اللقاء أو تُظهرها. (Home للأولى، End للأخيرة)"));
-  inner.append(h("div", { class:"dlab" }, "الحزم الإضافية (تُظهر أو تُخفي مجموعة شرائح)"), packsPanel(() => { renderP(true); }));
-  inner.append(h("div", { class:"dlab" }, "كل الشرائح"));
+  inner.append(h("h3", {}, "فهرس الشرائح"), h("p", { class:"dmeta" }, "اضغط على شريحة للذهاب إليها. العين تُخفيها من اللقاء أو تُظهرها."));
+  const act = Object.keys(MEETINGS).find(k => meetingActive(k)) || "";
+  inner.append(seg(Object.keys(MEETINGS).map(k => [k, MEETINGS[k].name]), act, v => { activateMeeting(v); sfx("tap"); queueSave(); renderP(true); }));
   let total = 0;
+  const list = h("div", { class:"idxlist" });
   DECK.forEach((x, i) => {
     if(x.deleted) return;
     if(!isGone(x)) total += Number(x.min) || 0;
     const m = x.mod && MODULES[x.mod] ? MODULES[x.mod].icon + " " : "";
-    inner.append(h("div", { class:"idxwrap" + (x.hidden ? " hid" : "") },
+    list.append(h("div", { class:"idxwrap" + (x.hidden ? " hid" : "") },
       h("button", { type:"button", class:"idxrow" + (i === P.idx ? " on" : ""), onclick:() => { pGo(i, 0); } },
         h("span", { class:"n" }, String(i + 1)),
         h("span", { class:"t" }, h("b", {}, m + (x.title || KIND_NAMES[x.kind] || "شريحة")), h("small", {}, (KIND_NAMES[x.kind] || x.kind) + " · " + (x.min || 0) + " د" + (x.hidden ? " · مخفية من اللقاء" : "")))),
       h("button", { type:"button", class:"pb2 eye", title:x.hidden ? "إظهار في اللقاء" : "إخفاء من اللقاء", onclick:() => { x.hidden = !x.hidden; sfx("tap"); queueSave(); renderP(true); } }, x.hidden ? "🚫" : "👁")));
   });
-  inner.append(h("p", { class:"dmeta" }, "المجموع المقترح للشرائح الظاهرة: " + total + " دقيقة"));
+  inner.append(h("div", { class:"dlab" }, "كل الشرائح (المجموع الظاهر نحو " + total + " د)"), list);
+  inner.append(h("details", { class:"adv dkd" }, h("summary", {}, "الحزم الإضافية: تُظهر أو تُخفي مجموعة شرائح"), packsPanel(() => { renderP(true); })));
 }
 function drawerNotes(inner, s){
   inner.append(h("h3", {}, "ملاحظاتي"), h("p", { class:"dmeta" }, "الوقت المقترح: " + (s.min || 0) + " د"), h("div", { class:"dnotes" }, s.notes || "لا ملاحظات لهذه الشريحة."));
@@ -3887,15 +3913,29 @@ $("p-live").addEventListener("click", async () => { sfx("tap"); await setSt({ li
 /* ######## admin.js ######## */
 /* ================= لوحة الإدارة ================= */
 /* ================= لوحة الإدارة (مبسّطة): لوحة رئيسية ثم أربع شاشات واضحة ================= */
-const A = { view:"home", data:null, filter:"all", saving:false, saveErr:false, everSaved:false, subs:[], respOpen:false };
+const A = { verified:false, view:"home", data:null, filter:"all", saving:false, saveErr:false, everSaved:false, subs:[], respOpen:false };
 let afterLogin = null;
 
+/* كلمة المرور تُحفظ على هذا الجهاز حتى تضغط «تسجيل الخروج» */
+const savedPw = () => PREVIEW ? "" : String(LS.get("admin_pw", "") || "");
 function goLogin(after){
   afterLogin = after;
-  if(adminPass) proceedLogin(); else show("s-login");
+  if(adminPass){ proceedLogin(); return; }
+  const sp = savedPw();
+  if(sp){ adminPass = sp; A.verified = false; proceedLogin(); return; }
+  show("s-login");
 }
+function forgetLogin(){ adminPass = ""; A.verified = false; LS.set("admin_pw", ""); }
 async function proceedLogin(){
-  const a = afterLogin; afterLogin = null; renderBarTools();
+  const a = afterLogin; afterLogin = null;
+  if(!A.verified){
+    try{
+      const d = await adminOp("results");
+      if(!d || d.ok === false){ forgetLogin(); renderBarTools(); show("s-login"); $("login-err").textContent = "انتهت الجلسة. أدخل كلمة المرور."; return; }
+      A.data = d; A.verified = true;
+    }catch(e){ /* بلا اتصال: نتابع بما لدينا */ }
+  }
+  renderBarTools();
   if(a === "present"){ await loadDeck(); openPresenter(); }
   else if(a === "print"){ await loadDeck(); openPrint(); }
   else openAdmin();
@@ -3905,13 +3945,17 @@ async function openAdmin(){
   await loadDeck(); await refreshAdmin();
 }
 async function refreshAdmin(){
-  try{ A.data = await adminOp("results"); $("a-err").textContent = ""; }
+  try{
+    const d = await adminOp("results");
+    if(d && d.ok === false){ forgetLogin(); renderBarTools(); show("s-login"); $("login-err").textContent = "انتهت الجلسة. أدخل كلمة المرور."; return; }
+    A.data = d; $("a-err").textContent = "";
+  }
   catch(e){ $("a-err").textContent = "تعذّر الاتصال بالسكربت."; }
   renderAdmin();
 }
 function adminGo(v){ A.view = v; renderAdmin(); window.scrollTo(0, 0); if(v === "subs") loadSubs(); }
 function adminLogout(){
-  adminPass = ""; renderBarTools(); const p = $("phone"); if(p) p.remove(); closeSlidePreview(true); goHome();
+  forgetLogin(); renderBarTools(); const p = $("phone"); if(p) p.remove(); closeSlidePreview(true); goHome();
 }
 async function adminSet(patch){
   try{
@@ -3954,7 +3998,7 @@ const fmtTime = t => { try{ const d = new Date(t); return isNaN(d) ? String(t ||
 function renderAdmin(){
   const host = $("a-view"); host.innerHTML = "";
   const T = { home:"لوحة التحكم", content:"المحتوى والشرائح", survey:"نتائج الاستبانة", session:"إعدادات اللقاء", subs:"مشاركات اللقاء", meet:"اللقاءات" };
-  setBar(T[A.view] || "", A.view === "home" ? adminLogout : () => adminGo("home"), A.view === "home" ? "خروج" : "← اللوحة");
+  setBar(T[A.view] || "", A.view === "home" ? adminLogout : () => adminGo("home"), A.view === "home" ? "تسجيل الخروج" : "← اللوحة");
   ({ home:viewHome, content:viewContent, survey:viewSurvey, session:viewSession, subs:viewSubs, meet:viewMeet }[A.view] || viewHome)(host);
   drawPill();
 }
@@ -4228,12 +4272,12 @@ $("login").addEventListener("click", async () => {
   const err = $("login-err"); err.textContent = "";
   if(DEMO){
     if($("pw").value !== "123321"){ err.textContent = "في الوضع التجريبي كلمة المرور 123321."; return; }
-    adminPass = "demo"; $("pw").value = ""; proceedLogin(); return;
+    adminPass = "demo"; A.verified = true; $("pw").value = ""; proceedLogin(); return;
   }
   adminPass = $("pw").value;
   try{
     const d = await adminOp("results");
-    if(d.ok){ $("pw").value = ""; A.data = d; proceedLogin(); }
+    if(d.ok){ $("pw").value = ""; A.data = d; A.verified = true; LS.set("admin_pw", adminPass); proceedLogin(); }
     else if(d.error === "locked"){ err.textContent = "محاولات كثيرة. انتظر عشر دقائق."; adminPass = ""; }
     else { err.textContent = "كلمة المرور غير صحيحة. المحاولات المتبقية: " + (d.left == null ? "؟" : d.left); adminPass = ""; }
   }catch(e){ err.textContent = "تعذّر الاتصال بالسكربت."; adminPass = ""; }
